@@ -1,0 +1,51 @@
+apply plugin: 'com.android.library'
+
+project.group 'com.humanid'
+
+project.ext.name = 'HumanID-Auth-Android-SDK'
+project.ext.artifactId = "humanid-auth"
+project.ext.description = 'HumanID Auth Android SDK'
+project.ext.url = 'https://github.com/bluenumberfoundation/humanid-android-sdk'
+
+android {
+    compileSdkVersion project.ext.compileSdk
+    buildToolsVersion project.ext.buildTools
+
+    defaultConfig {
+        minSdkVersion project.ext.minSdk
+        targetSdkVersion project.ext.targetSdk
+        consumerProguardFiles 'proguard-rules.pro'
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    aaptOptions {
+        additionalParameters "--no-version-vectors"
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
+}
+
+dependencies {
+    // HumanID Dependencies
+    api project(':humanid-core')
+    api project(':humanid-common')
+
+    // Support Dependencies
+    implementation "com.android.support:appcompat-v7:${project.ext.supportLibraryVersion}"
+
+    // Unit Test
+    testImplementation 'junit:junit:4.12'
+}

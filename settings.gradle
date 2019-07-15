@@ -1,1 +1,7 @@
-include ':app', ':authentication'
+// HumanID SDK
+include ':humanid-core'
+include ':humanid-common', ':humanid-auth'
+include ':humanid'
+
+// Sample
+include ':app'

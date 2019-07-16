@@ -47,5 +47,5 @@ dependencies {
     implementation "com.android.support:appcompat-v7:${project.ext.supportLibraryVersion}"
 
     // Unit Test
-    testImplementation 'junit:junit:4.12'
+    testImplementation "junit:junit:${project.ext.jUnitVersion}"
 }

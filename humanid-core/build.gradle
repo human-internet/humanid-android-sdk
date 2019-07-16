@@ -39,10 +39,23 @@ android {
 }
 
 dependencies {
-    // Support Dependencies
+    // Support Library
     implementation "com.android.support:support-core-utils:${project.ext.supportLibraryVersion}"
     implementation "com.android.support:support-annotations:${project.ext.supportLibraryVersion}"
 
+    // HTTP Client
+    implementation "com.squareup.retrofit2:retrofit:${project.ext.retrofitVersion}"
+    implementation "com.squareup.retrofit2:retrofit:${project.ext.retrofitVersion}"
+    implementation "com.squareup.retrofit2:converter-gson:${project.ext.retrofitVersion}"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:${project.ext.retrofitVersion}"
+
+    // Json Converter
+    implementation "com.google.code.gson:gson:${project.ext.gsonVersion}"
+
+    // Reactive Extensions
+    implementation "io.reactivex.rxjava2:rxjava:${project.ext.rxJavaVersion}"
+    implementation "io.reactivex.rxjava2:rxandroid:${project.ext.rxJavaAndroidVersion}"
+
     // Unit Test
-    testImplementation 'junit:junit:4.12'
+    testImplementation "junit:junit:${project.ext.jUnitVersion}"
 }

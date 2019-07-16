@@ -45,5 +45,5 @@ dependencies {
     api project(':humanid-auth')
 
     // Unit Tests
-    testImplementation 'junit:junit:4.12'
+    testImplementation "junit:junit:${project.ext.jUnitVersion}"
 }

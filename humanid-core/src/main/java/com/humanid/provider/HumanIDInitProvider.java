@@ -12,7 +12,6 @@ import android.support.annotation.VisibleForTesting;
 import android.util.Log;
 
 import com.humanid.HumanIDSDK;
-import com.humanid.internal.Preconditions;
 
 public class HumanIDInitProvider extends ContentProvider {
 
@@ -30,7 +29,7 @@ public class HumanIDInitProvider extends ContentProvider {
 
     @Override
     public boolean onCreate() {
-        if (HumanIDSDK.initialize(Preconditions.checkNotNull(getContext())) == null) {
+        if (getContext() == null || HumanIDSDK.initialize(getContext()) == null) {
             Log.i(TAG, "HumanIDSDK initialization unsuccessful");
         } else {
             Log.i(TAG, "HumanIDSDK initialization successful");
@@ -38,7 +37,7 @@ public class HumanIDInitProvider extends ContentProvider {
         return false;
     }
 
-    @NonNull
+    @Nullable
     @Override
     public Cursor query(@NonNull Uri uri, @Nullable String[] projection, @Nullable String selection, @Nullable String[] selectionArgs, @Nullable String sortOrder) {
         return null;
@@ -67,7 +66,6 @@ public class HumanIDInitProvider extends ContentProvider {
     }
 
     private static void checkContentProviderAuthority(@NonNull ProviderInfo info) {
-        Preconditions.checkNotNull(info, TAG + " ProviderInfo cannot be null.");
         if (EMPTY_APPLICATION_ID_PROVIDER_AUTHORITY.equals(info.authority)) {
             throw new IllegalStateException(
                     "Incorrect provider authority in manifest. Most likely due to a missing "

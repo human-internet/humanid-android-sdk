@@ -15,7 +15,7 @@ import com.humanid.HumanIDSDK;
 
 public class HumanIDInitProvider extends ContentProvider {
 
-    private final static String TAG = HumanIDInitProvider.class.getSimpleName();
+    private final static String TAG = HumanIDSDK.class.getSimpleName();
 
     @VisibleForTesting
     static final String EMPTY_APPLICATION_ID_PROVIDER_AUTHORITY = "com.humanid.humanidinitprovider";

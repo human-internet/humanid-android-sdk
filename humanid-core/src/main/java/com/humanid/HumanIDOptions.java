@@ -73,4 +73,12 @@ public final class HumanIDOptions {
 
         return new HumanIDOptions(appId, appSecret);
     }
+
+    public String getAppId() {
+        return appId;
+    }
+
+    public String getAppSecret() {
+        return appSecret;
+    }
 }

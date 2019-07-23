@@ -31,28 +31,6 @@ android {
             buildConfigField "String", "BASE_URL_API", props["BASE_URL_API"]
         }
 
-        staging {
-            minifyEnabled true
-            useProguard true
-
-            Properties props = new Properties()
-            props.load(new FileInputStream(new File('humanid-core/src/debug/env.properties')))
-
-            buildConfigField "String", "BASE_URL", props["BASE_URL"]
-            buildConfigField "String", "BASE_URL_API", props["BASE_URL_API"]
-        }
-
-        sandbox {
-            minifyEnabled true
-            useProguard true
-
-            Properties props = new Properties()
-            props.load(new FileInputStream(new File('humanid-core/src/release/env.properties')))
-
-            buildConfigField "String", "BASE_URL", props["BASE_URL"]
-            buildConfigField "String", "BASE_URL_API", props["BASE_URL_API"]
-        }
-
         release {
             minifyEnabled true
             useProguard true

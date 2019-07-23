@@ -1,22 +1,24 @@
 package com.humanid.internal.data.source.remote.api.user.login;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class LoginResponse {
 
 	@SerializedName("hash")
+	@Expose
 	private String hash;
 
 	@SerializedName("createdAt")
+	@Expose
 	private String createdAt;
 
 	@SerializedName("updatedAt")
+	@Expose
 	private String updatedAt;
 
-	public LoginResponse(String hash, String createdAt, String updatedAt) {
-		this.hash = hash;
-		this.createdAt = createdAt;
-		this.updatedAt = updatedAt;
+	public LoginResponse() {
+		// Default constructor
 	}
 
 	public String getHash(){

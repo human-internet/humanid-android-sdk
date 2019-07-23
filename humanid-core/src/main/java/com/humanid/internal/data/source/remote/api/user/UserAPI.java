@@ -4,8 +4,11 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.humanid.internal.data.source.remote.api.BaseAPI;
+import com.humanid.internal.data.source.remote.api.user.login.LoginRequest;
 import com.humanid.internal.data.source.remote.api.user.login.LoginResponse;
+import com.humanid.internal.data.source.remote.api.user.otp.verify.VerifyOTPRequest;
 import com.humanid.internal.data.source.remote.api.user.otp.verify.VerifyOTPResponse;
+import com.humanid.internal.data.source.remote.api.user.register.RegisterRequest;
 import com.humanid.internal.data.source.remote.api.user.register.RegisterResponse;
 
 import io.reactivex.Single;
@@ -37,17 +40,17 @@ public class UserAPI extends BaseAPI implements UserService {
     }
 
     @Override
-    public Single<VerifyOTPResponse> verifyOTP() {
-        return service.verifyOTP();
+    public Single<VerifyOTPResponse> verifyOTP(@NonNull VerifyOTPRequest request) {
+        return service.verifyOTP(request);
     }
 
     @Override
-    public Single<RegisterResponse> register() {
-        return service.register();
+    public Single<RegisterResponse> register(@NonNull RegisterRequest request) {
+        return service.register(request);
     }
 
     @Override
-    public Single<LoginResponse> login() {
-        return service.login();
+    public Single<LoginResponse> login(@NonNull LoginRequest request) {
+        return service.login(request);
     }
 }

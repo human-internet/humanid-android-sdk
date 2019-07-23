@@ -14,18 +14,31 @@ android {
     defaultConfig {
         minSdkVersion project.ext.minSdk
         targetSdkVersion project.ext.targetSdk
+        versionName version
+        multiDexEnabled true
         consumerProguardFiles 'proguard-rules.pro'
     }
 
     buildTypes {
-        release {
+        debug {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            useProguard false
         }
-    }
 
-    aaptOptions {
-        additionalParameters "--no-version-vectors"
+        staging {
+            minifyEnabled true
+            useProguard true
+        }
+
+        sandbox {
+            minifyEnabled true
+            useProguard true
+        }
+
+        release {
+            minifyEnabled true
+            useProguard true
+        }
     }
 
     lintOptions {

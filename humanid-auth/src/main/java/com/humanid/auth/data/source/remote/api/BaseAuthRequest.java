@@ -1,9 +1,11 @@
 package com.humanid.auth.data.source.remote.api;
 
+import android.support.annotation.NonNull;
+
 import com.google.gson.annotations.SerializedName;
 import com.humanid.HumanIDSDK;
 
-public abstract class BaseRequest {
+public abstract class BaseAuthRequest {
 
     @SerializedName("appId")
     private String applicationID;
@@ -11,15 +13,17 @@ public abstract class BaseRequest {
     @SerializedName("appSecret")
     private String applicationSecret;
 
-    public BaseRequest() {
+    public BaseAuthRequest() {
         this.applicationID = HumanIDSDK.getInstance().getOptions().getApplicationID();
         this.applicationSecret = HumanIDSDK.getInstance().getOptions().getApplicationSecret();
     }
 
+    @NonNull
     public String getApplicationID(){
         return applicationID;
     }
 
+    @NonNull
     public String getApplicationSecret() {
         return applicationSecret;
     }

@@ -20,9 +20,10 @@ public final class HumanIDSDK {
         this.options = options;
     }
 
+    @NonNull
     public static HumanIDSDK getInstance() {
         synchronized (HumanIDSDK.class) {
-            Validate.checkState(INSTANCE == null, "The SDK has not been initialized,"
+            Validate.checkState(INSTANCE != null, "The SDK has not been initialized,"
                     + " make sure to call HumanIDSDK.initialize(context) first.");
 
             return INSTANCE;
@@ -60,7 +61,7 @@ public final class HumanIDSDK {
         }
 
         synchronized (HumanIDSDK.class) {
-            Validate.checkState(INSTANCE != null, "The SDK has been initialized!");
+            Validate.checkState(INSTANCE == null, "The SDK has been initialized.");
             Validate.checkState(applicationContext != null, "Application context cannot be null.");
 
             humanIDSDK = new HumanIDSDK(applicationContext, options);

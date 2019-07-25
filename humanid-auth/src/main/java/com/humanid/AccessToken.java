@@ -2,10 +2,9 @@ package com.humanid;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.annotation.Nullable;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
-import com.google.gson.Gson;
 import com.humanid.internal.Validate;
 
 public final class AccessToken implements Parcelable {
@@ -16,13 +15,14 @@ public final class AccessToken implements Parcelable {
     private String applicationID;
     private String applicationSecret;
 
-    public AccessToken(String userHash, String deviceID, String notificationID,
-                       String applicationID, String applicationSecret) {
-        Validate.checkArgument(TextUtils.isEmpty(userHash), "userHash");
-        Validate.checkArgument(TextUtils.isEmpty(deviceID), "deviceID");
-        Validate.checkArgument(TextUtils.isEmpty(notificationID), "notificationID");
-        Validate.checkArgument(TextUtils.isEmpty(applicationID), "applicationID");
-        Validate.checkArgument(TextUtils.isEmpty(applicationSecret), "applicationSecret");
+    public AccessToken(@NonNull String userHash, @NonNull String deviceID,
+                       @NonNull String notificationID, @NonNull String applicationID,
+                       @NonNull String applicationSecret) {
+        Validate.checkArgument(!TextUtils.isEmpty(userHash), "userHash");
+        Validate.checkArgument(!TextUtils.isEmpty(deviceID), "deviceID");
+        Validate.checkArgument(!TextUtils.isEmpty(notificationID), "notificationID");
+        Validate.checkArgument(!TextUtils.isEmpty(applicationID), "applicationID");
+        Validate.checkArgument(!TextUtils.isEmpty(applicationSecret), "applicationSecret");
 
         this.userHash = userHash;
         this.deviceID = deviceID;
@@ -31,55 +31,32 @@ public final class AccessToken implements Parcelable {
         this.applicationSecret = applicationSecret;
     }
 
+    @NonNull
     public String getUserHash() {
         return userHash;
     }
 
+    @NonNull
     public String getDeviceID() {
         return deviceID;
     }
 
+    @NonNull
     public String getNotificationID() {
         return notificationID;
     }
 
+    @NonNull
     public String getApplicationID() {
         return applicationID;
     }
 
+    @NonNull
     public String getApplicationSecret() {
         return applicationSecret;
     }
 
-    @Nullable
-    public String toJsonString() {
-        String jsonString;
-
-        try {
-            jsonString = new Gson().toJson(this);
-        } catch (Exception e) {
-            jsonString = null;
-        }
-
-        return jsonString;
-    }
-
-    @Nullable
-    public static AccessToken toObject(String jsonString) {
-        AccessToken accessToken;
-
-        if (jsonString == null) return null;
-
-        try {
-            accessToken = new Gson().fromJson(jsonString, AccessToken.class);
-        } catch (Exception e) {
-            accessToken = null;
-        }
-
-        return accessToken;
-    }
-
-    AccessToken(Parcel parcel) {
+    private AccessToken(Parcel parcel) {
         this.userHash = parcel.readString();
         this.deviceID = parcel.readString();
         this.notificationID = parcel.readString();

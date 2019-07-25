@@ -7,10 +7,12 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
+import com.humanid.internal.Validate;
+
 public final class HumanIDOptions {
 
-    private static final String APPLICATION_ID_METADATA_NAME = "humanid_application_id";
-    private static final String APPLICATION_SECRET_METADATA_NAME = "humanid_application_secret";
+    private static final String APPLICATION_ID_METADATA = "humanid_application_id";
+    private static final String APPLICATION_SECRET_METADATA = "humanid_application_secret";
 
     private final String applicationID;
     private final String applicationSecret;
@@ -22,17 +24,23 @@ public final class HumanIDOptions {
 
         public Builder() {}
 
-        public Builder(HumanIDOptions options) {
+        public Builder(@NonNull HumanIDOptions options) {
+            Validate.checkNotNull(options, "HumanIDOptions cannot be null.");
+
             applicationID = options.applicationID;
             applicationSecret = options.applicationSecret;
         }
 
         public Builder setApplicationID(@NonNull String applicationID) {
+            Validate.checkArgument(!TextUtils.isEmpty(applicationID), "applicationID");
+
             this.applicationID = applicationID;
             return this;
         }
 
         public Builder setApplicationSecret(@NonNull String applicationSecret) {
+            Validate.checkArgument(!TextUtils.isEmpty(applicationSecret), "applicationSecret");
+
             this.applicationSecret = applicationSecret;
             return this;
         }
@@ -50,34 +58,35 @@ public final class HumanIDOptions {
 
     @Nullable
     public static HumanIDOptions fromResource(@NonNull Context context) {
-
-        ApplicationInfo ai;
+        ApplicationInfo applicationInfo;
 
         try {
-            ai = context.getPackageManager().getApplicationInfo(
-                    context.getPackageName(), PackageManager.GET_META_DATA);
+            applicationInfo = context.getPackageManager()
+                    .getApplicationInfo(context.getPackageName(), PackageManager.GET_META_DATA);
         } catch (PackageManager.NameNotFoundException e) {
             return null;
         }
 
-        if (ai == null || ai.metaData == null) {
+        if (applicationInfo == null || applicationInfo.metaData == null) {
             return null;
         }
 
-        String appId = ai.metaData.getString(APPLICATION_ID_METADATA_NAME);
-        String appSecret = ai.metaData.getString(APPLICATION_SECRET_METADATA_NAME);
+        String applicationID = applicationInfo.metaData.getString(APPLICATION_ID_METADATA);
+        String applicationSecret = applicationInfo.metaData.getString(APPLICATION_SECRET_METADATA);
 
-        if (TextUtils.isEmpty(appId) || TextUtils.isEmpty(appSecret)) {
+        if (TextUtils.isEmpty(applicationID) || TextUtils.isEmpty(applicationSecret)) {
             return null;
         }
 
-        return new HumanIDOptions(appId, appSecret);
+        return new HumanIDOptions(applicationID, applicationSecret);
     }
 
+    @NonNull
     public String getApplicationID() {
         return applicationID;
     }
 
+    @NonNull
     public String getApplicationSecret() {
         return applicationSecret;
     }

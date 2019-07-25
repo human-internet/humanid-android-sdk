@@ -1,5 +1,7 @@
 package com.humanid;
 
+import android.support.annotation.NonNull;
+
 public class HumanIDException extends RuntimeException {
 
     static final long serialVersionUID = 1;
@@ -8,22 +10,23 @@ public class HumanIDException extends RuntimeException {
         super();
     }
 
-    public HumanIDException(String message) {
+    public HumanIDException(@NonNull String message) {
         super(message);
     }
 
-    public HumanIDException(String format, Object... args) {
+    public HumanIDException(@NonNull String format, @NonNull Object... args) {
         this(String.format(format, args));
     }
 
-    public HumanIDException(String message, Throwable throwable) {
+    public HumanIDException(@NonNull String message, @NonNull Throwable throwable) {
         super(message, throwable);
     }
 
-    public HumanIDException(Throwable throwable) {
+    public HumanIDException(@NonNull Throwable throwable) {
         super(throwable);
     }
 
+    @NonNull
     @Override
     public String toString() {
         return getMessage();

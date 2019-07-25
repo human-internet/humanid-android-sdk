@@ -1,18 +1,19 @@
-package com.humanid.auth.data.source.remote.api.otp.verify;
+package com.humanid.auth.data.source.remote.api.otp;
 
-import com.google.gson.annotations.Expose;
+import android.support.annotation.NonNull;
+
 import com.google.gson.annotations.SerializedName;
 
-public class VerifyOTPResponse {
+public class OTPResponse {
 
 	@SerializedName("message")
-	@Expose
 	private String message;
 
-	public VerifyOTPResponse() {
+	public OTPResponse() {
 		// Default Constructor
 	}
 
+	@NonNull
 	public String getMessage(){
 		return message;
 	}

@@ -1,31 +1,36 @@
 package com.humanid.auth.data.source.remote.api.login;
 
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 
-import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.humanid.auth.data.source.remote.api.BaseRequest;
+import com.humanid.auth.data.source.remote.api.BaseAuthRequest;
+import com.humanid.internal.Validate;
 
-public class LoginRequest extends BaseRequest {
+public class LoginRequest extends BaseAuthRequest {
 
 	@SerializedName("existingHash")
-	@Expose
-	private String existingHash;
+	private String existingUserHash;
 
 	@SerializedName("notifId")
-	@Expose
 	private String notificationID;
 
-	public LoginRequest(@NonNull String existingHash, @NonNull String notificationID) {
+	public LoginRequest(@NonNull String existingUserHash, @NonNull String notificationID) {
 		super();
-		this.existingHash = existingHash;
+
+		Validate.checkArgument(!TextUtils.isEmpty(existingUserHash), "existingUserHash");
+		Validate.checkArgument(!TextUtils.isEmpty(notificationID), "notificationID");
+
+		this.existingUserHash = existingUserHash;
 		this.notificationID = notificationID;
 	}
 
-	public String getExistingHash(){
-		return existingHash;
+	@NonNull
+	public String getExistingUserHash(){
+		return existingUserHash;
 	}
 
+	@NonNull
 	public String getNotificationID(){
 		return notificationID;
 	}

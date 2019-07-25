@@ -5,10 +5,12 @@ import android.support.annotation.NonNull;
 import com.humanid.HttpClient;
 import com.humanid.auth.data.source.remote.api.login.LoginRequest;
 import com.humanid.auth.data.source.remote.api.login.LoginResponse;
-import com.humanid.auth.data.source.remote.api.otp.verify.VerifyOTPRequest;
-import com.humanid.auth.data.source.remote.api.otp.verify.VerifyOTPResponse;
+import com.humanid.auth.data.source.remote.api.login.check.CheckLoginResponse;
+import com.humanid.auth.data.source.remote.api.otp.OTPRequest;
+import com.humanid.auth.data.source.remote.api.otp.OTPResponse;
 import com.humanid.auth.data.source.remote.api.register.RegisterRequest;
 import com.humanid.auth.data.source.remote.api.register.RegisterResponse;
+import com.humanid.internal.Validate;
 
 import io.reactivex.Single;
 
@@ -37,18 +39,38 @@ public class AuthAPI implements AuthAPIService {
         return INSTANCE;
     }
 
+    @NonNull
     @Override
-    public Single<VerifyOTPResponse> verifyOTP(@NonNull VerifyOTPRequest request) {
-        return service.verifyOTP(request);
+    public Single<OTPResponse> requestOTP(@NonNull OTPRequest request) {
+        Validate.checkNotNull(request, "OTPRequest cannot be null.");
+        Validate.checkState(service != null, "AuthAPIService has not been initialized.");
+
+        return service.requestOTP(request);
     }
 
+    @NonNull
     @Override
     public Single<RegisterResponse> register(@NonNull RegisterRequest request) {
+        Validate.checkNotNull(request, "RegisterRequest cannot be null.");
+        Validate.checkState(service != null, "AuthAPIService has not been initialized.");
+
         return service.register(request);
     }
 
+    @NonNull
     @Override
     public Single<LoginResponse> login(@NonNull LoginRequest request) {
+        Validate.checkNotNull(request, "LoginRequest cannot be null.");
+        Validate.checkState(service != null, "AuthAPIService has not been initialized.");
+
         return service.login(request);
+    }
+
+    @NonNull
+    @Override
+    public Single<CheckLoginResponse> checkLogin() {
+        Validate.checkState(service != null, "AuthAPIService has not been initialized.");
+
+        return service.checkLogin();
     }
 }

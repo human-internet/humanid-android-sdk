@@ -12,6 +12,7 @@ public class HttpClient {
 
     private final static String baseUrl = "https://humanid.herokuapp.com/mobile";
 
+    @NonNull
     private static Retrofit.Builder retrofit() {
         return new Retrofit.Builder()
                 .baseUrl(baseUrl)
@@ -19,6 +20,7 @@ public class HttpClient {
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create());
     }
 
+    @NonNull
     public static  <T> T createService(@NonNull final Class<T> service) {
         return retrofit().build().create(service);
     }

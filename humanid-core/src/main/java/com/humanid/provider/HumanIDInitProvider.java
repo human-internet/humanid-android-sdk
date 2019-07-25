@@ -12,6 +12,7 @@ import android.support.annotation.VisibleForTesting;
 import android.util.Log;
 
 import com.humanid.HumanIDSDK;
+import com.humanid.internal.Validate;
 
 public class HumanIDInitProvider extends ContentProvider {
 
@@ -39,7 +40,9 @@ public class HumanIDInitProvider extends ContentProvider {
 
     @Nullable
     @Override
-    public Cursor query(@NonNull Uri uri, @Nullable String[] projection, @Nullable String selection, @Nullable String[] selectionArgs, @Nullable String sortOrder) {
+    public Cursor query(@NonNull Uri uri, @Nullable String[] projection,
+                        @Nullable String selection, @Nullable String[] selectionArgs,
+                        @Nullable String sortOrder) {
         return null;
     }
 
@@ -56,20 +59,22 @@ public class HumanIDInitProvider extends ContentProvider {
     }
 
     @Override
-    public int delete(@NonNull Uri uri, @Nullable String selection, @Nullable String[] selectionArgs) {
+    public int delete(@NonNull Uri uri, @Nullable String selection,
+                      @Nullable String[] selectionArgs) {
         return 0;
     }
 
     @Override
-    public int update(@NonNull Uri uri, @Nullable ContentValues values, @Nullable String selection, @Nullable String[] selectionArgs) {
+    public int update(@NonNull Uri uri, @Nullable ContentValues values,
+                      @Nullable String selection, @Nullable String[] selectionArgs) {
         return 0;
     }
 
     private static void checkContentProviderAuthority(@NonNull ProviderInfo info) {
-        if (EMPTY_APPLICATION_ID_PROVIDER_AUTHORITY.equals(info.authority)) {
-            throw new IllegalStateException(
-                    "Incorrect provider authority in manifest. Most likely due to a missing "
-                            + "applicationId variable in application's build.gradle.");
-        }
+        boolean isEmptyApplicationID = EMPTY_APPLICATION_ID_PROVIDER_AUTHORITY.equals(info.authority);
+
+        Validate.checkState(!isEmptyApplicationID, "Incorrect provider authority in manifest."
+                + " Most likely due to a missing applicationId variable"
+                + " in application's build.gradle.");
     }
 }

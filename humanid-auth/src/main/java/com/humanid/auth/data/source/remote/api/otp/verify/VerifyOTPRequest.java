@@ -16,9 +16,8 @@ public class VerifyOTPRequest extends BaseRequest {
 	@Expose
 	private String phone;
 
-	public VerifyOTPRequest(@NonNull String countryCode, @NonNull String phone,
-							@NonNull String appID, @NonNull String appSecret) {
-		super(appID, appSecret);
+	public VerifyOTPRequest(@NonNull String countryCode, @NonNull String phone) {
+		super();
 		this.countryCode = countryCode;
 		this.phone = phone;
 	}

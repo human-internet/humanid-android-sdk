@@ -9,43 +9,43 @@ import android.text.TextUtils;
 
 public final class HumanIDOptions {
 
-    private static final String APP_ID_METADATA_NAME = "humanid_app_id";
-    private static final String APP_SECRET_METADATA_NAME = "humanid_app_secret";
+    private static final String APPLICATION_ID_METADATA_NAME = "humanid_application_id";
+    private static final String APPLICATION_SECRET_METADATA_NAME = "humanid_application_secret";
 
-    private final String appId;
-    private final String appSecret;
+    private final String applicationID;
+    private final String applicationSecret;
 
     public static final class Builder {
 
-        private String appId;
-        private String appSecret;
+        private String applicationID;
+        private String applicationSecret;
 
         public Builder() {}
 
         public Builder(HumanIDOptions options) {
-            appId = options.appId;
-            appSecret = options.appSecret;
+            applicationID = options.applicationID;
+            applicationSecret = options.applicationSecret;
         }
 
-        public Builder setAppId(String appId) {
-            this.appId = appId;
+        public Builder setApplicationID(@NonNull String applicationID) {
+            this.applicationID = applicationID;
             return this;
         }
 
-        public Builder setAppSecret(String appSecret) {
-            this.appSecret = appSecret;
+        public Builder setApplicationSecret(@NonNull String applicationSecret) {
+            this.applicationSecret = applicationSecret;
             return this;
         }
 
         @NonNull
         public HumanIDOptions build() {
-            return new HumanIDOptions(appId, appSecret);
+            return new HumanIDOptions(applicationID, applicationSecret);
         }
     }
 
-    private HumanIDOptions(@NonNull String appId, @NonNull String appSecret) {
-        this.appId = appId;
-        this.appSecret = appSecret;
+    private HumanIDOptions(String applicationID, String applicationSecret) {
+        this.applicationID = applicationID;
+        this.applicationSecret = applicationSecret;
     }
 
     @Nullable
@@ -64,8 +64,8 @@ public final class HumanIDOptions {
             return null;
         }
 
-        String appId = ai.metaData.getString(APP_ID_METADATA_NAME);
-        String appSecret = ai.metaData.getString(APP_SECRET_METADATA_NAME);
+        String appId = ai.metaData.getString(APPLICATION_ID_METADATA_NAME);
+        String appSecret = ai.metaData.getString(APPLICATION_SECRET_METADATA_NAME);
 
         if (TextUtils.isEmpty(appId) || TextUtils.isEmpty(appSecret)) {
             return null;
@@ -74,11 +74,11 @@ public final class HumanIDOptions {
         return new HumanIDOptions(appId, appSecret);
     }
 
-    public String getAppId() {
-        return appId;
+    public String getApplicationID() {
+        return applicationID;
     }
 
-    public String getAppSecret() {
-        return appSecret;
+    public String getApplicationSecret() {
+        return applicationSecret;
     }
 }

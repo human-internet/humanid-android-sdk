@@ -1,6 +1,6 @@
 // HumanID SDK
-include ':humanid-core'
-include ':humanid-common', ':humanid-auth'
+include ':humanid-common'
+include ':humanid-core', ':humanid-auth'
 include ':humanid'
 
 // Sample

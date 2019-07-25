@@ -20,14 +20,8 @@ android {
     }
 
     buildTypes {
-        debug {
-            minifyEnabled false
-            useProguard false
-        }
-
         release {
             minifyEnabled true
-            useProguard true
         }
     }
 
@@ -43,8 +37,8 @@ android {
 
 dependencies {
     // HumanID Dependencies
-    api project(':humanid-core')
     api project(':humanid-common')
+    api project(':humanid-core')
     api project(':humanid-auth')
 
     // Unit Tests

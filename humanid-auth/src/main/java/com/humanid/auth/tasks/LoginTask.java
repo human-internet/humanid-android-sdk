@@ -7,7 +7,7 @@ import com.humanid.AccessToken;
 import com.humanid.AccessTokenManager;
 import com.humanid.HumanIDException;
 import com.humanid.auth.HumanIDUser;
-import com.humanid.auth.data.repository.AuthRepository;
+import com.humanid.data.repositories.auth.AuthRepository;
 import com.humanid.task.OnFailureListener;
 import com.humanid.task.OnSuccessListener;
 import com.humanid.task.Task;

@@ -5,7 +5,7 @@ import android.support.annotation.Nullable;
 
 import com.humanid.AccessTokenManager;
 import com.humanid.HumanIDException;
-import com.humanid.auth.internal.DeviceIdentifierManager;
+import com.humanid.internal.DeviceIdentifierManager;
 import com.humanid.task.OnFailureListener;
 import com.humanid.task.OnSuccessListener;
 import com.humanid.task.Task;

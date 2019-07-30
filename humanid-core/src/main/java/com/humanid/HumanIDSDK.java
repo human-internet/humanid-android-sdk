@@ -12,7 +12,7 @@ public final class HumanIDSDK {
     private final static String TAG = HumanIDSDK.class.getSimpleName();
 
     private static HumanIDSDK INSTANCE;
-    private Context applicationContext;
+    private final Context applicationContext;
     private final HumanIDOptions options;
 
     private HumanIDSDK(@NonNull Context applicationContext, @NonNull HumanIDOptions options) {
@@ -65,6 +65,7 @@ public final class HumanIDSDK {
             Validate.checkState(applicationContext != null, "Application context cannot be null.");
 
             humanIDSDK = new HumanIDSDK(applicationContext, options);
+
             INSTANCE = humanIDSDK;
         }
 

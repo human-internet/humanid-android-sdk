@@ -1,11 +1,13 @@
 package com.humanid.auth.tasks;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.humanid.AccessTokenManager;
 import com.humanid.HumanIDException;
-import com.humanid.internal.DeviceIdentifierManager;
+import com.humanid.HumanIDSDK;
+import com.humanid.auth.data.repositories.UserRepository;
+import com.humanid.internal.DeviceIDManager;
 import com.humanid.task.OnFailureListener;
 import com.humanid.task.OnSuccessListener;
 import com.humanid.task.Task;
@@ -71,8 +73,9 @@ public class LogoutTask extends Task<Void> {
 
     private void doLogout() {
         try {
-            AccessTokenManager.getInstance().setCurrentAccessToken(null);
-            DeviceIdentifierManager.getInstance().clear();
+            Context context = HumanIDSDK.getInstance().getApplicationContext();
+            UserRepository.getInstance(context).logout();
+            DeviceIDManager.getInstance(context).clear();
 
             onSuccessful();
         } catch (Exception e) {

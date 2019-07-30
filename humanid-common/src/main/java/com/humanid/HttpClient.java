@@ -2,22 +2,35 @@ package com.humanid;
 
 import android.support.annotation.NonNull;
 
+import java.util.concurrent.TimeUnit;
+
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class HttpClient {
 
     private final static String TAG = HttpClient.class.getSimpleName();
 
-    private final static String baseUrl = "https://humanid.herokuapp.com/mobile";
+    private final static String baseUrl = "https://humanid.herokuapp.com/mobile/";
 
     @NonNull
     private static Retrofit.Builder retrofit() {
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        interceptor.level(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                .connectTimeout(1, TimeUnit.MINUTES)
+                .readTimeout(30, TimeUnit.SECONDS)
+                .writeTimeout(15, TimeUnit.SECONDS)
+                .addInterceptor(interceptor)
+                .build();
+
         return new Retrofit.Builder()
                 .baseUrl(baseUrl)
+                .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create());
+                .addCallAdapterFactory(LiveDataCallAdapterFactory.create());
     }
 
     @NonNull

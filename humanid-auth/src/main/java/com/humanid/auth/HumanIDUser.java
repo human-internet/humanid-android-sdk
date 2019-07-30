@@ -1,13 +1,11 @@
 package com.humanid.auth;
 
-import android.os.Parcel;
-import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
 import com.humanid.internal.Validate;
 
-public class HumanIDUser implements Parcelable {
+public class HumanIDUser {
 
     private String userHash;
 
@@ -22,30 +20,27 @@ public class HumanIDUser implements Parcelable {
         return userHash;
     }
 
-    private HumanIDUser(Parcel parcel) {
-        this.userHash = parcel.readString();
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        HumanIDUser that = (HumanIDUser) o;
+        return userHash.equals(that.userHash);
     }
 
     @Override
-    public int describeContents() {
-        return 0;
+    public int hashCode() {
+        int result = 1;
+        result = 31 * result + (userHash == null ? 0 : userHash.hashCode());
+
+        return result;
     }
 
+    @NonNull
     @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(userHash);
+    public String toString() {
+        return "HumanIDUser{" +
+                "userHash='" + userHash + '\'' +
+                '}';
     }
-
-    public static final Parcelable.Creator<HumanIDUser> CREATOR = new Parcelable.Creator<HumanIDUser>() {
-
-        @Override
-        public HumanIDUser createFromParcel(Parcel source) {
-            return new HumanIDUser(source);
-        }
-
-        @Override
-        public HumanIDUser[] newArray(int size) {
-            return new HumanIDUser[size];
-        }
-    };
 }

@@ -1,10 +1,14 @@
 package com.humanid.auth.tasks;
 
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.Observer;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.humanid.HumanIDException;
-import com.humanid.data.repositories.auth.AuthRepository;
+import com.humanid.HumanIDSDK;
+import com.humanid.Resource;
+import com.humanid.auth.data.repositories.UserRepository;
 import com.humanid.task.OnFailureListener;
 import com.humanid.task.OnSuccessListener;
 import com.humanid.task.Task;
@@ -12,10 +16,7 @@ import com.humanid.task.Task;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.reactivex.observers.DisposableSingleObserver;
-import io.reactivex.schedulers.Schedulers;
-
-public class RequestOTPTask extends Task<RequestOTPResult> {
+public class RequestOTPTask extends Task<String> {
 
     private final static String TAG = RequestOTPTask.class.getSimpleName();
 
@@ -23,10 +24,10 @@ public class RequestOTPTask extends Task<RequestOTPResult> {
     private String phone;
 
     private boolean isSuccessful;
-    private RequestOTPResult result;
+    private String result;
     private Exception exception;
 
-    private List<OnSuccessListener<? super RequestOTPResult>> successListeners = new ArrayList<>();
+    private List<OnSuccessListener<? super String>> successListeners = new ArrayList<>();
     private List<OnFailureListener> failureListeners = new ArrayList<>();
 
     public RequestOTPTask(@NonNull String countryCode, @NonNull String phone) {
@@ -43,7 +44,7 @@ public class RequestOTPTask extends Task<RequestOTPResult> {
 
     @Nullable
     @Override
-    public RequestOTPResult getResult() {
+    public String getResult() {
         return result;
     }
 
@@ -55,19 +56,19 @@ public class RequestOTPTask extends Task<RequestOTPResult> {
 
     @NonNull
     @Override
-    public Task<RequestOTPResult> addOnSuccessListener(@NonNull OnSuccessListener<? super RequestOTPResult> var1) {
+    public Task<String> addOnSuccessListener(@NonNull OnSuccessListener<? super String> var1) {
         successListeners.add(var1);
         return this;
     }
 
     @Override
-    public void removeOnSuccessListener(@NonNull OnSuccessListener<? super RequestOTPResult> var1) {
+    public void removeOnSuccessListener(@NonNull OnSuccessListener<? super String> var1) {
         successListeners.remove(var1);
     }
 
     @NonNull
     @Override
-    public Task<RequestOTPResult> addOnFailureListener(@NonNull OnFailureListener var1) {
+    public Task<String> addOnFailureListener(@NonNull OnFailureListener var1) {
         failureListeners.add(var1);
         return this;
     }
@@ -78,34 +79,43 @@ public class RequestOTPTask extends Task<RequestOTPResult> {
     }
 
     private void doRequestOTP() {
-        AuthRepository.getInstance()
-                .requestOTP(countryCode, phone)
-                .subscribeOn(Schedulers.io())
-                .observeOn(Schedulers.io())
-                .subscribe(new DisposableSingleObserver<Boolean>() {
-                    @Override
-                    public void onSuccess(Boolean codeSent) {
-                        onSuccessful();
-                        dispose();
-                    }
+        LiveData<Resource<String>> requestOTP = UserRepository
+                .getInstance(HumanIDSDK.getInstance().getApplicationContext())
+                .requestOTP(countryCode, phone,
+                        HumanIDSDK.getInstance().getOptions().getApplicationID(),
+                        HumanIDSDK.getInstance().getOptions().getApplicationSecret());
 
-                    @Override
-                    public void onError(Throwable e) {
-                        onFailure(e);
-                        dispose();
-                    }
-                });
-    }
-
-    private void onSuccessful() {
-        isSuccessful = true;
-
-        result = new RequestOTPResult() {
+        Observer<Resource<String>> observer = new Observer<Resource<String>>() {
             @Override
-            public void onCodeSent() { }
+            public void onChanged(@Nullable Resource<String> resource) {
+                if (resource == null) return;
+
+                switch (resource.status) {
+                    case LOADING:
+                        break;
+                    case SUCCESS:
+                        requestOTP.removeObserver(this);
+
+                        onSuccessful(resource.data);
+                        break;
+                    case ERROR:
+                        requestOTP.removeObserver(this);
+
+                        onFailure(new Exception(resource.message));
+                        break;
+                }
+            }
         };
 
-        for (OnSuccessListener<? super RequestOTPResult> sl: successListeners) {
+        requestOTP.observeForever(observer);
+    }
+
+    private void onSuccessful(@Nullable String message) {
+        isSuccessful = true;
+
+        result = message;
+
+        for (OnSuccessListener<? super String> sl: successListeners) {
             sl.onSuccess(result);
         }
     }

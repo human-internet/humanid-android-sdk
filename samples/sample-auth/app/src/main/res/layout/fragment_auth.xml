@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.humanid.samples.auth.auth.AuthViewModel" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".auth.AuthFragment">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="16dp">
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/cl_header"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/cl_footer"
+                app:layout_constraintVertical_chainStyle="packed">
+
+                <android.support.design.widget.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:id="@+id/til_country_code"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginRight="16dp"
+                    app:layout_constraintWidth_percent="0.3"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/til_phone"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:visibility="@{viewModel.signByHumanID &amp;&amp; !viewModel.otpRequested ? View.VISIBLE : View.GONE}"
+                    app:hintEnabled="true"
+                    app:errorEnabled="true"
+                    app:error="@{viewModel.errorInputCountryCode}">
+
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/tied_country_code"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/hint_country_code"
+                        android:text="@={viewModel.inputCountryCode}"
+                        android:inputType="number"
+                        android:maxLength="4"/>
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:id="@+id/til_phone"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintWidth_percent="0.7"
+                    app:layout_constraintStart_toEndOf="@id/til_country_code"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/til_country_code"
+                    app:layout_constraintBottom_toBottomOf="@id/til_country_code"
+                    android:visibility="@{viewModel.signByHumanID &amp;&amp; !viewModel.otpRequested ? View.VISIBLE : View.GONE}"
+                    app:hintEnabled="true"
+                    app:errorEnabled="true"
+                    app:error="@{viewModel.errorInputPhone}">
+
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/tied_phone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/hint_phone"
+                        android:text="@={viewModel.inputPhone}"
+                        android:inputType="number"
+                        android:maxLength="15"/>
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:id="@+id/til_verification_code"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintVertical_chainStyle="packed"
+                    android:visibility="@{viewModel.otpRequested ? View.VISIBLE : View.GONE}"
+                    app:hintEnabled="true"
+                    app:errorEnabled="true"
+                    app:error="@{viewModel.errorInputVerificationCode}">
+
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/tied_verification_code"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/hint_verification_code"
+                        android:text="@={viewModel.inputVerificationCode}"
+                        android:inputType="number"
+                        android:maxLength="6"/>
+
+                </android.support.design.widget.TextInputLayout>
+
+            </android.support.constraint.ConstraintLayout>
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/cl_footer"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cl_header"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintVertical_chainStyle="packed">
+
+                <Button
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:id="@+id/btn_sign_by_humanid"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:text="@string/button_sign_by_humanid"
+                    android:visibility="@{viewModel.signByHumanID ? View.GONE : View.VISIBLE}"
+                    android:onClick="@{() -> viewModel.onClickSignByHumanID()}"/>
+
+                <Button
+                    style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+                    android:id="@+id/btn_request_otp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:text="@string/button_request_otp"
+                    android:visibility="@{viewModel.signByHumanID &amp;&amp; !viewModel.otpRequested ? View.VISIBLE : View.GONE}"
+                    android:onClick="@{() -> viewModel.onClickRequestOTP()}"/>
+
+                <Button
+                    style="@style/Widget.MaterialComponents.Button"
+                    android:id="@+id/btn_verify_code"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:text="@string/button_verify_code"
+                    android:visibility="@{viewModel.otpRequested ? View.VISIBLE : View.GONE}"
+                    android:onClick="@{() -> viewModel.onClickVerify()}"/>
+
+            </android.support.constraint.ConstraintLayout>
+
+        </android.support.constraint.ConstraintLayout>
+
+        <include
+            layout="@layout/loading_state"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:loading="@{viewModel.loading}"/>
+
+    </FrameLayout>
+
+</layout>

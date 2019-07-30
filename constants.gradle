@@ -8,6 +8,8 @@ project.ext {
 
     // App Dependencies
     supportLibraryVersion = "28.0.0"
+    multidexVersion = "1.0.3"
+    lifecycleVersion = "1.1.1"
     retrofitVersion = "2.6.0"
     gsonVersion = "2.8.5"
     rxJavaVersion = "2.2.10"

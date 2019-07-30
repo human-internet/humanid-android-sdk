@@ -1,13 +1,18 @@
 package com.humanid.auth.tasks;
 
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.Observer;
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.humanid.AccessToken;
-import com.humanid.AccessTokenManager;
 import com.humanid.HumanIDException;
+import com.humanid.HumanIDSDK;
+import com.humanid.Resource;
 import com.humanid.auth.HumanIDUser;
-import com.humanid.data.repositories.auth.AuthRepository;
+import com.humanid.auth.data.model.User;
+import com.humanid.auth.data.repositories.UserRepository;
+import com.humanid.internal.DeviceIDManager;
 import com.humanid.task.OnFailureListener;
 import com.humanid.task.OnSuccessListener;
 import com.humanid.task.Task;
@@ -15,20 +20,17 @@ import com.humanid.task.Task;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.reactivex.observers.DisposableSingleObserver;
-import io.reactivex.schedulers.Schedulers;
-
-public class LoginTask extends Task<AuthResult> {
+public class LoginTask extends Task<HumanIDUser> {
 
     private final static String TAG = LoginTask.class.getSimpleName();
 
     private String existingUserHash;
 
     private boolean isSuccessful;
-    private AuthResult result;
+    private HumanIDUser result;
     private Exception exception;
 
-    private List<OnSuccessListener<? super AuthResult>> successListeners = new ArrayList<>();
+    private List<OnSuccessListener<? super HumanIDUser>> successListeners = new ArrayList<>();
     private List<OnFailureListener> failureListeners = new ArrayList<>();
 
     public LoginTask(@NonNull String existingUserHash) {
@@ -44,7 +46,7 @@ public class LoginTask extends Task<AuthResult> {
 
     @Nullable
     @Override
-    public AuthResult getResult() {
+    public HumanIDUser getResult() {
         return result;
     }
 
@@ -56,19 +58,19 @@ public class LoginTask extends Task<AuthResult> {
 
     @NonNull
     @Override
-    public Task<AuthResult> addOnSuccessListener(@NonNull OnSuccessListener<? super AuthResult> var1) {
+    public Task<HumanIDUser> addOnSuccessListener(@NonNull OnSuccessListener<? super HumanIDUser> var1) {
         successListeners.add(var1);
         return this;
     }
 
     @Override
-    public void removeOnSuccessListener(@NonNull OnSuccessListener<? super AuthResult> var1) {
+    public void removeOnSuccessListener(@NonNull OnSuccessListener<? super HumanIDUser> var1) {
         successListeners.remove(var1);
     }
 
     @NonNull
     @Override
-    public Task<AuthResult> addOnFailureListener(@NonNull OnFailureListener var1) {
+    public Task<HumanIDUser> addOnFailureListener(@NonNull OnFailureListener var1) {
         failureListeners.add(var1);
         return this;
     }
@@ -79,46 +81,57 @@ public class LoginTask extends Task<AuthResult> {
     }
 
     private void doLogin() {
-        AuthRepository.getInstance()
-                .login(existingUserHash)
-                .subscribeOn(Schedulers.io())
-                .observeOn(Schedulers.io())
-                .subscribe(new DisposableSingleObserver<AccessToken>() {
-                    @Override
-                    public void onSuccess(AccessToken accessToken) {
-                        onSuccessful(accessToken);
-                        dispose();
-                    }
+        Context context = HumanIDSDK.getInstance().getApplicationContext();
+        LiveData<Resource<User>> login = UserRepository
+                .getInstance(context)
+                .login(existingUserHash,
+                        DeviceIDManager.getInstance(context).getDeviceID(),
+                        DeviceIDManager.getInstance(context).getNotificationID(),
+                        HumanIDSDK.getInstance().getOptions().getApplicationID(),
+                        HumanIDSDK.getInstance().getOptions().getApplicationSecret());
 
-                    @Override
-                    public void onError(Throwable e) {
-                        onFailure(e);
-                        dispose();
-                    }
-                });
-    }
-
-    private void onSuccessful(@NonNull final AccessToken accessToken) {
-        isSuccessful = true;
-
-        AccessTokenManager.getInstance().setCurrentAccessToken(accessToken);
-
-        result = new AuthResult() {
+        Observer<Resource<User>> observer = new Observer<Resource<User>>() {
             @Override
-            public HumanIDUser getUser() {
-                return new HumanIDUser(accessToken.getUserHash());
+            public void onChanged(@Nullable Resource<User> resource) {
+                if (resource == null) return;
+
+                switch (resource.status) {
+                    case LOADING:
+                        break;
+                    case SUCCESS:
+                        login.removeObserver(this);
+
+                        User user = resource.data;
+                        if (user != null) {
+                            onSuccessful(resource.data);
+                        } else {
+                            onFailure(new Exception("Empty user"));
+                        }
+                        break;
+                    case ERROR:
+                        login.removeObserver(this);
+
+                        onFailure(new Exception(resource.message));
+                        break;
+                }
             }
         };
 
-        for (OnSuccessListener<? super AuthResult> sl : successListeners) {
+        login.observeForever(observer);
+    }
+
+    private void onSuccessful(@NonNull final User user) {
+        isSuccessful = true;
+
+        result = new HumanIDUser(user.getUserHash());
+
+        for (OnSuccessListener<? super HumanIDUser> sl : successListeners) {
             sl.onSuccess(result);
         }
     }
 
     private void onFailure(@NonNull Throwable e) {
         isSuccessful = false;
-
-        AccessTokenManager.getInstance().setCurrentAccessToken(null);
 
         exception = new HumanIDException(e);
 

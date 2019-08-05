@@ -83,6 +83,8 @@ public class AuthViewModel extends BaseViewModel {
     private void checkLoggedIn() {
         if (HumanIDAuth.getInstance().getCurrentUser() == null) {
             authenticationState.postValue(AuthenticationState.UNAUTHENTICATED);
+        } else {
+            authenticationState.postValue(AuthenticationState.AUTHENTICATED);
         }
     }
 
@@ -129,39 +131,27 @@ public class AuthViewModel extends BaseViewModel {
 
     private void requestOTP(String countryCode, String phone) {
         HumanIDAuth.getInstance().requestOTP(countryCode, phone)
-                .addOnSuccessListener(new OnSuccessListener<String>() {
-                    @Override
-                    public void onSuccess(String message) {
-                        otpRequested.postValue(true);
-                        loading.postValue(false);
-                        snackBar.postValue(new Event<>(message));
-                    }
+                .addOnSuccessListener(message -> {
+                    otpRequested.postValue(true);
+                    loading.postValue(false);
+                    snackBar.postValue(new Event<>(message));
                 })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        loading.postValue(false);
-                        snackBar.postValue(new Event<>(e.getMessage()));
-                    }
+                .addOnFailureListener(e -> {
+                    loading.postValue(false);
+                    snackBar.postValue(new Event<>(e.getMessage()));
                 });
     }
 
     private void register(String countryCode, String phone, String verificationCode) {
         HumanIDAuth.getInstance().register(countryCode, phone, verificationCode)
-                .addOnSuccessListener(new OnSuccessListener<HumanIDUser>() {
-                    @Override
-                    public void onSuccess(HumanIDUser humanIDUser) {
-                        loading.postValue(false);
-                        authenticationState.postValue(AuthenticationState.AUTHENTICATED);
-                    }
+                .addOnSuccessListener(humanIDUser -> {
+                    loading.postValue(false);
+                    authenticationState.postValue(AuthenticationState.AUTHENTICATED);
                 })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        loading.postValue(false);
-                        snackBar.postValue(new Event<>(e.getMessage()));
-                        authenticationState.postValue(AuthenticationState.INVALID_AUTHENTICATION);
-                    }
+                .addOnFailureListener(e -> {
+                    loading.postValue(false);
+                    snackBar.postValue(new Event<>(e.getMessage()));
+                    authenticationState.postValue(AuthenticationState.INVALID_AUTHENTICATION);
                 });
     }
 

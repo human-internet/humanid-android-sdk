@@ -1,10 +1,8 @@
 package com.humanid.auth.data.source.remote.api.user.login;
 
-import android.support.annotation.NonNull;
-import android.text.TextUtils;
+import androidx.annotation.NonNull;
 
 import com.google.gson.annotations.SerializedName;
-import com.humanid.internal.Validate;
 
 public class LoginRequest {
 
@@ -17,14 +15,9 @@ public class LoginRequest {
 	@SerializedName("appSecret")
 	private String applicationSecret;
 
-	public LoginRequest(@NonNull String existingUserHash, @NonNull String notificationID,
+	public LoginRequest(@NonNull String existingHash, @NonNull String notificationID,
 						@NonNull String applicationID, @NonNull String applicationSecret) {
-		Validate.checkArgument(!TextUtils.isEmpty(existingUserHash), "existingUserHash");
-		Validate.checkArgument(!TextUtils.isEmpty(notificationID), "notificationID");
-		Validate.checkArgument(!TextUtils.isEmpty(applicationID), "applicationID");
-		Validate.checkArgument(!TextUtils.isEmpty(applicationSecret), "applicationSecret");
-
-		this.existingUserHash = existingUserHash;
+		this.existingUserHash = existingHash;
 		this.notificationID = notificationID;
 		this.applicationID = applicationID;
 		this.applicationSecret = applicationSecret;

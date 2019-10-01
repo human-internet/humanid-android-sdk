@@ -1,2 +1,18 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.humanid.auth" />
+    package="com.humanid.auth" >
+
+    <application>
+
+        <service
+            android:name=".service.HumanIDFCMService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <activity android:name=".ui.AuthActivity" />
+
+    </application>
+
+</manifest>

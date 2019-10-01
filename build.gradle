@@ -9,6 +9,7 @@ buildscript {
 
     dependencies {
         classpath "com.android.tools.build:gradle:${project.ext.gradleVersion}"
+        classpath "com.google.gms:google-services:${project.ext.googleServiceVersion}"
     }
 }
 
@@ -19,6 +20,38 @@ allprojects {
         mavenCentral()
         google()
         jcenter()
+    }
+}
+
+subprojects {
+    project.apply from: "${rootDir}/constants.gradle"
+
+    afterEvaluate {
+        android {
+            compileSdkVersion project.ext.compileSdk
+            buildToolsVersion project.ext.buildTools
+
+            defaultConfig {
+                minSdkVersion project.ext.minSdk
+                targetSdkVersion project.ext.targetSdk
+                versionName project.ext.version
+            }
+
+            buildTypes {
+                release {
+                    minifyEnabled true
+                }
+            }
+
+            lintOptions {
+                abortOnError false
+            }
+
+            compileOptions {
+                sourceCompatibility JavaVersion.VERSION_1_8
+                targetCompatibility JavaVersion.VERSION_1_8
+            }
+        }
     }
 }
 

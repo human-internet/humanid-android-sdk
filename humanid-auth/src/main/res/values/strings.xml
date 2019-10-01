@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Authentication</string>
+    <string name="humanid_is">humanID is the independent &amp; open online ID - giving back privacy, and the internet, to humans. Learn About Our Mission</string>
+    <string name="verify_your">Verify your phone number to connect\nanonymously with The New York Times</string>
+    <string name="otp_verific">OTP Verification is handled by an independent 3rd party. \nNumber &amp; fingerprints are never visible to humanID or The New York Times. \n Your unique encryption is used to verify your humanID.  Learn More</string>
 </resources>

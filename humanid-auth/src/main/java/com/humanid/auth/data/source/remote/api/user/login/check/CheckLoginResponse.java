@@ -1,10 +1,11 @@
 package com.humanid.auth.data.source.remote.api.user.login.check;
 
-import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
+import androidx.annotation.NonNull;
+
 import com.google.gson.annotations.SerializedName;
-import com.humanid.internal.Validate;
+import com.humanid.util.Preconditions;
 
 public class CheckLoginResponse {
 
@@ -16,7 +17,7 @@ public class CheckLoginResponse {
 	}
 
 	public CheckLoginResponse(@NonNull String message) {
-		Validate.checkArgument(!TextUtils.isEmpty(message), "message");
+		Preconditions.checkArgument(!TextUtils.isEmpty(message), "message");
 
 		this.message = message;
 	}

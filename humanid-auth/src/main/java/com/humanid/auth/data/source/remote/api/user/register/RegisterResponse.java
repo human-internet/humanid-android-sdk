@@ -1,10 +1,8 @@
 package com.humanid.auth.data.source.remote.api.user.register;
 
-import android.support.annotation.NonNull;
-import android.text.TextUtils;
+import androidx.annotation.NonNull;
 
 import com.google.gson.annotations.SerializedName;
-import com.humanid.internal.Validate;
 
 public class RegisterResponse {
 
@@ -13,12 +11,6 @@ public class RegisterResponse {
 
 	public RegisterResponse() {
 		// Default Constructor
-	}
-
-	public RegisterResponse(@NonNull String userHash) {
-		Validate.checkArgument(!TextUtils.isEmpty(userHash), "userHash");
-
-		this.userHash = userHash;
 	}
 
 	@NonNull

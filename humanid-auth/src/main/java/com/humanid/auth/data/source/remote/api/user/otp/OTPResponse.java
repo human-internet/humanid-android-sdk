@@ -1,10 +1,8 @@
 package com.humanid.auth.data.source.remote.api.user.otp;
 
-import android.support.annotation.NonNull;
-import android.text.TextUtils;
+import androidx.annotation.NonNull;
 
 import com.google.gson.annotations.SerializedName;
-import com.humanid.internal.Validate;
 
 public class OTPResponse {
 
@@ -13,12 +11,6 @@ public class OTPResponse {
 
 	public OTPResponse() {
 		// Default Constructor
-	}
-
-	public OTPResponse(@NonNull String message) {
-		Validate.checkArgument(!TextUtils.isEmpty(message), "message");
-
-		this.message = message;
 	}
 
 	@NonNull

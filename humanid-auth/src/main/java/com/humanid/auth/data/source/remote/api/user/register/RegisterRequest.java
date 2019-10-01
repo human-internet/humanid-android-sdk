@@ -1,10 +1,8 @@
 package com.humanid.auth.data.source.remote.api.user.register;
 
-import android.support.annotation.NonNull;
-import android.text.TextUtils;
+import androidx.annotation.NonNull;
 
 import com.google.gson.annotations.SerializedName;
-import com.humanid.internal.Validate;
 
 public class RegisterRequest {
 
@@ -24,17 +22,9 @@ public class RegisterRequest {
 	private String applicationSecret;
 
 	public RegisterRequest(@NonNull String countryCode, @NonNull String phone,
-                           @NonNull String verificationCode, @NonNull String deviceID,
-                           @NonNull String notificationID, @NonNull String applicationID,
+						   @NonNull String verificationCode, @NonNull String deviceID,
+						   @NonNull String notificationID, @NonNull String applicationID,
 						   @NonNull String applicationSecret) {
-		Validate.checkArgument(!TextUtils.isEmpty(countryCode), "countryCode");
-		Validate.checkArgument(!TextUtils.isEmpty(phone), "phone");
-		Validate.checkArgument(!TextUtils.isEmpty(verificationCode), "verificationCode");
-		Validate.checkArgument(!TextUtils.isEmpty(deviceID), "deviceID");
-		Validate.checkArgument(!TextUtils.isEmpty(notificationID), "notificationID");
-		Validate.checkArgument(!TextUtils.isEmpty(applicationID), "applicationID");
-		Validate.checkArgument(!TextUtils.isEmpty(applicationSecret), "applicationSecret");
-
 		this.countryCode = countryCode;
 		this.phone = phone;
 		this.verificationCode = verificationCode;

@@ -1,10 +1,11 @@
 package com.humanid.auth.data.source.remote.api.user.login;
 
-import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
+import androidx.annotation.NonNull;
+
 import com.google.gson.annotations.SerializedName;
-import com.humanid.internal.Validate;
+import com.humanid.util.Preconditions;
 
 public class LoginResponse {
 
@@ -16,7 +17,7 @@ public class LoginResponse {
 	}
 
 	public LoginResponse(@NonNull String userHash) {
-		Validate.checkArgument(!TextUtils.isEmpty(userHash), "userHash");
+		Preconditions.checkArgument(!TextUtils.isEmpty(userHash), "userHash");
 
 		this.userHash = userHash;
 	}

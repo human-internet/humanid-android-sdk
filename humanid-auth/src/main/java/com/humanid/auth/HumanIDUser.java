@@ -1,19 +1,38 @@
 package com.humanid.auth;
 
-import android.support.annotation.NonNull;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.text.TextUtils;
 
-import com.humanid.internal.Validate;
+import androidx.annotation.NonNull;
 
-public class HumanIDUser {
+import com.humanid.util.Preconditions;
+
+public class HumanIDUser implements Parcelable {
 
     private String userHash;
 
     public HumanIDUser(@NonNull String userHash) {
-        Validate.checkArgument(!TextUtils.isEmpty(userHash), "userHash");
+        Preconditions.checkArgument(!TextUtils.isEmpty(userHash), "userHash");
 
         this.userHash = userHash;
     }
+
+    private HumanIDUser(Parcel in) {
+        userHash = in.readString();
+    }
+
+    public static final Creator<HumanIDUser> CREATOR = new Creator<HumanIDUser>() {
+        @Override
+        public HumanIDUser createFromParcel(Parcel in) {
+            return new HumanIDUser(in);
+        }
+
+        @Override
+        public HumanIDUser[] newArray(int size) {
+            return new HumanIDUser[size];
+        }
+    };
 
     @NonNull
     public String getUserHash() {
@@ -42,5 +61,15 @@ public class HumanIDUser {
         return "HumanIDUser{" +
                 "userHash='" + userHash + '\'' +
                 '}';
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(userHash);
     }
 }

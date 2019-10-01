@@ -1,10 +1,8 @@
 package com.humanid.auth.data.source.remote.api.user.otp;
 
-import android.support.annotation.NonNull;
-import android.text.TextUtils;
+import androidx.annotation.NonNull;
 
 import com.google.gson.annotations.SerializedName;
-import com.humanid.internal.Validate;
 
 public class OTPRequest {
 
@@ -19,11 +17,6 @@ public class OTPRequest {
 
 	public OTPRequest(@NonNull String countryCode, @NonNull String phone,
 					  @NonNull String applicationID, @NonNull String applicationSecret) {
-		Validate.checkArgument(!TextUtils.isEmpty(countryCode), "countryCode");
-		Validate.checkArgument(!TextUtils.isEmpty(phone), "phone");
-		Validate.checkArgument(!TextUtils.isEmpty(applicationID), "applicationID");
-		Validate.checkArgument(!TextUtils.isEmpty(applicationSecret), "applicationSecret");
-
 		this.countryCode = countryCode;
 		this.phone = phone;
 		this.applicationID = applicationID;

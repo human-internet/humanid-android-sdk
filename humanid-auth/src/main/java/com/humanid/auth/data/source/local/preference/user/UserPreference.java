@@ -1,22 +1,23 @@
 package com.humanid.auth.data.source.local.preference.user;
 
-import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.MutableLiveData;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.text.TextUtils;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import com.google.gson.Gson;
 import com.humanid.auth.data.model.User;
-import com.humanid.internal.Validate;
+import com.humanid.util.Preconditions;
 
 public class UserPreference {
 
     private final static String TAG = UserPreference.class.getSimpleName();
 
-    private final static String SHARED_PREF_NAME = UserPreference.class.getCanonicalName();
+    private final static String SHARED_PREF_NAME = "com.humanid.auth";
     private final static String USER_KEY = "USER";
 
     private static volatile UserPreference INSTANCE;
@@ -57,6 +58,7 @@ public class UserPreference {
         return user;
     }
 
+    @NonNull
     public LiveData<User> loadLiveData() {
         MutableLiveData<User> liveData = new MutableLiveData<>();
         liveData.postValue(load());
@@ -64,7 +66,7 @@ public class UserPreference {
     }
 
     public void save(@NonNull User user) {
-        Validate.checkNotNull(user, "User cannot be null.");
+        Preconditions.checkNotNull(user, "User cannot be null.");
 
         sharedPreferences.edit().putString(USER_KEY, new Gson().toJson(user)).apply();
     }

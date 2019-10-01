@@ -4,53 +4,18 @@ project.group 'com.humanid'
 
 project.ext.name = 'HumanID-Common-Android-SDK'
 project.ext.artifactId = "humanid-common"
+project.ext.version = "1.0.0"
 project.ext.description = 'HumanID Common Android SDK'
 project.ext.url = 'https://github.com/bluenumberfoundation/humanid-android-sdk'
 
 android {
-    compileSdkVersion project.ext.compileSdk
-    buildToolsVersion project.ext.buildTools
-
     defaultConfig {
-        minSdkVersion project.ext.minSdk
-        targetSdkVersion project.ext.targetSdk
-        versionName version
-        multiDexEnabled true
+        versionName project.ext.version
         consumerProguardFiles 'proguard-rules.pro'
-    }
-
-    buildTypes {
-        release {
-            minifyEnabled true
-        }
-    }
-
-    lintOptions {
-        abortOnError false
-    }
-
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 
 dependencies {
-    // Support Library
-    api "com.android.support:support-core-utils:${project.ext.supportLibraryVersion}"
-    api "com.android.support:support-annotations:${project.ext.supportLibraryVersion}"
-    api "com.android.support:multidex:${project.ext.multidexVersion}"
-
-    // Android Lifecycle
-    api "android.arch.lifecycle:livedata:${project.ext.lifecycleVersion}"
-    annotationProcessor "android.arch.lifecycle:compiler:${project.ext.lifecycleVersion}"
-
-    // HTTP Client
-    api "com.squareup.retrofit2:retrofit:${project.ext.retrofitVersion}"
-    api "com.squareup.retrofit2:retrofit:${project.ext.retrofitVersion}"
-    api "com.squareup.retrofit2:converter-gson:${project.ext.retrofitVersion}"
-    api "com.squareup.okhttp3:logging-interceptor:4.0.1"
-
-    // Json Converter
-    api "com.google.code.gson:gson:${project.ext.gsonVersion}"
+    // Androidx Library
+    implementation "androidx.annotation:annotation:${project.ext.annotationVersion}"
 }

@@ -4,38 +4,41 @@ project.group 'com.humanid'
 
 project.ext.name = 'HumanID-Auth-Android-SDK'
 project.ext.artifactId = "humanid-auth"
+project.ext.version = "1.0.0"
 project.ext.description = 'HumanID Auth Android SDK'
 project.ext.url = 'https://github.com/bluenumberfoundation/humanid-android-sdk'
 
 android {
-    compileSdkVersion project.ext.compileSdk
-    buildToolsVersion project.ext.buildTools
-
     defaultConfig {
-        minSdkVersion project.ext.minSdk
-        targetSdkVersion project.ext.targetSdk
-        versionName version
-        multiDexEnabled true
+        versionName project.ext.version
         consumerProguardFiles 'proguard-rules.pro'
-    }
-
-    buildTypes {
-        release {
-            minifyEnabled true
-        }
-    }
-
-    lintOptions {
-        abortOnError false
-    }
-
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 
 dependencies {
     // HumanID Dependencies
-    api project(':humanid-core')
+    implementation project(':humanid-common')
+
+    // Androidx Library
+    implementation "androidx.appcompat:appcompat:${project.ext.appcompatVersion}"
+    implementation "androidx.lifecycle:lifecycle-extensions:${project.ext.lifecycleVersion}"
+    implementation "androidx.lifecycle:lifecycle-common-java8:${project.ext.lifecycleVersion}"
+    implementation "androidx.room:room-runtime:${project.ext.roomVersion}"
+    annotationProcessor "androidx.room:room-compiler:${project.ext.roomVersion}"
+    implementation "androidx.work:work-runtime:$project.ext.workManagerVersion"
+
+    // Material Design
+    implementation "com.google.android.material:material:1.0.0"
+
+    // Play Service
+    implementation "com.google.android.gms:play-services-tasks:17.0.0"
+
+    // Firebase
+    implementation 'com.google.firebase:firebase-messaging:20.0.0'
+
+    // HTTP Client
+    implementation "com.squareup.okhttp3:okhttp:${project.ext.okhttp3Version}"
+    implementation "com.squareup.okhttp3:logging-interceptor:${project.ext.okhttp3Version}"
+    implementation "com.squareup.retrofit2:retrofit:${project.ext.retrofitVersion}"
+    implementation "com.squareup.retrofit2:converter-gson:${project.ext.retrofitVersion}"
 }

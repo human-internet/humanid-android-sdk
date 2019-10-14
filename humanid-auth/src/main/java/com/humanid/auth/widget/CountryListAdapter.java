@@ -44,7 +44,7 @@ final class CountryListAdapter extends ArrayAdapter<CountryInfo> implements Sect
     private String[] sections;
 
     public CountryListAdapter(Context context) {
-        super(context, R.layout.humanid_dgts_country_row, android.R.id.text1);
+        super(context, R.layout.hid_layout_item_country, android.R.id.text1);
     }
 
     // The list of countries should be sorted using locale-sensitive string comparison

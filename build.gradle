@@ -26,30 +26,32 @@ allprojects {
 subprojects {
     project.apply from: "${rootDir}/constants.gradle"
 
-    afterEvaluate {
-        android {
-            compileSdkVersion project.ext.compileSdk
-            buildToolsVersion project.ext.buildTools
+    if (!project.getPath().contains("samples")) {
+        afterEvaluate {
+            android {
+                compileSdkVersion project.ext.compileSdk
+                buildToolsVersion project.ext.buildTools
 
-            defaultConfig {
-                minSdkVersion project.ext.minSdk
-                targetSdkVersion project.ext.targetSdk
-                versionName project.ext.version
-            }
-
-            buildTypes {
-                release {
-                    minifyEnabled true
+                defaultConfig {
+                    minSdkVersion project.ext.minSdk
+                    targetSdkVersion project.ext.targetSdk
+                    versionName project.ext.version
                 }
-            }
 
-            lintOptions {
-                abortOnError false
-            }
+                buildTypes {
+                    release {
+                        minifyEnabled true
+                    }
+                }
 
-            compileOptions {
-                sourceCompatibility JavaVersion.VERSION_1_8
-                targetCompatibility JavaVersion.VERSION_1_8
+                lintOptions {
+                    abortOnError false
+                }
+
+                compileOptions {
+                    sourceCompatibility JavaVersion.VERSION_1_8
+                    targetCompatibility JavaVersion.VERSION_1_8
+                }
             }
         }
     }

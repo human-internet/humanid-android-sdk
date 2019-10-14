@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Sample Auth App 1</string>
+
+    <string name="default_channel_id" translatable="true">Default</string>
+
+    <string name="btn_login" translatable="true">Login</string>
+</resources>

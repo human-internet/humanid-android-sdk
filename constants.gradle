@@ -14,8 +14,6 @@ project.ext {
     appcompatVersion = "1.1.0"
     constraintVersion = "1.1.3"
     lifecycleVersion = "2.1.0"
-    roomVersion = "2.1.0"
-    workManagerVersion = "2.2.0"
     gsonVersion = "2.8.5"
     retrofitVersion = "2.6.0"
     okhttp3Version = "4.0.1"

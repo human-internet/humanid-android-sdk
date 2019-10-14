@@ -11,7 +11,11 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".ui.AuthActivity" />
+        <activity
+            android:name=".ui.AuthActivity"
+            android:theme="@style/HumanIDTheme.Transparent"
+            android:noHistory="true"
+            android:launchMode="singleInstance"/>
 
     </application>
 

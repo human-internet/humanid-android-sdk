@@ -12,6 +12,7 @@ public class AuthActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        AuthFragment.newInstance().show(getSupportFragmentManager(), TAG);
+        AuthFragment authFragment = AuthFragment.newInstance();
+        authFragment.show(getSupportFragmentManager(), TAG);
     }
 }

@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "371521361553",
+    "firebase_url": "https://humanid-6aef9.firebaseio.com",
+    "project_id": "humanid-6aef9",
+    "storage_bucket": "humanid-6aef9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:371521361553:android:a6a166f2d8a5b0293c5130",
+        "android_client_info": {
+          "package_name": "com.humanid.sample.auth.app1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "371521361553-54jjgi2f2cmc95nbej4ghr6n5rsu8m29.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDNjUZPRZqxRBa3HnbXjOKBQFj30zHb0rM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "371521361553-54jjgi2f2cmc95nbej4ghr6n5rsu8m29.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -6,7 +6,7 @@ import android.text.TextUtils;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MediatorLiveData;
+import androidx.lifecycle.Observer;
 
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
@@ -68,18 +68,21 @@ public class HumanIDAuth {
                         HumanIDSDK.getInstance().getOptions().getApplicationID(),
                         HumanIDSDK.getInstance().getOptions().getApplicationSecret()
                 );
-        MediatorLiveData<Boolean> result = new MediatorLiveData<>();
-        result.addSource(source, resource -> {
-            if (resource == null) return;
-            switch (resource.status) {
-                case SUCCESS:
-                    result.removeSource(source);
-                    task.setResult(null);
-                    break;
-                case ERROR:
-                    result.removeSource(source);
-                    task.setException(new Exception(resource.message));
-                    break;
+
+        source.observeForever(new Observer<Resource<String>>() {
+            @Override
+            public void onChanged(Resource<String> resource) {
+                if (resource == null) return;
+                switch (resource.status) {
+                    case SUCCESS:
+                        source.removeObserver(this);
+                        task.setResult(null);
+                        break;
+                    case ERROR:
+                        source.removeObserver(this);
+                        task.setException(new Exception(resource.message));
+                        break;
+                }
             }
         });
 
@@ -98,22 +101,25 @@ public class HumanIDAuth {
                         HumanIDSDK.getInstance().getOptions().getApplicationID(),
                         HumanIDSDK.getInstance().getOptions().getApplicationSecret()
                 );
-        MediatorLiveData<Boolean> result = new MediatorLiveData<>();
-        result.addSource(source, resource -> {
-            if (resource == null) return;
-            switch (resource.status) {
-                case SUCCESS:
-                    result.removeSource(source);
-                    if (resource.data != null) {
-                        newTask.setResult(new HumanIDUser(resource.data.getUserHash()));
-                    } else {
-                        newTask.setResult(null);
-                    }
-                    break;
-                case ERROR:
-                    result.removeSource(source);
-                    newTask.setException(new Exception(resource.message));
-                    break;
+
+        source.observeForever(new Observer<Resource<User>>() {
+            @Override
+            public void onChanged(Resource<User> resource) {
+                if (resource == null) return;
+                switch (resource.status) {
+                    case SUCCESS:
+                        source.removeObserver(this);
+                        if (resource.data != null) {
+                            newTask.setResult(new HumanIDUser(resource.data.getUserHash()));
+                        } else {
+                            newTask.setResult(null);
+                        }
+                        break;
+                    case ERROR:
+                        source.removeObserver(this);
+                        newTask.setException(new Exception(resource.message));
+                        break;
+                }
             }
         });
 
@@ -130,22 +136,25 @@ public class HumanIDAuth {
                         HumanIDSDK.getInstance().getOptions().getApplicationID(),
                         HumanIDSDK.getInstance().getOptions().getApplicationSecret()
                 );
-        MediatorLiveData<Boolean> result = new MediatorLiveData<>();
-        result.addSource(source, resource -> {
-            if (resource == null) return;
-            switch (resource.status) {
-                case SUCCESS:
-                    result.removeSource(source);
-                    if (resource.data != null) {
-                        newTask.setResult(new HumanIDUser(resource.data.getUserHash()));
-                    } else {
-                        newTask.setResult(null);
-                    }
-                    break;
-                case ERROR:
-                    result.removeSource(source);
-                    newTask.setException(new Exception(resource.message));
-                    break;
+
+        source.observeForever(new Observer<Resource<User>>() {
+            @Override
+            public void onChanged(Resource<User> resource) {
+                if (resource == null) return;
+                switch (resource.status) {
+                    case SUCCESS:
+                        source.removeObserver(this);
+                        if (resource.data != null) {
+                            newTask.setResult(new HumanIDUser(resource.data.getUserHash()));
+                        } else {
+                            newTask.setResult(null);
+                        }
+                        break;
+                    case ERROR:
+                        source.removeObserver(this);
+                        newTask.setException(new Exception(resource.message));
+                        break;
+                }
             }
         });
 
@@ -161,18 +170,21 @@ public class HumanIDAuth {
                         HumanIDSDK.getInstance().getOptions().getApplicationID(),
                         HumanIDSDK.getInstance().getOptions().getApplicationSecret()
                 );
-        MediatorLiveData<Boolean> result = new MediatorLiveData<>();
-        result.addSource(source, resource -> {
-            if (resource == null) return;
-            switch (resource.status) {
-                case SUCCESS:
-                    result.removeSource(source);
-                    newTask.setResult(null);
-                    break;
-                case ERROR:
-                    result.removeSource(source);
-                    newTask.setException(new Exception(resource.message));
-                    break;
+
+        source.observeForever(new Observer<Resource<String>>() {
+            @Override
+            public void onChanged(Resource<String> resource) {
+                if (resource == null) return;
+                switch (resource.status) {
+                    case SUCCESS:
+                        source.removeObserver(this);
+                        newTask.setResult(null);
+                        break;
+                    case ERROR:
+                        source.removeObserver(this);
+                        newTask.setException(new Exception(resource.message));
+                        break;
+                }
             }
         });
 
@@ -195,18 +207,21 @@ public class HumanIDAuth {
                         HumanIDSDK.getInstance().getOptions().getApplicationID(),
                         HumanIDSDK.getInstance().getOptions().getApplicationSecret()
                 );
-        MediatorLiveData<Boolean> result = new MediatorLiveData<>();
-        result.addSource(source, resource -> {
-            if (resource == null) return;
-            switch (resource.status) {
-                case SUCCESS:
-                    result.removeSource(source);
-                    newTask.setResult(null);
-                    break;
-                case ERROR:
-                    result.removeSource(source);
-                    newTask.setException(new Exception(resource.message));
-                    break;
+
+        source.observeForever(new Observer<Resource<User>>() {
+            @Override
+            public void onChanged(Resource<User> resource) {
+                if (resource == null) return;
+                switch (resource.status) {
+                    case SUCCESS:
+                        source.removeObserver(this);
+                        newTask.setResult(null);
+                        break;
+                    case ERROR:
+                        source.removeObserver(this);
+                        newTask.setException(new Exception(resource.message));
+                        break;
+                }
             }
         });
 

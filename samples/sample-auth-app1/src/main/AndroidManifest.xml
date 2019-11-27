@@ -20,6 +20,13 @@
             android:name="com.google.firebase.messaging.default_notification_channel_id"
             android:value="@string/default_channel_id" />
 
+        <meta-data
+            android:name="com.humanid.sdk.applicationId"
+            android:value="@string/humanid_app_id"/>
+        <meta-data
+            android:name="com.humanid.sdk.applicationSecret"
+            android:value="@string/humanid_app_secret"/>
+
         <service
             android:name=".services.FCMService"
             android:exported="false">

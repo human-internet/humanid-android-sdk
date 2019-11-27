@@ -1,5 +1,7 @@
 package com.humanid.auth.util;
 
+import android.text.TextUtils;
+
 import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -7,19 +9,20 @@ import androidx.annotation.WorkerThread;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
 
+import com.google.android.gms.common.internal.Objects;
 import com.humanid.auth.data.source.remote.api.APIResponse;
 import com.humanid.data.model.Resource;
 import com.humanid.util.Executors;
 
 public abstract class NetworkBoundResource<ResultType, RequestType> {
 
-    private Executors executors;
+    private Executors appExecutors;
 
     private final MediatorLiveData<Resource<ResultType>> result = new MediatorLiveData<>();
 
     @MainThread
     public NetworkBoundResource() {
-        this.executors = Executors.getInstance();
+        this.appExecutors = Executors.getInstance();
         init();
     }
 
@@ -40,7 +43,7 @@ public abstract class NetworkBoundResource<ResultType, RequestType> {
 
     @MainThread
     private void setValue(@NonNull Resource<ResultType> newValue) {
-        if (result.getValue() == newValue) return;
+        if (Objects.equal(result.getValue(), newValue)) return;
         result.setValue(newValue);
     }
 
@@ -55,44 +58,47 @@ public abstract class NetworkBoundResource<ResultType, RequestType> {
     @MainThread
     protected abstract LiveData<APIResponse<RequestType>> createCall();
 
-    private void fetchFromNetwork(LiveData<ResultType> localSource) {
-        LiveData<APIResponse<RequestType>> apiResponse = createCall();
+    private void fetchFromNetwork(@NonNull LiveData<ResultType> localSource) {
+        LiveData<APIResponse<RequestType>> networkSource = createCall();
 
         result.addSource(localSource, newData -> setValue(Resource.loading(newData)));
-
-        result.addSource(apiResponse, response -> {
-            if (response == null) return;
-
-            result.removeSource(apiResponse);
+        result.addSource(networkSource, response -> {
+            result.removeSource(networkSource);
             result.removeSource(localSource);
 
-            if (response.isSuccessful()) {
-                executors.diskIO().execute(() -> {
-                    saveCallResult(processResponse(response));
-                    executors.mainThread().execute(() ->
-                            result.addSource(loadFromLocal(), newData ->
-                                    setValue(Resource.success(newData))));
+            if (response != null && response.isSuccessful()) {
+                appExecutors.diskIO().execute(() -> {
+                    RequestType item = processResponse(response);
+                    if (item != null) saveCallResult(item);
+                    appExecutors.mainThread().execute(() ->
+                            result.addSource(loadFromLocal(),
+                                    newData -> setValue(Resource.success(newData))));
                 });
             } else {
                 onFetchFailed();
-                result.addSource(localSource, newData ->
-                        setValue(Resource.error(response.getErrorMessage(), newData)));
+                result.addSource(localSource, newData -> {
+                    String errorMessage = null;
+                    if (response != null && !TextUtils.isEmpty(response.getErrorMessage())) {
+                        errorMessage = response.getErrorMessage();
+                    }
+                    setValue(Resource.error(errorMessage, newData));
+                });
             }
         });
     }
 
+    @Nullable
     @WorkerThread
-    public RequestType processResponse(APIResponse<RequestType> response) {
+    public RequestType processResponse(@NonNull APIResponse<RequestType> response) {
         return response.getData();
     }
 
     @WorkerThread
     protected abstract void saveCallResult(@NonNull RequestType item);
 
-    protected void onFetchFailed() {
+    protected void onFetchFailed() {}
 
-    }
-
+    @NonNull
     public final LiveData<Resource<ResultType>> asLiveData() {
         return result;
     }

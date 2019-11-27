@@ -2,22 +2,16 @@ package com.humanid.sample.auth.app1;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.humanid.auth.HumanIDAuth;
-import com.humanid.auth.ui.AuthActivity;
-import com.humanid.sample.auth.app1.data.model.Resource;
-import com.humanid.sample.auth.app1.data.source.remote.api.model.TopStoriesAPIResponse;
 import com.humanid.sample.auth.app1.databinding.ActivityMainBinding;
 import com.humanid.sample.auth.app1.utils.EventObserver;
-
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -63,7 +57,15 @@ public class MainActivity extends AppCompatActivity {
         });
 
         viewModel.openAuth.observe(this, new EventObserver<>(aVoid -> {
-            startActivity(new Intent(this, AuthActivity.class));
+//            startActivity(new Intent(this, AuthActivity.class));
+            HumanIDAuth.getInstance().requestOTP("+62", "081312500237")
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            Log.d("testx", "reqeet otp success");
+                        } else {
+                            Log.d("testx", "reqeet otp failure");
+                        }
+                    });
         }));
     }
 }

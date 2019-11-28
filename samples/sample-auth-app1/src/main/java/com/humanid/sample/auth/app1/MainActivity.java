@@ -11,7 +11,7 @@ import android.util.Log;
 
 import com.humanid.auth.HumanIDAuth;
 import com.humanid.sample.auth.app1.databinding.ActivityMainBinding;
-import com.humanid.sample.auth.app1.utils.EventObserver;
+import com.humanid.sample.auth.app1.utils.livedata.EventObserver;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -57,13 +57,12 @@ public class MainActivity extends AppCompatActivity {
         });
 
         viewModel.openAuth.observe(this, new EventObserver<>(aVoid -> {
-//            startActivity(new Intent(this, AuthActivity.class));
             HumanIDAuth.getInstance().requestOTP("+62", "081312500237")
                     .addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
-                            Log.d("testx", "reqeet otp success");
+                            Log.d("test", "request otp success");
                         } else {
-                            Log.d("testx", "reqeet otp failure");
+                            Log.d("test", "request otp failure");
                         }
                     });
         }));

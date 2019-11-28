@@ -2,7 +2,7 @@ package com.humanid.sample.auth.app1.data.source.remote.api;
 
 import androidx.lifecycle.LiveData;
 
-import com.humanid.sample.auth.app1.data.model.APIResponse;
+import com.humanid.sample.auth.app1.utils.livedata.vo.APIResponse;
 import com.humanid.sample.auth.app1.data.source.remote.api.model.TopStoriesAPIResponse;
 
 import retrofit2.http.GET;

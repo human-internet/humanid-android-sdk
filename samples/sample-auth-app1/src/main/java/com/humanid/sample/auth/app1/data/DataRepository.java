@@ -6,12 +6,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
 
-import com.humanid.sample.auth.app1.data.model.APIResponse;
-import com.humanid.sample.auth.app1.data.model.Resource;
+import com.humanid.sample.auth.app1.utils.livedata.vo.APIResponse;
+import com.humanid.sample.auth.app1.utils.livedata.vo.Resource;
 import com.humanid.sample.auth.app1.data.source.remote.api.NYTApiClient;
 import com.humanid.sample.auth.app1.data.source.remote.api.NYTApiService;
 import com.humanid.sample.auth.app1.data.source.remote.api.model.TopStoriesAPIResponse;
-import com.humanid.sample.auth.app1.utils.NetworkBoundResource;
+import com.humanid.sample.auth.app1.utils.livedata.NetworkBoundResource;
 
 import java.util.ArrayList;
 import java.util.List;

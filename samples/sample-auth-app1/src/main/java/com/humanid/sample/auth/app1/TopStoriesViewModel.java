@@ -8,9 +8,9 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.humanid.sample.auth.app1.data.DataRepository;
-import com.humanid.sample.auth.app1.data.model.Resource;
+import com.humanid.sample.auth.app1.utils.livedata.vo.Resource;
 import com.humanid.sample.auth.app1.data.source.remote.api.model.TopStoriesAPIResponse;
-import com.humanid.sample.auth.app1.utils.Event;
+import com.humanid.sample.auth.app1.utils.livedata.vo.Event;
 
 import java.util.List;
 

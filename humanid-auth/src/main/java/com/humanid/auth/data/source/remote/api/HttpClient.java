@@ -2,7 +2,7 @@ package com.humanid.auth.data.source.remote.api;
 
 import androidx.annotation.NonNull;
 
-import com.humanid.auth.util.LiveDataCallAdapterFactory;
+import com.humanid.auth.util.livedata.LiveDataCallAdapterFactory;
 
 import java.util.concurrent.TimeUnit;
 

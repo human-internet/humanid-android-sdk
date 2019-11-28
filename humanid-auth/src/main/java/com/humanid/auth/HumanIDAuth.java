@@ -15,7 +15,7 @@ import com.humanid.HumanIDSDK;
 import com.humanid.auth.data.model.User;
 import com.humanid.auth.data.repository.UserRepository;
 import com.humanid.auth.internal.DeviceIDManager;
-import com.humanid.data.model.Resource;
+import com.humanid.auth.util.livedata.vo.Resource;
 
 public class HumanIDAuth {
 

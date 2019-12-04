@@ -18,7 +18,7 @@ public final class HumanIDOptions {
     private final String applicationID;
     private final String applicationSecret;
 
-    private HumanIDOptions(String applicationID, String applicationSecret) {
+    public HumanIDOptions(String applicationID, String applicationSecret) {
         Preconditions.checkArgument(!TextUtils.isEmpty(applicationID), "applicationID");
         Preconditions.checkArgument(!TextUtils.isEmpty(applicationSecret), "applicationSecret");
 

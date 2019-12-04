@@ -1,0 +1,95 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/dimen_16dp"
+    android:paddingRight="@dimen/dimen_16dp"
+    android:paddingBottom="@dimen/dimen_16dp"
+    tools:context="com.human.android.presentation.registeremail.RegisterEmailFragment">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvSuccess"
+        style="@style/HumanIdTextView.Bold.Tael"
+        android:drawableStart="@drawable/ic_success_secure"
+        android:gravity="center_vertical"
+        android:text="@string/label_success"
+        android:textAllCaps="true" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvAbout"
+        style="@style/HumanIdTextView.Light.Black"
+        android:gravity="center_horizontal"
+        android:text="@string/label_about_humanid"
+        android:textSize="@dimen/text_size_10sp"
+        android:visibility="gone" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvTitle"
+        style="@style/HumanIdTextView.Medium.Black"
+        android:layout_marginTop="@dimen/dimen_24dp"
+        android:text="@string/title_register_email"
+        android:textSize="@dimen/text_size_14sp" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvMessage"
+        style="@style/HumanIdTextView.Black"
+        android:layout_marginTop="@dimen/dimen_10dp"
+        android:gravity="center_horizontal"
+        android:text="@string/message_register_email"
+        android:textSize="@dimen/text_size_12sp" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvSubMessage"
+        style="@style/HumanIdTextView.Black"
+        android:layout_marginTop="@dimen/dimen_10dp"
+        android:gravity="center_horizontal"
+        android:text="@string/sub_message_register_email"
+        android:textSize="@dimen/text_size_12sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_30dp"
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/edtEmail"
+            style="@style/HumanIdTextView.Black"
+            android:layout_width="0dp"
+            android:layout_marginEnd="@dimen/dimen_8dp"
+            android:layout_weight="1"
+            android:hint="@string/hint_email"
+            android:imeOptions="actionDone"
+            android:inputType="textEmailAddress"
+            android:textSize="@dimen/text_size_14sp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnSave"
+            android:layout_width="wrap_content"
+            style="@style/HumanIdButton.White"
+            android:padding="@dimen/dimen_8dp"
+            android:text="@string/action_save"
+            android:textSize="@dimen/text_size_12sp"
+            tools:targetApi="lollipop" />
+    </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvWarning"
+        style="@style/HumanIdTextView.Light.Black"
+        android:layout_marginTop="@dimen/dimen_24dp"
+        android:gravity="center_horizontal"
+        android:text="@string/label_warning_logout"
+        android:textSize="@dimen/text_size_10sp"
+        android:visibility="gone" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnSkipEmail"
+        style="@style/HumanIdTextButton.Medium.PastelRed"
+        android:layout_marginTop="@dimen/dimen_24dp"
+        android:padding="@dimen/dimen_5dp"
+        android:text="@string/action_skip_email"
+        android:textSize="@dimen/text_size_10sp" />
+
+</LinearLayout>

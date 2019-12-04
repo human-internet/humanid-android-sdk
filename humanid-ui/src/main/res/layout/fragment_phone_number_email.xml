@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/bottomSheetNotification"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:id="@+id/flDialogPhone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/btnLearnOurMission"
+                style="@style/HumanIdTextView.Light.Black"
+                android:layout_marginTop="@dimen/dimen_16dp"
+                android:text="@string/message_humanid_description"
+                android:textAlignment="center"
+                android:textSize="@dimen/text_size_10sp" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/HumanIdTextView.Medium.Black"
+                android:layout_marginTop="@dimen/dimen_24dp"
+                android:text="@string/title_switching_number"
+                android:textSize="@dimen/text_size_14sp" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/HumanIdTextView.BlackColor"
+                android:layout_marginStart="@dimen/dimen_8dp"
+                android:layout_marginTop="@dimen/dimen_10dp"
+                android:text="@string/message_enter_old_number_email"
+                android:textAlignment="center"
+                android:textSize="@dimen/text_size_12sp" />
+
+            <LinearLayout
+                android:id="@+id/containerInputNumberEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_18dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <com.nbs.validacion.views.ValidacionSpinner
+                        android:id="@+id/spinnerCodeNumber"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="0dp" />
+
+                    <View
+                        android:id="@+id/viewSpinner"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/dimen_1dp"
+                        android:layout_marginStart="@dimen/dimen_4dp"
+                        android:background="@color/colorWarmGrey" />
+
+                </LinearLayout>
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/edtPhoneNumber"
+                    style="@style/HumanIdTextView.GreyishBrown"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:hint="@string/hint_phone_number"
+                    android:imeOptions="actionNext"
+                    android:inputType="number"
+                    android:textSize="14sp"
+                    app:backgroundTint="@color/colorWarmGrey" />
+
+            </LinearLayout>
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/edtEmail"
+                style="@style/HumanIdTextView.PinkishGrey"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10dp"
+                android:hint="@string/hint_input_email"
+                android:imeOptions="actionDone"
+                android:inputType="textEmailAddress"
+                android:textSize="14sp"
+                app:backgroundTint="@color/colorWarmGrey" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnEnterEmail"
+                style="@style/HumanIdButton.White"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10dp"
+                android:backgroundTint="@color/colorTwilightBlue"
+                android:padding="@dimen/dimen_12dp"
+                android:text="@string/action_enter"
+                android:textAllCaps="true"
+                android:textSize="@dimen/text_size_12sp"
+                app:cornerRadius="@dimen/dimen_4dp" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/HumanIdTextView.BlackTwo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_24dp"
+                android:text="@string/sample_attemp"
+                android:textAlignment="center"
+                android:textSize="@dimen/text_size_10sp" />
+
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnTryAgain"
+                style="@style/HumanIdTextButton.TwilightBlue"
+                android:layout_width="match_parent"
+                android:layout_marginTop="@dimen/dimen_4dp"
+                android:text="@string/action_try_again"
+                android:textSize="@dimen/text_size_10sp" />
+
+        </LinearLayout>
+
+
+    </FrameLayout>
+
+</LinearLayout>

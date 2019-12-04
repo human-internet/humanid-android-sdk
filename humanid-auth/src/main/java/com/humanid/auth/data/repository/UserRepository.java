@@ -27,6 +27,8 @@ import com.humanid.auth.data.source.remote.api.user.register.RegisterRequest;
 import com.humanid.auth.data.source.remote.api.user.register.RegisterResponse;
 import com.humanid.util.Preconditions;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 public class UserRepository {
 
     private final static String TAG = UserRepository.class.getSimpleName();
@@ -107,17 +109,17 @@ public class UserRepository {
             @NonNull
             @Override
             protected LiveData<String> loadFromLocal() {
-                if (result == null) {
-                    return AbsentLiveData.create();
-                } else {
-                    return new LiveData<String>() {
-                        @Override
-                        protected void onActive() {
-                            super.onActive();
-                            postValue(result);
+                return new LiveData<String>() {
+                    private AtomicBoolean started = new AtomicBoolean(false);
+                    @Override
+                    protected void onActive() {
+                        super.onActive();
+
+                        if (started.compareAndSet(false, true)){
+                            postValue("");
                         }
-                    };
-                }
+                    }
+                };
             }
 
             @Override

@@ -1,4 +1,4 @@
-package com.human.android.util
+package com.nbs.humanidui.util
 
 import android.graphics.Typeface
 import android.text.*

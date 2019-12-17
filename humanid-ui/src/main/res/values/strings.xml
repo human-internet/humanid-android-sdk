@@ -4,6 +4,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="label_mdb">mdb.</string>
+    <string name="message_already_login">You are already logged in</string>
     <string name="label_welcome">Welcome to Movie DB</string>
     <string name="label_continue_with">Continue With</string>
     <string name="label_recommended_full_privacy">( recommended for full privacy)</string>

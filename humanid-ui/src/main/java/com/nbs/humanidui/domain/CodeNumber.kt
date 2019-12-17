@@ -1,6 +1,6 @@
 package com.nbs.humanidui.domain
 
-import com.human.android.util.emptyString
+import com.nbs.humanidui.util.emptyString
 
 
 data class CodeNumber (

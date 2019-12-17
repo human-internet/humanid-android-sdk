@@ -8,6 +8,9 @@ import com.human.android.util.*
 import com.nbs.humanidui.util.enum.LoginType
 import com.human.android.util.extensions.isEnabled
 import com.nbs.humanidui.R
+import com.nbs.humanidui.util.BundleKeys
+import com.nbs.humanidui.util.emptyString
+import com.nbs.humanidui.util.makeLinks
 import com.nbs.nucleo.utils.extensions.gone
 import com.nbs.nucleo.utils.extensions.onClick
 import com.nbs.nucleo.utils.extensions.visible

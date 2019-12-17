@@ -6,7 +6,7 @@ import android.text.SpannableString
 import android.text.Spanned
 import androidx.core.content.ContextCompat
 import com.google.android.material.button.MaterialButton
-import com.human.android.util.emptyString
+import com.nbs.humanidui.util.emptyString
 import com.nbs.humanidui.R
 
 fun MaterialButton.isEnabled(isEnable: Boolean) {

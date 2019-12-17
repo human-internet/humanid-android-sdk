@@ -4,19 +4,20 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
-import com.human.android.util.BundleKeys
 import com.human.android.util.ReactiveFormFragment
-import com.human.android.util.emptyString
 import com.human.android.util.extensions.isEnabled
-import com.human.android.util.makeLinks
 import com.humanid.auth.HumanIDAuth
 import com.nbs.humanidui.R
 import com.nbs.humanidui.domain.CodeNumber
 import com.nbs.humanidui.presentation.adapter.SpinnerAdapter
+import com.nbs.humanidui.util.BundleKeys
+import com.nbs.humanidui.util.emptyString
 import com.nbs.humanidui.util.enum.LoginType
+import com.nbs.humanidui.util.makeLinks
 import com.nbs.nucleo.utils.extensions.gone
 import com.nbs.nucleo.utils.extensions.onClick
 import com.nbs.nucleo.utils.extensions.visible
+import com.nbs.nucleo.utils.showToast
 import com.nbs.validacion.Validation
 import com.nbs.validacion.util.notEmptyRule
 import com.nbs.validacion.util.numberOnlyRule
@@ -80,27 +81,41 @@ class PhoneNumberFragment : ReactiveFormFragment() {
         btnEnter.onClick {
             when (loginType) {
                 LoginType.SWITCH_DEVICE.type -> {
-                    listener?.onButtonEnterClicked(LoginType.SWITCH_DEVICE.type)
+                    listener?.onButtonEnterClicked(LoginType.SWITCH_DEVICE.type,
+                            edtPhoneNumber.text.toString().trim())
                 }
                 LoginType.NEW_ACCOUNT.type -> {
-                    showLoading()
-                    val task = HumanIDAuth.getInstance().requestOTP("62", "81210841382")
-                    task.addOnSuccessListener {
-                        hideLoading()
-                        listener?.onButtonEnterClicked(LoginType.NEW_ACCOUNT.type)
-                    }
-                    task.addOnFailureListener {
-                        hideLoading()
-                        Log.d("test", it.message)
-                    }
+                    requestOtp()
                 }
                 LoginType.SWITCH_NUMBER.type -> {
-                    listener?.onButtonEnterClicked(LoginType.SWITCH_NUMBER.type)
+                    listener?.onButtonEnterClicked(LoginType.SWITCH_NUMBER.type,
+                            edtPhoneNumber.text.toString().trim())
                 }
                 else -> {
 
                 }
             }
+        }
+    }
+
+    private fun requestOtp(){
+        showLoading()
+        val phoneNumber: String = edtPhoneNumber.text.toString().trim()
+        val task = HumanIDAuth.getInstance().requestOTP("62", phoneNumber)
+        task.addOnCompleteListener {
+            if (it.isSuccessful){
+                hideLoading()
+                listener?.onButtonEnterClicked(LoginType.NEW_ACCOUNT.type,
+                        edtPhoneNumber.text.toString().trim())
+            }else{
+                hideLoading()
+                showToast("Request otp failed")
+            }
+        }
+        task.addOnFailureListener {
+            hideLoading()
+            Log.d("test", it.message)
+            showToast(it.message.toString())
         }
     }
 
@@ -175,7 +190,7 @@ class PhoneNumberFragment : ReactiveFormFragment() {
 
     interface OnPhoneNumberListener {
         fun onButtonCancelClicked(type: String)
-        fun onButtonEnterClicked(type: String)
+        fun onButtonEnterClicked(type: String, phoneNumber: String)
         fun onButtonTransferClicked()
     }
 

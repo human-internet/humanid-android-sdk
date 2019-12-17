@@ -1,4 +1,4 @@
-package com.nbs.humanidui.presentation.welcome
+package com.nbs.humanidui.presentation.logout
 
 
 import android.app.Dialog
@@ -15,19 +15,16 @@ import androidx.annotation.RequiresApi
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.humanid.auth.HumanIDAuth
 import com.nbs.humanidui.R
-import com.nbs.humanidui.presentation.main.MainDialogFragment
-import com.nbs.nucleo.utils.extensions.onClick
+import com.nbs.nucleo.utils.showToast
 import io.reactivex.annotations.NonNull
-import kotlinx.android.synthetic.main.fragment_dialog_welcome.*
+import kotlinx.android.synthetic.main.fragment_logout.*
 
-
-class WelcomeDialogFragment : BottomSheetDialogFragment() {
+class LogoutFragment : BottomSheetDialogFragment() {
 
     companion object{
-        var listener: OnWelcomeDialogListener? = null
 
-        fun newInstance(): WelcomeDialogFragment {
-            val fragment = WelcomeDialogFragment()
+        fun newInstance(): LogoutFragment {
+            val fragment = LogoutFragment()
             val bundle = Bundle()
             fragment.arguments = bundle
             return fragment
@@ -42,7 +39,7 @@ class WelcomeDialogFragment : BottomSheetDialogFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
-        return inflater.inflate(R.layout.fragment_dialog_welcome, container, false)
+        return inflater.inflate(R.layout.fragment_logout, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -50,22 +47,9 @@ class WelcomeDialogFragment : BottomSheetDialogFragment() {
         dialog?.setCancelable(false)
         dialog?.setCanceledOnTouchOutside(false)
 
-        btnContinue.onClick {
-            dismiss()
-            listener?.onButtonContinueClicked()
-            showMainDialog()
+        btnLogout.setOnClickListener {
+            logout()
         }
-    }
-
-    private fun showMainDialog(){
-        val mainDialogFragment = MainDialogFragment.newInstance()
-        mainDialogFragment.show(
-                childFragmentManager, mainDialogFragment.tag
-        )
-    }
-
-    interface OnWelcomeDialogListener {
-        fun onButtonContinueClicked()
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -99,5 +83,25 @@ class WelcomeDialogFragment : BottomSheetDialogFragment() {
 
             window.setBackgroundDrawable(windowBackground)
         }
+    }
+
+
+    private fun logout() {
+        btnLogout.isEnabled = false
+        btnLogout.text = "Please wait..."
+
+        HumanIDAuth.getInstance().logout()
+                .addOnCompleteListener {
+                    if (it.isSuccessful){
+                        btnLogout.isEnabled = true
+                        btnLogout.text = "Logout"
+                        dismiss()
+                        showToast("You have successfully logout")
+                    }else{
+                        showToast("Logout failed")
+                    }
+                }.addOnFailureListener {
+                    showToast(it.message.toString())
+                }
     }
 }

@@ -3,13 +3,13 @@ package com.nbs.humanidui.presentation.otp
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import com.human.android.util.BundleKeys
 import com.human.android.util.ReactiveFormFragment
-import com.human.android.util.emptyString
-import com.nbs.humanidui.util.enum.LoginType
 import com.human.android.util.extensions.toHtml
-import com.human.android.util.makeLinks
 import com.nbs.humanidui.R
+import com.nbs.humanidui.util.BundleKeys
+import com.nbs.humanidui.util.emptyString
+import com.nbs.humanidui.util.enum.LoginType
+import com.nbs.humanidui.util.makeLinks
 import com.nbs.nucleo.utils.extensions.gone
 import com.nbs.nucleo.utils.extensions.onClick
 import com.nbs.nucleo.utils.extensions.visible
@@ -21,6 +21,8 @@ class OtpFragment : ReactiveFormFragment() {
 
     private var otpType = emptyString()
 
+    private var phoneNumber: String = emptyString()
+
     companion object {
         var listener: OnOtpListener? = null
 
@@ -28,6 +30,15 @@ class OtpFragment : ReactiveFormFragment() {
             val fragment = OtpFragment()
             val bundle = Bundle()
             bundle.putString(BundleKeys.KEY_OTP_TYPE, type)
+            fragment.arguments = bundle
+            return fragment
+        }
+
+        fun newInstance(type: String = LoginType.NORMAL.type, phoneNumber: String): OtpFragment {
+            val fragment = OtpFragment()
+            val bundle = Bundle()
+            bundle.putString(BundleKeys.KEY_OTP_TYPE, type)
+            bundle.putString(BundleKeys.KEY_PHONENUMBER, phoneNumber)
             fragment.arguments = bundle
             return fragment
         }
@@ -42,6 +53,7 @@ class OtpFragment : ReactiveFormFragment() {
     override fun initIntent() {
         arguments?.let {
             otpType = it.getString(BundleKeys.KEY_OTP_TYPE) ?: emptyString()
+            phoneNumber = it.getString(BundleKeys.KEY_PHONENUMBER) ?: emptyString()
         }
 
     }
@@ -58,7 +70,7 @@ class OtpFragment : ReactiveFormFragment() {
                 tvSwitchMessage.gone()
 
                 btnDifferentNumber.onClick {
-                    listener?.onButtonDifferentNumberClicked()
+
                 }
             }
             LoginType.SWITCH_DEVICE.type -> {
@@ -115,15 +127,16 @@ class OtpFragment : ReactiveFormFragment() {
     }
 
     override fun onValidationSuccess() {
+        val otpCode: String = edtOtp.text.toString().trim()
         when (otpType) {
             LoginType.SWITCH_NUMBER.type -> {
-                listener?.onOtpValidationSuccess(LoginType.SWITCH_NUMBER.type)
+                listener?.onOtpValidationSuccess(LoginType.SWITCH_NUMBER.type, otpCode, phoneNumber)
             }
             LoginType.SWITCH_DEVICE.type -> {
-                listener?.onOtpValidationSuccess(LoginType.SWITCH_DEVICE.type)
+                listener?.onOtpValidationSuccess(LoginType.SWITCH_DEVICE.type, otpCode, phoneNumber)
             }
             else -> {
-                listener?.onOtpValidationSuccess(LoginType.NORMAL.type)
+                listener?.onOtpValidationSuccess(LoginType.NORMAL.type, otpCode, phoneNumber)
             }
         }
 
@@ -139,6 +152,6 @@ class OtpFragment : ReactiveFormFragment() {
 
     interface OnOtpListener {
         fun onButtonDifferentNumberClicked()
-        fun onOtpValidationSuccess(type: String)
+        fun onOtpValidationSuccess(type: String, otpCode: String, phoneNumber: String)
     }
 }

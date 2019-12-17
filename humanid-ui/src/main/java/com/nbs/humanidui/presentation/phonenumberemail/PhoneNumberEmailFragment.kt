@@ -5,7 +5,7 @@ import android.view.View
 import android.widget.Toast
 import com.human.android.util.ReactiveFormFragment
 import com.human.android.util.extensions.isEnabled
-import com.human.android.util.makeLinks
+import com.nbs.humanidui.util.makeLinks
 import com.nbs.humanidui.R
 import com.nbs.humanidui.domain.CodeNumber
 import com.nbs.humanidui.presentation.adapter.SpinnerAdapter

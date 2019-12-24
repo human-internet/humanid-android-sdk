@@ -3,6 +3,7 @@ package com.nbs.humanidui.presentation.phonenumberemail
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.core.content.res.ResourcesCompat
 import com.human.android.util.ReactiveFormFragment
 import com.human.android.util.extensions.isEnabled
 import com.nbs.humanidui.util.makeLinks
@@ -10,10 +11,7 @@ import com.nbs.humanidui.R
 import com.nbs.humanidui.domain.CodeNumber
 import com.nbs.humanidui.presentation.adapter.SpinnerAdapter
 import com.nbs.validacion.Validation
-import com.nbs.validacion.util.emailRule
-import com.nbs.validacion.util.notEmptyRule
-import com.nbs.validacion.util.numberOnlyRule
-import com.nbs.validacion.util.onClick
+import com.nbs.validacion.util.*
 import kotlinx.android.synthetic.main.fragment_phone_number_email.*
 
 class PhoneNumberEmailFragment : ReactiveFormFragment() {
@@ -43,11 +41,6 @@ class PhoneNumberEmailFragment : ReactiveFormFragment() {
     override fun initUI() {
         context?.let {
             setSpannableString()
-
-            spinnerCodeNumber.adapter = SpinnerAdapter(
-                    it,
-                    getCodeNumberData()
-            )
         }
 
     }
@@ -55,6 +48,21 @@ class PhoneNumberEmailFragment : ReactiveFormFragment() {
     override fun initAction() {
         btnEnterEmail.onClick {
             listener?.onButtonEnterClicked()
+        }
+
+        val typface = context?.let { ResourcesCompat.getFont(it, R.font.roboto_bold) }
+        ccpPhoneNumber.setTypeFace(typface)
+
+        edtPhoneNumber.onTextChange {text->
+            text.let {
+                if (it.startsWith("0")) {
+                    if (it.isNotEmpty()) {
+                        edtPhoneNumber.setText(it.substring(1))
+                    } else {
+                        edtPhoneNumber.setText("")
+                    }
+                }
+            }
         }
     }
 

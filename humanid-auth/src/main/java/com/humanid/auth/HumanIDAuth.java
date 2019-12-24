@@ -227,4 +227,35 @@ public class HumanIDAuth {
 
         return newTask.getTask();
     }
+
+    @NonNull
+    public Task<Void> updatePhone(@NonNull String countryCode, @NonNull String phone,
+                                  @NonNull String verificationCode,
+                                  @NonNull String existingUserHash) {
+        TaskCompletionSource<Void> newTask = new TaskCompletionSource<>();
+        LiveData<Resource<String>> source = UserRepository.getInstance(applicationContext)
+                .updatePhone(countryCode, phone, verificationCode, existingUserHash,
+                        HumanIDSDK.getInstance().getOptions().getApplicationID(),
+                        HumanIDSDK.getInstance().getOptions().getApplicationSecret()
+                );
+
+        source.observeForever(new Observer<Resource<String>>() {
+            @Override
+            public void onChanged(Resource<String> resource) {
+                if (resource == null) return;
+                switch (resource.status) {
+                    case SUCCESS:
+                        source.removeObserver(this);
+                        newTask.setResult(null);
+                        break;
+                    case ERROR:
+                        source.removeObserver(this);
+                        newTask.setException(new Exception(resource.message));
+                        break;
+                }
+            }
+        });
+
+        return newTask.getTask();
+    }
 }

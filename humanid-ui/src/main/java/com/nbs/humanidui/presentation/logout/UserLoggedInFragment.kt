@@ -8,48 +8,58 @@ import android.graphics.drawable.LayerDrawable
 import android.os.Build
 import android.os.Bundle
 import android.util.DisplayMetrics
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.annotation.RequiresApi
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.humanid.auth.HumanIDAuth
 import com.nbs.humanidui.R
-import com.nbs.nucleo.utils.showToast
+import com.nbs.humanidui.base.BaseBottomSheetDialogFragment
 import io.reactivex.annotations.NonNull
-import kotlinx.android.synthetic.main.fragment_logout.*
+import kotlinx.android.synthetic.main.fragment_user_loggedin.*
 
-class LogoutFragment : BottomSheetDialogFragment() {
+class UserLoggedInFragment : BaseBottomSheetDialogFragment() {
 
     companion object{
 
-        fun newInstance(): LogoutFragment {
-            val fragment = LogoutFragment()
+        fun newInstance(onButtonSwitchDeviceClickListener: OnButtonSwitchDeviceClickListener): UserLoggedInFragment {
+            val fragment = UserLoggedInFragment()
+            fragment.onButtonSwitchDeviceClickListener = onButtonSwitchDeviceClickListener
             val bundle = Bundle()
             fragment.arguments = bundle
             return fragment
         }
     }
 
+    private lateinit var onButtonSwitchDeviceClickListener: OnButtonSwitchDeviceClickListener
+
+    override val layoutResource: Int = R.layout.fragment_user_loggedin
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setStyle(R.style.AppBottomSheetDialogTheme, R.style.AppTheme)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun initLib() {
 
-        return inflater.inflate(R.layout.fragment_logout, container, false)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        dialog?.setCancelable(false)
-        dialog?.setCanceledOnTouchOutside(false)
+    override fun initIntent() {
 
-        btnLogout.setOnClickListener {
-            logout()
+    }
+
+    override fun initUI() {
+
+    }
+
+    override fun initAction() {
+        dialog?.setCancelable(true)
+        dialog?.setCanceledOnTouchOutside(true)
+
+        btnSwitchDevice.setOnClickListener {
+            dismiss()
+            onButtonSwitchDeviceClickListener.onButtonSwitchDeviceClicked()
         }
+    }
+
+    override fun initProcess() {
+
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -85,23 +95,7 @@ class LogoutFragment : BottomSheetDialogFragment() {
         }
     }
 
-
-    private fun logout() {
-        btnLogout.isEnabled = false
-        btnLogout.text = "Please wait..."
-
-        HumanIDAuth.getInstance().logout()
-                .addOnCompleteListener {
-                    if (it.isSuccessful){
-                        btnLogout.isEnabled = true
-                        btnLogout.text = "Logout"
-                        dismiss()
-                        showToast("You have successfully logout")
-                    }else{
-                        showToast("Logout failed")
-                    }
-                }.addOnFailureListener {
-                    showToast(it.message.toString())
-                }
+    interface OnButtonSwitchDeviceClickListener{
+        fun onButtonSwitchDeviceClicked()
     }
 }

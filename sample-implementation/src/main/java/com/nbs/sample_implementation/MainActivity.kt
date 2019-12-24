@@ -2,35 +2,26 @@ package com.nbs.sample_implementation
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.nbs.humanidui.presentation.main.MainDialogFragment
-import com.nbs.humanidui.presentation.welcome.WelcomeDialogFragment
+import com.nbs.humanidui.presentation.HumanIdUI
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), WelcomeDialogFragment.OnWelcomeDialogListener {
+class MainActivity : AppCompatActivity(){
+
+    private lateinit var humanIdUI: HumanIdUI
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        WelcomeDialogFragment.listener = this
-        showDialogWelcome()
+        humanIdUI = HumanIdUI(supportFragmentManager)
 
         btnOpenAuthLib.setOnClickListener {
-            showDialogWelcome()
+            humanIdUI.verifyLogin()
         }
     }
 
-    private fun showDialogWelcome(){
-        val welcomeDialogFragment = WelcomeDialogFragment.newInstance()
-        welcomeDialogFragment.show(supportFragmentManager, "test")
-    }
-
-    private fun showDialogMain(){
-        val mainDialogFragment = MainDialogFragment.newInstance()
-        mainDialogFragment.show(supportFragmentManager, "test")
-    }
-
-    override fun onButtonContinueClicked() {
-        showDialogMain()
+    override fun onBackPressed() {
+        humanIdUI.closeDialog()
+        super.onBackPressed()
     }
 }

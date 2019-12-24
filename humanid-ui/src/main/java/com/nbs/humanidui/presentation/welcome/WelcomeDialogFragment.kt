@@ -13,7 +13,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.humanid.auth.HumanIDAuth
 import com.nbs.humanidui.R
 import com.nbs.humanidui.presentation.main.MainDialogFragment
 import com.nbs.nucleo.utils.extensions.onClick
@@ -47,13 +46,12 @@ class WelcomeDialogFragment : BottomSheetDialogFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        dialog?.setCancelable(false)
-        dialog?.setCanceledOnTouchOutside(false)
+        dialog?.setCancelable(true)
+        dialog?.setCanceledOnTouchOutside(true)
 
         btnContinue.onClick {
-            dismiss()
+            dismissAllowingStateLoss()
             listener?.onButtonContinueClicked()
-            showMainDialog()
         }
     }
 

@@ -64,21 +64,16 @@ class OtpFragment : ReactiveFormFragment() {
         when (otpType) {
             LoginType.NEW_ACCOUNT.type -> {
                 val subMessage = getString(R.string.sub_message_new_accoun)
-                val phoneNumber = String.format(getString(R.string.format_phone_number), getString(R.string.sample_phone_number))
+                val phoneNumber = String.format(getString(R.string.format_phone_number), phoneNumber)
 
                 tvSubMessage.text = toHtml(subMessage + phoneNumber)
                 tvSwitchMessage.gone()
-
-                btnDifferentNumber.onClick {
-
-                }
             }
             LoginType.SWITCH_DEVICE.type -> {
                 tvSwitchMessage.gone()
                 tvTitle.text = getString(R.string.title_new_device)
                 tvMessage.text = getString(R.string.message_new_device)
                 tvSubMessage.text = getString(R.string.sub_message_new_device)
-                btnDifferentNumber.text = getString(R.string.action_call_me)
             }
             LoginType.SWITCH_NUMBER.type -> {
                 tvSwitchMessage.visible()
@@ -106,6 +101,10 @@ class OtpFragment : ReactiveFormFragment() {
 
         btnResendCode.onClick {
 
+        }
+
+        btnDifferentNumber.onClick {
+            listener?.onButtonDifferentNumberClicked(type = otpType)
         }
     }
 
@@ -151,7 +150,7 @@ class OtpFragment : ReactiveFormFragment() {
     }
 
     interface OnOtpListener {
-        fun onButtonDifferentNumberClicked()
+        fun onButtonDifferentNumberClicked(type: String)
         fun onOtpValidationSuccess(type: String, otpCode: String, phoneNumber: String)
     }
 }

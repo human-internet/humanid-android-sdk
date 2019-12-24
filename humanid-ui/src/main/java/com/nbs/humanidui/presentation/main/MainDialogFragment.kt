@@ -11,26 +11,21 @@ import android.util.DisplayMetrics
 import android.view.KeyEvent
 import android.view.KeyEvent.ACTION_UP
 import androidx.annotation.RequiresApi
-import androidx.fragment.app.Fragment
 import com.human.android.util.extensions.replaceFragment
 import com.humanid.auth.HumanIDAuth
-import com.humanid.auth.HumanIDUser
 import com.nbs.humanidui.R
 import com.nbs.humanidui.base.BaseBottomSheetDialogFragment
-import com.nbs.humanidui.presentation.logout.LogoutFragment
 import com.nbs.humanidui.presentation.otp.OtpFragment
 import com.nbs.humanidui.presentation.phonenumber.PhoneNumberFragment
 import com.nbs.humanidui.presentation.phonenumberemail.PhoneNumberEmailFragment
 import com.nbs.humanidui.presentation.registeremail.RegisterEmailFragment
 import com.nbs.humanidui.presentation.termandcondition.TermsAndConditionFragment
+import com.nbs.humanidui.util.BundleKeys
+import com.nbs.humanidui.util.emptyString
 import com.nbs.humanidui.util.enum.LoginType
 import com.nbs.nucleo.utils.showToast
 import io.reactivex.annotations.NonNull
 
-
-/**
- * A simple [Fragment] subclass.
- */
 class MainDialogFragment : BaseBottomSheetDialogFragment(),
         RegisterEmailFragment.OnRegisterEmailListener,
         OtpFragment.OnOtpListener,
@@ -45,7 +40,17 @@ class MainDialogFragment : BaseBottomSheetDialogFragment(),
             fragment.arguments = bundle
             return fragment
         }
+
+        fun newInstance(loginType: String): MainDialogFragment {
+            val fragment = MainDialogFragment()
+            val bundle = Bundle()
+            bundle.putString(BundleKeys.KEY_LOGIN_TYPE, loginType)
+            fragment.arguments = bundle
+            return fragment
+        }
     }
+
+    private var loginType: String ?= emptyString()
 
     override val layoutResource: Int = R.layout.layout_bottomsheet_white_dialog
 
@@ -58,12 +63,16 @@ class MainDialogFragment : BaseBottomSheetDialogFragment(),
     }
 
     override fun initIntent() {
+        arguments?.let {
+            if (it.containsKey(BundleKeys.KEY_LOGIN_TYPE)){
+                loginType = it.getString(BundleKeys.KEY_LOGIN_TYPE)
+            }
+        }
     }
 
     override fun initUI() {
-        if (HumanIDAuth.getInstance().currentUser != null){
-            dismiss()
-            replaceFragment(R.id.flDialog, LogoutFragment.newInstance(), false)
+        if (!loginType.isNullOrEmpty()){
+            replaceFragment(R.id.flDialog, PhoneNumberFragment.newInstance(LoginType.SWITCH_DEVICE.type), false)
         }else{
             replaceFragment(R.id.flDialog, PhoneNumberFragment.newInstance(LoginType.NEW_ACCOUNT.type), false)
         }
@@ -110,7 +119,7 @@ class MainDialogFragment : BaseBottomSheetDialogFragment(),
     override fun onOtpValidationSuccess(type: String, otpCode: String, phoneNumber: String) {
         when (type) {
             LoginType.SWITCH_DEVICE.type ->
-                dismiss()
+                switchDevice(otpCode, phoneNumber)
             LoginType.SWITCH_NUMBER.type ->
                 replaceFragment(R.id.flDialog, PhoneNumberEmailFragment.newInstance(), false)
             LoginType.NORMAL.type ->
@@ -119,8 +128,29 @@ class MainDialogFragment : BaseBottomSheetDialogFragment(),
         }
     }
 
-    override fun onButtonDifferentNumberClicked() {
+    private fun switchDevice(otpCode: String, phoneNumber: String) {
+        showLoading()
+        HumanIDAuth.getInstance().currentUser?.userHash?.let {
+            HumanIDAuth.getInstance().updatePhone("62", phoneNumber, otpCode,
+                    it).addOnCompleteListener {
+                hideLoading()
+                dismiss()
+                if (it.isSuccessful){
+                    showToast("Switch Device Success")
+                }else{
+                    showToast("Switch Device Failed")
+                }
+            }.addOnFailureListener {
+                hideLoading()
+                dismiss()
+                showToast(it.message.toString())
+            }
+        }
+    }
 
+    override fun onButtonDifferentNumberClicked(otpType: String) {
+        loginType = otpType
+        initUI()
     }
 
     private fun verifyOtp(otpCode: String, phoneNumber: String){
@@ -129,33 +159,22 @@ class MainDialogFragment : BaseBottomSheetDialogFragment(),
                 .addOnCompleteListener {
                     hideLoading()
                     if (it.isSuccessful){
-                        checkLogin(it.result)
+                        it.result?.userHash?.let { it1 -> login(it1) }
                     }else{
                         showToast("Verify otp failed")
                     }
 
                 }.addOnFailureListener {
                     hideLoading()
-                    showToast(it.message.toString())
-                }
-    }
-
-    private fun checkLogin(result: HumanIDUser?) {
-        showLoading()
-        result?.let {
-            HumanIDAuth.getInstance().loginCheck(it.userHash)
-                    .addOnCompleteListener {task ->
-                        hideLoading()
-                        if (task.isSuccessful){
-                            login(result.userHash)
+                    it.message?.let {message ->
+                        if (message.contains("Existing login found on deviceId")){
+                            showToast("Login succeed")
+                            dismissAllowingStateLoss()
                         }else{
-                            showToast("Login Check Failed")
+                            showToast(message)
                         }
-                    }.addOnFailureListener {exception ->
-                        hideLoading()
-                        showToast(exception.message.toString())
                     }
-        }
+                }
     }
 
     private fun login(userHash: String){
@@ -164,13 +183,14 @@ class MainDialogFragment : BaseBottomSheetDialogFragment(),
                 .addOnCompleteListener {
                     hideLoading()
                     if (it.isSuccessful){
+                        dismissAllowingStateLoss()
                         showToast("Login succeed")
-                        dismiss()
                     }else{
                         showToast("Login failed")
                     }
                 }.addOnFailureListener {
                     hideLoading()
+                    dismissAllowingStateLoss()
                     showToast(it.message.toString())
                 }
     }
@@ -191,8 +211,8 @@ class MainDialogFragment : BaseBottomSheetDialogFragment(),
             LoginType.NEW_ACCOUNT.type -> {
                 replaceFragment(R.id.flDialog, OtpFragment.newInstance(LoginType.NEW_ACCOUNT.type, phoneNumber), true)
             }
-            LoginType.SWITCH_NUMBER.type -> {
-                replaceFragment(R.id.flDialog, OtpFragment.newInstance(LoginType.SWITCH_NUMBER.type), true)
+            LoginType.SWITCH_DEVICE.type -> {
+                replaceFragment(R.id.flDialog, OtpFragment.newInstance(LoginType.SWITCH_DEVICE.type, phoneNumber), true)
             }
         }
     }

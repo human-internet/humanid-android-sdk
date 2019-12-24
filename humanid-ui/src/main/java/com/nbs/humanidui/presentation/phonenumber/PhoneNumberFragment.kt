@@ -1,7 +1,6 @@
 package com.nbs.humanidui.presentation.phonenumber
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import com.human.android.util.ReactiveFormFragment
@@ -14,6 +13,7 @@ import com.nbs.humanidui.util.BundleKeys
 import com.nbs.humanidui.util.emptyString
 import com.nbs.humanidui.util.enum.LoginType
 import com.nbs.humanidui.util.makeLinks
+import com.nbs.nucleo.utils.Timber
 import com.nbs.nucleo.utils.extensions.gone
 import com.nbs.nucleo.utils.extensions.onClick
 import com.nbs.nucleo.utils.extensions.visible
@@ -81,8 +81,7 @@ class PhoneNumberFragment : ReactiveFormFragment() {
         btnEnter.onClick {
             when (loginType) {
                 LoginType.SWITCH_DEVICE.type -> {
-                    listener?.onButtonEnterClicked(LoginType.SWITCH_DEVICE.type,
-                            edtPhoneNumber.text.toString().trim())
+                    requestOtp()
                 }
                 LoginType.NEW_ACCOUNT.type -> {
                     requestOtp()
@@ -98,23 +97,35 @@ class PhoneNumberFragment : ReactiveFormFragment() {
         }
     }
 
+    private fun enableViews(isEnabled: Boolean){
+        btnEnter.text = if(isEnabled) "Enter" else "Processing"
+        btnEnter.isEnabled = isEnabled
+        edtPhoneNumber.isEnabled = isEnabled
+        spinnerCodeNumber.isEnabled = isEnabled
+    }
+
     private fun requestOtp(){
-        showLoading()
+        enableViews(false)
         val phoneNumber: String = edtPhoneNumber.text.toString().trim()
         val task = HumanIDAuth.getInstance().requestOTP("62", phoneNumber)
         task.addOnCompleteListener {
             if (it.isSuccessful){
-                hideLoading()
-                listener?.onButtonEnterClicked(LoginType.NEW_ACCOUNT.type,
-                        edtPhoneNumber.text.toString().trim())
+                enableViews(true)
+                if (loginType == LoginType.SWITCH_DEVICE.type){
+                    listener?.onButtonEnterClicked(LoginType.SWITCH_DEVICE.type,
+                            edtPhoneNumber.text.toString().trim())
+                }else{
+                    listener?.onButtonEnterClicked(LoginType.NEW_ACCOUNT.type,
+                            edtPhoneNumber.text.toString().trim())
+                }
             }else{
-                hideLoading()
+                enableViews(true)
                 showToast("Request otp failed")
             }
         }
         task.addOnFailureListener {
-            hideLoading()
-            Log.d("test", it.message)
+            enableViews(true)
+            Timber.debug{it.message.toString()}
             showToast(it.message.toString())
         }
     }
@@ -150,7 +161,7 @@ class PhoneNumberFragment : ReactiveFormFragment() {
         } else {
             containerTopNormal.visible()
             containerTopSwitch.gone()
-            btnTransfer.visible()
+            btnTransfer.gone()
             mcvAd.visible()
         }
     }

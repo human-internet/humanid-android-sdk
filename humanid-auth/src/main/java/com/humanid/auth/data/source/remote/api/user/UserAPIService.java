@@ -8,15 +8,16 @@ import com.humanid.auth.data.source.remote.api.user.login.LoginRequest;
 import com.humanid.auth.data.source.remote.api.user.login.LoginResponse;
 import com.humanid.auth.data.source.remote.api.user.login.check.CheckLoginResponse;
 import com.humanid.auth.data.source.remote.api.user.otp.OTPRequest;
+import com.humanid.auth.data.source.remote.api.user.otp.OTPResponse;
 import com.humanid.auth.data.source.remote.api.user.register.RegisterRequest;
 import com.humanid.auth.data.source.remote.api.user.register.RegisterResponse;
-import com.humanid.auth.data.source.remote.api.user.otp.OTPResponse;
 import com.humanid.auth.data.source.remote.api.user.update.UpdateRequest;
 import com.humanid.auth.data.source.remote.api.user.update.UpdateResponse;
 import com.humanid.auth.data.source.remote.api.user.updatephone.UpdatePhoneRequest;
 import com.humanid.auth.data.source.remote.api.user.updatephone.UpdatePhoneResponse;
 
 import retrofit2.http.Body;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Query;
@@ -36,7 +37,7 @@ public interface UserAPIService {
     LiveData<APIResponse<LoginResponse>> login(@Body LoginRequest request);
 
     @NonNull
-    @POST("users/login")
+    @GET("users/login")
     LiveData<APIResponse<CheckLoginResponse>> checkLogin(
             @Query("hash") String userHash, @Query("appId") String applicationID,
             @Query("appSecret") String applicationSecret);
@@ -46,6 +47,6 @@ public interface UserAPIService {
     LiveData<APIResponse<UpdateResponse>> update(@Body UpdateRequest request);
 
     @NonNull
-    @PUT("users/updatePhone")
+    @POST("users/updatePhone")
     LiveData<APIResponse<UpdatePhoneResponse>> updatePhone(@Body UpdatePhoneRequest request);
 }

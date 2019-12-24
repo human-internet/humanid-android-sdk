@@ -162,7 +162,8 @@
                 android:gravity="center"
                 android:padding="@dimen/dimen_4dp"
                 android:text="@string/action_transfer_account_number"
-                android:textSize="@dimen/text_size_10sp" />
+                android:textSize="@dimen/text_size_10sp"
+                android:visibility="gone"/>
 
         </LinearLayout>
 

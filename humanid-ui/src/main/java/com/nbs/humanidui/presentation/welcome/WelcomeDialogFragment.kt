@@ -46,20 +46,11 @@ class WelcomeDialogFragment : BottomSheetDialogFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        dialog?.setCancelable(true)
-        dialog?.setCanceledOnTouchOutside(true)
 
         btnContinue.onClick {
             dismissAllowingStateLoss()
             listener?.onButtonContinueClicked()
         }
-    }
-
-    private fun showMainDialog(){
-        val mainDialogFragment = MainDialogFragment.newInstance()
-        mainDialogFragment.show(
-                childFragmentManager, mainDialogFragment.tag
-        )
     }
 
     interface OnWelcomeDialogListener {

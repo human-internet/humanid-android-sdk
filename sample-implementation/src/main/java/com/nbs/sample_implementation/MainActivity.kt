@@ -2,26 +2,26 @@ package com.nbs.sample_implementation
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.nbs.humanidui.presentation.HumanIdUI
+import com.nbs.humanidui.presentation.HumanIDUI
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(){
 
-    private lateinit var humanIdUI: HumanIdUI
+    private lateinit var humanIDUI: HumanIDUI
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        humanIdUI = HumanIdUI(supportFragmentManager)
+        humanIDUI = HumanIDUI(supportFragmentManager)
 
         btnOpenAuthLib.setOnClickListener {
-            humanIdUI.verifyLogin()
+            humanIDUI.verifyLogin()
         }
     }
 
     override fun onDestroy() {
-        humanIdUI.closeDialog()
+        humanIDUI.closeDialog()
         super.onDestroy()
     }
 }

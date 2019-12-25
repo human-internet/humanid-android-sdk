@@ -31,14 +31,14 @@
             android:gravity="center_horizontal"
             android:orientation="vertical">
 
-            <androidx.appcompat.widget.AppCompatTextView
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imgAppIcon"
                 style="@style/HumanIdTextView.Medium.White"
-                android:layout_width="@dimen/dimen_40dp"
-                android:layout_height="@dimen/dimen_40dp"
+                android:layout_width="@dimen/dimen_50dp"
+                android:layout_height="@dimen/dimen_50dp"
                 android:layout_marginTop="@dimen/dimen_20dp"
                 android:background="@drawable/circle_gradient"
                 android:gravity="center"
-                android:text="@string/label_mdb"
                 android:textSize="@dimen/text_size_13sp" />
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -57,6 +57,7 @@
                 android:layout_marginTop="@dimen/dimen_16dp"/>
 
             <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvTnC"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/HumanIdTextView.Medium.LightMustard"

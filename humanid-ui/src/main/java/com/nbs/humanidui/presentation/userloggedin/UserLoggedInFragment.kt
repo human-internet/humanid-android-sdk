@@ -1,4 +1,4 @@
-package com.nbs.humanidui.presentation.logout
+package com.nbs.humanidui.presentation.userloggedin
 
 
 import android.app.Dialog
@@ -11,6 +11,8 @@ import android.util.DisplayMetrics
 import androidx.annotation.RequiresApi
 import com.nbs.humanidui.R
 import com.nbs.humanidui.base.BaseBottomSheetDialogFragment
+import com.nbs.humanidui.presentation.HumanIDOptions
+import com.nbs.nucleo.utils.extensions.visible
 import io.reactivex.annotations.NonNull
 import kotlinx.android.synthetic.main.fragment_user_loggedin.*
 
@@ -45,7 +47,20 @@ class UserLoggedInFragment : BaseBottomSheetDialogFragment() {
     }
 
     override fun initUI() {
+        context?.let {
+            val humanIDOptions = HumanIDOptions.fromResource(it)
+            if (humanIDOptions?.applicationIcon != -1){
+                humanIDOptions?.applicationIcon?.let { it1 ->
+                    imgAppIcon.visible()
+                    imgAppIcon.setImageResource(it1)
+                }
+            }
 
+            if (!humanIDOptions?.applicationName.isNullOrEmpty()){
+                tvTnC.visible()
+                tvTnC.text = "I agree to ${humanIDOptions?.applicationName} Terms of Service"
+            }
+        }
     }
 
     override fun initAction() {

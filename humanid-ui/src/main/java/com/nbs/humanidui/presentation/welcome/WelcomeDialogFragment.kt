@@ -1,6 +1,5 @@
 package com.nbs.humanidui.presentation.welcome
 
-
 import android.app.Dialog
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
@@ -12,10 +11,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.nbs.humanidui.R
-import com.nbs.humanidui.presentation.main.MainDialogFragment
+import com.nbs.humanidui.presentation.HumanIDOptions
 import com.nbs.nucleo.utils.extensions.onClick
+import com.nbs.nucleo.utils.extensions.visible
 import io.reactivex.annotations.NonNull
 import kotlinx.android.synthetic.main.fragment_dialog_welcome.*
 
@@ -46,6 +47,23 @@ class WelcomeDialogFragment : BottomSheetDialogFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+        context?.let {
+            val humanIDOptions = HumanIDOptions.fromResource(it)
+            if (humanIDOptions?.applicationIcon != -1){
+                humanIDOptions?.applicationIcon?.let { it1 ->
+                    imgAppIcon.visible()
+                    imgAppIcon.setImageDrawable(ContextCompat.getDrawable(it, it1))
+                }
+            }
+
+            if (!humanIDOptions?.applicationName.isNullOrEmpty()){
+                tvAppName.visible()
+                tvTnC.visible()
+                tvAppName.text = humanIDOptions?.applicationName
+                tvTnC.text = "I agree to ${humanIDOptions?.applicationName} Terms of Service"
+            }
+        }
 
         btnContinue.onClick {
             dismissAllowingStateLoss()

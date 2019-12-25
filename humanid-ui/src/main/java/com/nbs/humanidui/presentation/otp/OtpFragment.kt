@@ -31,6 +31,13 @@ class OtpFragment : ReactiveFormFragment() {
 
     private var phoneNumber: String = emptyString()
 
+
+    //CountDownTimer
+    private var time: Timer
+    private var defaultTime: Long = 30000
+    private var timeLeft: Long = 0
+    private var isCountingFinished: Boolean = false
+
     private var countryCode: String = emptyString()
 
     //CountDownTimer

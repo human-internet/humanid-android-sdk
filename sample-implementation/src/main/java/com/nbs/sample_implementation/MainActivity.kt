@@ -20,8 +20,8 @@ class MainActivity : AppCompatActivity(){
         }
     }
 
-    override fun onBackPressed() {
+    override fun onDestroy() {
         humanIdUI.closeDialog()
-        super.onBackPressed()
+        super.onDestroy()
     }
 }

@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.Toast
 import com.human.android.util.ReactiveFormFragment
 import com.human.android.util.extensions.toHtml
+import com.humanid.auth.HumanIDAuth
 import com.nbs.humanidui.R
 import com.nbs.humanidui.util.BundleKeys
 import com.nbs.humanidui.util.emptyString
@@ -17,13 +18,7 @@ import com.nbs.nucleo.utils.extensions.onClick
 import com.nbs.nucleo.utils.extensions.visible
 import com.nbs.validacion.Validation
 import com.nbs.validacion.util.minMaxLengthRule
-import kotlinx.android.synthetic.main.fragment_otp.btnDifferentNumber
-import kotlinx.android.synthetic.main.fragment_otp.btnResendCode
-import kotlinx.android.synthetic.main.fragment_otp.edtOtp
-import kotlinx.android.synthetic.main.fragment_otp.tvMessage
-import kotlinx.android.synthetic.main.fragment_otp.tvSubMessage
-import kotlinx.android.synthetic.main.fragment_otp.tvSwitchMessage
-import kotlinx.android.synthetic.main.fragment_otp.tvTitle
+import kotlinx.android.synthetic.main.fragment_otp.*
 
 class OtpFragment : ReactiveFormFragment() {
 
@@ -33,18 +28,12 @@ class OtpFragment : ReactiveFormFragment() {
 
 
     //CountDownTimer
-    private var time: Timer
+    private var time: Timer ?= null
     private var defaultTime: Long = 30000
     private var timeLeft: Long = 0
     private var isCountingFinished: Boolean = false
 
     private var countryCode: String = emptyString()
-
-    //CountDownTimer
-    private var time: Timer
-    private var defaultTime: Long = 30000
-    private var timeLeft: Long = 0
-    private var isCountingFinished: Boolean = false
 
     companion object {
         private const val KEY_TIMER_STATE: String = "timer_state"
@@ -71,10 +60,6 @@ class OtpFragment : ReactiveFormFragment() {
         }
     }
 
-    init {
-        time = Timer(defaultTime)
-    }
-
     override val layoutResource: Int = R.layout.fragment_otp
 
     override fun initLib() {
@@ -92,7 +77,6 @@ class OtpFragment : ReactiveFormFragment() {
     override fun initUI() {
         setSpannableString()
         startCountDownTimer()
-
 
         when (otpType) {
             LoginType.NEW_ACCOUNT.type -> {
@@ -133,12 +117,31 @@ class OtpFragment : ReactiveFormFragment() {
         }
 
         btnResendCode.onClick {
-
+            resendOtp()
         }
 
         btnDifferentNumber.onClick {
+            cancelCountDownTimer()
             listener?.onButtonDifferentNumberClicked(type = otpType)
         }
+    }
+
+    private fun resendOtp() {
+        btnResendCode.isEnabled = false
+        btnResendCode.text = "Resending code"
+        HumanIDAuth.getInstance()
+                .requestOTP(countryCode, phoneNumber)
+                .addOnCompleteListener {
+                    btnResendCode.isEnabled = true
+                    if (it.isSuccessful){
+                        startCountDownTimer()
+                    }else{
+                        btnResendCode.text = "Resend code"
+                    }
+                }.addOnFailureListener {
+                    btnResendCode.text = "Resend code"
+                    btnResendCode.isEnabled = true
+                }
     }
 
     override fun initProcess() {
@@ -158,6 +161,9 @@ class OtpFragment : ReactiveFormFragment() {
 
     override fun onValidationSuccess() {
         val otpCode: String = edtOtp.text.toString().trim()
+
+        cancelCountDownTimer()
+
         when (otpType) {
             LoginType.SWITCH_NUMBER.type -> {
                 listener?.onOtpValidationSuccess(
@@ -201,17 +207,21 @@ class OtpFragment : ReactiveFormFragment() {
 
     private fun startCountDownTimer() {
         isCountingFinished = false
-        time.start()
+
+        time?.cancel()
+
+        time = Timer(defaultTime)
+        time?.start()
     }
 
     private fun continueCountDownTimer() {
         isCountingFinished = false
         time = Timer(timeLeft)
-        time.start()
+        time?.start()
     }
 
     private fun cancelCountDownTimer() {
-        time.cancel()
+        time?.cancel()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -225,9 +235,9 @@ class OtpFragment : ReactiveFormFragment() {
     }
 
     override fun onStop() {
-        super.onStop()
         cancelCountDownTimer()
         isCountingFinished = false
+        super.onStop()
     }
 
     override fun onResume() {
@@ -237,19 +247,22 @@ class OtpFragment : ReactiveFormFragment() {
 
     inner class Timer(milis: Long) : CountDownTimer(milis, COUNT_DOWN_TIMER_INTERVAL) {
         override fun onFinish() {
+            cancel()
         }
 
         override fun onTick(milisUntilFinished: Long) {
-            timeLeft = milisUntilFinished
-            val timeInSeconds = milisUntilFinished / COUNT_DOWN_TIMER_INTERVAL
-            btnResendCode.text = getString(R.string.action_resend_code_sec, timeInSeconds.toString())
-            btnResendCode.isClickable = false
-            debug { "Timer : $milisUntilFinished" }
-            if ((milisUntilFinished / COUNT_DOWN_TIMER_INTERVAL) == 0L) {
-                btnResendCode.text = getString(R.string.action_resend_code)
-                isCountingFinished = true
-                btnResendCode.isClickable = true
-            }
+           if (btnResendCode != null){
+               timeLeft = milisUntilFinished
+               val timeInSeconds = milisUntilFinished / COUNT_DOWN_TIMER_INTERVAL
+               btnResendCode.text = getString(R.string.action_resend_code_sec, timeInSeconds.toString())
+               btnResendCode.isClickable = false
+               debug { "Timer : $milisUntilFinished" }
+               if ((milisUntilFinished / COUNT_DOWN_TIMER_INTERVAL) == 0L) {
+                   btnResendCode.text = getString(R.string.action_resend_code)
+                   isCountingFinished = true
+                   btnResendCode.isClickable = true
+               }
+           }
         }
     }
 

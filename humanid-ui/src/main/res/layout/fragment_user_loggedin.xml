@@ -37,7 +37,6 @@
                 android:layout_width="@dimen/dimen_50dp"
                 android:layout_height="@dimen/dimen_50dp"
                 android:layout_marginTop="@dimen/dimen_20dp"
-                android:background="@drawable/circle_gradient"
                 android:gravity="center"
                 android:textSize="@dimen/text_size_13sp" />
 

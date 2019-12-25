@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.nbs.humanidui.R
 import com.nbs.nucleosnucleo.presentation.BaseActivity
 import com.nbs.nucleosnucleo.presentation.BaseView
 
@@ -25,6 +26,7 @@ abstract class BaseBottomSheetDialogFragment : BottomSheetDialogFragment(), Base
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(false)
+        setStyle(R.style.AppBottomSheetDialogTheme, R.style.AppTheme)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

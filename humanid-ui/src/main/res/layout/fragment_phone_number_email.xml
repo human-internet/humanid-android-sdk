@@ -41,45 +41,79 @@
                 android:textSize="@dimen/text_size_12sp" />
 
             <LinearLayout
-                android:id="@+id/containerInputNumberEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_18dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:orientation="vertical">
 
-                    <com.nbs.validacion.views.ValidacionSpinner
-                        android:id="@+id/spinnerCodeNumber"
-                        android:layout_width="match_parent"
+                    <com.hbb20.CountryCodePicker
+                        android:id="@+id/ccpPhoneNumber"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="0dp" />
+                        app:ccp_flagBorderColor="@color/colorAccent"
+                        app:ccpDialog_initialScrollToSelection="true"
+                        app:ccpDialog_keyboardAutoPopup="false"
+                        app:ccpDialog_showCloseIcon="true"
+                        app:ccpDialog_showFastScroller="false"
+                        app:ccpDialog_showFlag="false"
+                        app:ccpDialog_showPhoneCode="true"
+                        app:ccpDialog_showTitle="false"
+                        app:ccpDialog_textColor="#333333"
+                        app:ccp_arrowColor="#333333"
+                        app:ccp_arrowSize="16dp"
+                        app:ccp_clickable="true"
+                        app:ccp_contentColor="#333333"
+                        app:ccp_showArrow="true"
+                        app:ccp_showFlag="true"
+                        app:ccp_showNameCode="false"
+                        app:ccp_showPhoneCode="true"
+                        app:ccp_textGravity="RIGHT"
+                        app:ccp_textSize="14sp"
+                        app:ccp_autoDetectCountry="true"
+                        app:ccp_countryAutoDetectionPref="SIM_NETWORK_LOCALE"/>
 
                     <View
                         android:id="@+id/viewSpinner"
-                        android:layout_width="wrap_content"
-                        android:layout_height="@dimen/dimen_1dp"
-                        android:layout_marginStart="@dimen/dimen_4dp"
-                        android:background="@color/colorWarmGrey" />
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#40000000" />
 
                 </LinearLayout>
 
-                <androidx.appcompat.widget.AppCompatEditText
-                    android:id="@+id/edtPhoneNumber"
-                    style="@style/HumanIdTextView.GreyishBrown"
+                <LinearLayout
                     android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:hint="@string/hint_phone_number"
-                    android:imeOptions="actionNext"
-                    android:inputType="number"
-                    android:textSize="14sp"
-                    app:backgroundTint="@color/colorWarmGrey" />
+                    android:orientation="vertical"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginRight="4dp">
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/edtPhoneNumber"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/hint_phone_number"
+                        android:imeOptions="actionDone"
+                        android:inputType="phone"
+                        android:textSize="14sp"
+                        android:maxLength="12"
+                        android:background="@null"
+                        android:digits="1234567890"
+                        android:fontFamily="@font/roboto_regular"
+                        app:backgroundTint="#40000000"
+                        android:padding="8dp"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#40000000" />
+
+                </LinearLayout>
 
             </LinearLayout>
 

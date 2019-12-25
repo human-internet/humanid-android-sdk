@@ -1,8 +1,11 @@
 package com.nbs.humanidui.presentation.phonenumber
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import android.widget.Toast
+import androidx.core.content.res.ResourcesCompat
 import com.human.android.util.ReactiveFormFragment
 import com.human.android.util.extensions.isEnabled
 import com.humanid.auth.HumanIDAuth
@@ -21,11 +24,14 @@ import com.nbs.nucleo.utils.showToast
 import com.nbs.validacion.Validation
 import com.nbs.validacion.util.notEmptyRule
 import com.nbs.validacion.util.numberOnlyRule
+import com.nbs.validacion.util.onTextChange
 import kotlinx.android.synthetic.main.fragment_phone_number.*
 
 class PhoneNumberFragment : ReactiveFormFragment() {
 
     private var loginType = emptyString()
+    private var phoneNumber = emptyString()
+    private var countryCode = emptyString()
 
     companion object {
         var listener: OnPhoneNumberListener? = null
@@ -53,14 +59,10 @@ class PhoneNumberFragment : ReactiveFormFragment() {
     }
 
     override fun initUI() {
+        countryCode = ccpPhoneNumber.selectedCountryCode
         context?.let {
             initView()
             setSpannableString()
-
-            spinnerCodeNumber.adapter = SpinnerAdapter(
-                    it,
-                    getCodeNumberData()
-            )
         }
 
     }
@@ -87,11 +89,31 @@ class PhoneNumberFragment : ReactiveFormFragment() {
                     requestOtp()
                 }
                 LoginType.SWITCH_NUMBER.type -> {
+                    phoneNumber = countryCode + edtPhoneNumber.text.toString()
                     listener?.onButtonEnterClicked(LoginType.SWITCH_NUMBER.type,
-                            edtPhoneNumber.text.toString().trim())
+                            phoneNumber.trim())
                 }
                 else -> {
 
+                }
+            }
+        }
+
+        val typface = context?.let { ResourcesCompat.getFont(it, R.font.roboto_bold) }
+        ccpPhoneNumber.setTypeFace(typface)
+
+        ccpPhoneNumber.setOnCountryChangeListener {
+            countryCode = ccpPhoneNumber.selectedCountryCode
+        }
+
+        edtPhoneNumber.onTextChange {text->
+            text.let {
+                if (it.startsWith("0")) {
+                    if (it.isNotEmpty()) {
+                        edtPhoneNumber.setText(it.substring(1))
+                    } else {
+                        edtPhoneNumber.setText("")
+                    }
                 }
             }
         }
@@ -101,13 +123,12 @@ class PhoneNumberFragment : ReactiveFormFragment() {
         btnEnter.text = if(isEnabled) "Enter" else "Processing"
         btnEnter.isEnabled = isEnabled
         edtPhoneNumber.isEnabled = isEnabled
-        spinnerCodeNumber.isEnabled = isEnabled
     }
 
     private fun requestOtp(){
         enableViews(false)
         val phoneNumber: String = edtPhoneNumber.text.toString().trim()
-        val task = HumanIDAuth.getInstance().requestOTP("62", phoneNumber)
+        val task = HumanIDAuth.getInstance().requestOTP(countryCode, phoneNumber)
         task.addOnCompleteListener {
             if (it.isSuccessful){
                 enableViews(true)

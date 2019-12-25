@@ -1,8 +1,6 @@
 package com.nbs.humanidui.presentation.phonenumber
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.View
 import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
@@ -11,7 +9,6 @@ import com.human.android.util.extensions.isEnabled
 import com.humanid.auth.HumanIDAuth
 import com.nbs.humanidui.R
 import com.nbs.humanidui.domain.CodeNumber
-import com.nbs.humanidui.presentation.adapter.SpinnerAdapter
 import com.nbs.humanidui.util.BundleKeys
 import com.nbs.humanidui.util.emptyString
 import com.nbs.humanidui.util.enum.LoginType
@@ -90,8 +87,9 @@ class PhoneNumberFragment : ReactiveFormFragment() {
                 }
                 LoginType.SWITCH_NUMBER.type -> {
                     phoneNumber = countryCode + edtPhoneNumber.text.toString()
-                    listener?.onButtonEnterClicked(LoginType.SWITCH_NUMBER.type,
-                            phoneNumber.trim())
+                    listener?.onButtonEnterClicked(countryCode = countryCode,
+                            type = LoginType.SWITCH_NUMBER.type,
+                            phoneNumber = phoneNumber.trim())
                 }
                 else -> {
 
@@ -133,11 +131,13 @@ class PhoneNumberFragment : ReactiveFormFragment() {
             if (it.isSuccessful){
                 enableViews(true)
                 if (loginType == LoginType.SWITCH_DEVICE.type){
-                    listener?.onButtonEnterClicked(LoginType.SWITCH_DEVICE.type,
-                            edtPhoneNumber.text.toString().trim())
+                    listener?.onButtonEnterClicked(countryCode = countryCode,
+                            type = LoginType.SWITCH_DEVICE.type,
+                            phoneNumber = edtPhoneNumber.text.toString().trim())
                 }else{
-                    listener?.onButtonEnterClicked(LoginType.NEW_ACCOUNT.type,
-                            edtPhoneNumber.text.toString().trim())
+                    listener?.onButtonEnterClicked(countryCode = countryCode,
+                            type = LoginType.NEW_ACCOUNT.type,
+                            phoneNumber = edtPhoneNumber.text.toString().trim())
                 }
             }else{
                 enableViews(true)
@@ -222,7 +222,7 @@ class PhoneNumberFragment : ReactiveFormFragment() {
 
     interface OnPhoneNumberListener {
         fun onButtonCancelClicked(type: String)
-        fun onButtonEnterClicked(type: String, phoneNumber: String)
+        fun onButtonEnterClicked(countryCode: String, type: String, phoneNumber: String)
         fun onButtonTransferClicked()
     }
 

@@ -23,6 +23,8 @@ class OtpFragment : ReactiveFormFragment() {
 
     private var phoneNumber: String = emptyString()
 
+    private var countryCode: String = emptyString()
+
     companion object {
         var listener: OnOtpListener? = null
 
@@ -34,11 +36,12 @@ class OtpFragment : ReactiveFormFragment() {
             return fragment
         }
 
-        fun newInstance(type: String = LoginType.NORMAL.type, phoneNumber: String): OtpFragment {
+        fun newInstance(type: String = LoginType.NORMAL.type, countryCode: String, phoneNumber: String): OtpFragment {
             val fragment = OtpFragment()
             val bundle = Bundle()
             bundle.putString(BundleKeys.KEY_OTP_TYPE, type)
             bundle.putString(BundleKeys.KEY_PHONENUMBER, phoneNumber)
+            bundle.putString(BundleKeys.KEY_COUNTRY_CODE, countryCode)
             fragment.arguments = bundle
             return fragment
         }
@@ -54,6 +57,7 @@ class OtpFragment : ReactiveFormFragment() {
         arguments?.let {
             otpType = it.getString(BundleKeys.KEY_OTP_TYPE) ?: emptyString()
             phoneNumber = it.getString(BundleKeys.KEY_PHONENUMBER) ?: emptyString()
+            countryCode = it.getString(BundleKeys.KEY_COUNTRY_CODE) ?: emptyString()
         }
 
     }
@@ -64,7 +68,7 @@ class OtpFragment : ReactiveFormFragment() {
         when (otpType) {
             LoginType.NEW_ACCOUNT.type -> {
                 val subMessage = getString(R.string.sub_message_new_accoun)
-                val phoneNumber = String.format(getString(R.string.format_phone_number), phoneNumber)
+                val phoneNumber = String.format(getString(R.string.format_phone_number), countryCode+phoneNumber)
 
                 tvSubMessage.text = toHtml(subMessage + phoneNumber)
                 tvSwitchMessage.gone()
@@ -129,13 +133,25 @@ class OtpFragment : ReactiveFormFragment() {
         val otpCode: String = edtOtp.text.toString().trim()
         when (otpType) {
             LoginType.SWITCH_NUMBER.type -> {
-                listener?.onOtpValidationSuccess(LoginType.SWITCH_NUMBER.type, otpCode, phoneNumber)
+                listener?.onOtpValidationSuccess(
+                        type = LoginType.SWITCH_NUMBER.type,
+                        otpCode = otpCode,
+                        countryCode = countryCode,
+                        phoneNumber = phoneNumber)
             }
             LoginType.SWITCH_DEVICE.type -> {
-                listener?.onOtpValidationSuccess(LoginType.SWITCH_DEVICE.type, otpCode, phoneNumber)
+                listener?.onOtpValidationSuccess(
+                        type = LoginType.SWITCH_DEVICE.type,
+                        otpCode = otpCode,
+                        countryCode = countryCode,
+                        phoneNumber = phoneNumber)
             }
             else -> {
-                listener?.onOtpValidationSuccess(LoginType.NORMAL.type, otpCode, phoneNumber)
+                listener?.onOtpValidationSuccess(
+                        type = LoginType.NORMAL.type,
+                        otpCode = otpCode,
+                        countryCode = countryCode,
+                        phoneNumber = phoneNumber)
             }
         }
 
@@ -151,6 +167,6 @@ class OtpFragment : ReactiveFormFragment() {
 
     interface OnOtpListener {
         fun onButtonDifferentNumberClicked(type: String)
-        fun onOtpValidationSuccess(type: String, otpCode: String, phoneNumber: String)
+        fun onOtpValidationSuccess(type: String, otpCode: String, countryCode: String, phoneNumber: String)
     }
 }

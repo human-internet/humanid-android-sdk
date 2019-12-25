@@ -116,22 +116,26 @@ class MainDialogFragment : BaseBottomSheetDialogFragment(),
         replaceFragment(R.id.flDialog, TermsAndConditionFragment.newInstance(), true)
     }
 
-    override fun onOtpValidationSuccess(type: String, otpCode: String, phoneNumber: String) {
+    override fun onOtpValidationSuccess(type: String, otpCode: String, countryCode: String, phoneNumber: String) {
         when (type) {
             LoginType.SWITCH_DEVICE.type ->
-                switchDevice(otpCode, phoneNumber)
+                switchDevice(otpCode = otpCode,
+                        phoneNumber = phoneNumber,
+                        countryCode = countryCode)
             LoginType.SWITCH_NUMBER.type ->
                 replaceFragment(R.id.flDialog, PhoneNumberEmailFragment.newInstance(), false)
             LoginType.NORMAL.type ->
 //                replaceFragment(R.id.flDialog, RegisterEmailFragment.newInstance(LoginType.NORMAL.type), false)
-            verifyOtp(otpCode, phoneNumber)
+            verifyOtp(otpCode = otpCode,
+                    phoneNumber = phoneNumber,
+                    countryCode = countryCode)
         }
     }
 
-    private fun switchDevice(otpCode: String, phoneNumber: String) {
+    private fun switchDevice(otpCode: String, countryCode: String, phoneNumber: String) {
         showLoading()
         HumanIDAuth.getInstance().currentUser?.userHash?.let {
-            HumanIDAuth.getInstance().updatePhone("62", phoneNumber, otpCode,
+            HumanIDAuth.getInstance().updatePhone(countryCode.replace("+", "").trim(), phoneNumber, otpCode,
                     it).addOnCompleteListener {
                 hideLoading()
                 dismiss()
@@ -153,9 +157,9 @@ class MainDialogFragment : BaseBottomSheetDialogFragment(),
         initUI()
     }
 
-    private fun verifyOtp(otpCode: String, phoneNumber: String){
+    private fun verifyOtp(otpCode: String, countryCode: String, phoneNumber: String){
         showLoading()
-        HumanIDAuth.getInstance().register("62", phoneNumber, otpCode)
+        HumanIDAuth.getInstance().register(countryCode.replace("+", "").trim(), phoneNumber, otpCode)
                 .addOnCompleteListener {
                     hideLoading()
                     if (it.isSuccessful){
@@ -203,16 +207,20 @@ class MainDialogFragment : BaseBottomSheetDialogFragment(),
         replaceFragment(R.id.flDialog, PhoneNumberFragment.newInstance(LoginType.SWITCH_NUMBER.type), true)
     }
 
-    override fun onButtonEnterClicked(type: String, phoneNumber: String) {
+    override fun onButtonEnterClicked(countryCode: String, type: String, phoneNumber: String) {
         when (type) {
             LoginType.NORMAL.type -> {
                 replaceFragment(R.id.flDialog, OtpFragment.newInstance(LoginType.SWITCH_DEVICE.type), true)
             }
             LoginType.NEW_ACCOUNT.type -> {
-                replaceFragment(R.id.flDialog, OtpFragment.newInstance(LoginType.NEW_ACCOUNT.type, phoneNumber), true)
+                replaceFragment(R.id.flDialog, OtpFragment.newInstance(type = LoginType.NEW_ACCOUNT.type,
+                        phoneNumber = phoneNumber,
+                        countryCode = countryCode), true)
             }
             LoginType.SWITCH_DEVICE.type -> {
-                replaceFragment(R.id.flDialog, OtpFragment.newInstance(LoginType.SWITCH_DEVICE.type, phoneNumber), true)
+                replaceFragment(R.id.flDialog, OtpFragment.newInstance(type = LoginType.SWITCH_DEVICE.type,
+                        phoneNumber = phoneNumber,
+                        countryCode = countryCode), true)
             }
         }
     }

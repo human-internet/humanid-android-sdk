@@ -1,6 +1,7 @@
 package com.nbs.humanidui.presentation
 
 import androidx.fragment.app.FragmentManager
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.nbs.humanidui.presentation.logout.UserLoggedInFragment
 import com.nbs.humanidui.presentation.main.MainDialogFragment
 import com.nbs.humanidui.presentation.route.Route
@@ -15,10 +16,6 @@ class HumanIdUI(private val supportFragmentManager: FragmentManager): WelcomeDia
         WelcomeDialogFragment.listener = this
     }
 
-    private val welcomeDialogFragment = WelcomeDialogFragment.newInstance()
-
-    private val userLoggedInFragment = UserLoggedInFragment.newInstance(this)
-
     fun verifyLogin(){
         val route = Route()
         route.checkIsLoggedIn(onLoggedIn = {
@@ -31,10 +28,12 @@ class HumanIdUI(private val supportFragmentManager: FragmentManager): WelcomeDia
     }
 
     private fun showDialogWelcome(){
+        val welcomeDialogFragment = WelcomeDialogFragment.newInstance()
         welcomeDialogFragment.show(supportFragmentManager, WelcomeDialogFragment::class.java.simpleName)
     }
 
     private fun showDialogUserLoggedIn(){
+        val userLoggedInFragment = UserLoggedInFragment.newInstance(this)
         userLoggedInFragment.show(supportFragmentManager, UserLoggedInFragment::class.java.simpleName)
     }
 
@@ -53,12 +52,10 @@ class HumanIdUI(private val supportFragmentManager: FragmentManager): WelcomeDia
     }
 
     fun closeDialog(){
-        if (welcomeDialogFragment.isVisible){
-            welcomeDialogFragment.dismissAllowingStateLoss()
-        }
-
-        if (userLoggedInFragment.isVisible){
-            userLoggedInFragment.dismissAllowingStateLoss()
+        supportFragmentManager.fragments.forEach {
+            if (it is BottomSheetDialogFragment){
+                it.dismissAllowingStateLoss()
+            }
         }
     }
 

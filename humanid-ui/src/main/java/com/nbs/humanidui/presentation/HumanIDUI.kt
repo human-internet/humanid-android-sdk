@@ -2,14 +2,14 @@ package com.nbs.humanidui.presentation
 
 import androidx.fragment.app.FragmentManager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.nbs.humanidui.presentation.logout.UserLoggedInFragment
+import com.nbs.humanidui.presentation.userloggedin.UserLoggedInFragment
 import com.nbs.humanidui.presentation.main.MainDialogFragment
 import com.nbs.humanidui.presentation.route.Route
 import com.nbs.humanidui.presentation.welcome.WelcomeDialogFragment
 import com.nbs.humanidui.util.enum.LoginType
 import com.nbs.nucleo.utils.showToast
 
-class HumanIdUI(private val supportFragmentManager: FragmentManager): WelcomeDialogFragment.OnWelcomeDialogListener,
+class HumanIDUI(private val supportFragmentManager: FragmentManager): WelcomeDialogFragment.OnWelcomeDialogListener,
         UserLoggedInFragment.OnButtonSwitchDeviceClickListener {
 
     init {

@@ -31,21 +31,23 @@
             android:gravity="center_horizontal"
             android:orientation="vertical">
 
-            <androidx.appcompat.widget.AppCompatTextView
-                style="@style/HumanIdTextView.Medium.White"
-                android:layout_width="@dimen/dimen_40dp"
-                android:layout_height="@dimen/dimen_40dp"
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imgAppIcon"
+                android:layout_width="@dimen/dimen_50dp"
+                android:layout_height="@dimen/dimen_50dp"
                 android:layout_marginTop="@dimen/dimen_20dp"
-                android:background="@drawable/circle_gradient"
+                android:visibility="gone"
                 android:gravity="center"
                 android:text="@string/label_mdb"
                 android:textSize="@dimen/text_size_13sp" />
 
             <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvAppName"
                 style="@style/HumanIdTextView.Medium.White"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen_16dp"
+                android:visibility="gone"
                 android:text="@string/label_welcome"
                 android:textSize="@dimen/text_size_16sp" />
 
@@ -117,12 +119,14 @@
             </com.google.android.material.card.MaterialCardView>
 
             <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvTnC"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/HumanIdTextView.Medium.LightMustard"
                 android:textSize="@dimen/text_size_10sp"
                 android:text="@string/label_agreement"
                 android:layout_marginTop="@dimen/dimen_33dp"
+                android:visibility="gone"
                 android:layout_marginBottom="@dimen/dimen_16dp"/>
 
         </LinearLayout>

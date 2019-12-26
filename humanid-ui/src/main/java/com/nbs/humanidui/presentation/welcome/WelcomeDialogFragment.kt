@@ -66,7 +66,6 @@ class WelcomeDialogFragment : BottomSheetDialogFragment() {
         }
 
         btnContinue.onClick {
-            dismissAllowingStateLoss()
             listener?.onButtonContinueClicked()
         }
     }

@@ -2,9 +2,9 @@ package com.nbs.humanidui.presentation
 
 import androidx.fragment.app.FragmentManager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.nbs.humanidui.presentation.userloggedin.UserLoggedInFragment
 import com.nbs.humanidui.presentation.main.MainDialogFragment
 import com.nbs.humanidui.presentation.route.Route
+import com.nbs.humanidui.presentation.userloggedin.UserLoggedInFragment
 import com.nbs.humanidui.presentation.welcome.WelcomeDialogFragment
 import com.nbs.humanidui.util.enum.LoginType
 import com.nbs.nucleo.utils.showToast
@@ -28,6 +28,7 @@ class HumanIDUI(private val supportFragmentManager: FragmentManager): WelcomeDia
     }
 
     private fun showDialogWelcome(){
+        closeDialog()
         val welcomeDialogFragment = WelcomeDialogFragment.newInstance()
         welcomeDialogFragment.show(supportFragmentManager, WelcomeDialogFragment::class.java.simpleName)
     }
@@ -43,6 +44,7 @@ class HumanIDUI(private val supportFragmentManager: FragmentManager): WelcomeDia
     }
 
     override fun onButtonContinueClicked() {
+        closeDialog()
         showDialogMain()
     }
 

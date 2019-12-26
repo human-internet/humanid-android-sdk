@@ -127,12 +127,12 @@ class OtpFragment : ReactiveFormFragment() {
     }
 
     private fun resendOtp() {
-        btnResendCode.isEnabled = false
+        btnResendCode.isClickable = false
         btnResendCode.text = "Resending code"
         HumanIDAuth.getInstance()
                 .requestOTP(countryCode, phoneNumber)
                 .addOnCompleteListener {
-                    btnResendCode.isEnabled = true
+                    btnResendCode.isClickable = true
                     if (it.isSuccessful){
                         startCountDownTimer()
                     }else{
@@ -140,7 +140,7 @@ class OtpFragment : ReactiveFormFragment() {
                     }
                 }.addOnFailureListener {
                     btnResendCode.text = "Resend code"
-                    btnResendCode.isEnabled = true
+                    btnResendCode.isClickable = true
                 }
     }
 

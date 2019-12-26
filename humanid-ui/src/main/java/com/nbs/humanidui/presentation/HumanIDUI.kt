@@ -57,6 +57,7 @@ class HumanIDUI: WelcomeDialogFragment.OnWelcomeDialogListener,
     }
 
     override fun onButtonSwitchDeviceClicked() {
+        closeDialog()
         val mainDialogFragment = MainDialogFragment.newInstance(LoginType.SWITCH_DEVICE.type)
         supportFragmentManager?.let { mainDialogFragment.show(it, MainDialogFragment::class.java.simpleName) }
     }

@@ -55,7 +55,7 @@
     <string name="hint_enter_code">Enter your code</string>
     <string name="message_enter_old_number_email">Please enter your old number and email</string>
     <string name="hint_input_email">Your Email</string>
-    <string name="action_resend_code">Resend code in 00 : 28</string>
+    <string name="action_resend_code">Resend code</string>
     <string name="message_send_otp">We just sent a text to +1 999-999-999. We will not save or forward this number after the verification</string>
     <string name="message_enter_4_digits">Please enter the 4 digit code you received as SMS</string>
     <string name="action_call_me_instead">Call me Instead</string>

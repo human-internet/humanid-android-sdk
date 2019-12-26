@@ -20,16 +20,16 @@
             android:gravity="center"
             android:orientation="horizontal">
 
-            <androidx.appcompat.widget.AppCompatTextView
+            <androidx.appcompat.widget.AppCompatImageView
                 style="@style/HumanIdTextView.Medium.White"
+                android:id="@+id/imgAppIcon"
                 android:layout_width="@dimen/dimen_40dp"
                 android:layout_height="@dimen/dimen_40dp"
-                android:background="@drawable/circle_gradient"
                 android:gravity="center"
-                android:text="@string/label_mdb"
                 android:textSize="@dimen/text_size_13sp" />
 
             <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvMessage"
                 style="@style/HumanIdTextView.BlackColor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

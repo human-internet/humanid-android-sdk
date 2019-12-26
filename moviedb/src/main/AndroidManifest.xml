@@ -39,13 +39,17 @@
             android:name="com.humanid.sdk.applicationName"
             android:value="@string/app_name"/>
 
-        <activity android:name=".activity.FavoriteActivity"/>
-        <activity android:name=".activity.ProfileActivity" />
-        <activity android:name=".activity.ReviewActivity" />
+        <activity android:name=".activity.FavoriteActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.ProfileActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.ReviewActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.MainActivity"
             android:configChanges="orientation|screenSize"
-            android:launchMode="singleTop">
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -56,9 +60,11 @@
             android:name=".activity.MovieDetailActivity"
             android:configChanges="orientation|screenSize"
             android:parentActivityName=".activity.MainActivity"
-            android:theme="@style/AppTheme.TranslucentStatusBar">
+            android:theme="@style/AppTheme.TranslucentStatusBar"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".activity.SettingActivity" />
+        <activity android:name=".activity.SettingActivity"
+            android:screenOrientation="portrait"/>
 
         <provider
             android:name=".provider.MoviesProvider"

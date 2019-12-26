@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
     private void setUpAvatar() {
         int avatar = 0;
         if (HumanIDUI.Companion.getInstance().isLoggedIn()){
-            avatar = R.drawable.avatar;
+            avatar = R.drawable.wolverine;
         }else{
             avatar = R.drawable.ic_person_black_24dp;
         }

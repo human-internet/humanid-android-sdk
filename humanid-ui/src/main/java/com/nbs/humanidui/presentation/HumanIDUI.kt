@@ -2,15 +2,19 @@ package com.nbs.humanidui.presentation
 
 import androidx.fragment.app.FragmentManager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.humanid.auth.HumanIDAuth
 import com.nbs.humanidui.presentation.main.MainDialogFragment
 import com.nbs.humanidui.presentation.route.Route
 import com.nbs.humanidui.presentation.userloggedin.UserLoggedInFragment
 import com.nbs.humanidui.presentation.welcome.WelcomeDialogFragment
+import com.nbs.humanidui.util.SingletonHolder
 import com.nbs.humanidui.util.enum.LoginType
 import com.nbs.nucleo.utils.showToast
 
 class HumanIDUI(private val supportFragmentManager: FragmentManager): WelcomeDialogFragment.OnWelcomeDialogListener,
         UserLoggedInFragment.OnButtonSwitchDeviceClickListener {
+
+    companion object: SingletonHolder<HumanIDUI, FragmentManager>(::HumanIDUI)
 
     init {
         WelcomeDialogFragment.listener = this
@@ -61,4 +65,5 @@ class HumanIDUI(private val supportFragmentManager: FragmentManager): WelcomeDia
         }
     }
 
+    fun isLoggedIn(): Boolean = HumanIDAuth.getInstance().currentUser != null
 }

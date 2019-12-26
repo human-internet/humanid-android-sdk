@@ -1,0 +1,137 @@
+<resources>
+    <string name="app_name">Movie Catalogue</string>
+    <string name="label_search">Cari</string>
+    <string name="hint_search_movie">Cari Film</string>
+    <string name="label_search_not_found">Pencarian tidak ketemu</string>
+    <string name="label_movies_not_found">Film tidak ketemu</string>
+    <string name="label_no_internet_connection">Tidak ada koneksi internet</string>
+    <string name="label_synopsis">Sinopsis</string>
+    <string name="label_release_date">Tanggal rilis:</string>
+    <string name="label_language">Bahasa</string>
+    <string name="label_genre">Genre:</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_settings">Pengaturan</string>
+    <string name="label_movie_poster">Poster Film</string>
+    <string name="label_now_playing">Sedang Tayang</string>
+    <string name="label_upcoming_movies">Segera Tayang</string>
+    <string name="action_search">Cari</string>
+    <string name="label_setting">Pengaturan</string>
+    <string name="label_search_result">Hasil Pencarian</string>
+    <string name="label_notification">Notifikasi</string>
+    <string name="label_upcoming_reminder_notification">Notifikasi pengingat film segera tayang</string>
+    <string name="label_turn_on_off_upcoming_reminder">Atur Notifikasi pengingat film segera tayang</string>
+    <string name="label_change_language">Ganti Bahasa</string>
+    <string name="label_notif_message"> sudah rilis!</string>
+    <string name="add_widget">Tambah Widget</string>
+    <string name="appwidget_text">Film Favoritmu</string>
+    <string name="empty_text">Tidak ada Data</string>
+    <string name="label_added_to_favourite">Ditambahkan kefavorit</string>
+    <string name="label_daily_reminder_notification">Notifikasi Pengingat Harian</string>
+    <string name="label_empty_favorite_movies">Tidak ada Film Favorit</string>
+    <string name="label_failed_to_load_data">Gagal untuk memuat data</string>
+    <string name="label_favourite">Film favoritku</string>
+    <string name="label_favourite_movie">Film Favorit</string>
+    <string name="label_turn_on_off_daily_reminder">Atur notifikasi pengingat harian</string>
+    <string name="message_error_load_data">Tidak dapat memuat data</string>
+    <string name="label_removed_from_favourite">Dibuang dari favorit</string>
+    <string name="label_off">Tidak Aktif</string>
+    <string name="label_on">Aktif</string>
+
+    <string name="label_mdb">mdb.</string>
+    <string name="label_welcome">Welcome to Movie DB</string>
+    <string name="label_continue_with">Continue With</string>
+    <string name="label_recommended_full_privacy">( recommended for full privacy)</string>
+    <string name="label_agreement">I agree to Movie DB Terms of Service</string>
+    <string name="label_verify_your_phone_number">Verify your phone number to connect anonymously with Movie DB</string>
+    <string name="hint_phone_number">Your Phone Number</string>
+    <string name="message_otp_verification"><![CDATA[OTP verification is managed by an independent 3rd party. Number & fingerprints are never visible to humanID or Movie DB. Learn More]]></string>
+    <string name="action_cancel">Cancel</string>
+    <string name="action_transfer_account_number">Transfer account to new number?</string>
+    <string name="message_manage_and_monitor_login"><![CDATA[Manage & Monitor all your logins & data with humanID]]></string>
+    <string name="message_humanid_description"><![CDATA[humanID is the independent & open online ID - giving back privacy, and the internet, to humans. Learn About Our Mission]]></string>
+    <string name="title_switching_number">Switching Number</string>
+    <string name="message_switch_number">Let’s transfer your humanID to a new number. First , let’s verify your new phone number</string>
+    <string name="hint_enter_code">Enter your code</string>
+    <string name="message_enter_old_number_email">Please enter your old number and email</string>
+    <string name="hint_input_email">Your Email</string>
+    <string name="action_resend_code">Resend code in 00 : 28</string>
+    <string name="message_send_otp">We just sent a text to +1 999-999-999. We will not save or forward this number after the verification</string>
+    <string name="message_enter_4_digits">Please enter the 4 digit code you received as SMS</string>
+    <string name="action_call_me_instead">Call me Instead</string>
+    <string name="message_sign_all">This will sign you out of all sessions across all devices</string>
+    <string name="message_send_confirmation_email">We sent confirmation code  to email, please click link or enter code:</string>
+    <string name="label_learn_about_out_mission">Learn About Our Mission</string>
+    <string name="label_missing_you">missing you</string>
+
+    //Label
+    <string name="label_success">Success</string>
+
+    //Hint
+    <string name="hint_email">Your email address</string>
+
+    //Action
+    <string name="action_different_number">Try different number</string>
+    <string name="action_save">Save</string>
+    <string name="action_skip_email"><![CDATA[Skip & Risk of losing your account]]></string>
+    <string name="action_close_and_return"><![CDATA[close & Return to Movie DB]]></string>
+    <string name="action_call_me">Call me instead</string>
+    <string name="action_create_new_account">Create new account</string>
+    <string name="action_recover_account">REcover account from  my old number</string>
+    <string name="action_return">Return to movie db</string>
+    <string name="action_wrong_account">This is a new number - this is not my account</string>
+    <string name="action_enter">Enter</string>
+    <string name="label_about_humanid"><![CDATA[humanID is the independent & open online ID - giving back privacy, and the internet, to humans. Learn About Our Mission]]></string>
+    <string name="label_warning_logout">This will sign you out of all sessions across all devices</string>
+
+    //Title
+    <string name="title_register_number">Create a new Account</string>
+    <string name="title_register_email">For Your Security</string>
+    <string name="title_new_device">New Device</string>
+    <string name="title_change_number">Phone number has been change</string>
+    <string name="title_otp_expired">Last Step - For Your Security</string>
+    <string name="title_switch_number">Switching Number</string>
+
+    //Message
+    <string name="message_register_number"><![CDATA[Welcome to humanID - the private & non-profit sign in. Register now by securely confirming your phone number. It will never be saved to humanID or partner platforms.]]></string>
+    <string name="message_register_email">Please enter your email address to recover access in case you lose your phone number</string>
+    <string name="message_email_dialog">&lt;b&gt;Confirmation: &lt;/b&gt; &lt;br /&gt;Yes, I can access and recall</string>
+    <string name="message_new_device">We don’t recognize your device - please verify your number</string>
+    <string name="message_change_number">The phone number on your account has been successfully changed and encrypted. You can now again login to your previous accounts across all services.</string>
+    <string name="message_otp_expired">To make sure we got the right account, please type your email address</string>
+    <string name="message_register_number_dialog">Understood, so you did not previously use humanID with</string>
+
+    //Sub Message
+    <string name="sub_message_email_dialog">In case I have to recover my humanID login in the future</string>
+    <string name="sub_message_register_number">Please enter the 4 digit code you received as SMS to +1 617 999 9999</string>
+    <string name="sub_message_register_email">Ensure to enter an address you can access and remember! Only a non-readable encryption will be saved</string>
+    <string name="sub_message_new_device">Please enter the 4 digit code you received as SMS</string>
+    <string name="sub_message_new_accoun">Please enter the 4 digit code you received as SMS to</string>
+    <string name="sub_message_register_dialog">Let’s get your setup:</string>
+
+    //Format
+    <string name="format_phone_number"><![CDATA[<font color=\'#075070\'><b> %s</b></font>]]></string>
+    <string name="format_phone_number_dialog">&lt;font color=&quot;#075070&quot;&gt; %s&lt;/font&gt;</string>
+
+    //Error
+    <string name="error_field_required">Field Required</string>
+    <string name="error_email_format">Enter a valid email</string>
+    <string name="error_number_format">Please enter numbers</string>
+    <string name="error_length">Input code correctly</string>
+    <string name="action_try_again">Try again in 00 : 28</string>
+    <string name="label_are_you_sure">Are you sure?</string>
+    <string name="message_cannot_recover_account">Without your email address, we cannot recover your accounts in case you lose access to your phone number , or don’t use your humanID for more than 90 days.</string>
+    <string name="message_provide_email">When you provide your email, we don’t keep it. we only save a non-readable encryption. Imagine the email address as your keys - we only borrow it to build a “lock” that only you can open</string>
+    <string name="label_dont_trust_us">Don’t trust us? You don’t have to!</string>
+    <string name="message_nonprofit_foundation">We are a nonprofit foundation with no financial interest in your data. Our software is open source, for everyone to look at, and verified by industrial specialists. Your data is never safed on our servers , or handed to our partner platforms</string>
+    <string name="action_learn_more_humanid">Learn more about humanID</string>
+    <string name="action_back">back</string>
+    <string name="message_send_otp_switch">We just sent a text to +1 999-999-999. We will not save or forward this number after the verification</string>
+    <string name="message_enter_otp_switch">Please enter the 4 digit code you received as SMS</string>
+    <string name="message_email_confirmation_code">We sent confirmation code  to email, please click link or enter code:</string>
+    <string name="message_warning_sign_out_all_session">This will sign you out of all sessions across all devices</string>
+    <string name="label_learn_more">Learn More</string>
+    <string name="hint_enter_your_code">Enter your code</string>
+    <string name="hint_search">Cari disini</string>
+    <string name="action_logout">Keluar</string>
+</resources>

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Movie Catalogue</string>
+    <string name="app_name">MovieDB</string>
     <string name="label_search">Cari</string>
     <string name="hint_search_movie">Cari Film</string>
     <string name="label_search_not_found">Pencarian tidak ketemu</string>

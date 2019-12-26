@@ -37,7 +37,7 @@
             android:resource="@drawable/app_icon"/>
         <meta-data
             android:name="com.humanid.sdk.applicationName"
-            android:value="MovieDB"/>
+            android:value="@string/app_name"/>
 
         <activity android:name=".activity.FavoriteActivity"/>
         <activity android:name=".activity.ProfileActivity" />
@@ -57,9 +57,6 @@
             android:configChanges="orientation|screenSize"
             android:parentActivityName=".activity.MainActivity"
             android:theme="@style/AppTheme.TranslucentStatusBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activity.MainActivity" />
         </activity>
         <activity android:name=".activity.SettingActivity" />
 

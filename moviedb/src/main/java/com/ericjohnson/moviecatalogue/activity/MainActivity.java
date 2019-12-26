@@ -9,14 +9,16 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 
-import androidx.annotation.MainThread;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
+
 import com.bumptech.glide.Glide;
 import com.ericjohnson.moviecatalogue.R;
 import com.ericjohnson.moviecatalogue.adapter.ViewPagerAdapter;
 import com.google.android.material.tabs.TabLayout;
+import com.nbs.humanidui.presentation.HumanIDUI;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -44,10 +46,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        Glide.with(this)
-                .load(R.drawable.avatar)
-                .into(imgProfile);
-
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), this);
         vpMain.setAdapter(viewPagerAdapter);
         tabMain.setupWithViewPager(vpMain);
@@ -55,10 +53,31 @@ public class MainActivity extends AppCompatActivity {
         imgProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent profileIntent = new Intent(MainActivity.this,  ProfileActivity.class);
-                startActivity(profileIntent);
+//                Intent profileIntent = new Intent(MainActivity.this,  ProfileActivity.class);
+//                startActivity(profileIntent);
+                HumanIDUI.Companion.getInstance()
+                        .verifyLogin(getSupportFragmentManager());
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setUpAvatar();
+    }
+
+    private void setUpAvatar() {
+        int avatar = 0;
+        if (HumanIDUI.Companion.getInstance().isLoggedIn()){
+            avatar = R.drawable.avatar;
+        }else{
+            avatar = R.drawable.ic_person_black_24dp;
+        }
+
+        Glide.with(this)
+                .load(avatar)
+                .into(imgProfile);
     }
 
     @Override

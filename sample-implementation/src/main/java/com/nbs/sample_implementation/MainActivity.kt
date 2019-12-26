@@ -7,21 +7,17 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(){
 
-    private lateinit var humanIDUI: HumanIDUI
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        humanIDUI = HumanIDUI(supportFragmentManager)
-
         btnOpenAuthLib.setOnClickListener {
-            humanIDUI.verifyLogin()
+            HumanIDUI.getInstance(supportFragmentManager).verifyLogin()
         }
     }
 
     override fun onDestroy() {
-        humanIDUI.closeDialog()
+        HumanIDUI.getInstance(supportFragmentManager).closeDialog()
         super.onDestroy()
     }
 }

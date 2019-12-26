@@ -52,12 +52,12 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static android.provider.BaseColumns._ID;
 import static com.ericjohnson.moviecatalogue.db.DatabaseContract.CONTENT_URI;
 import static com.ericjohnson.moviecatalogue.db.DatabaseContract.MoviesColumns.DESCRIPTION;
 import static com.ericjohnson.moviecatalogue.db.DatabaseContract.MoviesColumns.POSTER;
 import static com.ericjohnson.moviecatalogue.db.DatabaseContract.MoviesColumns.RELEASEDATE;
 import static com.ericjohnson.moviecatalogue.db.DatabaseContract.MoviesColumns.TITLE;
-import static com.ericjohnson.moviecatalogue.db.DatabaseContract.MoviesColumns._ID;
 
 public class MovieDetailActivity extends AppCompatActivity implements
         LoaderManager.LoaderCallbacks<MovieDetail> {
@@ -176,25 +176,32 @@ public class MovieDetailActivity extends AppCompatActivity implements
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!isFavourited) {
-                    ContentValues values = new ContentValues();
-                    values.put(_ID, id);
-                    values.put(TITLE, tvMovieTitle.getText().toString());
-                    values.put(POSTER, imageUrl);
-                    values.put(RELEASEDATE, releaseDate);
-                    values.put(DESCRIPTION, description);
+                if (HumanIDUI.Companion.getInstance().isLoggedIn()){
+                    if (!isFavourited) {
+                        ContentValues values = new ContentValues();
+                        values.put(_ID, id);
+                        values.put(TITLE, tvMovieTitle.getText().toString());
+                        values.put(POSTER, imageUrl);
+                        values.put(RELEASEDATE, releaseDate);
+                        values.put(DESCRIPTION, description);
 
-                    getContentResolver().insert(CONTENT_URI, values);
-                    isFavourited = true;
-                    Toast.makeText(MovieDetailActivity.this, R.string.label_added_to_favourite,
-                            Toast.LENGTH_SHORT).show();
-                } else {
-                    if (getIntent().getData() != null) {
-                        getContentResolver().delete(getIntent().getData(), null, null);
-                        isFavourited = false;
-                        Toast.makeText(MovieDetailActivity.this, R.string.label_removed_from_favourite,
+                        getContentResolver().insert(CONTENT_URI, values);
+                        isFavourited = true;
+                        Toast.makeText(MovieDetailActivity.this, R.string.label_added_to_favourite,
                                 Toast.LENGTH_SHORT).show();
+                    } else {
+                        if (getIntent().getData() != null) {
+                            getContentResolver().delete(getIntent().getData(), null, null);
+                            isFavourited = false;
+                            Toast.makeText(MovieDetailActivity.this, R.string.label_removed_from_favourite,
+                                    Toast.LENGTH_SHORT).show();
+                        }
                     }
+
+                    changeTextButtonFavorite();
+
+                }else{
+                    loginHumanID();
                 }
             }
         });
@@ -208,11 +215,10 @@ public class MovieDetailActivity extends AppCompatActivity implements
         });
 
         btnRate.setOnClickListener(view -> {
-                if (HumanIDUI.Companion.getInstance(getSupportFragmentManager()).isLoggedIn()){
+                if (HumanIDUI.Companion.getInstance().isLoggedIn()){
                     showBottomSheet();
                 }else{
-                    Toast.makeText(MovieDetailActivity.this, "Login please bitch",
-                            Toast.LENGTH_SHORT).show();
+                    loginHumanID();
                 }
             }
         );
@@ -226,6 +232,11 @@ public class MovieDetailActivity extends AppCompatActivity implements
             }
 
         });
+    }
+
+    private void loginHumanID(){
+        HumanIDUI.Companion.getInstance()
+                .verifyLogin(getSupportFragmentManager());
     }
 
     public void showBottomSheet() {
@@ -347,10 +358,15 @@ public class MovieDetailActivity extends AppCompatActivity implements
                 }
             }
 
+            changeTextButtonFavorite();
         } else {
             pbMovieDetail.setVisibility(View.GONE);
             tvMovieDetailError.setVisibility(View.VISIBLE);
         }
+    }
+
+    private void changeTextButtonFavorite(){
+        btnAdd.setText(isFavourited ? "Remove Favorite" : "Add To Favorite");
     }
 
     @Override

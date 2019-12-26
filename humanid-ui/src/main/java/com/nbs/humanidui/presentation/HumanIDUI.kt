@@ -7,20 +7,24 @@ import com.nbs.humanidui.presentation.main.MainDialogFragment
 import com.nbs.humanidui.presentation.route.Route
 import com.nbs.humanidui.presentation.userloggedin.UserLoggedInFragment
 import com.nbs.humanidui.presentation.welcome.WelcomeDialogFragment
-import com.nbs.humanidui.util.SingletonHolder
 import com.nbs.humanidui.util.enum.LoginType
 import com.nbs.nucleo.utils.showToast
 
-class HumanIDUI(private val supportFragmentManager: FragmentManager): WelcomeDialogFragment.OnWelcomeDialogListener,
+class HumanIDUI: WelcomeDialogFragment.OnWelcomeDialogListener,
         UserLoggedInFragment.OnButtonSwitchDeviceClickListener {
 
-    companion object: SingletonHolder<HumanIDUI, FragmentManager>(::HumanIDUI)
+    private var supportFragmentManager: FragmentManager ?= null
 
     init {
         WelcomeDialogFragment.listener = this
     }
 
-    fun verifyLogin(){
+    companion object {
+        val instance = HumanIDUI()
+    }
+
+    fun verifyLogin(fragmentManager: FragmentManager){
+        this.supportFragmentManager = fragmentManager
         val route = Route()
         route.checkIsLoggedIn(onLoggedIn = {
             showDialogUserLoggedIn()
@@ -34,17 +38,17 @@ class HumanIDUI(private val supportFragmentManager: FragmentManager): WelcomeDia
     private fun showDialogWelcome(){
         closeDialog()
         val welcomeDialogFragment = WelcomeDialogFragment.newInstance()
-        welcomeDialogFragment.show(supportFragmentManager, WelcomeDialogFragment::class.java.simpleName)
+        supportFragmentManager?.let { welcomeDialogFragment.show(it, WelcomeDialogFragment::class.java.simpleName) }
     }
 
     private fun showDialogUserLoggedIn(){
         val userLoggedInFragment = UserLoggedInFragment.newInstance(this)
-        userLoggedInFragment.show(supportFragmentManager, UserLoggedInFragment::class.java.simpleName)
+        supportFragmentManager?.let { userLoggedInFragment.show(it, UserLoggedInFragment::class.java.simpleName) }
     }
 
     private fun showDialogMain(){
         val mainDialogFragment = MainDialogFragment.newInstance()
-        mainDialogFragment.show(supportFragmentManager, MainDialogFragment::class.java.simpleName)
+        supportFragmentManager?.let { mainDialogFragment.show(it, MainDialogFragment::class.java.simpleName) }
     }
 
     override fun onButtonContinueClicked() {
@@ -54,11 +58,11 @@ class HumanIDUI(private val supportFragmentManager: FragmentManager): WelcomeDia
 
     override fun onButtonSwitchDeviceClicked() {
         val mainDialogFragment = MainDialogFragment.newInstance(LoginType.SWITCH_DEVICE.type)
-        mainDialogFragment.show(supportFragmentManager, MainDialogFragment::class.java.simpleName)
+        supportFragmentManager?.let { mainDialogFragment.show(it, MainDialogFragment::class.java.simpleName) }
     }
 
     fun closeDialog(){
-        supportFragmentManager.fragments.forEach {
+        supportFragmentManager?.fragments?.forEach {
             if (it is BottomSheetDialogFragment){
                 it.dismissAllowingStateLoss()
             }

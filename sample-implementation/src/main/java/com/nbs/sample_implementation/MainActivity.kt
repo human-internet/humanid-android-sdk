@@ -12,12 +12,12 @@ class MainActivity : AppCompatActivity(){
         setContentView(R.layout.activity_main)
 
         btnOpenAuthLib.setOnClickListener {
-            HumanIDUI.getInstance(supportFragmentManager).verifyLogin()
+            HumanIDUI.instance.verifyLogin(supportFragmentManager)
         }
     }
 
     override fun onDestroy() {
-        HumanIDUI.getInstance(supportFragmentManager).closeDialog()
+        HumanIDUI.instance.closeDialog()
         super.onDestroy()
     }
 }

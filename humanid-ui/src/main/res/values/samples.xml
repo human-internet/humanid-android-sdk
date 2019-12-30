@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="list_of_code_number">
+        <item>+62</item>
+        <item>+61</item>
+        <item>+63</item>
+        <item>+64</item>
+    </string-array>
+
+    <array name="list_of_flag">
+        <item>@drawable/ic_flag_us</item>
+        <item>@drawable/ic_flag_us</item>
+        <item>@drawable/ic_flag_us</item>
+        <item>@drawable/ic_flag_us</item>
+    </array>
+
+    <string name="sample_attemp">You have 3 attemp</string>
+    <string name="sample_email">joe@example.com</string>
+    <string name="sample_phone_number">+1 617 999 9999</string>
+</resources>

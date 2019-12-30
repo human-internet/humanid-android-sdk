@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:clipToPadding="false"
+    tools:context=".activity.ProfileActivity">
+
+    <include
+        android:id="@+id/toolbarProfile"
+        layout="@layout/layout_toolbar" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:src="@color/colorElm"
+        app:layout_constraintBottom_toTopOf="@id/halfProfile"
+        app:layout_constraintTop_toBottomOf="@id/toolbarProfile" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/mcvProfile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dimen_16dp"
+        app:cardCornerRadius="@dimen/dimen_4dp"
+        app:cardElevation="@dimen/dimen_1dp"
+        app:layout_constraintTop_toBottomOf="@id/toolbarProfile"
+        tools:layout_editor_absoluteX="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dimen_16dp"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvName"
+                style="@style/MovieCatalogueTextView.Medium.Black"
+                android:textSize="@dimen/text_size_13sp"
+                android:text="@string/sample_name" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvEmail"
+                style="@style/MovieCatalogueTextView.Black"
+                android:layout_marginTop="@dimen/dimen_8dp"
+                android:textSize="@dimen/text_size_10sp"
+                android:text="@string/sample_email" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvPhone"
+                style="@style/MovieCatalogueTextView.Black"
+                android:layout_marginTop="@dimen/dimen_8dp"
+                android:textSize="@dimen/text_size_10sp"
+                android:text="@string/sample_phone_number" />
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <LinearLayout
+        android:id="@+id/llSetting"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_16dp"
+        android:background="?attr/selectableItemBackground"
+        android:orientation="horizontal"
+        android:padding="@dimen/dimen_16dp"
+        app:layout_constraintTop_toBottomOf="@id/mcvProfile">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/MovieCatalogueTextView.MineShaft"
+            android:layout_width="match_parent"
+            android:drawableStart="@drawable/ic_settings"
+            android:drawableEnd="@drawable/ic_next"
+            android:drawablePadding="@dimen/dimen_16dp"
+            android:gravity="center_vertical"
+            android:text="@string/label_setting"
+            android:textSize="@dimen/text_size_12sp" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/dividerSetting"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_half_dp"
+        android:background="@color/colorWarmGrey"
+        app:layout_constraintTop_toBottomOf="@id/llSetting" />
+
+    <LinearLayout
+        android:id="@+id/llFavorite"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:orientation="horizontal"
+        android:padding="@dimen/dimen_16dp"
+        app:layout_constraintTop_toBottomOf="@id/dividerSetting">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/MovieCatalogueTextView.MineShaft"
+            android:layout_width="match_parent"
+            android:drawableStart="@drawable/ic_fav"
+            android:drawableEnd="@drawable/ic_next"
+            android:drawablePadding="@dimen/dimen_16dp"
+            android:gravity="center_vertical"
+            android:text="@string/label_favourite"
+            android:textSize="@dimen/text_size_12sp" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/dividerFavorite"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_half_dp"
+        android:background="@color/colorWarmGrey"
+        app:layout_constraintTop_toBottomOf="@id/llFavorite" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnLogout"
+        style="@style/MovieCatalogueButton.White"
+        android:layout_width="match_parent"
+        android:layout_margin="@dimen/dimen_16dp"
+        android:backgroundTint="@color/colorElm"
+        android:padding="@dimen/dimen_16dp"
+        android:text="@string/action_logout"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:targetApi="lollipop" />
+
+    <View
+        android:id="@+id/halfProfile"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_1dp"
+        android:background="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="@id/mcvProfile"
+        app:layout_constraintTop_toTopOf="@id/mcvProfile" />
+</androidx.constraintlayout.widget.ConstraintLayout>

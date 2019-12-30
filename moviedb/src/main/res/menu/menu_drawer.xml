@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group
+        android:id="@+id/menu_top"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/now_playing"
+            android:icon="@drawable/ic_movie"
+            android:title="@string/label_now_playing" />
+        <item
+            android:id="@+id/upcoming_movies"
+            android:icon="@drawable/ic_local_movies"
+            android:title="@string/label_upcoming_movies" />
+        <item
+            android:id="@+id/search_movies"
+            android:icon="@drawable/ic_search"
+            android:title="@string/label_search" />
+        <item
+            android:id="@+id/favourite_movies"
+            android:icon="@drawable/ic_favorite_border"
+            android:title="@string/label_favourite" />
+    </group>
+
+</menu>

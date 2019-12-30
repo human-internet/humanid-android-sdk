@@ -14,16 +14,24 @@ public final class HumanIDOptions {
 
     private static final String APPLICATION_ID_METADATA_NAME = "com.humanid.sdk.applicationId";
     private static final String APPLICATION_SECRET_METADATA_NAME = "com.humanid.sdk.applicationSecret";
+    private static final String APPLICATION_ICON_METADATA_NAME = "com.humanid.sdk.applicationIcon";
+    private static final String APPLICATION_NAME_METADATA_NAME = "com.humanid.sdk.applicationName";
 
     private final String applicationID;
     private final String applicationSecret;
+    private final int applicationIcon;
+    private final String applicationName;
 
-    private HumanIDOptions(String applicationID, String applicationSecret) {
+    public HumanIDOptions(String applicationID, String applicationSecret, int applicationIcon,
+                          String applicationName) {
         Preconditions.checkArgument(!TextUtils.isEmpty(applicationID), "applicationID");
         Preconditions.checkArgument(!TextUtils.isEmpty(applicationSecret), "applicationSecret");
 
+
         this.applicationID = applicationID;
         this.applicationSecret = applicationSecret;
+        this.applicationIcon = applicationIcon;
+        this.applicationName = applicationName;
     }
 
     @Nullable
@@ -43,12 +51,14 @@ public final class HumanIDOptions {
 
         String applicationID = applicationInfo.metaData.getString(APPLICATION_ID_METADATA_NAME);
         String applicationSecret = applicationInfo.metaData.getString(APPLICATION_SECRET_METADATA_NAME);
+        int applicationIcon = applicationInfo.metaData.getInt(APPLICATION_ICON_METADATA_NAME);
+        String applicationName = applicationInfo.metaData.getString(APPLICATION_NAME_METADATA_NAME);
 
         if (TextUtils.isEmpty(applicationID) || TextUtils.isEmpty(applicationSecret)) {
             return null;
         }
 
-        return new HumanIDOptions(applicationID, applicationSecret);
+        return new HumanIDOptions(applicationID, applicationSecret, applicationIcon, applicationName);
     }
 
     @NonNull
@@ -59,5 +69,15 @@ public final class HumanIDOptions {
     @NonNull
     public String getApplicationSecret() {
         return applicationSecret;
+    }
+
+    @NonNull
+    public int getApplicationIcon() {
+        return applicationIcon;
+    }
+
+    @NonNull
+    public String getApplicationName() {
+        return applicationName;
     }
 }

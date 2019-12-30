@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:backgroundTint="@color/colorWhite"
+    app:cardCornerRadius="@dimen/dimen_5dp"
+    tools:targetApi="lollipop">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="@dimen/dimen_16dp">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dimen_50dp"
+            android:layout_marginRight="@dimen/dimen_50dp"
+            android:adjustViewBounds="true"
+            android:src="@drawable/ic_logo_humanid_light" />
+
+        <ImageView
+            android:id="@+id/imgIcon"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_16dp"
+            android:layout_marginLeft="@dimen/dimen_100dp"
+            android:layout_marginRight="@dimen/dimen_100dp"
+            android:adjustViewBounds="true"
+            android:src="@drawable/ic_success_change_number"
+            android:visibility="gone" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvTitle"
+            style="@style/HumanIdTextView.Medium.Black"
+            android:gravity="center_horizontal"
+            android:text="@string/title_change_number"
+            android:layout_marginTop="@dimen/dimen_16dp"
+            android:textSize="@dimen/text_size_14sp"
+            android:visibility="gone" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvMessage"
+            style="@style/HumanIdTextView.Black"
+            android:gravity="center_horizontal"
+            android:text="@string/message_change_number"
+            android:layout_marginTop="@dimen/dimen_12dp"
+            android:textSize="@dimen/text_size_10sp"
+            android:visibility="gone" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvEmail"
+            style="@style/HumanIdTextView.Medium.TwilightBlue"
+            android:layout_marginTop="@dimen/dimen_8dp"
+            android:text="@string/sample_email"
+            android:textSize="@dimen/text_size_12sp"
+            android:visibility="gone" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvSubMessage"
+            style="@style/HumanIdTextView.Black"
+            android:layout_marginTop="@dimen/dimen_12dp"
+            android:text="@string/sub_message_register_dialog"
+            android:textSize="@dimen/text_size_12sp"
+            android:visibility="gone" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnFirst"
+            style="@style/HumanIdButton.White"
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/dimen_24dp"
+            android:padding="@dimen/dimen_12dp"
+            android:text="@string/action_create_new_account"
+            android:backgroundTint="@color/colorTwilightBlue"
+            android:textSize="@dimen/text_size_12sp"
+            android:textAllCaps="true"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnSecond"
+            style="@style/HumanIdButton.White"
+            android:backgroundTint="@color/colorTwilightBlue"
+            android:layout_width="match_parent"
+            android:padding="@dimen/dimen_12dp"
+            android:layout_marginTop="@dimen/dimen_8dp"
+            android:text="@string/action_return"
+            android:textSize="@dimen/text_size_12sp"
+            android:visibility="gone"
+            android:textAllCaps="true"/>
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

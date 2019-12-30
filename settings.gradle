@@ -1,5 +1,5 @@
 // HumanID SDK
-include ':humanid-common', ':humanid-ui', ':sample-implementation', ':plainsample'
+include ':humanid-common', ':humanid-ui', ':sample-implementation', ':plainsample', ':moviedb'
 include ':humanid-auth'
 
 // Sample

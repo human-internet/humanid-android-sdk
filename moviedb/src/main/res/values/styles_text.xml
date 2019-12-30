@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="MovieCatalogueTextView">
+        <item name="android:fontFamily">@font/roboto_regular</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="MovieCatalogueTextView.White">
+        <item name="android:textColor">@color/colorWhite</item>
+    </style>
+
+    <style name="MovieCatalogueTextView.White056">
+        <item name="android:textColor">@color/colorWhite056</item>
+    </style>
+
+    <style name="MovieCatalogueTextView.MineShaft">
+        <item name="android:textColor">@color/colorMineShaft</item>
+    </style>
+
+    <style name="MovieCatalogueTextView.BrownishGrey">
+        <item name="android:textColor">@color/colorBrownishGrey</item>
+    </style>
+
+    <style name="MovieCatalogueTextView.Medium">
+        <item name="android:fontFamily">@font/roboto_medium</item>
+    </style>
+
+    <style name="MovieCatalogueTextView.Bold">
+        <item name="android:fontFamily">@font/roboto_bold</item>
+    </style>
+
+    <style name="MovieCatalogueTextView.Light">
+        <item name="android:fontFamily">@font/roboto_light</item>
+    </style>
+
+    <style name="MovieCatalogueTextView.Medium.White">
+        <item name="android:textColor">@color/colorWhite</item>
+    </style>
+
+    <style name="MovieCatalogueTextView.Medium.Tomato">
+        <item name="android:textColor">@color/colorTomato</item>
+    </style>
+
+
+    <style name="MovieCatalogueTextView.Bold.Black">
+        <item name="android:textColor">@color/colorBlack</item>
+    </style>
+
+    <style name="MovieCatalogueTextView.Light.Black">
+        <item name="android:textColor">@color/colorBlack</item>
+    </style>
+
+    <style name="MovieCatalogueTextView.BlackColor">
+        <item name="android:textColor">@color/colorBlack</item>
+    </style>
+
+    <style name="MovieCatalogueTextView.WarmGreyThree">
+        <item name="android:textColor">@color/colorWarmGreyThree</item>
+    </style>
+
+    <style name="MovieCatalogueTextView.BlackTwo">
+        <item name="android:textColor">@color/colorBlackTwo</item>
+    </style>
+
+    <style name="MovieCatalogueTextView.Tomato">
+        <item name="android:textColor">@color/colorTomato</item>
+    </style>
+
+    <style name="MovieCatalogueTextView.GreyishBrown">
+        <item name="android:textColor">@color/colorGreyishBrown</item>
+    </style>
+
+    <style name="MovieCatalogueTextView.PinkishGrey">
+        <item name="android:textColor">@color/colorPinkishGrey</item>
+    </style>
+
+    <style name="MovieCatalogueTextView.Medium.LightMustard">
+        <item name="android:textColor">@color/colorLightMustard</item>
+    </style>
+
+    <style name="MovieCatalogueTextView.Light.WarmGrey">
+        <item name="android:textColor">@color/colorWarmGrey</item>
+    </style>
+
+    <style name="MovieCatalogueTextView.Light.White">
+        <item name="android:textColor">@color/colorWhite</item>
+    </style>
+
+    <style name="MovieCatalogueTextView.Light.TwilightBlue">
+        <item name="android:textColor">@color/colorTwilightBlue</item>
+    </style>
+
+    <style name="MovieCatalogueTextView.Medium.Black">
+        <item name="android:textColor">@color/colorBlack</item>
+    </style>
+
+    <style name="MovieCatalogueTextView.Medium.BlackThree">
+        <item name="android:textColor">@color/colorBlackThree</item>
+    </style>
+
+    <style name="MovieCatalogueTextView.Black">
+        <item name="android:textColor">@color/colorBlack</item>
+    </style>
+
+    <style name="MovieCatalogueTextView.WarmGreyTwo">
+        <item name="android:textColor">@color/colorWarmGreyTwo</item>
+    </style>
+
+    <style name="MovieCatalogueTextView.GreyishBrownThree">
+        <item name="android:textColor">@color/colorGreyishBrownThree</item>
+    </style>
+
+    <style name="MovieCatalogueTextView.Medium.BlackTwo">
+        <item name="android:textColor">@color/colorBlackTwo</item>
+    </style>
+
+    <style name="MovieCatalogueTextView.Medium.TwilightBlue">
+        <item name="android:textColor">@color/colorTwilightBlue</item>
+    </style>
+
+    <style name="MovieCatalogueTextView.Bold.Tael">
+        <item name="android:textColor">@color/colorTael</item>
+    </style>
+
+    <style name="MovieCatalogueTextView.Bold.White">
+        <item name="android:textColor">@color/colorWhite</item>
+    </style>
+
+</resources>

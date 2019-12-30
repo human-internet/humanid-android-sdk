@@ -7,11 +7,14 @@ import android.graphics.drawable.LayerDrawable
 import android.os.Build
 import android.os.Bundle
 import android.util.DisplayMetrics
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.nbs.humanidui.R
 import com.nbs.humanidui.presentation.HumanIDOptions
@@ -104,6 +107,16 @@ class WelcomeDialogFragment : BottomSheetDialogFragment() {
             windowBackground.setLayerInsetTop(1, metrics.heightPixels)
 
             window.setBackgroundDrawable(windowBackground)
+        }
+    }
+
+    override fun show(manager: FragmentManager, tag: String?) {
+        try {
+            val ft: FragmentTransaction = manager.beginTransaction()
+            ft.add(this, tag)
+            ft.commitAllowingStateLoss()
+        } catch (e: IllegalStateException) {
+            Log.d("TransactionOnShow", "Exception", e)
         }
     }
 }

@@ -68,7 +68,7 @@ class UserLoggedInFragment : BaseBottomSheetDialogFragment() {
         dialog?.setCanceledOnTouchOutside(true)
 
         btnSwitchDevice.setOnClickListener {
-            dismiss()
+            dismissAllowingStateLoss()
             onButtonSwitchDeviceClickListener.onButtonSwitchDeviceClicked()
         }
     }

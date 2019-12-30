@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bottomSheetNotification"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/dimen_24dp"
+    android:paddingLeft="@dimen/dimen_16dp"
+    android:paddingRight="@dimen/dimen_16dp"
+    android:background="@drawable/bg_rectangle_white_top_corner"
+    app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_others_pointer"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="@dimen/dimen_5dp"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        style="@style/MovieCatalogueTextView.Medium.Black"
+        android:text="@string/label_rate_this_movie"
+        android:textSize="@dimen/text_size_14sp"
+        android:layout_gravity="center_horizontal"/>
+
+    <LinearLayout
+        android:id="@+id/containerStar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/dimen_20dp"
+        android:gravity="center_horizontal">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imgStar1"
+            android:layout_width="@dimen/dimen_50dp"
+            android:layout_height="@dimen/dimen_50dp"
+            android:src="@drawable/ic_star_review"/>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imgStar2"
+            android:layout_width="@dimen/dimen_50dp"
+            android:layout_height="@dimen/dimen_50dp"
+            android:src="@drawable/ic_star_review"/>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imgStar3"
+            android:layout_width="@dimen/dimen_50dp"
+            android:layout_height="@dimen/dimen_50dp"
+            android:src="@drawable/ic_star_review"/>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imgStar4"
+            android:layout_width="@dimen/dimen_50dp"
+            android:layout_height="@dimen/dimen_50dp"
+            android:src="@drawable/ic_star_review"/>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imgStar5"
+            android:layout_width="@dimen/dimen_50dp"
+            android:layout_height="@dimen/dimen_50dp"
+            android:src="@drawable/ic_star_review"/>
+
+    </LinearLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilReviewTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_12dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edtReviewTitle"
+            style="@style/MovieCatalogueTextView.GreyishBrown"
+            android:scrollbarSize="@dimen/text_size_14sp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:focusableInTouchMode="true"
+            android:hint="@string/label_review_title"
+            android:inputType="text"
+            android:imeOptions="actionNext"
+            android:textColorHint="@color/colorWarmGreyTwo"
+            android:textSize="@dimen/text_size_14sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilReview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_12dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edtReview"
+            style="@style/MovieCatalogueTextView.GreyishBrown"
+            android:scrollbarSize="@dimen/text_size_14sp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:focusableInTouchMode="true"
+            android:hint="@string/hint_review"
+            android:inputType="text"
+            android:imeOptions="actionNext"
+            android:textColorHint="@color/colorWarmGreyTwo"
+            android:textSize="@dimen/text_size_14sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnRateReview"
+        style="@style/MovieCatalogueButton.White"
+        android:backgroundTint="@color/colorElm"
+        android:padding="@dimen/dimen_16dp"
+        android:text="@string/action_rate_and_review"
+        android:textAllCaps="true"
+        app:cornerRadius="@dimen/dimen_6dp"
+        tools:targetApi="lollipop"
+        android:layout_marginTop="@dimen/dimen_25dp"/>
+
+</LinearLayout>

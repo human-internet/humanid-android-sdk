@@ -3,12 +3,14 @@ package com.nbs.humanidui.presentation.phonenumber
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import com.human.android.util.ReactiveFormFragment
 import com.human.android.util.extensions.isEnabled
 import com.humanid.auth.HumanIDAuth
 import com.nbs.humanidui.R
 import com.nbs.humanidui.domain.CodeNumber
+import com.nbs.humanidui.presentation.HumanIDOptions
 import com.nbs.humanidui.util.BundleKeys
 import com.nbs.humanidui.util.emptyString
 import com.nbs.humanidui.util.enum.LoginType
@@ -152,7 +154,19 @@ class PhoneNumberFragment : ReactiveFormFragment() {
     }
 
     override fun initProcess() {
+        context?.let {
+            val humanIDOptions = HumanIDOptions.fromResource(it)
+            if (humanIDOptions?.applicationIcon != -1) {
+                humanIDOptions?.applicationIcon?.let { it1 ->
+                    imgAppIcon.visible()
+                    imgAppIcon.setImageDrawable(ContextCompat.getDrawable(it, it1))
+                }
+            }
 
+            if (!humanIDOptions?.applicationName.isNullOrEmpty()) {
+                tvMessage.text = getString(R.string.label_verify_your_phone_number, humanIDOptions?.applicationName)
+            }
+        }
     }
 
     override fun setupFormValidation() {

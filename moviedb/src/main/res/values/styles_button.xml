@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="MovieCatalogueButton.OutlinedButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="android:fontFamily">@font/roboto_bold</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+    </style>
+
+    <style name="MovieCatalogueButton" parent="Widget.MaterialComponents.Button">
+        <item name="android:fontFamily">@font/roboto_bold</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:padding">0dp</item>
+        <item name="android:minHeight">0dp</item>
+    </style>
+
+    <style name="MovieCatalogueButton.OutlinedButton.TwilightBlue">
+        <item name="android:textColor">@color/colorTwilightBlue</item>
+    </style>
+
+    <style name="MovieCatalogueButton.OutlinedButton.Petrol">
+        <item name="android:textColor">@color/colorPetrol</item>
+    </style>
+
+    <style name="MovieCatalogueButton.White">
+        <item name="android:textColor">@color/colorWhite</item>
+    </style>
+
+    <style name="MovieCatalogueButton.TwilightBlue">
+        <item name="android:textColor">@color/colorTwilightBlue</item>
+    </style>
+
+    <style name="MovieCatalogueTextButton" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:fontFamily">@font/roboto_regular</item>
+        <item name="android:paddingLeft">0dp</item>
+        <item name="android:paddingRight">0dp</item>
+        <item name="android:paddingTop">0dp</item>
+        <item name="android:paddingBottom">0dp</item>
+        <item name="android:minHeight">0dp</item>
+        <item name="android:minWidth">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+    </style>
+
+    <style name="MovieCatalogueTextButton.TwilightBlue">
+        <item name="android:textColor">@color/colorTwilightBlue</item>
+    </style>
+
+    <style name="MovieCatalogueTextButton.Medium">
+        <item name="android:fontFamily">@font/roboto_medium</item>
+    </style>
+
+    <style name="MovieCatalogueTextButton.Medium.TwilightBlue">
+        <item name="android:textColor">@color/colorTwilightBlue</item>
+    </style>
+
+    <style name="MovieCatalogueTextButton.Medium.Gray">
+        <item name="android:textColor">@color/colorGray</item>
+    </style>
+
+    <style name="MovieCatalogueTextButton.Medium.BlueStone">
+        <item name="android:textColor">@color/colorBlueStone</item>
+    </style>
+
+    <style name="MovieCatalogueTextButton.Medium.GreyishBrownTwo">
+        <item name="android:textColor">@color/colorGreyishBrownTwo</item>
+    </style>
+
+    <style name="MovieCatalogueTextButton.Medium.PastelRed">
+        <item name="android:textColor">@color/colorPastelRed</item>
+    </style>
+
+    <style name="MovieCatalogueTextButton.PastelRed">
+        <item name="android:textColor">@color/colorPastelRed</item>
+    </style>
+
+</resources>

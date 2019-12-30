@@ -12,7 +12,7 @@ import com.nbs.humanidui.util.BundleKeys
 import com.nbs.humanidui.util.emptyString
 import com.nbs.humanidui.util.enum.LoginType
 import com.nbs.humanidui.util.makeLinks
-import com.nbs.nucleo.utils.debug
+import com.nbs.nucleo.utils.Timber.debug
 import com.nbs.nucleo.utils.extensions.gone
 import com.nbs.nucleo.utils.extensions.onClick
 import com.nbs.nucleo.utils.extensions.visible
@@ -136,10 +136,10 @@ class OtpFragment : ReactiveFormFragment() {
                     if (it.isSuccessful){
                         startCountDownTimer()
                     }else{
-                        btnResendCode.text = "Resend code"
+                        btnResendCode.text = getString(R.string.action_resend_code)
                     }
                 }.addOnFailureListener {
-                    btnResendCode.text = "Resend code"
+                    btnResendCode.text = getString(R.string.action_resend_code)
                     btnResendCode.isClickable = true
                 }
     }
@@ -229,11 +229,6 @@ class OtpFragment : ReactiveFormFragment() {
         super.onSaveInstanceState(outState)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        defaultTime = savedInstanceState?.getLong(KEY_TIMER_STATE) ?: 0
-    }
-
     override fun onStop() {
         cancelCountDownTimer()
         isCountingFinished = false
@@ -247,20 +242,21 @@ class OtpFragment : ReactiveFormFragment() {
 
     inner class Timer(milis: Long) : CountDownTimer(milis, COUNT_DOWN_TIMER_INTERVAL) {
         override fun onFinish() {
-            cancel()
+
         }
 
         override fun onTick(milisUntilFinished: Long) {
            if (btnResendCode != null){
                timeLeft = milisUntilFinished
-               val timeInSeconds = milisUntilFinished / COUNT_DOWN_TIMER_INTERVAL
-               btnResendCode.text = getString(R.string.action_resend_code_sec, timeInSeconds.toString())
-               btnResendCode.isClickable = false
-               debug { "Timer : $milisUntilFinished" }
-               if ((milisUntilFinished / COUNT_DOWN_TIMER_INTERVAL) == 0L) {
+               val timeInSeconds: Long = milisUntilFinished / COUNT_DOWN_TIMER_INTERVAL
+               debug { "Timer : $timeInSeconds" }
+               if (timeInSeconds == 0L){
                    btnResendCode.text = getString(R.string.action_resend_code)
                    isCountingFinished = true
                    btnResendCode.isClickable = true
+               }else{
+                   btnResendCode.text = getString(R.string.action_resend_code_sec, timeInSeconds.toString())
+                   btnResendCode.isClickable = false
                }
            }
         }

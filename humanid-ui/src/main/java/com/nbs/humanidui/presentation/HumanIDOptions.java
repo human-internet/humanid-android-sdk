@@ -7,6 +7,7 @@ import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.util.Preconditions;
 
 public final class HumanIDOptions {
     private static final String APPLICATION_ICON_METADATA_NAME = "com.humanid.sdk.applicationIcon";
@@ -16,6 +17,9 @@ public final class HumanIDOptions {
     private final String applicationName;
 
     public HumanIDOptions(int applicationIcon, String applicationName) {
+        Preconditions.checkArgument(applicationIcon != -1, "applicationIcon");
+        Preconditions.checkArgument(!TextUtils.isEmpty(applicationName), "applicationName");
+
         this.applicationIcon = applicationIcon;
         this.applicationName = applicationName;
     }

@@ -15,6 +15,7 @@ buildscript {
         classpath "com.google.gms:google-services:${project.ext.googleServiceVersion}"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "org.jetbrains.kotlin:kotlin-android-extensions:$kotlin_version"
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
     }
 
     

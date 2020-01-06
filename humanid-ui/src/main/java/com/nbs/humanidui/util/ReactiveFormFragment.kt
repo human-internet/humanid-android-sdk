@@ -1,11 +1,11 @@
-package com.human.android.util
+package com.nbs.humanidui.util
 
 import androidx.annotation.CallSuper
-import com.nbs.nucleosnucleo.presentation.BaseFragment
-import com.nbs.validacion.ReactiveValidator
-import com.nbs.validacion.Validation
-import com.nbs.validacion.ValidationListener
-import com.nbs.validacion.Validator
+import com.nbs.humanidui.base.BaseFragment
+import com.nbs.humanidui.util.validation.ReactiveValidator
+import com.nbs.humanidui.util.validation.Validation
+import com.nbs.humanidui.util.validation.ValidationListener
+import com.nbs.humanidui.util.validation.Validator
 
 abstract class ReactiveFormFragment: BaseFragment(), ValidationListener {
 

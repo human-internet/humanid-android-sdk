@@ -1,11 +1,10 @@
 package com.ericjohnson.moviecatalogue;
 
 import android.content.Context;
-
 import androidx.multidex.MultiDex;
 import androidx.multidex.MultiDexApplication;
+import com.nbs.humanidui.util.ContextProvider;
 
-import com.nbs.nucleo.utils.ContextProvider;
 
 /**
  * Created by Dimas Prakoso on 26/11/2019.

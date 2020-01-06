@@ -10,8 +10,8 @@ import android.os.Bundle
 import android.util.DisplayMetrics
 import android.view.KeyEvent
 import android.view.KeyEvent.ACTION_UP
+import androidx.annotation.NonNull
 import androidx.annotation.RequiresApi
-import com.human.android.util.extensions.replaceFragment
 import com.humanid.auth.HumanIDAuth
 import com.nbs.humanidui.R
 import com.nbs.humanidui.base.BaseBottomSheetDialogFragment
@@ -23,8 +23,8 @@ import com.nbs.humanidui.presentation.termandcondition.TermsAndConditionFragment
 import com.nbs.humanidui.util.BundleKeys
 import com.nbs.humanidui.util.emptyString
 import com.nbs.humanidui.util.enum.LoginType
-import com.nbs.nucleo.utils.showToast
-import io.reactivex.annotations.NonNull
+import com.nbs.humanidui.util.extensions.replaceFragment
+import com.nbs.humanidui.util.extensions.showToast
 
 class MainDialogFragment : BaseBottomSheetDialogFragment(),
         RegisterEmailFragment.OnRegisterEmailListener,

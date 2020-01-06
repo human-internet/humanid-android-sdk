@@ -11,6 +11,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.NonNull
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentManager
@@ -18,9 +19,8 @@ import androidx.fragment.app.FragmentTransaction
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.nbs.humanidui.R
 import com.nbs.humanidui.presentation.HumanIDOptions
-import com.nbs.nucleo.utils.extensions.onClick
-import com.nbs.nucleo.utils.extensions.visible
-import io.reactivex.annotations.NonNull
+import com.nbs.humanidui.util.extensions.onClick
+import com.nbs.humanidui.util.extensions.visible
 import kotlinx.android.synthetic.main.fragment_dialog_welcome.*
 
 

@@ -8,12 +8,12 @@ import android.graphics.drawable.LayerDrawable
 import android.os.Build
 import android.os.Bundle
 import android.util.DisplayMetrics
+import androidx.annotation.NonNull
 import androidx.annotation.RequiresApi
 import com.nbs.humanidui.R
 import com.nbs.humanidui.base.BaseBottomSheetDialogFragment
 import com.nbs.humanidui.presentation.HumanIDOptions
-import com.nbs.nucleo.utils.extensions.visible
-import io.reactivex.annotations.NonNull
+import com.nbs.humanidui.util.extensions.visible
 import kotlinx.android.synthetic.main.fragment_user_loggedin.*
 
 class UserLoggedInFragment : BaseBottomSheetDialogFragment() {

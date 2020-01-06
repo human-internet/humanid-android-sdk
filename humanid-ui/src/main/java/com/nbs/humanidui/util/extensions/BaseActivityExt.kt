@@ -1,11 +1,11 @@
-package com.human.android.util.extensions
+package com.nbs.humanidui.util.extensions
 
 import android.view.WindowManager
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+import com.nbs.humanidui.base.BaseActivity
 import com.nbs.humanidui.base.BaseBottomSheetDialogFragment
-import com.nbs.nucleosnucleo.presentation.BaseActivity
-import com.nbs.nucleosnucleo.presentation.BaseFragment
+import com.nbs.humanidui.base.BaseFragment
 
 val BaseActivity.LOADING_FRAGMENT_TAG: String
     get() = "LOADING_FRAGMENT"

@@ -1,4 +1,4 @@
-package com.human.android.util
+package com.nbs.humanidui.util
 
 import android.content.Context
 import android.graphics.Color
@@ -11,23 +11,29 @@ import android.view.WindowManager
 import androidx.annotation.NonNull
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.res.ResourcesCompat
-import com.human.android.util.extensions.setImageResource
-import com.human.android.util.extensions.toHtml
 import com.nbs.humanidui.R
-import com.nbs.nucleo.utils.extensions.onClick
-import com.nbs.nucleo.utils.extensions.visible
-import kotlinx.android.synthetic.main.layout_alert_dialog.view.*
+import com.nbs.humanidui.util.extensions.onClick
+import com.nbs.humanidui.util.extensions.setImageResource
+import com.nbs.humanidui.util.extensions.toHtml
+import com.nbs.humanidui.util.extensions.visible
+import kotlinx.android.synthetic.main.layout_alert_dialog.view.btnFirst
+import kotlinx.android.synthetic.main.layout_alert_dialog.view.btnSecond
+import kotlinx.android.synthetic.main.layout_alert_dialog.view.imgIcon
+import kotlinx.android.synthetic.main.layout_alert_dialog.view.tvEmail
+import kotlinx.android.synthetic.main.layout_alert_dialog.view.tvMessage
+import kotlinx.android.synthetic.main.layout_alert_dialog.view.tvSubMessage
+import kotlinx.android.synthetic.main.layout_alert_dialog.view.tvTitle
 
 fun showUncancelableDialog(
-        context: Context,
-        icon: Int? = null,
-        title: String? = null,
-        message: String? = null,
-        isMessageLight: Boolean = false,
-        email: String? = null,
-        subMessage: String? = null,
-        first: String? = null, @NonNull firstListener: (() -> Unit)? = null,
-        second: String? = null, @NonNull secondListener: (() -> Unit)? = null
+    context: Context,
+    icon: Int? = null,
+    title: String? = null,
+    message: String? = null,
+    isMessageLight: Boolean = false,
+    email: String? = null,
+    subMessage: String? = null,
+    first: String? = null, @NonNull firstListener: (() -> Unit)? = null,
+    second: String? = null, @NonNull secondListener: (() -> Unit)? = null
 ) {
     val dialogView: View = LayoutInflater.from(context).inflate(R.layout.layout_alert_dialog, null)
 
@@ -90,8 +96,8 @@ fun showUncancelableDialog(
     dialog.apply {
         window?.apply {
             setLayout(
-                    WindowManager.LayoutParams.WRAP_CONTENT,
-                    WindowManager.LayoutParams.WRAP_CONTENT
+                WindowManager.LayoutParams.WRAP_CONTENT,
+                WindowManager.LayoutParams.WRAP_CONTENT
             )
             setGravity(Gravity.CENTER)
             val inset = InsetDrawable(ColorDrawable(Color.TRANSPARENT), 60)

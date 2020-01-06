@@ -4,14 +4,15 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
-import com.human.android.util.ReactiveFormFragment
-import com.human.android.util.extensions.isEnabled
+import com.nbs.humanidui.util.ReactiveFormFragment
+import com.nbs.humanidui.util.extensions.isEnabled
 import com.nbs.humanidui.util.makeLinks
 import com.nbs.humanidui.R
+import com.nbs.humanidui.R.string
 import com.nbs.humanidui.domain.CodeNumber
-import com.nbs.humanidui.presentation.adapter.SpinnerAdapter
-import com.nbs.validacion.Validation
-import com.nbs.validacion.util.*
+import com.nbs.humanidui.util.validation.Validation
+import com.nbs.humanidui.util.validation.util.onClick
+import com.nbs.humanidui.util.validation.util.onTextChange
 import kotlinx.android.synthetic.main.fragment_phone_number_email.*
 
 class PhoneNumberEmailFragment : ReactiveFormFragment() {
@@ -74,16 +75,20 @@ class PhoneNumberEmailFragment : ReactiveFormFragment() {
         addValidation(
                 Validation(
                         edtPhoneNumber,
-                        listOf(notEmptyRule(getString(R.string.error_field_required)),
-                                numberOnlyRule(getString(R.string.error_number_format)))
+                        listOf(
+                            com.nbs.humanidui.util.validation.util.notEmptyRule(getString(string.error_field_required)),
+                            com.nbs.humanidui.util.validation.util.numberOnlyRule(getString(string.error_number_format))
+                        )
                 )
         )
 
         addValidation(
                 Validation(
                         edtEmail,
-                        listOf(notEmptyRule(getString(R.string.error_field_required)),
-                                emailRule(getString(R.string.error_email_format)))
+                        listOf(
+                            com.nbs.humanidui.util.validation.util.notEmptyRule(getString(string.error_field_required)),
+                            com.nbs.humanidui.util.validation.util.emailRule(getString(string.error_email_format))
+                        )
                 )
         )
     }

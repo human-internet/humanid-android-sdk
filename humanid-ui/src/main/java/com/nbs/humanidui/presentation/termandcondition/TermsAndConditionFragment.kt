@@ -2,9 +2,10 @@ package com.nbs.humanidui.presentation.termandcondition
 
 import android.os.Bundle
 import com.nbs.humanidui.R
-import com.nbs.nucleo.utils.extensions.onClick
-import com.nbs.nucleosnucleo.presentation.BaseFragment
-import kotlinx.android.synthetic.main.fragment_terms_and_condition.*
+import com.nbs.humanidui.base.BaseFragment
+import com.nbs.humanidui.util.extensions.onClick
+import kotlinx.android.synthetic.main.fragment_terms_and_condition.btnBack
+import kotlinx.android.synthetic.main.fragment_terms_and_condition.btnSkip
 
 class TermsAndConditionFragment : BaseFragment() {
 

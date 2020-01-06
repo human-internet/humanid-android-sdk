@@ -1,36 +1,49 @@
 package com.nbs.humanidui.presentation.phonenumber
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
-import com.human.android.util.ReactiveFormFragment
-import com.human.android.util.extensions.isEnabled
+import com.nbs.humanidui.util.ReactiveFormFragment
 import com.humanid.auth.HumanIDAuth
 import com.nbs.humanidui.R
+import com.nbs.humanidui.R.string
 import com.nbs.humanidui.domain.CodeNumber
 import com.nbs.humanidui.presentation.HumanIDOptions
 import com.nbs.humanidui.util.BundleKeys
 import com.nbs.humanidui.util.emptyString
 import com.nbs.humanidui.util.enum.LoginType
+import com.nbs.humanidui.util.extensions.gone
+import com.nbs.humanidui.util.extensions.isEnabled
+import com.nbs.humanidui.util.extensions.onClick
+import com.nbs.humanidui.util.extensions.showToast
+import com.nbs.humanidui.util.extensions.visible
 import com.nbs.humanidui.util.makeLinks
-import com.nbs.nucleo.utils.Timber
-import com.nbs.nucleo.utils.extensions.gone
-import com.nbs.nucleo.utils.extensions.onClick
-import com.nbs.nucleo.utils.extensions.visible
-import com.nbs.nucleo.utils.showToast
-import com.nbs.validacion.Validation
-import com.nbs.validacion.util.notEmptyRule
-import com.nbs.validacion.util.numberOnlyRule
-import com.nbs.validacion.util.onTextChange
-import kotlinx.android.synthetic.main.fragment_phone_number.*
+import com.nbs.humanidui.util.validation.Validation
+import com.nbs.humanidui.util.validation.util.notEmptyRule
+import com.nbs.humanidui.util.validation.util.numberOnlyRule
+import com.nbs.humanidui.util.validation.util.onTextChange
+import kotlinx.android.synthetic.main.fragment_phone_number.btnCancel
+import kotlinx.android.synthetic.main.fragment_phone_number.btnEnter
+import kotlinx.android.synthetic.main.fragment_phone_number.btnTransfer
+import kotlinx.android.synthetic.main.fragment_phone_number.ccpPhoneNumber
+import kotlinx.android.synthetic.main.fragment_phone_number.containerTopNormal
+import kotlinx.android.synthetic.main.fragment_phone_number.containerTopSwitch
+import kotlinx.android.synthetic.main.fragment_phone_number.edtPhoneNumber
+import kotlinx.android.synthetic.main.fragment_phone_number.imgAppIcon
+import kotlinx.android.synthetic.main.fragment_phone_number.mcvAd
+import kotlinx.android.synthetic.main.fragment_phone_number.tvAboutOurMission
+import kotlinx.android.synthetic.main.fragment_phone_number.tvMessage
+import kotlinx.android.synthetic.main.fragment_phone_number.tvOTP
 
 class PhoneNumberFragment : ReactiveFormFragment() {
 
     private var loginType = emptyString()
     private var phoneNumber = emptyString()
     private var countryCode = emptyString()
+    private val TAG = this.javaClass.simpleName
 
     companion object {
         var listener: OnPhoneNumberListener? = null
@@ -63,7 +76,6 @@ class PhoneNumberFragment : ReactiveFormFragment() {
             initView()
             setSpannableString()
         }
-
     }
 
     override fun initAction() {
@@ -89,9 +101,11 @@ class PhoneNumberFragment : ReactiveFormFragment() {
                 }
                 LoginType.SWITCH_NUMBER.type -> {
                     phoneNumber = countryCode + edtPhoneNumber.text.toString()
-                    listener?.onButtonEnterClicked(countryCode = countryCode,
-                            type = LoginType.SWITCH_NUMBER.type,
-                            phoneNumber = phoneNumber.trim())
+                    listener?.onButtonEnterClicked(
+                        countryCode = countryCode,
+                        type = LoginType.SWITCH_NUMBER.type,
+                        phoneNumber = phoneNumber.trim()
+                    )
                 }
                 else -> {
 
@@ -106,7 +120,7 @@ class PhoneNumberFragment : ReactiveFormFragment() {
             countryCode = ccpPhoneNumber.selectedCountryCode
         }
 
-        edtPhoneNumber.onTextChange {text->
+        edtPhoneNumber.onTextChange { text ->
             text.let {
                 if (it.startsWith("0")) {
                     if (it.isNotEmpty()) {
@@ -119,36 +133,40 @@ class PhoneNumberFragment : ReactiveFormFragment() {
         }
     }
 
-    private fun enableViews(isEnabled: Boolean){
-        btnEnter.text = if(isEnabled) "Enter" else "Processing"
+    private fun enableViews(isEnabled: Boolean) {
+        btnEnter.text = if (isEnabled) "Enter" else "Processing"
         btnEnter.isEnabled = isEnabled
         edtPhoneNumber.isEnabled = isEnabled
     }
 
-    private fun requestOtp(){
+    private fun requestOtp() {
         enableViews(false)
         val phoneNumber: String = edtPhoneNumber.text.toString().trim()
         val task = HumanIDAuth.getInstance().requestOTP(countryCode, phoneNumber)
         task.addOnCompleteListener {
-            if (it.isSuccessful){
+            if (it.isSuccessful) {
                 enableViews(true)
-                if (loginType == LoginType.SWITCH_DEVICE.type){
-                    listener?.onButtonEnterClicked(countryCode = countryCode,
-                            type = LoginType.SWITCH_DEVICE.type,
-                            phoneNumber = edtPhoneNumber.text.toString().trim())
-                }else{
-                    listener?.onButtonEnterClicked(countryCode = countryCode,
-                            type = LoginType.NEW_ACCOUNT.type,
-                            phoneNumber = edtPhoneNumber.text.toString().trim())
+                if (loginType == LoginType.SWITCH_DEVICE.type) {
+                    listener?.onButtonEnterClicked(
+                        countryCode = countryCode,
+                        type = LoginType.SWITCH_DEVICE.type,
+                        phoneNumber = edtPhoneNumber.text.toString().trim()
+                    )
+                } else {
+                    listener?.onButtonEnterClicked(
+                        countryCode = countryCode,
+                        type = LoginType.NEW_ACCOUNT.type,
+                        phoneNumber = edtPhoneNumber.text.toString().trim()
+                    )
                 }
-            }else{
+            } else {
                 enableViews(true)
                 showToast("Request otp failed")
             }
         }
         task.addOnFailureListener {
             enableViews(true)
-            Timber.debug{it.message.toString()}
+            Log.d(TAG, it.message.toString())
             showToast(it.message.toString())
         }
     }
@@ -171,11 +189,13 @@ class PhoneNumberFragment : ReactiveFormFragment() {
 
     override fun setupFormValidation() {
         addValidation(
-                Validation(
-                        edtPhoneNumber,
-                        listOf(notEmptyRule(getString(R.string.error_field_required)),
-                                numberOnlyRule(getString(R.string.error_number_format)))
+            Validation(
+                edtPhoneNumber,
+                listOf(
+                    notEmptyRule(getString(string.error_field_required)),
+                    numberOnlyRule(getString(string.error_number_format))
                 )
+            )
         )
     }
 
@@ -209,10 +229,10 @@ class PhoneNumberFragment : ReactiveFormFragment() {
 
         codeNumbers.forEachIndexed { i, _ ->
             skinData.add(
-                    CodeNumber(
-                            codeNumbers[i],
-                            flags.getResourceId(i, 0)
-                    )
+                CodeNumber(
+                    codeNumbers[i],
+                    flags.getResourceId(i, 0)
+                )
             )
         }
         flags.recycle()
@@ -224,14 +244,16 @@ class PhoneNumberFragment : ReactiveFormFragment() {
         tvAboutOurMission.text = getString(R.string.message_humanid_description)
 
         tvOTP.makeLinks(
-                Pair(getString(R.string.label_learn_more), View.OnClickListener {
-                    Toast.makeText(context, getString(R.string.label_learn_more), Toast.LENGTH_SHORT).show()
-                }))
+            Pair(getString(R.string.label_learn_more), View.OnClickListener {
+                Toast.makeText(context, getString(R.string.label_learn_more), Toast.LENGTH_SHORT).show()
+            })
+        )
 
         tvAboutOurMission.makeLinks(
-                Pair(getString(R.string.label_learn_about_out_mission), View.OnClickListener {
-                    Toast.makeText(context, getString(R.string.label_learn_about_out_mission), Toast.LENGTH_SHORT).show()
-                }))
+            Pair(getString(R.string.label_learn_about_out_mission), View.OnClickListener {
+                Toast.makeText(context, getString(R.string.label_learn_about_out_mission), Toast.LENGTH_SHORT).show()
+            })
+        )
     }
 
     interface OnPhoneNumberListener {
@@ -239,5 +261,4 @@ class PhoneNumberFragment : ReactiveFormFragment() {
         fun onButtonEnterClicked(countryCode: String, type: String, phoneNumber: String)
         fun onButtonTransferClicked()
     }
-
 }

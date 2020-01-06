@@ -8,7 +8,7 @@ import com.nbs.humanidui.presentation.route.Route
 import com.nbs.humanidui.presentation.userloggedin.UserLoggedInFragment
 import com.nbs.humanidui.presentation.welcome.WelcomeDialogFragment
 import com.nbs.humanidui.util.enum.LoginType
-import com.nbs.nucleo.utils.showToast
+import com.nbs.humanidui.util.extensions.showToast
 
 class HumanIDUI: WelcomeDialogFragment.OnWelcomeDialogListener,
         UserLoggedInFragment.OnButtonSwitchDeviceClickListener {

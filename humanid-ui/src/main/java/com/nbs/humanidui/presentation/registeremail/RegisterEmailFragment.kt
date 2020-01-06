@@ -4,19 +4,29 @@ import android.os.Bundle
 import android.text.InputType
 import android.view.View
 import android.widget.Toast
-import com.human.android.util.*
-import com.nbs.humanidui.util.enum.LoginType
-import com.human.android.util.extensions.isEnabled
 import com.nbs.humanidui.R
+import com.nbs.humanidui.R.drawable
+import com.nbs.humanidui.R.string
 import com.nbs.humanidui.util.BundleKeys
+import com.nbs.humanidui.util.ReactiveFormFragment
 import com.nbs.humanidui.util.emptyString
+import com.nbs.humanidui.util.enum.LoginType
+import com.nbs.humanidui.util.extensions.gone
+import com.nbs.humanidui.util.extensions.onClick
+import com.nbs.humanidui.util.extensions.visible
 import com.nbs.humanidui.util.makeLinks
-import com.nbs.nucleo.utils.extensions.gone
-import com.nbs.nucleo.utils.extensions.onClick
-import com.nbs.nucleo.utils.extensions.visible
-import com.nbs.validacion.Validation
-import com.nbs.validacion.util.notEmptyRule
-import kotlinx.android.synthetic.main.fragment_register_email.*
+import com.nbs.humanidui.util.showUncancelableDialog
+import com.nbs.humanidui.util.validation.Validation
+import com.nbs.humanidui.util.validation.util.notEmptyRule
+import kotlinx.android.synthetic.main.fragment_register_email.btnSave
+import kotlinx.android.synthetic.main.fragment_register_email.btnSkipEmail
+import kotlinx.android.synthetic.main.fragment_register_email.edtEmail
+import kotlinx.android.synthetic.main.fragment_register_email.tvAbout
+import kotlinx.android.synthetic.main.fragment_register_email.tvMessage
+import kotlinx.android.synthetic.main.fragment_register_email.tvSubMessage
+import kotlinx.android.synthetic.main.fragment_register_email.tvSuccess
+import kotlinx.android.synthetic.main.fragment_register_email.tvTitle
+import kotlinx.android.synthetic.main.fragment_register_email.tvWarning
 
 class RegisterEmailFragment : ReactiveFormFragment() {
 
@@ -38,7 +48,7 @@ class RegisterEmailFragment : ReactiveFormFragment() {
 
     override fun initLib() {
         super.initLib()
-        btnSave.isEnabled(false)
+        btnSave.isEnabled = false
     }
 
     override fun initIntent() {
@@ -143,7 +153,7 @@ class RegisterEmailFragment : ReactiveFormFragment() {
                 addValidation(
                         Validation(
                                 edtEmail,
-                                listOf(notEmptyRule(getString(R.string.error_field_required)))
+                                listOf(notEmptyRule(getString(string.error_field_required)))
                         )
                 )
 //            }
@@ -152,21 +162,21 @@ class RegisterEmailFragment : ReactiveFormFragment() {
     }
 
     override fun onValidationFailed() {
-        btnSave.isEnabled(false)
+        btnSave.isEnabled = false
     }
 
     override fun onValidationSuccess() {
-        btnSave.isEnabled(true)
+        btnSave.isEnabled = true
     }
 
     private fun showEmailConfirmationDialog() {
         context?.let {
             showUncancelableDialog(
                     context = it,
-                    message = getString(R.string.message_email_dialog),
-                    email = getString(R.string.sample_email),
-                    subMessage = getString(R.string.sub_message_email_dialog),
-                    first = getString(R.string.action_close_and_return),
+                    message = getString(string.message_email_dialog),
+                    email = getString(string.sample_email),
+                    subMessage = getString(string.sub_message_email_dialog),
+                    first = getString(string.action_close_and_return),
                     firstListener = {
 
                     }
@@ -179,12 +189,12 @@ class RegisterEmailFragment : ReactiveFormFragment() {
             showUncancelableDialog(
                     context = it,
                     message = ("$subMessage$phoneNumber."),
-                    subMessage = getString(R.string.sub_message_register_dialog),
-                    first = getString(R.string.action_create_new_account),
+                    subMessage = getString(string.sub_message_register_dialog),
+                    first = getString(string.action_create_new_account),
                     firstListener = {
 
                     },
-                    second = getString(R.string.action_recover_account),
+                    second = getString(string.action_recover_account),
                     secondListener = {
 
                     }
@@ -196,10 +206,10 @@ class RegisterEmailFragment : ReactiveFormFragment() {
         context?.let {
             showUncancelableDialog(
                     it,
-                    icon = R.drawable.ic_success_change_number,
-                    title = getString(R.string.title_change_number),
-                    message = getString(R.string.message_change_number),
-                    first = getString(R.string.action_return),
+                    icon = drawable.ic_success_change_number,
+                    title = getString(string.title_change_number),
+                    message = getString(string.message_change_number),
+                    first = getString(string.action_return),
                     firstListener = {
 
                     }

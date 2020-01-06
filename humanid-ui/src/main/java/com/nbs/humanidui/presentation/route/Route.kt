@@ -1,7 +1,7 @@
 package com.nbs.humanidui.presentation.route
 
 import com.humanid.auth.HumanIDAuth
-import com.nbs.nucleo.utils.showToast
+import com.nbs.humanidui.util.extensions.showToast
 
 class Route{
     fun checkIsLoggedIn(onLoggedIn: ()-> Unit, onNotLoggedIn: ()->Unit, onCheckInLoading: ()->Unit){

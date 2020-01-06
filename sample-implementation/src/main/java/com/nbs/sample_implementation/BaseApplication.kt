@@ -1,7 +1,7 @@
 package com.nbs.sample_implementation
 
 import androidx.multidex.MultiDexApplication
-import com.nbs.nucleo.utils.ContextProvider
+import com.nbs.humanidui.util.ContextProvider
 
 class BaseApplication: MultiDexApplication() {
     override fun onCreate() {

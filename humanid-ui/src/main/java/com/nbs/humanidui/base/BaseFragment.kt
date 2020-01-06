@@ -8,13 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.nbs.humanidui.R
 
-/**
- * A simple [Fragment] subclass.
- */
-abstract class BaseBottomSheetDialogFragment : BottomSheetDialogFragment(), BaseView {
+abstract class BaseFragment : Fragment(), BaseView {
 
     private var baseActivity: BaseActivity? = null
 
@@ -24,7 +19,6 @@ abstract class BaseBottomSheetDialogFragment : BottomSheetDialogFragment(), Base
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(false)
-        setStyle(R.style.AppBottomSheetDialogTheme, R.style.AppTheme)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -34,8 +28,6 @@ abstract class BaseBottomSheetDialogFragment : BottomSheetDialogFragment(), Base
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        dialog?.setCancelable(false)
-        dialog?.setCanceledOnTouchOutside(false)
         onViewReady()
     }
 
@@ -76,7 +68,7 @@ abstract class BaseBottomSheetDialogFragment : BottomSheetDialogFragment(), Base
         baseActivity = null
         super.onDetach()
     }
-
+    
     override fun finishActivity() {
         baseActivity?.finishActivity()
     }
@@ -111,6 +103,4 @@ abstract class BaseBottomSheetDialogFragment : BottomSheetDialogFragment(), Base
 
         fun onFragmentDetached(tag: String)
     }
-
-
 }

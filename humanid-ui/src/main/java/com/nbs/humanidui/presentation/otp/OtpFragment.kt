@@ -2,23 +2,30 @@ package com.nbs.humanidui.presentation.otp
 
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.util.Log
 import android.view.View
 import android.widget.Toast
-import com.human.android.util.ReactiveFormFragment
-import com.human.android.util.extensions.toHtml
+import com.nbs.humanidui.util.ReactiveFormFragment
 import com.humanid.auth.HumanIDAuth
 import com.nbs.humanidui.R
+import com.nbs.humanidui.R.string
 import com.nbs.humanidui.util.BundleKeys
 import com.nbs.humanidui.util.emptyString
 import com.nbs.humanidui.util.enum.LoginType
+import com.nbs.humanidui.util.extensions.gone
+import com.nbs.humanidui.util.extensions.onClick
+import com.nbs.humanidui.util.extensions.toHtml
+import com.nbs.humanidui.util.extensions.visible
 import com.nbs.humanidui.util.makeLinks
-import com.nbs.nucleo.utils.Timber.debug
-import com.nbs.nucleo.utils.extensions.gone
-import com.nbs.nucleo.utils.extensions.onClick
-import com.nbs.nucleo.utils.extensions.visible
-import com.nbs.validacion.Validation
-import com.nbs.validacion.util.minMaxLengthRule
-import kotlinx.android.synthetic.main.fragment_otp.*
+import com.nbs.humanidui.util.validation.Validation
+import com.nbs.humanidui.util.validation.util.minMaxLengthRule
+import kotlinx.android.synthetic.main.fragment_otp.btnDifferentNumber
+import kotlinx.android.synthetic.main.fragment_otp.btnResendCode
+import kotlinx.android.synthetic.main.fragment_otp.edtOtp
+import kotlinx.android.synthetic.main.fragment_otp.tvMessage
+import kotlinx.android.synthetic.main.fragment_otp.tvSubMessage
+import kotlinx.android.synthetic.main.fragment_otp.tvSwitchMessage
+import kotlinx.android.synthetic.main.fragment_otp.tvTitle
 
 class OtpFragment : ReactiveFormFragment() {
 
@@ -26,14 +33,14 @@ class OtpFragment : ReactiveFormFragment() {
 
     private var phoneNumber: String = emptyString()
 
-
     //CountDownTimer
-    private var time: Timer ?= null
+    private var time: Timer? = null
     private var defaultTime: Long = 30000
     private var timeLeft: Long = 0
     private var isCountingFinished: Boolean = false
 
     private var countryCode: String = emptyString()
+    private val TAG = this.javaClass.simpleName
 
     companion object {
         private const val KEY_TIMER_STATE: String = "timer_state"
@@ -81,7 +88,7 @@ class OtpFragment : ReactiveFormFragment() {
         when (otpType) {
             LoginType.NEW_ACCOUNT.type -> {
                 val subMessage = getString(R.string.sub_message_new_accoun)
-                val phoneNumber = String.format(getString(R.string.format_phone_number), countryCode+phoneNumber)
+                val phoneNumber = String.format(getString(R.string.format_phone_number), countryCode + phoneNumber)
 
                 tvSubMessage.text = toHtml(subMessage + phoneNumber)
                 tvSwitchMessage.gone()
@@ -130,18 +137,18 @@ class OtpFragment : ReactiveFormFragment() {
         btnResendCode.isClickable = false
         btnResendCode.text = "Resending code"
         HumanIDAuth.getInstance()
-                .requestOTP(countryCode, phoneNumber)
-                .addOnCompleteListener {
-                    btnResendCode.isClickable = true
-                    if (it.isSuccessful){
-                        startCountDownTimer()
-                    }else{
-                        btnResendCode.text = getString(R.string.action_resend_code)
-                    }
-                }.addOnFailureListener {
+            .requestOTP(countryCode, phoneNumber)
+            .addOnCompleteListener {
+                btnResendCode.isClickable = true
+                if (it.isSuccessful) {
+                    startCountDownTimer()
+                } else {
                     btnResendCode.text = getString(R.string.action_resend_code)
-                    btnResendCode.isClickable = true
                 }
+            }.addOnFailureListener {
+                btnResendCode.text = getString(R.string.action_resend_code)
+                btnResendCode.isClickable = true
+            }
     }
 
     override fun initProcess() {
@@ -151,7 +158,7 @@ class OtpFragment : ReactiveFormFragment() {
         addValidation(
             Validation(
                 edtOtp,
-                listOf(minMaxLengthRule(getString(R.string.error_length), 4, 4))
+                listOf(minMaxLengthRule(getString(string.error_length), 4, 4))
             )
         )
     }
@@ -167,24 +174,27 @@ class OtpFragment : ReactiveFormFragment() {
         when (otpType) {
             LoginType.SWITCH_NUMBER.type -> {
                 listener?.onOtpValidationSuccess(
-                        type = LoginType.SWITCH_NUMBER.type,
-                        otpCode = otpCode,
-                        countryCode = countryCode,
-                        phoneNumber = phoneNumber)
+                    type = LoginType.SWITCH_NUMBER.type,
+                    otpCode = otpCode,
+                    countryCode = countryCode,
+                    phoneNumber = phoneNumber
+                )
             }
             LoginType.SWITCH_DEVICE.type -> {
                 listener?.onOtpValidationSuccess(
-                        type = LoginType.SWITCH_DEVICE.type,
-                        otpCode = otpCode,
-                        countryCode = countryCode,
-                        phoneNumber = phoneNumber)
+                    type = LoginType.SWITCH_DEVICE.type,
+                    otpCode = otpCode,
+                    countryCode = countryCode,
+                    phoneNumber = phoneNumber
+                )
             }
             else -> {
                 listener?.onOtpValidationSuccess(
-                        type = LoginType.NORMAL.type,
-                        otpCode = otpCode,
-                        countryCode = countryCode,
-                        phoneNumber = phoneNumber)
+                    type = LoginType.NORMAL.type,
+                    otpCode = otpCode,
+                    countryCode = countryCode,
+                    phoneNumber = phoneNumber
+                )
             }
         }
     }
@@ -242,23 +252,22 @@ class OtpFragment : ReactiveFormFragment() {
 
     inner class Timer(milis: Long) : CountDownTimer(milis, COUNT_DOWN_TIMER_INTERVAL) {
         override fun onFinish() {
-
         }
 
         override fun onTick(milisUntilFinished: Long) {
-           if (btnResendCode != null){
-               timeLeft = milisUntilFinished
-               val timeInSeconds: Long = milisUntilFinished / COUNT_DOWN_TIMER_INTERVAL
-               debug { "Timer : $timeInSeconds" }
-               if (timeInSeconds == 0L){
-                   btnResendCode.text = getString(R.string.action_resend_code)
-                   isCountingFinished = true
-                   btnResendCode.isClickable = true
-               }else{
-                   btnResendCode.text = getString(R.string.action_resend_code_sec, timeInSeconds.toString())
-                   btnResendCode.isClickable = false
-               }
-           }
+            if (btnResendCode != null) {
+                timeLeft = milisUntilFinished
+                val timeInSeconds: Long = milisUntilFinished / COUNT_DOWN_TIMER_INTERVAL
+                Log.d(TAG, "Timer : $timeInSeconds")
+                if (timeInSeconds == 0L) {
+                    btnResendCode.text = getString(R.string.action_resend_code)
+                    isCountingFinished = true
+                    btnResendCode.isClickable = true
+                } else {
+                    btnResendCode.text = getString(R.string.action_resend_code_sec, timeInSeconds.toString())
+                    btnResendCode.isClickable = false
+                }
+            }
         }
     }
 

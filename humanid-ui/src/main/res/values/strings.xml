@@ -97,4 +97,5 @@
     <string name="message_warning_sign_out_all_session">This will sign you out of all sessions across all devices</string>
     <string name="label_learn_more">Learn More</string>
     <string name="hint_enter_your_code">Enter your code</string>
+    <string name="please_wait">Please wait</string>
 </resources>

@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/bottomSheetNotification"
+    android:id="@+id/bottomSheetWelcome"
     style="@style/AppBottomSheetDialogTheme"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -97,7 +97,7 @@
                                 android:layout_height="wrap_content"
                                 android:gravity="center_vertical"
                                 android:text="@string/label_continue_with"
-                                android:textSize="@dimen/text_size_12sp" />
+                                android:textSize="@dimen/text_size_10sp" />
 
                             <androidx.appcompat.widget.AppCompatImageView
                                 android:layout_toRightOf="@id/tvContinue"

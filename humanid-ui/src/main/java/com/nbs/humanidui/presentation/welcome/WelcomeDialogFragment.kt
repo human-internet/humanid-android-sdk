@@ -16,6 +16,7 @@ import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.nbs.humanidui.R
 import com.nbs.humanidui.presentation.HumanIDOptions
@@ -70,6 +71,10 @@ class WelcomeDialogFragment : BottomSheetDialogFragment() {
 
         btnContinue.onClick {
             listener?.onButtonContinueClicked()
+        }
+
+        bottomSheetWelcome.onClick {
+          dismiss()
         }
     }
 

@@ -16,7 +16,7 @@
         <item name="android:background">@drawable/bg_rectangle_white_top_corner</item>
         <item name="android:windowIsFloating">false</item>
         <item name="android:statusBarColor" tools:targetApi="lollipop">@android:color/transparent</item>
-        <item name="android:windowSoftInputMode">adjustResize</item>
+        <item name="android:windowSoftInputMode">adjustResize|adjustPan</item>
     </style>
 
     <style name="AppBottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">

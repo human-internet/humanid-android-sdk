@@ -14,7 +14,7 @@
     <string name="message_otp_verification"><![CDATA[OTP verification is managed by an independent 3rd party. Number & fingerprints are never visible to humanID or partner app. Learn More]]></string>
     <string name="action_cancel">Cancel</string>
     <string name="action_transfer_account_number">Transfer account to new number?</string>
-    <string name="message_manage_and_monitor_login"><![CDATA[Manage & Monitor all your logins & data with humanID]]></string>
+    <string name="message_manage_and_monitor_login"><![CDATA[Manage & monitor all your logins & data with the humanID app]]></string>
     <string name="message_humanid_description"><![CDATA[humanID is the independent & open online ID - giving back privacy, and the internet, to humans. Learn About Our Mission]]></string>
     <string name="title_switching_number">Switching Number</string>
     <string name="message_switch_number">Let’s transfer your humanID to a new number. First , let’s verify your new phone number</string>
@@ -50,7 +50,7 @@
     <string name="label_warning_logout">This will sign you out of all sessions across all devices</string>
 
     //Title
-    <string name="title_register_number">Create a new Account</string>
+    <string name="title_register_number">Create a new account</string>
     <string name="title_register_email">For Your Security</string>
     <string name="title_new_device">New Device</string>
     <string name="title_change_number">Phone number has been change</string>
@@ -72,12 +72,12 @@ Register securely by confirming your phone number. It is deleted after verificat
     <string name="sub_message_email_dialog">In case I have to recover my humanID login in the future</string>
     <string name="sub_message_register_number">Please enter the 4 digit code you received as SMS to +1 617 999 9999</string>
     <string name="sub_message_register_email">Ensure to enter an address you can access and remember! Only a non-readable encryption will be saved</string>
-    <string name="sub_message_new_device">Please enter the 4 digit code you received as SMS</string>
-    <string name="sub_message_new_accoun">Please enter the 4 digit code you received as SMS to</string>
+    <string name="sub_message_new_device">Please enter the 4 digit code you received via SMS</string>
+    <string name="sub_message_new_accoun">Please enter the 4 digit code you received via SMS to</string>
     <string name="sub_message_register_dialog">Let’s get your setup:</string>
 
     //Format
-    <string name="format_phone_number"><![CDATA[<font color=\'#075070\'><b> %s</b></font>]]></string>
+    <string name="format_phone_number"><![CDATA[<font color=\'#075070\'><b> +%s</b></font>]]></string>
     <string name="format_phone_number_dialog">&lt;font color=&quot;#075070&quot;&gt; %s&lt;/font&gt;</string>
 
     //Error
@@ -94,7 +94,7 @@ Register securely by confirming your phone number. It is deleted after verificat
     <string name="action_learn_more_humanid">Learn more about humanID</string>
     <string name="action_back">back</string>
     <string name="message_send_otp_switch">We just sent a text to +1 999-999-999. We will not save or forward this number after the verification</string>
-    <string name="message_enter_otp_switch">Please enter the 4 digit code you received as SMS</string>
+    <string name="message_enter_otp_switch">Please enter the 4 digit code you received via SMS</string>
     <string name="message_email_confirmation_code">We sent confirmation code  to email, please click link or enter code:</string>
     <string name="message_warning_sign_out_all_session">This will sign you out of all sessions across all devices</string>
     <string name="label_learn_more">Learn More</string>

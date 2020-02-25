@@ -11,6 +11,6 @@
 
     <stroke
         android:color="@color/colorWarmGrey"
-        android:width="@dimen/dimen_1dp"/>
+        android:width="@dimen/dimen_2dp"/>
 
 </shape>

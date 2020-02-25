@@ -142,9 +142,9 @@
                     android:fontFamily="@font/roboto_regular"
                     app:backgroundTint="#40000000"
                     android:maxLines="1"
-                    android:autoSizeMaxTextSize="@dimen/text_size_14sp"
-                    android:autoSizeMinTextSize="@dimen/text_size_10sp"
-                    android:autoSizeStepGranularity="2sp"
+                    app:autoSizeMaxTextSize="@dimen/text_size_14sp"
+                    app:autoSizeMinTextSize="@dimen/text_size_10sp"
+                    app:autoSizeStepGranularity="2sp"
                     android:padding="8dp"/>
 
                 <View
@@ -215,7 +215,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dimen_18dp"
-            android:backgroundTint="@color/colorLightBlueGrey"
+            android:background="@color/colorLightBlueGrey"
             app:cardCornerRadius="@dimen/dimen_4dp">
 
             <LinearLayout

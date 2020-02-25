@@ -263,9 +263,11 @@ class OtpFragment : ReactiveFormFragment() {
                     btnResendCode.text = getString(R.string.action_resend_code)
                     isCountingFinished = true
                     btnResendCode.isClickable = true
+                    btnResendCode.setTextColor(resources.getColor(R.color.colorTwilightBlue))
                 } else {
                     btnResendCode.text = getString(R.string.action_resend_code_sec, "${timeInSeconds}s")
                     btnResendCode.isClickable = false
+                    btnResendCode.setTextColor(resources.getColor(R.color.colorWarmGrey))
                 }
             }
         }

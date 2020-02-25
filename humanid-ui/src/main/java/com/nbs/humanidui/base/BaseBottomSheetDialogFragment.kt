@@ -34,7 +34,7 @@ abstract class BaseBottomSheetDialogFragment : BottomSheetDialogFragment(), Base
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        dialog?.setCancelable(false)
+//        dialog?.setCancelable(false)
         dialog?.setCanceledOnTouchOutside(false)
         onViewReady()
     }

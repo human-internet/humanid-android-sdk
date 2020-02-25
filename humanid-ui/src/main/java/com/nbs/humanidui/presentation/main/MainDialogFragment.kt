@@ -235,11 +235,6 @@ class MainDialogFragment : BaseBottomSheetDialogFragment(),
         else dismiss()
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setStyle(R.style.AppBottomSheetDialogTheme, R.style.AppTheme)
-    }
-
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val dialog = super.onCreateDialog(savedInstanceState)
 

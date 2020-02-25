@@ -43,8 +43,8 @@
 
     <string name="label_mdb">mdb.</string>
     <string name="label_welcome">Welcome to Movie DB</string>
-    <string name="label_continue_with">Continue With</string>
-    <string name="label_recommended_full_privacy">( recommended for full privacy)</string>
+    <string name="label_continue_with">Continue with</string>
+    <string name="label_recommended_full_privacy">(recommended for full privacy)</string>
     <string name="label_agreement">I agree to Movie DB Terms of Service</string>
     <string name="label_verify_your_phone_number">Verify your phone number to connect anonymously with Movie DB</string>
     <string name="hint_phone_number">Your Phone Number</string>

@@ -4,11 +4,11 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="label_mdb">mdb.</string>
-    <string name="message_already_login">You are already logged in</string>
+    <string name="message_already_login">You’re logged in anonymously with humanID</string>
     <string name="label_welcome">Welcome to Movie DB</string>
-    <string name="label_continue_with">Continue With</string>
-    <string name="label_recommended_full_privacy">( recommended for full privacy)</string>
-    <string name="label_agreement">I agree to Movie DB Terms of Service</string>
+    <string name="label_continue_with">Continue with</string>
+    <string name="label_recommended_full_privacy">(recommended for full privacy)</string>
+    <string name="label_agreement">I hereby agree to MovieDB’s Terms of Service</string>
     <string name="label_verify_your_phone_number">Verify your phone number to connect anonymously with %s</string>
     <string name="hint_phone_number">Your Phone Number</string>
     <string name="message_otp_verification"><![CDATA[OTP verification is managed by an independent 3rd party. Number & fingerprints are never visible to humanID or partner app. Learn More]]></string>
@@ -58,7 +58,9 @@
     <string name="title_switch_number">Switching Number</string>
 
     //Message
-    <string name="message_register_number"><![CDATA[Welcome to humanID - the private & non-profit sign in. Register now by securely confirming your phone number. It will never be saved to humanID or partner platforms.]]></string>
+    <string name="message_register_number"><![CDATA[Welcome to humanID - the independent, non-profit sign-in. \n
+Register securely by confirming your phone number. It is deleted after verification and never communicated to platforms!
+]]></string>
     <string name="message_register_email">Please enter your email address to recover access in case you lose your phone number</string>
     <string name="message_email_dialog">&lt;b&gt;Confirmation: &lt;/b&gt; &lt;br /&gt;Yes, I can access and recall</string>
     <string name="message_new_device">We don’t recognize your device - please verify your number</string>

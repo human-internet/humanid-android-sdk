@@ -264,7 +264,7 @@ class OtpFragment : ReactiveFormFragment() {
                     isCountingFinished = true
                     btnResendCode.isClickable = true
                 } else {
-                    btnResendCode.text = getString(R.string.action_resend_code_sec, timeInSeconds.toString())
+                    btnResendCode.text = getString(R.string.action_resend_code_sec, "${timeInSeconds}s")
                     btnResendCode.isClickable = false
                 }
             }

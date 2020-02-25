@@ -52,7 +52,7 @@
                 android:id="@+id/btnSwitchDevice"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Switch Device"
+                android:text="Log Out"
                 android:layout_marginTop="@dimen/dimen_16dp"/>
 
             <androidx.appcompat.widget.AppCompatTextView

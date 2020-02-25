@@ -13,6 +13,7 @@ import androidx.annotation.RequiresApi
 import com.nbs.humanidui.R
 import com.nbs.humanidui.base.BaseBottomSheetDialogFragment
 import com.nbs.humanidui.presentation.HumanIDOptions
+import com.nbs.humanidui.util.extensions.gone
 import com.nbs.humanidui.util.extensions.visible
 import kotlinx.android.synthetic.main.fragment_user_loggedin.*
 
@@ -57,8 +58,8 @@ class UserLoggedInFragment : BaseBottomSheetDialogFragment() {
             }
 
             if (!humanIDOptions?.applicationName.isNullOrEmpty()){
-                tvTnC.visible()
-                tvTnC.text = "I agree to ${humanIDOptions?.applicationName} Terms of Service"
+                tvTnC.gone()
+                tvTnC.text = "I  hereby agree to ${humanIDOptions?.applicationName} Terms of Service"
             }
         }
     }

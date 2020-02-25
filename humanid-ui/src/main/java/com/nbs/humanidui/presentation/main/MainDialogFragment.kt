@@ -140,7 +140,7 @@ class MainDialogFragment : BaseBottomSheetDialogFragment(),
                 hideLoading()
                 dismiss()
                 if (it.isSuccessful){
-                    showToast("Switch Device Success")
+                    showToast("Switch Device Succeeded")
                 }else{
                     showToast("Switch Device Failed")
                 }
@@ -172,7 +172,7 @@ class MainDialogFragment : BaseBottomSheetDialogFragment(),
                     hideLoading()
                     it.message?.let {message ->
                         if (message.contains("Existing login found on deviceId")){
-                            showToast("Login succeed")
+                            showToast("Login succeeded - Phone number not stored")
                             dismissAllowingStateLoss()
                         }else{
                             showToast(message)
@@ -188,7 +188,7 @@ class MainDialogFragment : BaseBottomSheetDialogFragment(),
                     hideLoading()
                     if (it.isSuccessful){
                         dismissAllowingStateLoss()
-                        showToast("Login succeed")
+                        showToast("Login succeeded - Phone number not stored")
                     }else{
                         showToast("Login failed")
                     }
@@ -233,6 +233,11 @@ class MainDialogFragment : BaseBottomSheetDialogFragment(),
         if (childFragmentManager.backStackEntryCount > 0)
             childFragmentManager.popBackStackImmediate()
         else dismiss()
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setStyle(R.style.AppBottomSheetDialogTheme, R.style.AppTheme)
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {

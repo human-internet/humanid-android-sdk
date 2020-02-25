@@ -3,6 +3,7 @@ package com.nbs.humanidui.presentation.phonenumber
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
@@ -76,6 +77,8 @@ class PhoneNumberFragment : ReactiveFormFragment() {
             initView()
             setSpannableString()
         }
+
+        activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
     }
 
     override fun initAction() {

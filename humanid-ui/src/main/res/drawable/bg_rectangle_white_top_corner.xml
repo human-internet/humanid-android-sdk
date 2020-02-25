@@ -9,4 +9,8 @@
     <solid
         android:color="@color/colorWhite"/>
 
+    <stroke
+        android:color="@color/colorWarmGrey"
+        android:width="@dimen/dimen_1dp"/>
+
 </shape>

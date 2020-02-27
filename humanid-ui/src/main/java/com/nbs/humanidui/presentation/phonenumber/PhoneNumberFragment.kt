@@ -7,37 +7,22 @@ import android.view.WindowManager
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
-import com.nbs.humanidui.util.ReactiveFormFragment
 import com.humanid.auth.HumanIDAuth
 import com.nbs.humanidui.R
 import com.nbs.humanidui.R.string
 import com.nbs.humanidui.domain.CodeNumber
 import com.nbs.humanidui.presentation.HumanIDOptions
 import com.nbs.humanidui.util.BundleKeys
+import com.nbs.humanidui.util.ReactiveFormFragment
 import com.nbs.humanidui.util.emptyString
 import com.nbs.humanidui.util.enum.LoginType
-import com.nbs.humanidui.util.extensions.gone
-import com.nbs.humanidui.util.extensions.isEnabled
-import com.nbs.humanidui.util.extensions.onClick
-import com.nbs.humanidui.util.extensions.showToast
-import com.nbs.humanidui.util.extensions.visible
+import com.nbs.humanidui.util.extensions.*
 import com.nbs.humanidui.util.makeLinks
 import com.nbs.humanidui.util.validation.Validation
 import com.nbs.humanidui.util.validation.util.notEmptyRule
 import com.nbs.humanidui.util.validation.util.numberOnlyRule
 import com.nbs.humanidui.util.validation.util.onTextChange
-import kotlinx.android.synthetic.main.fragment_phone_number.btnCancel
-import kotlinx.android.synthetic.main.fragment_phone_number.btnEnter
-import kotlinx.android.synthetic.main.fragment_phone_number.btnTransfer
-import kotlinx.android.synthetic.main.fragment_phone_number.ccpPhoneNumber
-import kotlinx.android.synthetic.main.fragment_phone_number.containerTopNormal
-import kotlinx.android.synthetic.main.fragment_phone_number.containerTopSwitch
-import kotlinx.android.synthetic.main.fragment_phone_number.edtPhoneNumber
-import kotlinx.android.synthetic.main.fragment_phone_number.imgAppIcon
-import kotlinx.android.synthetic.main.fragment_phone_number.mcvAd
-import kotlinx.android.synthetic.main.fragment_phone_number.tvAboutOurMission
-import kotlinx.android.synthetic.main.fragment_phone_number.tvMessage
-import kotlinx.android.synthetic.main.fragment_phone_number.tvOTP
+import kotlinx.android.synthetic.main.fragment_phone_number.*
 
 class PhoneNumberFragment : ReactiveFormFragment() {
 
@@ -170,7 +155,7 @@ class PhoneNumberFragment : ReactiveFormFragment() {
         task.addOnFailureListener {
             enableViews(true)
             Log.d(TAG, it.message.toString())
-            showToast(it.message.toString())
+            showToast("Unable to request otp at this time. Please try again later")
         }
     }
 

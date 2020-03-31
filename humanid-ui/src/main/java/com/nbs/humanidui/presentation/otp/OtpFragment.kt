@@ -5,11 +5,11 @@ import android.os.CountDownTimer
 import android.util.Log
 import android.view.View
 import android.widget.Toast
-import com.nbs.humanidui.util.ReactiveFormFragment
 import com.humanid.auth.HumanIDAuth
 import com.nbs.humanidui.R
 import com.nbs.humanidui.R.string
 import com.nbs.humanidui.util.BundleKeys
+import com.nbs.humanidui.util.ReactiveFormFragment
 import com.nbs.humanidui.util.emptyString
 import com.nbs.humanidui.util.enum.LoginType
 import com.nbs.humanidui.util.extensions.gone
@@ -19,13 +19,7 @@ import com.nbs.humanidui.util.extensions.visible
 import com.nbs.humanidui.util.makeLinks
 import com.nbs.humanidui.util.validation.Validation
 import com.nbs.humanidui.util.validation.util.minMaxLengthRule
-import kotlinx.android.synthetic.main.fragment_otp.btnDifferentNumber
-import kotlinx.android.synthetic.main.fragment_otp.btnResendCode
-import kotlinx.android.synthetic.main.fragment_otp.edtOtp
-import kotlinx.android.synthetic.main.fragment_otp.tvMessage
-import kotlinx.android.synthetic.main.fragment_otp.tvSubMessage
-import kotlinx.android.synthetic.main.fragment_otp.tvSwitchMessage
-import kotlinx.android.synthetic.main.fragment_otp.tvTitle
+import kotlinx.android.synthetic.main.fragment_otp.*
 
 class OtpFragment : ReactiveFormFragment() {
 
@@ -68,10 +62,6 @@ class OtpFragment : ReactiveFormFragment() {
     }
 
     override val layoutResource: Int = R.layout.fragment_otp
-
-    override fun initLib() {
-        super.initLib()
-    }
 
     override fun initIntent() {
         arguments?.let {
@@ -124,6 +114,7 @@ class OtpFragment : ReactiveFormFragment() {
         }
 
         btnResendCode.onClick {
+            edtOtp.setText("")
             resendOtp()
         }
 

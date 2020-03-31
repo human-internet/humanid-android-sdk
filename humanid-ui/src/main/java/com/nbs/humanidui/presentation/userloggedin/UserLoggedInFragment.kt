@@ -10,12 +10,15 @@ import android.os.Bundle
 import android.util.DisplayMetrics
 import androidx.annotation.NonNull
 import androidx.annotation.RequiresApi
+import com.humanid.auth.HumanIDAuth
 import com.nbs.humanidui.R
 import com.nbs.humanidui.base.BaseBottomSheetDialogFragment
 import com.nbs.humanidui.presentation.HumanIDOptions
+import com.nbs.humanidui.util.LogoutEvent
 import com.nbs.humanidui.util.extensions.gone
 import com.nbs.humanidui.util.extensions.visible
 import kotlinx.android.synthetic.main.fragment_user_loggedin.*
+import org.greenrobot.eventbus.EventBus
 
 class UserLoggedInFragment : BaseBottomSheetDialogFragment() {
 
@@ -70,6 +73,8 @@ class UserLoggedInFragment : BaseBottomSheetDialogFragment() {
 
         btnSwitchDevice.setOnClickListener {
             dismissAllowingStateLoss()
+            HumanIDAuth.getInstance().removeCurrentUser()
+            EventBus.getDefault().post(LogoutEvent())
             onButtonSwitchDeviceClickListener.onButtonSwitchDeviceClicked()
         }
     }

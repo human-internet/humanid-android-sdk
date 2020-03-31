@@ -1,7 +1,6 @@
 package com.nbs.humanidui.presentation.route
 
 import com.humanid.auth.HumanIDAuth
-import com.nbs.humanidui.util.extensions.showToast
 
 class Route{
     fun checkIsLoggedIn(onLoggedIn: ()-> Unit, onNotLoggedIn: ()->Unit, onCheckInLoading: ()->Unit){
@@ -17,7 +16,7 @@ class Route{
                             }
                         }.addOnFailureListener {exception ->
                             onNotLoggedIn.invoke()
-                            showToast(exception.message.toString())
+                            HumanIDAuth.getInstance().removeCurrentUser()
                         }
             }
 

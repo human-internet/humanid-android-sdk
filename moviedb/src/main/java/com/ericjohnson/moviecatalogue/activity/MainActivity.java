@@ -18,6 +18,12 @@ import com.ericjohnson.moviecatalogue.R;
 import com.ericjohnson.moviecatalogue.adapter.ViewPagerAdapter;
 import com.google.android.material.tabs.TabLayout;
 import com.nbs.humanidui.presentation.HumanIDUI;
+import com.nbs.humanidui.util.LoginEvent;
+import com.nbs.humanidui.util.LogoutEvent;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -46,6 +52,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
+        EventBus.getDefault().register(this);
+
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), this);
         vpMain.setAdapter(viewPagerAdapter);
         tabMain.setupWithViewPager(vpMain);
@@ -59,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
                         .verifyLogin(getSupportFragmentManager());
             }
         });
+
     }
 
     @Override
@@ -103,5 +112,21 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
+    }
+
+    @Override
+    protected void onDestroy() {
+        EventBus.getDefault().unregister(this);
+        super.onDestroy();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onLoginEvent(LoginEvent e){
+        setUpAvatar();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onLogoutEvent(LogoutEvent e){
+        setUpAvatar();
     }
 }

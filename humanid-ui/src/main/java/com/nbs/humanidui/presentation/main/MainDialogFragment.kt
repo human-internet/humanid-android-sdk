@@ -21,10 +21,12 @@ import com.nbs.humanidui.presentation.phonenumberemail.PhoneNumberEmailFragment
 import com.nbs.humanidui.presentation.registeremail.RegisterEmailFragment
 import com.nbs.humanidui.presentation.termandcondition.TermsAndConditionFragment
 import com.nbs.humanidui.util.BundleKeys
+import com.nbs.humanidui.util.LoginEvent
 import com.nbs.humanidui.util.emptyString
 import com.nbs.humanidui.util.enum.LoginType
 import com.nbs.humanidui.util.extensions.replaceFragment
 import com.nbs.humanidui.util.extensions.showToast
+import org.greenrobot.eventbus.EventBus
 
 class MainDialogFragment : BaseBottomSheetDialogFragment(),
         RegisterEmailFragment.OnRegisterEmailListener,
@@ -189,6 +191,7 @@ class MainDialogFragment : BaseBottomSheetDialogFragment(),
                     if (it.isSuccessful) {
                         dismissAllowingStateLoss()
                         showToast("Login succeeded - Phone number not stored")
+                        EventBus.getDefault().post(LoginEvent())
                     } else {
                         showToast("Login failed")
                     }

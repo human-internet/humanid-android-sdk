@@ -8,8 +8,8 @@
     android:layout_height="wrap_content"
     android:background="@drawable/bg_rectangle_twilightblue_top_corner"
     android:orientation="vertical"
-    android:paddingLeft="@dimen/dimen_16dp"
-    android:paddingRight="@dimen/dimen_16dp"
+    android:paddingLeft="@dimen/dimen_8dp"
+    android:paddingRight="@dimen/dimen_8dp"
     android:paddingBottom="@dimen/dimen_24dp"
     app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
 
@@ -58,7 +58,7 @@
                 android:layout_marginTop="@dimen/dimen_22dp"
                 android:layout_marginEnd="@dimen/dimen_50dp"
                 android:background="@color/colorWhite"
-                app:cardCornerRadius="@dimen/dimen_4dp">
+                app:cardCornerRadius="@dimen/dimen_8dp">
 
                 <LinearLayout
                     android:id="@+id/btnContinue"
@@ -97,7 +97,7 @@
                                 android:layout_height="wrap_content"
                                 android:gravity="center_vertical"
                                 android:text="@string/label_continue_with"
-                                android:textSize="@dimen/text_size_10sp" />
+                                android:textSize="@dimen/text_size_14sp" />
 
                             <androidx.appcompat.widget.AppCompatImageView
                                 android:layout_toRightOf="@id/tvContinue"
@@ -114,7 +114,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/label_recommended_full_privacy"
-                            android:textSize="@dimen/text_size_10sp" />
+                            android:textSize="@dimen/text_size_12sp" />
 
                     </LinearLayout>
 

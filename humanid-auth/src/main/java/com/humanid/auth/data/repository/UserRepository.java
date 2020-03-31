@@ -71,6 +71,10 @@ public class UserRepository {
         return currentUser;
     }
 
+    public void clearUserPreference(){
+        userPreference.clear();
+    }
+
     private void loadCurrentUser() {
         User user = userPreference.load();
 

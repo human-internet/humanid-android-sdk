@@ -7,8 +7,6 @@ import com.nbs.humanidui.presentation.main.MainDialogFragment
 import com.nbs.humanidui.presentation.route.Route
 import com.nbs.humanidui.presentation.userloggedin.UserLoggedInFragment
 import com.nbs.humanidui.presentation.welcome.WelcomeDialogFragment
-import com.nbs.humanidui.util.enum.LoginType
-import com.nbs.humanidui.util.extensions.showToast
 
 class HumanIDUI: WelcomeDialogFragment.OnWelcomeDialogListener,
         UserLoggedInFragment.OnButtonSwitchDeviceClickListener {
@@ -31,7 +29,7 @@ class HumanIDUI: WelcomeDialogFragment.OnWelcomeDialogListener,
         }, onNotLoggedIn = {
             showDialogWelcome()
         }, onCheckInLoading = {
-            showToast("Checking your authentication validity")
+
         })
     }
 
@@ -58,8 +56,9 @@ class HumanIDUI: WelcomeDialogFragment.OnWelcomeDialogListener,
 
     override fun onButtonSwitchDeviceClicked() {
         closeDialog()
-        val mainDialogFragment = MainDialogFragment.newInstance(LoginType.SWITCH_DEVICE.type)
-        supportFragmentManager?.let { mainDialogFragment.show(it, MainDialogFragment::class.java.simpleName) }
+//        val mainDialogFragment = MainDialogFragment.newInstance(LoginType.SWITCH_DEVICE.type)
+//        supportFragmentManager?.let { mainDialogFragment.show(it, MainDialogFragment::class.java.simpleName) }
+        showDialogWelcome()
     }
 
     fun closeDialog(){

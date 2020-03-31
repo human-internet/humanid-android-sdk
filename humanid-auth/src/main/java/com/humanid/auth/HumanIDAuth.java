@@ -51,6 +51,10 @@ public class HumanIDAuth {
         return humanIDUser;
     }
 
+    public void removeCurrentUser(){
+        UserRepository.getInstance(applicationContext).clearUserPreference();
+    }
+
     private void loadCurrentUser() {
         User user = UserRepository.getInstance(applicationContext).getCurrentUser();
         if (user == null) return;

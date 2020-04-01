@@ -5,9 +5,11 @@ import android.content.Intent
 import com.nbs.humanidui.R
 import com.nbs.humanidui.base.BaseActivity
 import com.nbs.humanidui.presentation.phonenumber.PhoneNumberActivity
+import org.greenrobot.eventbus.EventBus
 
 class HumanIDActivity : BaseActivity(), WelcomeFragment.OnWelcomeButtonListener {
     companion object{
+        @JvmStatic
         fun start(activity: Activity){
             val intent = Intent(activity, HumanIDActivity::class.java)
             activity.startActivityForResult(intent, 0x200)
@@ -18,6 +20,7 @@ class HumanIDActivity : BaseActivity(), WelcomeFragment.OnWelcomeButtonListener 
         get() = R.layout.activity_humanid
 
     override fun initLib() {
+        EventBus.getDefault().register(this)
     }
 
     override fun initIntent() {
@@ -37,5 +40,10 @@ class HumanIDActivity : BaseActivity(), WelcomeFragment.OnWelcomeButtonListener 
 
     override fun onButtonContinueClicked() {
         PhoneNumberActivity.start(this)
+    }
+
+    override fun onDestroy() {
+        EventBus.getDefault().unregister(this)
+        super.onDestroy()
     }
 }

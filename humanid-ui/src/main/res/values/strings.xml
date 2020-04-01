@@ -101,4 +101,9 @@ Register securely by confirming your phone number. It is deleted after verificat
     <string name="hint_enter_your_code">Enter your code</string>
     <string name="please_wait">Please wait</string>
     <string name="message_hereby">I hereby agree to %s\'s Terms of Service</string>
+    <string name="error_message_unable_to_request_otp">Unable to request otp at this time. Please try again later</string>
+    <string name="error_message_request_otp_failed">Request otp failed</string>
+    <string name="action_processing">Processing</string>
+    <string name="message_login_succeeded">Login succeeded - Phone number not stored</string>
+    <string name="error_message_unable_to_connect">Unable to reach the humanID Service at this time</string>
 </resources>

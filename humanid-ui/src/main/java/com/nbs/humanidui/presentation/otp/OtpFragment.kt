@@ -12,10 +12,7 @@ import com.nbs.humanidui.util.BundleKeys
 import com.nbs.humanidui.util.ReactiveFormFragment
 import com.nbs.humanidui.util.emptyString
 import com.nbs.humanidui.util.enum.LoginType
-import com.nbs.humanidui.util.extensions.gone
-import com.nbs.humanidui.util.extensions.onClick
-import com.nbs.humanidui.util.extensions.toHtml
-import com.nbs.humanidui.util.extensions.visible
+import com.nbs.humanidui.util.extensions.*
 import com.nbs.humanidui.util.makeLinks
 import com.nbs.humanidui.util.validation.Validation
 import com.nbs.humanidui.util.validation.util.minMaxLengthRule
@@ -23,9 +20,9 @@ import kotlinx.android.synthetic.main.fragment_otp.*
 
 class OtpFragment : ReactiveFormFragment() {
 
-    private var otpType = emptyString()
-
     private var phoneNumber: String = emptyString()
+    private var countryCode: String = emptyString()
+    private lateinit var onVerifyOtpListener: OnVerifyOtpListener
 
     //CountDownTimer
     private var time: Timer? = null
@@ -33,7 +30,6 @@ class OtpFragment : ReactiveFormFragment() {
     private var timeLeft: Long = 0
     private var isCountingFinished: Boolean = false
 
-    private var countryCode: String = emptyString()
     private val TAG = this.javaClass.simpleName
 
     companion object {
@@ -42,20 +38,14 @@ class OtpFragment : ReactiveFormFragment() {
 
         var listener: OnOtpListener? = null
 
-        fun newInstance(type: String = LoginType.NORMAL.type): OtpFragment {
+        fun newInstance(countryCode: String, phoneNumber: String, onVerifyOtpListener: OnVerifyOtpListener): OtpFragment {
             val fragment = OtpFragment()
-            val bundle = Bundle()
-            bundle.putString(BundleKeys.KEY_OTP_TYPE, type)
-            fragment.arguments = bundle
-            return fragment
-        }
+            fragment.onVerifyOtpListener = onVerifyOtpListener
 
-        fun newInstance(type: String = LoginType.NORMAL.type, countryCode: String, phoneNumber: String): OtpFragment {
-            val fragment = OtpFragment()
             val bundle = Bundle()
-            bundle.putString(BundleKeys.KEY_OTP_TYPE, type)
             bundle.putString(BundleKeys.KEY_PHONENUMBER, phoneNumber)
             bundle.putString(BundleKeys.KEY_COUNTRY_CODE, countryCode)
+
             fragment.arguments = bundle
             return fragment
         }
@@ -65,7 +55,6 @@ class OtpFragment : ReactiveFormFragment() {
 
     override fun initIntent() {
         arguments?.let {
-            otpType = it.getString(BundleKeys.KEY_OTP_TYPE) ?: emptyString()
             phoneNumber = it.getString(BundleKeys.KEY_PHONENUMBER) ?: emptyString()
             countryCode = it.getString(BundleKeys.KEY_COUNTRY_CODE) ?: emptyString()
         }
@@ -74,53 +63,22 @@ class OtpFragment : ReactiveFormFragment() {
     override fun initUI() {
         setSpannableString()
         startCountDownTimer()
+        updateView()
+    }
 
-        when (otpType) {
-            LoginType.NEW_ACCOUNT.type -> {
-                val subMessage = getString(R.string.sub_message_new_accoun)
-                val phoneNumber = String.format(getString(R.string.format_phone_number), countryCode + phoneNumber)
+    private fun updateView() {
+        val subMessage = getString(R.string.sub_message_new_accoun)
+        val phoneNumber = String.format(getString(R.string.format_phone_number), countryCode + phoneNumber)
 
-                tvSubMessage.text = toHtml(subMessage + phoneNumber)
-                tvSwitchMessage.gone()
-            }
-            LoginType.SWITCH_DEVICE.type -> {
-                tvSwitchMessage.gone()
-                tvTitle.text = getString(R.string.title_new_device)
-                tvMessage.text = getString(R.string.message_new_device)
-                tvSubMessage.text = getString(R.string.sub_message_new_device)
-            }
-            LoginType.SWITCH_NUMBER.type -> {
-                tvSwitchMessage.visible()
-                tvTitle.text = getString(R.string.title_switching_number)
-                tvMessage.text = getString(R.string.message_send_otp_switch)
-                tvSubMessage.text = getString(R.string.message_enter_otp_switch)
-            }
-        }
+        tvSubMessage.text = toHtml(subMessage + phoneNumber)
+        tvSwitchMessage.gone()
+        btnDifferentNumber.gone()
     }
 
     override fun initAction() {
-        when (otpType) {
-            LoginType.NORMAL.type -> btnDifferentNumber.onClick {
-
-            }
-
-            LoginType.SWITCH_DEVICE.type -> btnDifferentNumber.onClick {
-
-            }
-
-            LoginType.SWITCH_NUMBER.type -> btnDifferentNumber.onClick {
-
-            }
-        }
-
         btnResendCode.onClick {
             edtOtp.setText("")
             resendOtp()
-        }
-
-        btnDifferentNumber.onClick {
-            cancelCountDownTimer()
-            listener?.onButtonDifferentNumberClicked(type = otpType)
         }
     }
 
@@ -158,36 +116,34 @@ class OtpFragment : ReactiveFormFragment() {
     }
 
     override fun onValidationSuccess() {
-        val otpCode: String = edtOtp.text.toString().trim()
-
         cancelCountDownTimer()
+        val otpCode: String = edtOtp.text.toString().trim()
+        verifyOtp(otpCode)
+    }
 
-        when (otpType) {
-            LoginType.SWITCH_NUMBER.type -> {
-                listener?.onOtpValidationSuccess(
-                    type = LoginType.SWITCH_NUMBER.type,
-                    otpCode = otpCode,
-                    countryCode = countryCode,
-                    phoneNumber = phoneNumber
-                )
-            }
-            LoginType.SWITCH_DEVICE.type -> {
-                listener?.onOtpValidationSuccess(
-                    type = LoginType.SWITCH_DEVICE.type,
-                    otpCode = otpCode,
-                    countryCode = countryCode,
-                    phoneNumber = phoneNumber
-                )
-            }
-            else -> {
-                listener?.onOtpValidationSuccess(
-                    type = LoginType.NORMAL.type,
-                    otpCode = otpCode,
-                    countryCode = countryCode,
-                    phoneNumber = phoneNumber
-                )
-            }
-        }
+    private fun verifyOtp(otpCode: String) {
+        showLoading()
+        HumanIDAuth.getInstance().register(countryCode.replace("+", "").trim(), phoneNumber, otpCode)
+                .addOnCompleteListener {
+                    hideLoading()
+                    if (it.isSuccessful) {
+                        it.result?.userHash?.let { userHash ->
+                            onVerifyOtpListener.onVerifySuccess(userHash)
+                        }
+                    } else {
+                        showToast("Verify otp failed")
+                    }
+
+                }.addOnFailureListener {
+                    hideLoading()
+                    it.message?.let { message ->
+                        if (message.contains("Existing login found on deviceId")) {
+                            showToast(getString(string.message_login_succeeded))
+                        } else {
+                            showToast(message)
+                        }
+                    }
+                }
     }
 
     private fun setSpannableString() {
@@ -265,4 +221,8 @@ class OtpFragment : ReactiveFormFragment() {
     }
 
     //endregion
+
+    interface OnVerifyOtpListener{
+        fun onVerifySuccess(userHash: String)
+    }
 }

@@ -9,12 +9,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import com.nbs.humanidui.R
+import com.nbs.humanidui.event.CloseAllActivityEvent
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 abstract class BaseActivity : AppCompatActivity(), BaseView, BaseFragment.Callback {
 
     private var mProgressDialog: ProgressDialog? = null
 
-    //    pass Layout here
     protected abstract val layoutResource: Int
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -133,4 +135,8 @@ abstract class BaseActivity : AppCompatActivity(), BaseView, BaseFragment.Callba
     //    initialize main Process here e.g call presenter to load data
     protected abstract fun initProcess()
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onCloseActivityEventReceived(closeAllActivityEvent: CloseAllActivityEvent){
+        finish()
+    }
 }

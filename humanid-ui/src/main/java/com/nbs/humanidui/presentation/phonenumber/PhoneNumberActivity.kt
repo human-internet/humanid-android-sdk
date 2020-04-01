@@ -4,7 +4,8 @@ import android.content.Context
 import android.content.Intent
 import com.nbs.humanidui.R
 import com.nbs.humanidui.base.BaseActivity
-import com.nbs.humanidui.util.enum.LoginType
+import com.nbs.humanidui.presentation.otp.OtpActivity
+import org.greenrobot.eventbus.EventBus
 
 class PhoneNumberActivity : BaseActivity(), PhoneNumberFragment.OnPhoneNumberListener {
 
@@ -18,7 +19,7 @@ class PhoneNumberActivity : BaseActivity(), PhoneNumberFragment.OnPhoneNumberLis
         get() = R.layout.activity_phone_number
 
     override fun initLib() {
-
+        EventBus.getDefault().register(this)
     }
 
     override fun initIntent() {
@@ -34,21 +35,19 @@ class PhoneNumberActivity : BaseActivity(), PhoneNumberFragment.OnPhoneNumberLis
     }
 
     override fun initProcess() {
-        val phoneNumberFragment = PhoneNumberFragment.newInstance(type = LoginType.NEW_ACCOUNT.type,
-            phoneNumberListener = this)
+        val phoneNumberFragment = PhoneNumberFragment.newInstance(phoneNumberListener = this)
         supportFragmentManager.beginTransaction()
                 .replace(R.id.containerPhoneNumber, phoneNumberFragment)
                 .commitAllowingStateLoss()
     }
 
-    override fun onButtonCancelClicked(type: String) {
-
+    override fun onButtonCancelClicked() {
+        finishActivity()
     }
 
-    override fun onButtonEnterClicked(countryCode: String, type: String, phoneNumber: String) {
-        if (type == LoginType.NEW_ACCOUNT.type){
-
-        }
+    override fun onRequestOtpSucceed(countryCode: String, phoneNumber: String) {
+        OtpActivity.start(this, phoneNumber = phoneNumber, countryCode = countryCode)
+        finishActivity()
     }
 
     override fun onButtonTransferClicked() {

@@ -12,10 +12,8 @@ import com.nbs.humanidui.R
 import com.nbs.humanidui.R.string
 import com.nbs.humanidui.domain.CodeNumber
 import com.nbs.humanidui.presentation.HumanIDOptions
-import com.nbs.humanidui.util.BundleKeys
 import com.nbs.humanidui.util.ReactiveFormFragment
 import com.nbs.humanidui.util.emptyString
-import com.nbs.humanidui.util.enum.LoginType
 import com.nbs.humanidui.util.extensions.*
 import com.nbs.humanidui.util.makeLinks
 import com.nbs.humanidui.util.validation.Validation
@@ -26,20 +24,18 @@ import kotlinx.android.synthetic.main.fragment_phone_number.*
 
 class PhoneNumberFragment : ReactiveFormFragment() {
 
-    private var loginType = emptyString()
-    private var phoneNumber = emptyString()
-    private var countryCode = emptyString()
-    private val TAG = this.javaClass.simpleName
-
     private var listener: OnPhoneNumberListener? = null
 
+    private var countryCode: String = emptyString()
+
+    private val TAG = "PhoneNumber"
+
     companion object {
-        fun newInstance(type: String = LoginType.NORMAL.type, phoneNumberListener: OnPhoneNumberListener): PhoneNumberFragment {
+        fun newInstance(phoneNumberListener: OnPhoneNumberListener): PhoneNumberFragment {
             val fragment: PhoneNumberFragment = PhoneNumberFragment()
             fragment.listener = phoneNumberListener
 
             val bundle = Bundle()
-            bundle.putString(BundleKeys.KEY_LOGIN_TYPE, type)
             fragment.arguments = bundle
             return fragment
         }
@@ -53,13 +49,10 @@ class PhoneNumberFragment : ReactiveFormFragment() {
     }
 
     override fun initIntent() {
-        arguments?.let {
-            loginType = it.getString(BundleKeys.KEY_LOGIN_TYPE) ?: emptyString()
-        }
+
     }
 
     override fun initUI() {
-        countryCode = ccpPhoneNumber.selectedCountryCode
         context?.let {
             initView()
             setSpannableString()
@@ -70,11 +63,7 @@ class PhoneNumberFragment : ReactiveFormFragment() {
 
     override fun initAction() {
         btnCancel.onClick {
-            if (loginType == LoginType.SWITCH_NUMBER.type) {
-                listener?.onButtonCancelClicked(LoginType.SWITCH_NUMBER.type)
-            } else {
-                listener?.onButtonCancelClicked(LoginType.NORMAL.type)
-            }
+            listener?.onButtonCancelClicked()
         }
 
         btnTransfer.onClick {
@@ -82,25 +71,7 @@ class PhoneNumberFragment : ReactiveFormFragment() {
         }
 
         btnEnter.onClick {
-            when (loginType) {
-                LoginType.SWITCH_DEVICE.type -> {
-                    requestOtp()
-                }
-                LoginType.NEW_ACCOUNT.type -> {
-                    requestOtp()
-                }
-                LoginType.SWITCH_NUMBER.type -> {
-                    phoneNumber = countryCode + edtPhoneNumber.text.toString()
-                    listener?.onButtonEnterClicked(
-                        countryCode = countryCode,
-                        type = LoginType.SWITCH_NUMBER.type,
-                        phoneNumber = phoneNumber.trim()
-                    )
-                }
-                else -> {
-
-                }
-            }
+            requestOtp()
         }
 
         val typface = context?.let { ResourcesCompat.getFont(it, R.font.roboto_bold) }
@@ -124,7 +95,7 @@ class PhoneNumberFragment : ReactiveFormFragment() {
     }
 
     private fun enableViews(isEnabled: Boolean) {
-        btnEnter.text = if (isEnabled) "Enter" else "Processing"
+        btnEnter.text = if (isEnabled) getString(string.action_enter) else getString(string.action_processing)
         btnEnter.isEnabled = isEnabled
         edtPhoneNumber.isEnabled = isEnabled
     }
@@ -136,28 +107,19 @@ class PhoneNumberFragment : ReactiveFormFragment() {
         task.addOnCompleteListener {
             if (it.isSuccessful) {
                 enableViews(true)
-                if (loginType == LoginType.SWITCH_DEVICE.type) {
-                    listener?.onButtonEnterClicked(
+                listener?.onRequestOtpSucceed(
                         countryCode = countryCode,
-                        type = LoginType.SWITCH_DEVICE.type,
                         phoneNumber = edtPhoneNumber.text.toString().trim()
-                    )
-                } else {
-                    listener?.onButtonEnterClicked(
-                        countryCode = countryCode,
-                        type = LoginType.NEW_ACCOUNT.type,
-                        phoneNumber = edtPhoneNumber.text.toString().trim()
-                    )
-                }
+                )
             } else {
                 enableViews(true)
-                showToast("Request otp failed")
+                showToast(getString(string.error_message_request_otp_failed))
             }
         }
         task.addOnFailureListener {
             enableViews(true)
             Log.d(TAG, it.message.toString())
-            showToast("Unable to request otp at this time. Please try again later")
+            showToast(getString(string.error_message_unable_to_request_otp))
         }
     }
 
@@ -198,17 +160,10 @@ class PhoneNumberFragment : ReactiveFormFragment() {
     }
 
     private fun initView() {
-        if (loginType == LoginType.SWITCH_NUMBER.type) {
-            containerTopNormal.gone()
-            containerTopSwitch.visible()
-            btnTransfer.gone()
-            mcvAd.gone()
-        } else {
-            containerTopNormal.visible()
-            containerTopSwitch.gone()
-            btnTransfer.gone()
-            mcvAd.visible()
-        }
+        containerTopNormal.visible()
+        containerTopSwitch.gone()
+        btnTransfer.gone()
+        mcvAd.visible()
     }
 
     private fun getCodeNumberData(): List<CodeNumber> {
@@ -247,8 +202,8 @@ class PhoneNumberFragment : ReactiveFormFragment() {
     }
 
     interface OnPhoneNumberListener {
-        fun onButtonCancelClicked(type: String)
-        fun onButtonEnterClicked(countryCode: String, type: String, phoneNumber: String)
+        fun onButtonCancelClicked()
+        fun onRequestOtpSucceed(countryCode: String, phoneNumber: String)
         fun onButtonTransferClicked()
     }
 }

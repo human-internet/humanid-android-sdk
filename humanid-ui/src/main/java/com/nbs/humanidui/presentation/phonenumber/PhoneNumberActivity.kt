@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import com.nbs.humanidui.R
 import com.nbs.humanidui.base.BaseActivity
+import com.nbs.humanidui.event.CloseAllActivityEvent
 import com.nbs.humanidui.presentation.otp.OtpActivity
 import org.greenrobot.eventbus.EventBus
 
@@ -47,6 +48,11 @@ class PhoneNumberActivity : BaseActivity(), PhoneNumberFragment.OnPhoneNumberLis
     override fun onRequestOtpSucceed(countryCode: String, phoneNumber: String) {
         OtpActivity.start(this, phoneNumber = phoneNumber, countryCode = countryCode)
         finishActivity()
+    }
+
+    override fun onBackPressed() {
+        EventBus.getDefault().post(CloseAllActivityEvent(null, getString(R.string.message_cancel)))
+        super.onBackPressed()
     }
 
     override fun onButtonTransferClicked() {

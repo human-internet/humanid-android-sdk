@@ -72,6 +72,11 @@ public class MainActivity extends AppCompatActivity {
 
                 loginManager.registerCallback(new LoginCallback() {
                     @Override
+                    public void onCancel(@NotNull String errorMessage) {
+                        Toast.makeText(MainActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
                     public void onSuccess(@NotNull String exchangeToken) {
                         Log.d("GotExchangeToken", exchangeToken);
                         setUpAvatar(true);

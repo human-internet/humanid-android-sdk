@@ -107,4 +107,5 @@ Register securely by confirming your phone number. It is deleted after verificat
     <string name="message_login_succeeded">Login succeeded - Phone number not stored</string>
     <string name="error_message_unable_to_connect">Unable to reach the humanID Service at this time</string>
     <string name="error_message_verify_otp_failed">Verify otp failed</string>
+    <string name="message_cancel">Cancel</string>
 </resources>

@@ -39,4 +39,6 @@ interface LoginCallback{
     fun onSuccess(userHash: String)
 
     fun onError(errorMessage: String)
+
+    fun onCancel(errorMessage: String)
 }

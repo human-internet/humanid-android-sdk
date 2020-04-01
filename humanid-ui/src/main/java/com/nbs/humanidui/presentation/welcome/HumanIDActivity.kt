@@ -12,7 +12,7 @@ class HumanIDActivity : BaseActivity(), WelcomeFragment.OnWelcomeButtonListener 
         @JvmStatic
         fun start(activity: Activity){
             val intent = Intent(activity, HumanIDActivity::class.java)
-            activity.startActivityForResult(intent, 0x200)
+            activity.startActivityForResult(intent, 200)
         }
     }
 

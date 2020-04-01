@@ -12,8 +12,16 @@
         android:paddingLeft="@dimen/dimen_16dp"
         android:paddingRight="@dimen/dimen_16dp"
         android:paddingBottom="@dimen/dimen_16dp"
+        android:layout_marginTop="@dimen/dimen_30dp"
         android:theme="@style/AppTheme"
         tools:context="com.human.android.presentation.otp.OtpFragment">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="@dimen/dimen_24dp"
+            android:src="@drawable/ic_logo_humanid_light" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvSwitchMessage"

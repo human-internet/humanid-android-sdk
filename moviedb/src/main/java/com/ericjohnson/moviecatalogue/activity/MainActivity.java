@@ -85,8 +85,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        loginManager = new LoginManager(this);
+        loginManager = LoginManager.Companion.getInstance(this);
 
+        setUpAvatar(false);
     }
 
     @Override
@@ -151,6 +152,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        loginManager.onActivityResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
     }
 }

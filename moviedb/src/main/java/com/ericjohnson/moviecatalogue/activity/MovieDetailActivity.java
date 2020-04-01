@@ -1,7 +1,6 @@
 package com.ericjohnson.moviecatalogue.activity;
 
 import android.app.LoaderManager;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
@@ -19,7 +18,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -35,6 +33,7 @@ import com.ericjohnson.moviecatalogue.BuildConfig;
 import com.ericjohnson.moviecatalogue.R;
 import com.ericjohnson.moviecatalogue.adapter.CastAdapter;
 import com.ericjohnson.moviecatalogue.adapter.ReviewAdapter;
+import com.ericjohnson.moviecatalogue.db.DatabaseContract;
 import com.ericjohnson.moviecatalogue.db.MoviesHelper;
 import com.ericjohnson.moviecatalogue.fragment.RateReviewDialogFragment;
 import com.ericjohnson.moviecatalogue.loader.MovieDetailAsynctaskLoader;
@@ -44,20 +43,12 @@ import com.ericjohnson.moviecatalogue.model.Review;
 import com.ericjohnson.moviecatalogue.utils.DateUtil;
 import com.ericjohnson.moviecatalogue.utils.Keys;
 import com.google.android.material.appbar.AppBarLayout;
-import com.nbs.humanidui.presentation.HumanIDUI;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
-import static android.provider.BaseColumns._ID;
-import static com.ericjohnson.moviecatalogue.db.DatabaseContract.CONTENT_URI;
-import static com.ericjohnson.moviecatalogue.db.DatabaseContract.MoviesColumns.DESCRIPTION;
-import static com.ericjohnson.moviecatalogue.db.DatabaseContract.MoviesColumns.POSTER;
-import static com.ericjohnson.moviecatalogue.db.DatabaseContract.MoviesColumns.RELEASEDATE;
-import static com.ericjohnson.moviecatalogue.db.DatabaseContract.MoviesColumns.TITLE;
 
 public class MovieDetailActivity extends AppCompatActivity implements
         LoaderManager.LoaderCallbacks<MovieDetail> {
@@ -176,50 +167,50 @@ public class MovieDetailActivity extends AppCompatActivity implements
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (HumanIDUI.Companion.getInstance().isLoggedIn()){
-                    if (!isFavourited) {
-                        ContentValues values = new ContentValues();
-                        values.put(_ID, id);
-                        values.put(TITLE, tvMovieTitle.getText().toString());
-                        values.put(POSTER, imageUrl);
-                        values.put(RELEASEDATE, releaseDate);
-                        values.put(DESCRIPTION, description);
-
-                        getContentResolver().insert(CONTENT_URI, values);
-                        isFavourited = true;
-                        Toast.makeText(MovieDetailActivity.this, R.string.label_added_to_favourite,
-                                Toast.LENGTH_SHORT).show();
-                    } else {
-                        if (getIntent().getData() != null) {
-                            getContentResolver().delete(getIntent().getData(), null, null);
-                            isFavourited = false;
-                            Toast.makeText(MovieDetailActivity.this, R.string.label_removed_from_favourite,
-                                    Toast.LENGTH_SHORT).show();
-                        }
-                    }
-
-                    changeTextButtonFavorite();
-
-                }else{
-                    loginHumanID();
-                }
+//                if (HumanIDUI.Companion.getInstance().isLoggedIn()){
+//                    if (!isFavourited) {
+//                        ContentValues values = new ContentValues();
+//                        values.put(_ID, id);
+//                        values.put(TITLE, tvMovieTitle.getText().toString());
+//                        values.put(POSTER, imageUrl);
+//                        values.put(RELEASEDATE, releaseDate);
+//                        values.put(DESCRIPTION, description);
+//
+//                        getContentResolver().insert(CONTENT_URI, values);
+//                        isFavourited = true;
+//                        Toast.makeText(MovieDetailActivity.this, R.string.label_added_to_favourite,
+//                                Toast.LENGTH_SHORT).show();
+//                    } else {
+//                        if (getIntent().getData() != null) {
+//                            getContentResolver().delete(getIntent().getData(), null, null);
+//                            isFavourited = false;
+//                            Toast.makeText(MovieDetailActivity.this, R.string.label_removed_from_favourite,
+//                                    Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
+//
+//                    changeTextButtonFavorite();
+//
+//                }else{
+//                    loginHumanID();
+//                }
             }
         });
 
         btnMoreReview.setOnClickListener(view -> {
             Intent intent = new Intent(getBaseContext(), ReviewActivity.class);
-            Uri uri = Uri.parse(CONTENT_URI + "/" + id);
+            Uri uri = Uri.parse(DatabaseContract.CONTENT_URI + "/" + id);
             intent.putExtra(Keys.KEY_MOVIE_ID, id);
             intent.setData(uri);
             startActivity(intent);
         });
 
         btnRate.setOnClickListener(view -> {
-                if (HumanIDUI.Companion.getInstance().isLoggedIn()){
-                    showBottomSheet();
-                }else{
-                    loginHumanID();
-                }
+//                if (HumanIDUI.Companion.getInstance().isLoggedIn()){
+//                    showBottomSheet();
+//                }else{
+//                    loginHumanID();
+//                }
             }
         );
 
@@ -235,8 +226,8 @@ public class MovieDetailActivity extends AppCompatActivity implements
     }
 
     private void loginHumanID(){
-        HumanIDUI.Companion.getInstance()
-                .verifyLogin(getSupportFragmentManager());
+//        HumanIDUI.Companion.getInstance()
+//                .verifyLogin(getSupportFragmentManager());
     }
 
     public void showBottomSheet() {

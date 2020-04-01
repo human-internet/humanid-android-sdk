@@ -26,10 +26,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static android.provider.BaseColumns._ID;
-import static com.ericjohnson.moviecatalogue.db.DatabaseContract.CONTENT_URI;
-import static com.ericjohnson.moviecatalogue.db.DatabaseContract.MoviesColumns.POSTER;
-import static com.ericjohnson.moviecatalogue.db.DatabaseContract.MoviesColumns.RELEASEDATE;
-import static com.ericjohnson.moviecatalogue.db.DatabaseContract.MoviesColumns.TITLE;
+import static com.ericjohnson.moviecatalogue.db.DatabaseContract.*;
 
 public class FavoriteActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
@@ -73,7 +70,7 @@ public class FavoriteActivity extends AppCompatActivity implements LoaderManager
     @NonNull
     @Override
     public Loader<Cursor> onCreateLoader(int id, @Nullable Bundle args) {
-        String[] projection = {_ID, TITLE, POSTER, RELEASEDATE};
+        String[] projection = {_ID, MoviesColumns.TITLE, MoviesColumns.POSTER, MoviesColumns.RELEASEDATE};
         return new CursorLoader(this, CONTENT_URI, projection, null, null, null);
     }
 

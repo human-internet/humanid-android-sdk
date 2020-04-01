@@ -131,16 +131,16 @@ class OtpFragment : ReactiveFormFragment() {
                             onVerifyOtpListener.onVerifySuccess(userHash)
                         }
                     } else {
-                        showToast("Verify otp failed")
+                        onVerifyOtpListener.onVerifyFailed(getString(string.error_message_verify_otp_failed))
                     }
 
                 }.addOnFailureListener {
                     hideLoading()
                     it.message?.let { message ->
                         if (message.contains("Existing login found on deviceId")) {
-                            showToast(getString(string.message_login_succeeded))
+                            onVerifyOtpListener.onVerifyFailed(getString(string.message_login_succeeded))
                         } else {
-                            showToast(message)
+                            onVerifyOtpListener.onVerifyFailed(message)
                         }
                     }
                 }
@@ -224,5 +224,7 @@ class OtpFragment : ReactiveFormFragment() {
 
     interface OnVerifyOtpListener{
         fun onVerifySuccess(userHash: String)
+
+        fun onVerifyFailed(message: String)
     }
 }

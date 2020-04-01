@@ -59,4 +59,14 @@ class OtpActivity : BaseActivity(), OtpFragment.OnVerifyOtpListener {
         setResult(0x300, intent)
         finishActivity()
     }
+
+    override fun onVerifyFailed(message: String) {
+        EventBus.getDefault().post(CloseAllActivityEvent())
+
+        val intent = Intent()
+        intent.putExtra(BundleKeys.KEY_LOGIN_ERROR, message)
+
+        setResult(0x300, intent)
+        finishActivity()
+    }
 }

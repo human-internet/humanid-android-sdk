@@ -5,8 +5,14 @@ import android.content.Intent
 import com.nbs.humanidui.R
 import com.nbs.humanidui.presentation.welcome.HumanIDActivity
 import com.nbs.humanidui.util.BundleKeys
+import com.nbs.humanidui.util.SingletonHolder
 
 class LoginManager(private val activity: Activity) {
+
+    companion object : SingletonHolder<LoginManager, Activity>({
+        LoginManager(activity = it)
+    })
+
     private lateinit var loginCallback: LoginCallback
 
     fun registerCallback(callback: LoginCallback){
@@ -15,7 +21,7 @@ class LoginManager(private val activity: Activity) {
     }
 
     fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?){
-        if (resultCode == 0x300){
+        if (requestCode == 200){
             if (data != null){
                 if (data.hasExtra(BundleKeys.KEY_USER_HASH)){
                     loginCallback.onSuccess(data.getStringExtra(BundleKeys.KEY_USER_HASH))

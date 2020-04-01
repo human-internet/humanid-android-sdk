@@ -103,6 +103,7 @@ class PhoneNumberFragment : ReactiveFormFragment() {
     private fun requestOtp() {
         enableViews(false)
         val phoneNumber: String = edtPhoneNumber.text.toString().trim()
+        countryCode = ccpPhoneNumber.selectedCountryCode
         val task = HumanIDAuth.getInstance().requestOTP(countryCode, phoneNumber)
         task.addOnCompleteListener {
             if (it.isSuccessful) {

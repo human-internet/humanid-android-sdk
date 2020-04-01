@@ -100,4 +100,5 @@ Register securely by confirming your phone number. It is deleted after verificat
     <string name="label_learn_more">Learn More</string>
     <string name="hint_enter_your_code">Enter your code</string>
     <string name="please_wait">Please wait</string>
+    <string name="message_hereby">I hereby agree to %s\'s Terms of Service</string>
 </resources>

@@ -31,11 +31,13 @@ class PhoneNumberFragment : ReactiveFormFragment() {
     private var countryCode = emptyString()
     private val TAG = this.javaClass.simpleName
 
-    companion object {
-        var listener: OnPhoneNumberListener? = null
+    private var listener: OnPhoneNumberListener? = null
 
-        fun newInstance(type: String = LoginType.NORMAL.type): PhoneNumberFragment {
-            val fragment = PhoneNumberFragment()
+    companion object {
+        fun newInstance(type: String = LoginType.NORMAL.type, phoneNumberListener: OnPhoneNumberListener): PhoneNumberFragment {
+            val fragment: PhoneNumberFragment = PhoneNumberFragment()
+            fragment.listener = phoneNumberListener
+
             val bundle = Bundle()
             bundle.putString(BundleKeys.KEY_LOGIN_TYPE, type)
             fragment.arguments = bundle

@@ -57,7 +57,6 @@ class MainDialogFragment : BaseBottomSheetDialogFragment(),
     override val layoutResource: Int = R.layout.layout_bottomsheet_white_dialog
 
     override fun initLib() {
-        PhoneNumberFragment.listener = this
         OtpFragment.listener = this
         RegisterEmailFragment.listener = this
         TermsAndConditionFragment.listener = this
@@ -74,9 +73,9 @@ class MainDialogFragment : BaseBottomSheetDialogFragment(),
 
     override fun initUI() {
         if (!loginType.isNullOrEmpty()) {
-            replaceFragment(R.id.flDialog, PhoneNumberFragment.newInstance(LoginType.SWITCH_DEVICE.type), false)
+            replaceFragment(R.id.flDialog, PhoneNumberFragment.newInstance(LoginType.SWITCH_DEVICE.type, this), false)
         } else {
-            replaceFragment(R.id.flDialog, PhoneNumberFragment.newInstance(LoginType.NEW_ACCOUNT.type), false)
+            replaceFragment(R.id.flDialog, PhoneNumberFragment.newInstance(LoginType.NEW_ACCOUNT.type, this), false)
         }
     }
 
@@ -207,7 +206,7 @@ class MainDialogFragment : BaseBottomSheetDialogFragment(),
     }
 
     override fun onButtonTransferClicked() {
-        replaceFragment(R.id.flDialog, PhoneNumberFragment.newInstance(LoginType.SWITCH_NUMBER.type), true)
+        replaceFragment(R.id.flDialog, PhoneNumberFragment.newInstance(LoginType.SWITCH_NUMBER.type, this), true)
     }
 
     override fun onButtonEnterClicked(countryCode: String, type: String, phoneNumber: String) {

@@ -6,15 +6,15 @@ import com.humanid.auth.HumanIDAuth
 import com.nbs.humanidui.presentation.main.MainDialogFragment
 import com.nbs.humanidui.presentation.route.Route
 import com.nbs.humanidui.presentation.userloggedin.UserLoggedInFragment
-import com.nbs.humanidui.presentation.welcome.WelcomeDialogFragment
+import com.nbs.humanidui.presentation.welcome.WelcomeFragment
 
-class HumanIDUI: WelcomeDialogFragment.OnWelcomeDialogListener,
+class HumanIDUI: WelcomeFragment.OnWelcomeDialogListener,
         UserLoggedInFragment.OnButtonSwitchDeviceClickListener {
 
     private var supportFragmentManager: FragmentManager ?= null
 
     init {
-        WelcomeDialogFragment.listener = this
+        WelcomeFragment.listener = this
     }
 
     companion object {
@@ -35,8 +35,8 @@ class HumanIDUI: WelcomeDialogFragment.OnWelcomeDialogListener,
 
     private fun showDialogWelcome(){
         closeDialog()
-        val welcomeDialogFragment = WelcomeDialogFragment.newInstance()
-        supportFragmentManager?.let { welcomeDialogFragment.show(it, WelcomeDialogFragment::class.java.simpleName) }
+        val welcomeDialogFragment = WelcomeFragment.newInstance()
+        //supportFragmentManager?.let { welcomeDialogFragment.show(it, WelcomeDialogFragment::class.java.simpleName) }
     }
 
     private fun showDialogUserLoggedIn(){

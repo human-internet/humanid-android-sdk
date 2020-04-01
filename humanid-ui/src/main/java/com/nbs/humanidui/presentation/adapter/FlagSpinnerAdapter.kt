@@ -9,7 +9,7 @@ import com.nbs.humanidui.R
 import com.nbs.humanidui.domain.CodeNumber
 import kotlinx.android.synthetic.main.item_spinner.view.*
 
-class SpinnerAdapter(
+class FlagSpinnerAdapter(
         ctx: Context,
         skins: List<CodeNumber>
 ) : ArrayAdapter<CodeNumber>(ctx, 0, skins) {

@@ -2,7 +2,6 @@ package com.nbs.sample_implementation
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.nbs.humanidui.presentation.HumanIDUI
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(){

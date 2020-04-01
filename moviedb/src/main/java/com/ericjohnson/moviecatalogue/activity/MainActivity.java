@@ -72,8 +72,8 @@ public class MainActivity extends AppCompatActivity {
 
                 loginManager.registerCallback(new LoginCallback() {
                     @Override
-                    public void onSuccess(@NotNull String userHash) {
-                        Log.d("GotuserHash", userHash);
+                    public void onSuccess(@NotNull String exchangeToken) {
+                        Log.d("GotExchangeToken", exchangeToken);
                         setUpAvatar(true);
                     }
 

@@ -123,6 +123,7 @@ class OtpFragment : ReactiveFormFragment() {
 
     private fun verifyOtp(otpCode: String) {
         showLoading()
+        cancelCountDownTimer()
         HumanIDAuth.getInstance().register(countryCode.replace("+", "").trim(), phoneNumber, otpCode)
                 .addOnCompleteListener {
                     hideLoading()
@@ -223,7 +224,7 @@ class OtpFragment : ReactiveFormFragment() {
     //endregion
 
     interface OnVerifyOtpListener{
-        fun onVerifySuccess(userHash: String)
+        fun onVerifySuccess(exchangeToken: String)
 
         fun onVerifyFailed(message: String)
     }

@@ -13,7 +13,7 @@ class LoginManager(private val activity: Activity) {
         LoginManager(activity = it)
     })
 
-    private lateinit var loginCallback: LoginCallback
+    private var loginCallback: LoginCallback? = null
 
     fun registerCallback(callback: LoginCallback){
         this.loginCallback = callback
@@ -24,14 +24,12 @@ class LoginManager(private val activity: Activity) {
         if (requestCode == 200){
             if (data != null){
                 if (data.hasExtra(BundleKeys.KEY_USER_HASH)){
-                    loginCallback.onSuccess(data.getStringExtra(BundleKeys.KEY_USER_HASH))
+                    loginCallback?.onSuccess(data.getStringExtra(BundleKeys.KEY_USER_HASH))
                 }
 
                 if (data.hasExtra(BundleKeys.KEY_LOGIN_ERROR)){
-                    loginCallback.onError(data.getStringExtra(BundleKeys.KEY_LOGIN_ERROR))
+                    loginCallback?.onError(data.getStringExtra(BundleKeys.KEY_LOGIN_ERROR))
                 }
-            }else{
-                loginCallback.onError(activity.getString(R.string.error_message_unable_to_connect))
             }
         }
     }

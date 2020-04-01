@@ -134,9 +134,4 @@ abstract class BaseActivity : AppCompatActivity(), BaseView, BaseFragment.Callba
 
     //    initialize main Process here e.g call presenter to load data
     protected abstract fun initProcess()
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onCloseActivityEventReceived(closeAllActivityEvent: CloseAllActivityEvent){
-        finish()
-    }
 }

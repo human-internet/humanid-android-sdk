@@ -50,23 +50,15 @@ class OtpActivity : BaseActivity(), OtpFragment.OnVerifyOtpListener {
                 .commitAllowingStateLoss()
     }
 
-    override fun onVerifySuccess(userHash: String) {
-        EventBus.getDefault().post(CloseAllActivityEvent())
+    override fun onVerifySuccess(exchangeToken: String) {
+        EventBus.getDefault().post(CloseAllActivityEvent(exchangeToken, null))
 
-        val intent = Intent()
-        intent.putExtra(BundleKeys.KEY_USER_HASH, userHash)
-
-        setResult(0x300, intent)
         finishActivity()
     }
 
     override fun onVerifyFailed(message: String) {
-        EventBus.getDefault().post(CloseAllActivityEvent())
+        EventBus.getDefault().post(CloseAllActivityEvent(null, message))
 
-        val intent = Intent()
-        intent.putExtra(BundleKeys.KEY_LOGIN_ERROR, message)
-
-        setResult(0x300, intent)
         finishActivity()
     }
 }

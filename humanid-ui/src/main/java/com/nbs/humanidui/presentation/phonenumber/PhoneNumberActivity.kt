@@ -19,7 +19,6 @@ class PhoneNumberActivity : BaseActivity(), PhoneNumberFragment.OnPhoneNumberLis
         get() = R.layout.activity_phone_number
 
     override fun initLib() {
-        EventBus.getDefault().register(this)
     }
 
     override fun initIntent() {

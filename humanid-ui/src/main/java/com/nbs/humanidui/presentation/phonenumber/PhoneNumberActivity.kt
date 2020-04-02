@@ -51,7 +51,7 @@ class PhoneNumberActivity : BaseActivity(), PhoneNumberFragment.OnPhoneNumberLis
     }
 
     override fun onBackPressed() {
-        EventBus.getDefault().post(CloseAllActivityEvent(null, getString(R.string.message_cancel)))
+        EventBus.getDefault().post(CloseAllActivityEvent(isCancel = true, exchangeToken = null, errorMessage = null))
         super.onBackPressed()
     }
 

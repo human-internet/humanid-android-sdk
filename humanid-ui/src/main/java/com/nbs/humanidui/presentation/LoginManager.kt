@@ -23,12 +23,16 @@ class LoginManager(private val activity: Activity) {
     fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?){
         if (requestCode == 200){
             if (data != null){
-                if (data.hasExtra(BundleKeys.KEY_USER_HASH)){
-                    loginCallback?.onSuccess(data.getStringExtra(BundleKeys.KEY_USER_HASH))
-                }
+                if (data.getBooleanExtra(BundleKeys.KEY_LOGIN_CANCEL, false)){
+                    loginCallback?.onCancel()
+                }else{
+                    if (data.hasExtra(BundleKeys.KEY_USER_HASH)){
+                        loginCallback?.onSuccess(data.getStringExtra(BundleKeys.KEY_USER_HASH))
+                    }
 
-                if (data.hasExtra(BundleKeys.KEY_LOGIN_ERROR)){
-                    loginCallback?.onError(data.getStringExtra(BundleKeys.KEY_LOGIN_ERROR))
+                    if (data.hasExtra(BundleKeys.KEY_LOGIN_ERROR)){
+                        loginCallback?.onError(data.getStringExtra(BundleKeys.KEY_LOGIN_ERROR))
+                    }
                 }
             }
         }
@@ -36,9 +40,9 @@ class LoginManager(private val activity: Activity) {
 }
 
 interface LoginCallback{
-    fun onSuccess(userHash: String)
+    fun onSuccess(exchangeToken: String)
 
     fun onError(errorMessage: String)
 
-    fun onCancel(errorMessage: String)
+    fun onCancel()
 }

@@ -28,10 +28,10 @@
         tools:ignore="GoogleAppIndexingWarning">
         <meta-data
             android:name="com.humanid.sdk.applicationId"
-            android:value="DEMO_APP"/>
+            android:value="@string/human_id_appid"/>
         <meta-data
             android:name="com.humanid.sdk.applicationSecret"
-            android:value="2ee4300fd136ed6796a6a507de7c1f49aecd4a11663352fe54e54403c32bd6a0"/>
+            android:value="@string/human_id_secret"/>
         <meta-data
             android:name="com.humanid.sdk.applicationIcon"
             android:resource="@drawable/app_icon"/>

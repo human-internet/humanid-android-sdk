@@ -54,13 +54,15 @@ class HumanIDActivity : BaseActivity(), WelcomeFragment.OnWelcomeButtonListener 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onCloseActivityEventReceived(closeAllActivityEvent: CloseAllActivityEvent){
         val intent = Intent()
-        closeAllActivityEvent.userHash?.let {
+        closeAllActivityEvent.exchangeToken?.let {
             intent.putExtra(BundleKeys.KEY_USER_HASH, it)
         }
 
         closeAllActivityEvent.errorMessage?.let {
             intent.putExtra(BundleKeys.KEY_LOGIN_ERROR, it)
         }
+
+        intent.putExtra(BundleKeys.KEY_LOGIN_CANCEL, (closeAllActivityEvent.isCancel))
 
         setResult(0x300, intent)
         finish()

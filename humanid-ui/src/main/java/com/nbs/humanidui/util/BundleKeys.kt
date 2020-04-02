@@ -8,4 +8,5 @@ object BundleKeys {
     const val KEY_COUNTRY_CODE = "country_code"
     const val KEY_USER_HASH = "user_hash"
     const val KEY_LOGIN_ERROR = "_login_error"
+    const val KEY_LOGIN_CANCEL = "_login_cancel"
 }

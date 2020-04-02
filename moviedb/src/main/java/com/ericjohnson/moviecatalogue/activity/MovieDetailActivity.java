@@ -1,6 +1,8 @@
 package com.ericjohnson.moviecatalogue.activity;
 
 import android.app.LoaderManager;
+import android.app.ProgressDialog;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
@@ -10,6 +12,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -18,7 +21,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
@@ -35,6 +40,8 @@ import com.ericjohnson.moviecatalogue.adapter.CastAdapter;
 import com.ericjohnson.moviecatalogue.adapter.ReviewAdapter;
 import com.ericjohnson.moviecatalogue.db.DatabaseContract;
 import com.ericjohnson.moviecatalogue.db.MoviesHelper;
+import com.ericjohnson.moviecatalogue.domain.LoginHttpRequest;
+import com.ericjohnson.moviecatalogue.domain.UserInteractor;
 import com.ericjohnson.moviecatalogue.fragment.RateReviewDialogFragment;
 import com.ericjohnson.moviecatalogue.loader.MovieDetailAsynctaskLoader;
 import com.ericjohnson.moviecatalogue.model.Genre;
@@ -43,6 +50,10 @@ import com.ericjohnson.moviecatalogue.model.Review;
 import com.ericjohnson.moviecatalogue.utils.DateUtil;
 import com.ericjohnson.moviecatalogue.utils.Keys;
 import com.google.android.material.appbar.AppBarLayout;
+import com.nbs.humanidui.presentation.LoginCallback;
+import com.nbs.humanidui.presentation.LoginManager;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -118,6 +129,8 @@ public class MovieDetailActivity extends AppCompatActivity implements
 
     private String imageUrl, releaseDate, description, videoUrl;
 
+    private ProgressDialog progressDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -135,6 +148,8 @@ public class MovieDetailActivity extends AppCompatActivity implements
             getSupportActionBar().setTitle(title);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
+
+        progressDialog = new ProgressDialog(this);
 
         getMovieDetail(id);
 
@@ -164,38 +179,7 @@ public class MovieDetailActivity extends AppCompatActivity implements
             }
         });
 
-        btnAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                if (HumanIDUI.Companion.getInstance().isLoggedIn()){
-//                    if (!isFavourited) {
-//                        ContentValues values = new ContentValues();
-//                        values.put(_ID, id);
-//                        values.put(TITLE, tvMovieTitle.getText().toString());
-//                        values.put(POSTER, imageUrl);
-//                        values.put(RELEASEDATE, releaseDate);
-//                        values.put(DESCRIPTION, description);
-//
-//                        getContentResolver().insert(CONTENT_URI, values);
-//                        isFavourited = true;
-//                        Toast.makeText(MovieDetailActivity.this, R.string.label_added_to_favourite,
-//                                Toast.LENGTH_SHORT).show();
-//                    } else {
-//                        if (getIntent().getData() != null) {
-//                            getContentResolver().delete(getIntent().getData(), null, null);
-//                            isFavourited = false;
-//                            Toast.makeText(MovieDetailActivity.this, R.string.label_removed_from_favourite,
-//                                    Toast.LENGTH_SHORT).show();
-//                        }
-//                    }
-//
-//                    changeTextButtonFavorite();
-//
-//                }else{
-//                    loginHumanID();
-//                }
-            }
-        });
+        btnAdd.setOnClickListener(v -> addFavorite());
 
         btnMoreReview.setOnClickListener(view -> {
             Intent intent = new Intent(getBaseContext(), ReviewActivity.class);
@@ -206,11 +190,11 @@ public class MovieDetailActivity extends AppCompatActivity implements
         });
 
         btnRate.setOnClickListener(view -> {
-//                if (HumanIDUI.Companion.getInstance().isLoggedIn()){
-//                    showBottomSheet();
-//                }else{
-//                    loginHumanID();
-//                }
+                if (UserInteractor.getInstance(this).isLoggedIn()){
+                    showBottomSheet();
+                }else{
+                    loginHumanID();
+                }
             }
         );
 
@@ -225,9 +209,74 @@ public class MovieDetailActivity extends AppCompatActivity implements
         });
     }
 
+    private void addFavorite() {
+        if (UserInteractor.getInstance(MovieDetailActivity.this).isLoggedIn()){
+            if (!isFavourited) {
+                ContentValues values = new ContentValues();
+                values.put(MediaStore.Audio.Playlists.Members._ID, id);
+                values.put(DatabaseContract.MoviesColumns.TITLE, tvMovieTitle.getText().toString());
+                values.put(DatabaseContract.MoviesColumns.POSTER, imageUrl);
+                values.put(DatabaseContract.MoviesColumns.RELEASEDATE, releaseDate);
+                values.put(DatabaseContract.MoviesColumns.DESCRIPTION, description);
+
+                getContentResolver().insert(DatabaseContract.CONTENT_URI, values);
+                isFavourited = true;
+                Toast.makeText(MovieDetailActivity.this, R.string.label_added_to_favourite,
+                        Toast.LENGTH_SHORT).show();
+            } else {
+                if (getIntent().getData() != null) {
+                    getContentResolver().delete(getIntent().getData(), null, null);
+                    isFavourited = false;
+                    Toast.makeText(MovieDetailActivity.this, R.string.label_removed_from_favourite,
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            changeTextButtonFavorite();
+
+        }else{
+            loginHumanID();
+        }
+    }
+
     private void loginHumanID(){
-//        HumanIDUI.Companion.getInstance()
-//                .verifyLogin(getSupportFragmentManager());
+        LoginManager.Companion.getInstance(this).registerCallback(new LoginCallback() {
+            @Override
+            public void onSuccess(@NotNull String exchangeToken) {
+                UserInteractor.getInstance(MovieDetailActivity.this).login(exchangeToken, new LoginHttpRequest.OnLoginCallback() {
+                    @Override
+                    public void onLoading() {
+                        progressDialog.setMessage("Please wait...");
+                        progressDialog.show();
+                    }
+
+                    @Override
+                    public void onLoginSuccess() {
+                        if (progressDialog != null){
+                            progressDialog.dismiss();
+                            Toast.makeText(MovieDetailActivity.this, "Login succeed", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onLoginFailed(String message) {
+                        if (progressDialog != null){
+                            progressDialog.dismiss();
+                        }
+                    }
+                });
+            }
+
+            @Override
+            public void onError(@NotNull String errorMessage) {
+                Toast.makeText(MovieDetailActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onCancel() {
+                Toast.makeText(MovieDetailActivity.this, "request cancel", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     public void showBottomSheet() {
@@ -386,5 +435,11 @@ public class MovieDetailActivity extends AppCompatActivity implements
             tvMovieDetailError.setVisibility(View.VISIBLE);
             tvMovieDetailError.setText(R.string.label_no_internet_connection);
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        LoginManager.Companion.getInstance(this).onActivityResult(requestCode, resultCode, data);
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

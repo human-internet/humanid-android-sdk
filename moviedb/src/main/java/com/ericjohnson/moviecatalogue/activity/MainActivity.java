@@ -1,12 +1,12 @@
 package com.ericjohnson.moviecatalogue.activity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -19,6 +19,9 @@ import androidx.viewpager.widget.ViewPager;
 import com.bumptech.glide.Glide;
 import com.ericjohnson.moviecatalogue.R;
 import com.ericjohnson.moviecatalogue.adapter.ViewPagerAdapter;
+import com.ericjohnson.moviecatalogue.domain.LoginHttpRequest;
+import com.ericjohnson.moviecatalogue.domain.UserInteractor;
+import com.ericjohnson.moviecatalogue.domain.UserUsecase;
 import com.google.android.material.tabs.TabLayout;
 import com.nbs.humanidui.presentation.LoginCallback;
 import com.nbs.humanidui.presentation.LoginManager;
@@ -52,6 +55,10 @@ public class MainActivity extends AppCompatActivity {
 
     private LoginManager loginManager;
 
+    private UserUsecase userUsecase;
+
+    private ProgressDialog progressDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,41 +71,62 @@ public class MainActivity extends AppCompatActivity {
         vpMain.setAdapter(viewPagerAdapter);
         tabMain.setupWithViewPager(vpMain);
 
-        imgProfile.setOnClickListener(new View.OnClickListener() {
+        progressDialog = new ProgressDialog(this);
+
+        userUsecase = new UserInteractor(this);
+
+        imgProfile.setOnClickListener(view -> loginManager.registerCallback(new LoginCallback() {
             @Override
-            public void onClick(View view) {
-//                Intent profileIntent = new Intent(MainActivity.this,  ProfileActivity.class);
-//                startActivity(profileIntent);
-
-                loginManager.registerCallback(new LoginCallback() {
-                    @Override
-                    public void onCancel(@NotNull String errorMessage) {
-                        Toast.makeText(MainActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
-                    }
-
-                    @Override
-                    public void onSuccess(@NotNull String exchangeToken) {
-                        Log.d("GotExchangeToken", exchangeToken);
-                        setUpAvatar(true);
-                    }
-
-                    @Override
-                    public void onError(@NotNull String errorMessage) {
-                        Toast.makeText(MainActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
-                    }
-                });
+            public void onCancel() {
+                Toast.makeText(MainActivity.this, "request cancel", Toast.LENGTH_SHORT).show();
             }
-        });
+
+            @Override
+            public void onSuccess(@NotNull String exchangeToken) {
+                Log.d("GotExchangeToken", exchangeToken);
+                authenticateUser(exchangeToken);
+            }
+
+            @Override
+            public void onError(@NotNull String errorMessage) {
+                Toast.makeText(MainActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
+            }
+        }));
 
         loginManager = LoginManager.Companion.getInstance(this);
 
-        setUpAvatar(false);
+    }
+
+    private void authenticateUser(String exchangeToken) {
+        userUsecase.login(exchangeToken, new LoginHttpRequest.OnLoginCallback() {
+            @Override
+            public void onLoading() {
+                progressDialog.setMessage("Please wait");
+                progressDialog.show();
+            }
+
+            @Override
+            public void onLoginSuccess() {
+                if (progressDialog != null){
+                    progressDialog.dismiss();
+                }
+                setUpAvatar(userUsecase.isLoggedIn());
+            }
+
+            @Override
+            public void onLoginFailed(String message) {
+                if (progressDialog != null){
+                    progressDialog.dismiss();
+                }
+                Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        //setUpAvatar();
+        setUpAvatar(userUsecase.isLoggedIn());
     }
 
     private void setUpAvatar(Boolean isLoggeIn) {

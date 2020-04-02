@@ -26,6 +26,7 @@ public class LoginHttpRequest {
 
     public LoginHttpRequest(Context context) {
         this.asyncHttpClient = new AsyncHttpClient();
+        this.asyncHttpClient.setLoggingEnabled(true);
         this.context = context;
         this.appPreference = new AppPreference(context);
     }
@@ -39,7 +40,7 @@ public class LoginHttpRequest {
         try {
             jsonObject.put("exchangeToken", exchangeToken);
             StringEntity entity = new StringEntity(jsonObject.toString());
-            asyncHttpClient.addHeader("clientSecret", context.getString(R.string.human_id_secret));
+            asyncHttpClient.addHeader("clientSecret", context.getString(R.string.api_secret));
             asyncHttpClient.post(context, url, entity, "application/json", new AsyncHttpResponseHandler() {
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {

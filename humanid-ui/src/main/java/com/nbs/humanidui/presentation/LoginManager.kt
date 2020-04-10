@@ -9,7 +9,7 @@ import com.nbs.humanidui.util.SingletonHolder
 
 class LoginManager(private val activity: Activity) {
 
-    companion object : SingletonHolder<LoginManager, Activity>({
+    companion object INSTANCE : SingletonHolder<LoginManager, Activity>({
         LoginManager(activity = it)
     })
 

@@ -25,13 +25,10 @@ import com.ericjohnson.moviecatalogue.domain.UserUsecase;
 import com.google.android.material.tabs.TabLayout;
 import com.nbs.humanidui.presentation.LoginCallback;
 import com.nbs.humanidui.presentation.LoginManager;
-import com.nbs.humanidui.util.LoginEvent;
-import com.nbs.humanidui.util.LogoutEvent;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -65,8 +62,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        EventBus.getDefault().register(this);
-
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), this);
         vpMain.setAdapter(viewPagerAdapter);
         tabMain.setupWithViewPager(vpMain);
@@ -75,25 +70,33 @@ public class MainActivity extends AppCompatActivity {
 
         userUsecase = new UserInteractor(this);
 
-        imgProfile.setOnClickListener(view -> loginManager.registerCallback(new LoginCallback() {
-            @Override
-            public void onCancel() {
-                Toast.makeText(MainActivity.this, "request cancel", Toast.LENGTH_SHORT).show();
-            }
+        imgProfile.setOnClickListener(view -> {
+            if (UserInteractor.getInstance(this).isLoggedIn()){
+                Toast.makeText(this, "You're logged in anonymously", Toast.LENGTH_SHORT).show();
+            }else{
+                loginManager.registerCallback(new LoginCallback() {
+                    @Override
+                    public void onCancel() {
+                        Toast.makeText(MainActivity.this, "request cancel", Toast.LENGTH_SHORT).show();
+                    }
 
-            @Override
-            public void onSuccess(@NotNull String exchangeToken) {
-                Log.d("GotExchangeToken", exchangeToken);
-                authenticateUser(exchangeToken);
-            }
+                    @Override
+                    public void onSuccess(@NotNull String exchangeToken) {
+                        Log.d("GotExchangeToken", exchangeToken);
+                        authenticateUser(exchangeToken);
+                    }
 
-            @Override
-            public void onError(@NotNull String errorMessage) {
-                Toast.makeText(MainActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
+                    @Override
+                    public void onError(@NotNull String errorMessage) {
+                        Toast.makeText(MainActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
-        }));
+        });
 
-        loginManager = LoginManager.Companion.getInstance(this);
+        loginManager = LoginManager.INSTANCE.getInstance(this);
+
+        Log.d("UUID", UUID.randomUUID().toString());
 
     }
 
@@ -165,22 +168,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-    }
-
-    @Override
-    protected void onDestroy() {
-        EventBus.getDefault().unregister(this);
-        super.onDestroy();
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onLoginEvent(LoginEvent e){
-        //setUpAvatar();
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onLogoutEvent(LogoutEvent e){
-        //setUpAvatar();
     }
 
     @Override

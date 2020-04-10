@@ -1,11 +1,13 @@
 package com.nbs.humanidui.base
 
 
+import android.app.Activity
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 
@@ -13,7 +15,6 @@ abstract class BaseFragment : Fragment(), BaseView {
 
     private var baseActivity: BaseActivity? = null
 
-    //    pass Layout here
     protected abstract val layoutResource: Int
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -79,6 +80,11 @@ abstract class BaseFragment : Fragment(), BaseView {
         initUI()
         initAction()
         initProcess()
+    }
+
+    protected fun hideSoftKeyboard(){
+        val imm: InputMethodManager = context!!.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(view!!.windowToken, 0)
     }
 
     //    Init Presenter and Component Injection here

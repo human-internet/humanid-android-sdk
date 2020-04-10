@@ -5,7 +5,8 @@
 
     <application android:networkSecurityConfig="@xml/network_security_config">
         <activity android:name=".presentation.otp.OtpActivity"></activity>
-        <activity android:name=".presentation.phonenumber.PhoneNumberActivity" />
+        <activity android:name=".presentation.phonenumber.PhoneNumberActivity"
+            android:screenOrientation="portrait"/>
         <activity android:name=".presentation.welcome.HumanIDActivity" />
     </application>
 

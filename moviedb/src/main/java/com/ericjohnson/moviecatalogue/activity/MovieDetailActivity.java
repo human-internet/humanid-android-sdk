@@ -240,7 +240,7 @@ public class MovieDetailActivity extends AppCompatActivity implements
     }
 
     private void loginHumanID(){
-        LoginManager.Companion.getInstance(this).registerCallback(new LoginCallback() {
+        LoginManager.INSTANCE.getInstance(this).registerCallback(new LoginCallback() {
             @Override
             public void onSuccess(@NotNull String exchangeToken) {
                 UserInteractor.getInstance(MovieDetailActivity.this).login(exchangeToken, new LoginHttpRequest.OnLoginCallback() {
@@ -439,7 +439,7 @@ public class MovieDetailActivity extends AppCompatActivity implements
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        LoginManager.Companion.getInstance(this).onActivityResult(requestCode, resultCode, data);
+        LoginManager.INSTANCE.getInstance(this).onActivityResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
     }
 }

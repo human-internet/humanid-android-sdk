@@ -43,7 +43,7 @@ dependencies {
     implementation project(':humanid-auth')
 
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    api 'com.google.android.material:material:1.0.0'
+    api 'com.google.android.material:material:1.1.0'
     // Play Service
     implementation "com.google.android.gms:play-services-tasks:17.0.0"
     //Pin Edit Text

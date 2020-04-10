@@ -11,9 +11,6 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.nbs.humanidui.R
 
-/**
- * A simple [Fragment] subclass.
- */
 abstract class BaseBottomSheetDialogFragment : BottomSheetDialogFragment(), BaseView {
 
     private var baseActivity: BaseActivity? = null

@@ -4,31 +4,55 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetBehavior.BottomSheetCallback
 import com.humanid.auth.HumanIDAuth
 import com.nbs.humanidui.R
 import com.nbs.humanidui.R.string
 import com.nbs.humanidui.domain.CodeNumber
+import com.nbs.humanidui.event.CloseAllActivityEvent
 import com.nbs.humanidui.presentation.HumanIDOptions
+import com.nbs.humanidui.presentation.otp.OtpFragment
+import com.nbs.humanidui.presentation.otp.OtpFragment.OnVerifyOtpListener
 import com.nbs.humanidui.util.ReactiveFormFragment
 import com.nbs.humanidui.util.emptyString
-import com.nbs.humanidui.util.extensions.*
+import com.nbs.humanidui.util.extensions.gone
+import com.nbs.humanidui.util.extensions.isEnabled
+import com.nbs.humanidui.util.extensions.onClick
+import com.nbs.humanidui.util.extensions.showToast
+import com.nbs.humanidui.util.extensions.visible
 import com.nbs.humanidui.util.makeLinks
 import com.nbs.humanidui.util.validation.Validation
+import com.nbs.humanidui.util.validation.util.minMaxLengthRule
 import com.nbs.humanidui.util.validation.util.notEmptyRule
 import com.nbs.humanidui.util.validation.util.numberOnlyRule
 import com.nbs.humanidui.util.validation.util.onTextChange
-import kotlinx.android.synthetic.main.fragment_phone_number.*
+import kotlinx.android.synthetic.main.fragment_phone_number.btnCancel
+import kotlinx.android.synthetic.main.fragment_phone_number.btnEnter
+import kotlinx.android.synthetic.main.fragment_phone_number.btnTransfer
+import kotlinx.android.synthetic.main.fragment_phone_number.ccpPhoneNumber
+import kotlinx.android.synthetic.main.fragment_phone_number.containerTopNormal
+import kotlinx.android.synthetic.main.fragment_phone_number.edtPhoneNumber
+import kotlinx.android.synthetic.main.fragment_phone_number.imgAppLogo
+import kotlinx.android.synthetic.main.fragment_phone_number.tvMessage
+import kotlinx.android.synthetic.main.fragment_phone_number.tvOTP
+import kotlinx.android.synthetic.main.fragment_phone_number.tvWelcomeApp
+import kotlinx.android.synthetic.main.layout_bottom_sheet.bottomSheet
+import org.greenrobot.eventbus.EventBus
 
-class PhoneNumberFragment : ReactiveFormFragment() {
+class PhoneNumberFragment : ReactiveFormFragment(), OnVerifyOtpListener {
 
     private var listener: OnPhoneNumberListener? = null
 
     private var countryCode: String = emptyString()
 
     private val TAG = "PhoneNumber"
+
+    private lateinit var bottomSheetBehavior: BottomSheetBehavior<*>
 
     companion object {
         fun newInstance(phoneNumberListener: OnPhoneNumberListener): PhoneNumberFragment {
@@ -45,7 +69,7 @@ class PhoneNumberFragment : ReactiveFormFragment() {
 
     override fun initLib() {
         super.initLib()
-        btnEnter.isEnabled(false)
+        btnEnter.isEnabled = false
     }
 
     override fun initIntent() {
@@ -58,7 +82,22 @@ class PhoneNumberFragment : ReactiveFormFragment() {
             setSpannableString()
         }
 
+        configureOtpBottomSheet()
+
         activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
+    }
+
+    private fun configureOtpBottomSheet(){
+        bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet)
+
+        bottomSheetBehavior.peekHeight = 340
+
+        bottomSheetBehavior.isHideable = false
+
+        bottomSheetBehavior.setBottomSheetCallback(object : BottomSheetCallback() {
+            override fun onStateChanged(bottomSheet: View, newState: Int) {}
+            override fun onSlide(bottomSheet: View, slideOffset: Float) {}
+        })
     }
 
     override fun initAction() {
@@ -108,10 +147,7 @@ class PhoneNumberFragment : ReactiveFormFragment() {
         task.addOnCompleteListener {
             if (it.isSuccessful) {
                 enableViews(true)
-                listener?.onRequestOtpSucceed(
-                        countryCode = countryCode,
-                        phoneNumber = edtPhoneNumber.text.toString().trim()
-                )
+                showOtpFragment(countryCode, phoneNumber, this)
             } else {
                 enableViews(true)
                 showToast(getString(string.error_message_request_otp_failed))
@@ -129,13 +165,14 @@ class PhoneNumberFragment : ReactiveFormFragment() {
             val humanIDOptions = HumanIDOptions.fromResource(it)
             if (humanIDOptions?.applicationIcon != -1) {
                 humanIDOptions?.applicationIcon?.let { it1 ->
-                    imgAppIcon.visible()
-                    imgAppIcon.setImageDrawable(ContextCompat.getDrawable(it, it1))
+                    imgAppLogo.visible()
+                    imgAppLogo.setImageDrawable(ContextCompat.getDrawable(it, it1))
                 }
             }
 
             if (!humanIDOptions?.applicationName.isNullOrEmpty()) {
-                tvMessage.text = getString(R.string.label_verify_your_phone_number, humanIDOptions?.applicationName)
+                tvMessage.text = getString(string.label_verify_your_phone_number, humanIDOptions?.applicationName)
+                tvWelcomeApp.text = String.format(getString(string.label_welcome), humanIDOptions?.applicationName)
             }
         }
     }
@@ -146,25 +183,24 @@ class PhoneNumberFragment : ReactiveFormFragment() {
                 edtPhoneNumber,
                 listOf(
                     notEmptyRule(getString(string.error_field_required)),
-                    numberOnlyRule(getString(string.error_number_format))
+                    numberOnlyRule(getString(string.error_number_format)),
+                    minMaxLengthRule(getString(string.error_field_required), 12, 14)
                 )
             )
         )
     }
 
     override fun onValidationFailed() {
-        btnEnter.isEnabled(false)
+        btnEnter.isEnabled = false
     }
 
     override fun onValidationSuccess() {
-        btnEnter.isEnabled(true)
+        btnEnter.isEnabled = true
     }
 
     private fun initView() {
         containerTopNormal.visible()
-        containerTopSwitch.gone()
         btnTransfer.gone()
-        mcvAd.visible()
     }
 
     private fun getCodeNumberData(): List<CodeNumber> {
@@ -186,25 +222,40 @@ class PhoneNumberFragment : ReactiveFormFragment() {
     }
 
     private fun setSpannableString() {
-        tvOTP.text = getString(R.string.message_otp_verification)
-        tvAboutOurMission.text = getString(R.string.message_humanid_description)
+        tvOTP.text = getString(string.message_otp_verification)
 
         tvOTP.makeLinks(
             Pair(getString(R.string.label_learn_more), View.OnClickListener {
                 Toast.makeText(context, getString(R.string.label_learn_more), Toast.LENGTH_SHORT).show()
             })
         )
+    }
 
-        tvAboutOurMission.makeLinks(
-            Pair(getString(R.string.label_learn_about_out_mission), View.OnClickListener {
-                Toast.makeText(context, getString(R.string.label_learn_about_out_mission), Toast.LENGTH_SHORT).show()
-            })
-        )
+    private fun showOtpFragment(countryCode: String, phoneNumber: String, onVerifyOtpListener: OnVerifyOtpListener){
+        bottomSheet.visible()
+        val otpFragment = OtpFragment.newInstance(countryCode = countryCode,
+            phoneNumber = phoneNumber, onVerifyOtpListener = onVerifyOtpListener)
+
+        childFragmentManager.beginTransaction()
+            .replace(R.id.containerBottomSheet, otpFragment).commitAllowingStateLoss()
+
+        bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+    }
+
+    override fun onVerifySuccess(exchangeToken: String) {
+        EventBus.getDefault().post(CloseAllActivityEvent(exchangeToken, null))
+
+        finishActivity()
+    }
+
+    override fun onVerifyFailed(message: String) {
+        EventBus.getDefault().post(CloseAllActivityEvent(null, message))
+
+        finishActivity()
     }
 
     interface OnPhoneNumberListener {
         fun onButtonCancelClicked()
-        fun onRequestOtpSucceed(countryCode: String, phoneNumber: String)
         fun onButtonTransferClicked()
     }
 }

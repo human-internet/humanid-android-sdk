@@ -11,7 +11,6 @@ import com.nbs.humanidui.R.string
 import com.nbs.humanidui.util.BundleKeys
 import com.nbs.humanidui.util.ReactiveFormFragment
 import com.nbs.humanidui.util.emptyString
-import com.nbs.humanidui.util.enum.LoginType
 import com.nbs.humanidui.util.extensions.*
 import com.nbs.humanidui.util.makeLinks
 import com.nbs.humanidui.util.validation.Validation
@@ -116,6 +115,7 @@ class OtpFragment : ReactiveFormFragment() {
     }
 
     override fun onValidationSuccess() {
+        hideSoftKeyboard()
         cancelCountDownTimer()
         val otpCode: String = edtOtp.text.toString().trim()
         verifyOtp(otpCode)

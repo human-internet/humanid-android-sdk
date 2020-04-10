@@ -24,4 +24,6 @@
     <dimen name="dimen_32dp">32dp</dimen>
     <dimen name="dimen_half_dp">0.5dp</dimen>
     <dimen name="dimen_100dp">100dp</dimen>
+    <dimen name="dimen_21dp">21dp</dimen>
+    <dimen name="dimen_48dp">48dp</dimen>
 </resources>

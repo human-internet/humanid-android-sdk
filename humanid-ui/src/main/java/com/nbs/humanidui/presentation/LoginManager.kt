@@ -3,6 +3,7 @@ package com.nbs.humanidui.presentation
 import android.app.Activity
 import android.content.Intent
 import com.nbs.humanidui.R
+import com.nbs.humanidui.presentation.phonenumber.PhoneNumberActivity
 import com.nbs.humanidui.presentation.welcome.HumanIDActivity
 import com.nbs.humanidui.util.BundleKeys
 import com.nbs.humanidui.util.SingletonHolder
@@ -17,7 +18,7 @@ class LoginManager(private val activity: Activity) {
 
     fun registerCallback(callback: LoginCallback){
         this.loginCallback = callback
-        HumanIDActivity.start(activity)
+        PhoneNumberActivity.start(activity)
     }
 
     fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?){

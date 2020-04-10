@@ -5,7 +5,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="label_mdb">mdb.</string>
     <string name="message_already_login">You’re logged in anonymously with humanID</string>
-    <string name="label_welcome">Welcome to Movie DB</string>
+    <string name="label_welcome">Welcome to %s</string>
     <string name="label_continue_with">Continue with</string>
     <string name="label_recommended_full_privacy">(recommended for full privacy)</string>
     <string name="label_agreement">I hereby agree to MovieDB’s Terms of Service</string>
@@ -108,4 +108,6 @@ Register securely by confirming your phone number. It is deleted after verificat
     <string name="error_message_unable_to_connect">Unable to reach the humanID Service at this time</string>
     <string name="error_message_verify_otp_failed">Verify otp failed</string>
     <string name="message_cancel">Cancel</string>
+    <string name="title_verification_number">Verification Number</string>
+    <string name="error_invalid_phonenumber">Invalid phone numbers</string>
 </resources>

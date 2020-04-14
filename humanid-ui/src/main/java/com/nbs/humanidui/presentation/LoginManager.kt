@@ -6,6 +6,7 @@ import com.nbs.humanidui.R
 import com.nbs.humanidui.presentation.phonenumber.PhoneNumberActivity
 import com.nbs.humanidui.presentation.welcome.HumanIDActivity
 import com.nbs.humanidui.util.BundleKeys
+import com.nbs.humanidui.util.ContextProvider
 import com.nbs.humanidui.util.SingletonHolder
 
 class LoginManager(private val activity: Activity) {
@@ -13,6 +14,10 @@ class LoginManager(private val activity: Activity) {
     companion object INSTANCE : SingletonHolder<LoginManager, Activity>({
         LoginManager(activity = it)
     })
+
+    init {
+        ContextProvider.initialize(activity)
+    }
 
     private var loginCallback: LoginCallback? = null
 

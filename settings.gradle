@@ -4,4 +4,3 @@ include ':humanid-auth'
 
 // Sample
 //include ':samples:sample-auth:app'
-include ':samples:sample-auth-app1'

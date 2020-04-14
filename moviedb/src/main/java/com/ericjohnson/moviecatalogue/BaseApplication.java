@@ -3,7 +3,6 @@ package com.ericjohnson.moviecatalogue;
 import android.content.Context;
 import androidx.multidex.MultiDex;
 import androidx.multidex.MultiDexApplication;
-import com.nbs.humanidui.util.ContextProvider;
 
 
 /**
@@ -15,8 +14,5 @@ public class BaseApplication extends MultiDexApplication {
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
         MultiDex.install(this);
-        ContextProvider.initialize(this);
     }
-
-
 }

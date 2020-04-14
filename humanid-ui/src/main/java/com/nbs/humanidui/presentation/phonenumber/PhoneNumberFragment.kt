@@ -182,7 +182,7 @@ class PhoneNumberFragment : ReactiveFormFragment(), OnVerifyOtpListener {
                 listOf(
                     notEmptyRule(getString(string.error_field_required)),
                     numberOnlyRule(getString(string.error_number_format)),
-                    minMaxLengthRule(getString(string.error_field_required), 12, 14)
+                    minMaxLengthRule(getString(string.error_field_required), 11, 13)
                 )
             )
         )

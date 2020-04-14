@@ -21,7 +21,7 @@ abstract class BaseBottomSheetDialogFragment : BottomSheetDialogFragment(), Base
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(false)
-        setStyle(R.style.AppBottomSheetDialogTheme, R.style.AppTheme)
+        setStyle(R.style.AppBottomSheetDialogTheme, R.style.HumanIDSDKThemeMaterialNoActionBar)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

@@ -39,7 +39,7 @@ class UserLoggedInFragment : BaseBottomSheetDialogFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setStyle(R.style.AppBottomSheetDialogTheme, R.style.AppTheme)
+        setStyle(R.style.AppBottomSheetDialogTheme, R.style.HumanIDSDKThemeMaterialNoActionBar)
     }
 
     override fun initLib() {

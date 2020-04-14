@@ -1,4 +1,4 @@
-package com.nbs.humanidui.util.extensions
+package com.humanid.humanidui.util.extensions
 
 import android.os.Build
 import android.text.Editable
@@ -12,9 +12,9 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import com.google.android.material.button.MaterialButton
-import com.nbs.humanidui.R
-import com.nbs.humanidui.util.ContextProvider
-import com.nbs.humanidui.util.emptyString
+import com.humanid.humanidui.R
+import com.humanid.humanidui.util.ContextProvider
+import com.humanid.humanidui.util.emptyString
 
 fun MaterialButton.isEnabled(isEnable: Boolean) {
 

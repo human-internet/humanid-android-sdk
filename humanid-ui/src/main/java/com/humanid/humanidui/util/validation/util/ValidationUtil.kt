@@ -1,4 +1,4 @@
-package com.nbs.humanidui.util.validation.util
+package com.humanid.humanidui.util.validation.util
 
 import android.view.View
 import android.widget.CheckBox
@@ -6,8 +6,8 @@ import android.widget.EditText
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import com.google.android.material.textfield.TextInputLayout
-import com.nbs.humanidui.util.validation.RuleNotApplicableException
-import com.nbs.humanidui.util.validation.view.InputView
+import com.humanid.humanidui.util.validation.RuleNotApplicableException
+import com.humanid.humanidui.util.validation.view.InputView
 import java.util.regex.Pattern
 
 internal fun regexMatchers(input: String, regexRule: String): Boolean {

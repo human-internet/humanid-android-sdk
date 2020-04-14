@@ -1,4 +1,4 @@
-package com.nbs.humanidui.util.extensions
+package com.humanid.humanidui.util.extensions
 
 fun Map<String, Any>?.getString(key: String) = this?.get(key) as String?
 

@@ -1,4 +1,4 @@
-package com.nbs.humanidui.util.enum
+package com.humanid.humanidui.util.enum
 
 enum class LoginType(val type: String) {
     NORMAL("normal"),

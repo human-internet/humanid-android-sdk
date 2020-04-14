@@ -1,12 +1,12 @@
-package com.nbs.humanidui.presentation.adapter
+package com.humanid.humanidui.presentation.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import com.nbs.humanidui.R
-import com.nbs.humanidui.domain.CodeNumber
+import com.humanid.humanidui.R
+import com.humanid.humanidui.domain.CodeNumber
 import kotlinx.android.synthetic.main.item_spinner.view.*
 
 class FlagSpinnerAdapter(

@@ -1,8 +1,8 @@
-package com.nbs.humanidui.util.validation.util
+package com.humanid.humanidui.util.validation.util
 
-import com.nbs.humanidui.util.validation.rules.CustomRule
-import com.nbs.humanidui.util.validation.rules.MinMaxLengthRule
-import com.nbs.humanidui.util.validation.rules.RegexRule
+import com.humanid.humanidui.util.validation.rules.CustomRule
+import com.humanid.humanidui.util.validation.rules.MinMaxLengthRule
+import com.humanid.humanidui.util.validation.rules.RegexRule
 
 fun customRule(errorMessage: String, rule: () -> Boolean): CustomRule {
     return CustomRule(rule, errorMessage)

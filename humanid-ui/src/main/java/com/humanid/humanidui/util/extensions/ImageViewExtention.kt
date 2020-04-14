@@ -1,4 +1,4 @@
-package com.nbs.humanidui.util.extensions
+package com.humanid.humanidui.util.extensions
 
 import android.content.Context
 import android.graphics.drawable.Drawable

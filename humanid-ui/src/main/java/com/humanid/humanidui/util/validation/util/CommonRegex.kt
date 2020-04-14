@@ -1,4 +1,4 @@
-package com.nbs.humanidui.util.validation.util
+package com.humanid.humanidui.util.validation.util
 
 object CommonRegex {
     const val EMAIL = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})\$"

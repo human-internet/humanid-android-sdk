@@ -1,4 +1,4 @@
-package com.nbs.humanidui.util.validation.util
+package com.humanid.humanidui.util.validation.util
 
 import android.text.Editable
 import android.text.TextWatcher

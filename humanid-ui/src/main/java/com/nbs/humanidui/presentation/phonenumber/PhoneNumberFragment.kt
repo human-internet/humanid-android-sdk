@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
-import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
@@ -21,7 +20,6 @@ import com.nbs.humanidui.presentation.otp.OtpFragment.OnVerifyOtpListener
 import com.nbs.humanidui.util.ReactiveFormFragment
 import com.nbs.humanidui.util.emptyString
 import com.nbs.humanidui.util.extensions.gone
-import com.nbs.humanidui.util.extensions.isEnabled
 import com.nbs.humanidui.util.extensions.onClick
 import com.nbs.humanidui.util.extensions.showToast
 import com.nbs.humanidui.util.extensions.visible

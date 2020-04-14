@@ -10,6 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <meta-data
+            android:name="com.humanid.sdk.applicationIcon"
+            android:resource="@drawable/ic_app_icon"/>
+        <meta-data
+            android:name="com.humanid.sdk.applicationName"
+            android:value="@string/app_name"/>
+        <meta-data
             android:name="com.humanid.sdk.applicationId"
             android:value="DEMO_APP"/>
         <meta-data

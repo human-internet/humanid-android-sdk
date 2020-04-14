@@ -50,8 +50,8 @@ import com.ericjohnson.moviecatalogue.model.Review;
 import com.ericjohnson.moviecatalogue.utils.DateUtil;
 import com.ericjohnson.moviecatalogue.utils.Keys;
 import com.google.android.material.appbar.AppBarLayout;
-import com.nbs.humanidui.presentation.LoginCallback;
-import com.nbs.humanidui.presentation.LoginManager;
+import com.humanid.humanidui.presentation.LoginCallback;
+import com.humanid.humanidui.presentation.LoginManager;
 
 import org.jetbrains.annotations.NotNull;
 

@@ -23,8 +23,8 @@ import com.ericjohnson.moviecatalogue.domain.LoginHttpRequest;
 import com.ericjohnson.moviecatalogue.domain.UserInteractor;
 import com.ericjohnson.moviecatalogue.domain.UserUsecase;
 import com.google.android.material.tabs.TabLayout;
-import com.nbs.humanidui.presentation.LoginCallback;
-import com.nbs.humanidui.presentation.LoginManager;
+import com.humanid.humanidui.presentation.LoginCallback;
+import com.humanid.humanidui.presentation.LoginManager;
 
 import org.jetbrains.annotations.NotNull;
 

@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.nbs.humanidui">
+    package="com.humanid.humanidui">
 
     <application android:networkSecurityConfig="@xml/network_security_config">
-        <activity android:name=".presentation.otp.OtpActivity"
+        <activity android:name="com.humanid.humanidui.presentation.otp.OtpActivity"
             android:theme="@style/HumanIDSDKThemeMaterialNoActionBar"
             android:screenOrientation="portrait"/>
-        <activity android:name=".presentation.phonenumber.PhoneNumberActivity"
+        <activity android:name="com.humanid.humanidui.presentation.phonenumber.PhoneNumberActivity"
             android:screenOrientation="portrait"
             android:theme="@style/HumanIDSDKThemeMaterialNoActionBar"/>
-        <activity android:name=".presentation.welcome.HumanIDActivity"
+        <activity android:name="com.humanid.humanidui.presentation.welcome.HumanIDActivity"
             android:screenOrientation="portrait"
             android:theme="@style/HumanIDSDKThemeMaterialNoActionBar"/>
     </application>

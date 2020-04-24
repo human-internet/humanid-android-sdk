@@ -73,6 +73,6 @@ public class DeviceIDManager {
 
     @NonNull
     private String generateDeviceID() {
-        return DeviceIDUtils.getPseudoDeviceID(applicationContext);
+        return DeviceIDUtils.getDeviceId(applicationContext);
     }
 }

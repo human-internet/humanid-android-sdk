@@ -1,4 +1,4 @@
-package com.ericjohnson.moviecatalogue.adapter;
+package com.humanid.filmreview.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,8 +9,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.ericjohnson.moviecatalogue.R;
-import com.ericjohnson.moviecatalogue.model.Review;
+import com.humanid.filmreview.R;
+import com.humanid.filmreview.model.Review;
 
 import java.util.ArrayList;
 

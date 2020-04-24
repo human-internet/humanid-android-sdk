@@ -1,4 +1,4 @@
-package com.ericjohnson.moviecatalogue.activity;
+package com.humanid.filmreview.activity;
 
 import android.database.Cursor;
 import android.os.Bundle;
@@ -18,15 +18,15 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.ericjohnson.moviecatalogue.R;
-import com.ericjohnson.moviecatalogue.adapter.MoviesCursorAdapter;
-import com.ericjohnson.moviecatalogue.utils.Constants;
+import com.humanid.filmreview.R;
+import com.humanid.filmreview.adapter.MoviesCursorAdapter;
+import com.humanid.filmreview.utils.Constants;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static android.provider.BaseColumns._ID;
-import static com.ericjohnson.moviecatalogue.db.DatabaseContract.*;
+import static com.humanid.filmreview.db.DatabaseContract.*;
 
 public class FavoriteActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 

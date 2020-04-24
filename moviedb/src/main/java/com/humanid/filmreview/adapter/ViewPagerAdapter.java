@@ -1,4 +1,4 @@
-package com.ericjohnson.moviecatalogue.adapter;
+package com.humanid.filmreview.adapter;
 
 import android.content.Context;
 
@@ -6,9 +6,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.ericjohnson.moviecatalogue.R;
-import com.ericjohnson.moviecatalogue.fragment.NowPlayingFragment;
-import com.ericjohnson.moviecatalogue.fragment.UpcomingFragment;
+import com.humanid.filmreview.R;
+import com.humanid.filmreview.fragment.NowPlayingFragment;
+import com.humanid.filmreview.fragment.UpcomingFragment;
 
 public class ViewPagerAdapter extends FragmentPagerAdapter {
 

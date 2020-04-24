@@ -1,4 +1,4 @@
-package com.ericjohnson.moviecatalogue.activity;
+package com.humanid.filmreview.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,8 +11,8 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import com.ericjohnson.moviecatalogue.R;
-import com.ericjohnson.moviecatalogue.utils.DialogUtils;
+import com.humanid.filmreview.R;
+import com.humanid.filmreview.utils.DialogUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

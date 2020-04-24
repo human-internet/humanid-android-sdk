@@ -1,4 +1,4 @@
-package com.ericjohnson.moviecatalogue.activity;
+package com.humanid.filmreview.activity;
 
 import android.app.LoaderManager;
 import android.content.Context;
@@ -19,12 +19,12 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.ericjohnson.moviecatalogue.R;
-import com.ericjohnson.moviecatalogue.adapter.ReviewAdapter;
-import com.ericjohnson.moviecatalogue.fragment.RateReviewDialogFragment;
-import com.ericjohnson.moviecatalogue.loader.ReviewAsynctaskLoader;
-import com.ericjohnson.moviecatalogue.model.Review;
-import com.ericjohnson.moviecatalogue.utils.Keys;
+import com.humanid.filmreview.R;
+import com.humanid.filmreview.adapter.ReviewAdapter;
+import com.humanid.filmreview.fragment.RateReviewDialogFragment;
+import com.humanid.filmreview.loader.ReviewAsynctaskLoader;
+import com.humanid.filmreview.model.Review;
+import com.humanid.filmreview.utils.Keys;
 
 import java.util.ArrayList;
 

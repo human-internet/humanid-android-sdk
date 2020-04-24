@@ -1,4 +1,4 @@
-package com.ericjohnson.moviecatalogue.adapter;
+package com.humanid.filmreview.adapter;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -22,18 +22,18 @@ import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
-import com.ericjohnson.moviecatalogue.BuildConfig;
-import com.ericjohnson.moviecatalogue.R;
-import com.ericjohnson.moviecatalogue.activity.MovieDetailActivity;
-import com.ericjohnson.moviecatalogue.listener.CustomOnClickLIstener;
-import com.ericjohnson.moviecatalogue.model.Movies;
-import com.ericjohnson.moviecatalogue.utils.DateUtil;
-import com.ericjohnson.moviecatalogue.utils.Keys;
+import com.humanid.filmreview.BuildConfig;
+import com.humanid.filmreview.R;
+import com.humanid.filmreview.activity.MovieDetailActivity;
+import com.humanid.filmreview.listener.CustomOnClickLIstener;
+import com.humanid.filmreview.model.Movies;
+import com.humanid.filmreview.utils.DateUtil;
+import com.humanid.filmreview.utils.Keys;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.ericjohnson.moviecatalogue.db.DatabaseContract.CONTENT_URI;
+import static com.humanid.filmreview.db.DatabaseContract.CONTENT_URI;
 
 public class MoviesCursorAdapter extends RecyclerView.Adapter<MoviesCursorAdapter.ViewHolder> {
 

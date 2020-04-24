@@ -1,4 +1,4 @@
-package com.ericjohnson.moviecatalogue.activity;
+package com.humanid.filmreview.activity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -17,11 +17,11 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
 
 import com.bumptech.glide.Glide;
-import com.ericjohnson.moviecatalogue.R;
-import com.ericjohnson.moviecatalogue.adapter.ViewPagerAdapter;
-import com.ericjohnson.moviecatalogue.domain.LoginHttpRequest;
-import com.ericjohnson.moviecatalogue.domain.UserInteractor;
-import com.ericjohnson.moviecatalogue.domain.UserUsecase;
+import com.humanid.filmreview.R;
+import com.humanid.filmreview.adapter.ViewPagerAdapter;
+import com.humanid.filmreview.domain.LoginHttpRequest;
+import com.humanid.filmreview.domain.UserInteractor;
+import com.humanid.filmreview.domain.UserUsecase;
 import com.google.android.material.tabs.TabLayout;
 import com.humanid.humanidui.presentation.LoginCallback;
 import com.humanid.humanidui.presentation.LoginManager;

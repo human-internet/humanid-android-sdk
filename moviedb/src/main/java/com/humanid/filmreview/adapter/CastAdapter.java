@@ -1,4 +1,4 @@
-package com.ericjohnson.moviecatalogue.adapter;
+package com.humanid.filmreview.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,9 +12,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.ericjohnson.moviecatalogue.BuildConfig;
-import com.ericjohnson.moviecatalogue.R;
-import com.ericjohnson.moviecatalogue.model.Cast;
+import com.humanid.filmreview.BuildConfig;
+import com.humanid.filmreview.R;
+import com.humanid.filmreview.model.Cast;
 
 import java.util.ArrayList;
 

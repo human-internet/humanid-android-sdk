@@ -1,4 +1,4 @@
-package com.ericjohnson.moviecatalogue.adapter;
+package com.humanid.filmreview.adapter;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -26,9 +26,9 @@ import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
-import com.ericjohnson.moviecatalogue.BuildConfig;
-import com.ericjohnson.moviecatalogue.R;
-import com.ericjohnson.moviecatalogue.model.Movies;
+import com.humanid.filmreview.BuildConfig;
+import com.humanid.filmreview.R;
+import com.humanid.filmreview.model.Movies;
 
 import java.util.ArrayList;
 

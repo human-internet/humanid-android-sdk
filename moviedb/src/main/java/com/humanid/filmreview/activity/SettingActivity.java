@@ -1,4 +1,4 @@
-package com.ericjohnson.moviecatalogue.activity;
+package com.humanid.filmreview.activity;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -15,10 +15,10 @@ import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 
-import com.ericjohnson.moviecatalogue.R;
-import com.ericjohnson.moviecatalogue.service.AlarmReceiver;
-import com.ericjohnson.moviecatalogue.utils.Constants;
-import com.ericjohnson.moviecatalogue.utils.Keys;
+import com.humanid.filmreview.R;
+import com.humanid.filmreview.service.AlarmReceiver;
+import com.humanid.filmreview.utils.Constants;
+import com.humanid.filmreview.utils.Keys;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

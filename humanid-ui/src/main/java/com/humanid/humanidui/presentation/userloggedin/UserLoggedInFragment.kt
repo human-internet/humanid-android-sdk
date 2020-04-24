@@ -1,0 +1,122 @@
+package com.humanid.humanidui.presentation.userloggedin
+
+
+import android.app.Dialog
+import android.graphics.drawable.Drawable
+import android.graphics.drawable.GradientDrawable
+import android.graphics.drawable.LayerDrawable
+import android.os.Build
+import android.os.Bundle
+import android.util.DisplayMetrics
+import androidx.annotation.NonNull
+import androidx.annotation.RequiresApi
+import com.humanid.auth.HumanIDAuth
+import com.humanid.humanidui.R
+import com.humanid.humanidui.base.BaseBottomSheetDialogFragment
+import com.humanid.humanidui.presentation.HumanIDOptions
+import com.humanid.humanidui.util.LogoutEvent
+import com.humanid.humanidui.util.extensions.gone
+import com.humanid.humanidui.util.extensions.visible
+import kotlinx.android.synthetic.main.fragment_user_loggedin.*
+import org.greenrobot.eventbus.EventBus
+
+class UserLoggedInFragment : BaseBottomSheetDialogFragment() {
+
+    companion object{
+
+        fun newInstance(onButtonSwitchDeviceClickListener: OnButtonSwitchDeviceClickListener): UserLoggedInFragment {
+            val fragment = UserLoggedInFragment()
+            fragment.onButtonSwitchDeviceClickListener = onButtonSwitchDeviceClickListener
+            val bundle = Bundle()
+            fragment.arguments = bundle
+            return fragment
+        }
+    }
+
+    private lateinit var onButtonSwitchDeviceClickListener: OnButtonSwitchDeviceClickListener
+
+    override val layoutResource: Int = R.layout.fragment_user_loggedin
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setStyle(R.style.AppBottomSheetDialogTheme, R.style.HumanIDSDKThemeMaterialNoActionBar)
+    }
+
+    override fun initLib() {
+
+    }
+
+    override fun initIntent() {
+
+    }
+
+    override fun initUI() {
+        context?.let {
+            val humanIDOptions = HumanIDOptions.fromResource(it)
+            if (humanIDOptions?.applicationIcon != -1){
+                humanIDOptions?.applicationIcon?.let { it1 ->
+                    imgAppIcon.visible()
+                    imgAppIcon.setImageResource(it1)
+                }
+            }
+
+            if (!humanIDOptions?.applicationName.isNullOrEmpty()){
+                tvTnC.gone()
+                tvTnC.text = "I  hereby agree to ${humanIDOptions?.applicationName} Terms of Service"
+            }
+        }
+    }
+
+    override fun initAction() {
+        dialog?.setCancelable(true)
+        dialog?.setCanceledOnTouchOutside(true)
+
+        btnSwitchDevice.setOnClickListener {
+            dismissAllowingStateLoss()
+            HumanIDAuth.getInstance().removeCurrentUser()
+            EventBus.getDefault().post(LogoutEvent())
+            onButtonSwitchDeviceClickListener.onButtonSwitchDeviceClicked()
+        }
+    }
+
+    override fun initProcess() {
+
+    }
+
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        val dialog = super.onCreateDialog(savedInstanceState)
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
+            setWhiteNavigationBar(dialog)
+        }
+
+        return dialog
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private fun setWhiteNavigationBar(@NonNull dialog: Dialog) {
+        val window = dialog.window
+        if (window != null) {
+            val metrics = DisplayMetrics()
+            window.windowManager.defaultDisplay.getMetrics(metrics)
+
+            val dimDrawable = GradientDrawable()
+            // ...customize your dim effect here
+
+            val navigationBarDrawable = GradientDrawable()
+            navigationBarDrawable.shape = GradientDrawable.RECTANGLE
+            navigationBarDrawable.setColor(resources.getColor(R.color.colorTwilightBlue))
+
+            val layers = arrayOf<Drawable>(dimDrawable, navigationBarDrawable)
+
+            val windowBackground = LayerDrawable(layers)
+            windowBackground.setLayerInsetTop(1, metrics.heightPixels)
+
+            window.setBackgroundDrawable(windowBackground)
+        }
+    }
+
+    interface OnButtonSwitchDeviceClickListener{
+        fun onButtonSwitchDeviceClicked()
+    }
+}

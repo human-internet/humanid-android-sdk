@@ -4,17 +4,17 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="label_mdb">mdb.</string>
-    <string name="message_already_login">You are already logged in</string>
-    <string name="label_welcome">Welcome to Movie DB</string>
-    <string name="label_continue_with">Continue With</string>
-    <string name="label_recommended_full_privacy">( recommended for full privacy)</string>
-    <string name="label_agreement">I agree to Movie DB Terms of Service</string>
+    <string name="message_already_login">You’re logged in anonymously with humanID</string>
+    <string name="label_welcome">Welcome to %s</string>
+    <string name="label_continue_with">Continue with</string>
+    <string name="label_recommended_full_privacy">(recommended for full privacy)</string>
+    <string name="label_agreement">I hereby agree to MovieDB’s Terms of Service</string>
     <string name="label_verify_your_phone_number">Verify your phone number to connect anonymously with %s</string>
-    <string name="hint_phone_number">Your Phone Number</string>
+    <string name="hint_phone_number">Phone Number</string>
     <string name="message_otp_verification"><![CDATA[OTP verification is managed by an independent 3rd party. Number & fingerprints are never visible to humanID or partner app. Learn More]]></string>
     <string name="action_cancel">Cancel</string>
     <string name="action_transfer_account_number">Transfer account to new number?</string>
-    <string name="message_manage_and_monitor_login"><![CDATA[Manage & Monitor all your logins & data with humanID]]></string>
+    <string name="message_manage_and_monitor_login"><![CDATA[Manage & monitor all your logins & data with the humanID app]]></string>
     <string name="message_humanid_description"><![CDATA[humanID is the independent & open online ID - giving back privacy, and the internet, to humans. Learn About Our Mission]]></string>
     <string name="title_switching_number">Switching Number</string>
     <string name="message_switch_number">Let’s transfer your humanID to a new number. First , let’s verify your new phone number</string>
@@ -50,7 +50,7 @@
     <string name="label_warning_logout">This will sign you out of all sessions across all devices</string>
 
     //Title
-    <string name="title_register_number">Create a new Account</string>
+    <string name="title_register_number">Create a new account</string>
     <string name="title_register_email">For Your Security</string>
     <string name="title_new_device">New Device</string>
     <string name="title_change_number">Phone number has been change</string>
@@ -58,7 +58,9 @@
     <string name="title_switch_number">Switching Number</string>
 
     //Message
-    <string name="message_register_number"><![CDATA[Welcome to humanID - the private & non-profit sign in. Register now by securely confirming your phone number. It will never be saved to humanID or partner platforms.]]></string>
+    <string name="message_register_number"><![CDATA[Welcome to humanID - the independent, non-profit sign-in. \n
+Register securely by confirming your phone number. It is deleted after verification and never communicated to platforms!
+]]></string>
     <string name="message_register_email">Please enter your email address to recover access in case you lose your phone number</string>
     <string name="message_email_dialog">&lt;b&gt;Confirmation: &lt;/b&gt; &lt;br /&gt;Yes, I can access and recall</string>
     <string name="message_new_device">We don’t recognize your device - please verify your number</string>
@@ -70,12 +72,12 @@
     <string name="sub_message_email_dialog">In case I have to recover my humanID login in the future</string>
     <string name="sub_message_register_number">Please enter the 4 digit code you received as SMS to +1 617 999 9999</string>
     <string name="sub_message_register_email">Ensure to enter an address you can access and remember! Only a non-readable encryption will be saved</string>
-    <string name="sub_message_new_device">Please enter the 4 digit code you received as SMS</string>
-    <string name="sub_message_new_accoun">Please enter the 4 digit code you received as SMS to</string>
+    <string name="sub_message_new_device">Please enter the 4 digit code you received via SMS</string>
+    <string name="sub_message_new_accoun">Please enter the 4 digit code you received via SMS to</string>
     <string name="sub_message_register_dialog">Let’s get your setup:</string>
 
     //Format
-    <string name="format_phone_number"><![CDATA[<font color=\'#075070\'><b> %s</b></font>]]></string>
+    <string name="format_phone_number"><![CDATA[<font color=\'#075070\'><b> +%s</b></font>]]></string>
     <string name="format_phone_number_dialog">&lt;font color=&quot;#075070&quot;&gt; %s&lt;/font&gt;</string>
 
     //Error
@@ -92,10 +94,20 @@
     <string name="action_learn_more_humanid">Learn more about humanID</string>
     <string name="action_back">back</string>
     <string name="message_send_otp_switch">We just sent a text to +1 999-999-999. We will not save or forward this number after the verification</string>
-    <string name="message_enter_otp_switch">Please enter the 4 digit code you received as SMS</string>
+    <string name="message_enter_otp_switch">Please enter the 4 digit code you received via SMS</string>
     <string name="message_email_confirmation_code">We sent confirmation code  to email, please click link or enter code:</string>
     <string name="message_warning_sign_out_all_session">This will sign you out of all sessions across all devices</string>
     <string name="label_learn_more">Learn More</string>
     <string name="hint_enter_your_code">Enter your code</string>
     <string name="please_wait">Please wait</string>
+    <string name="message_hereby">I hereby agree to %s\'s Terms of Service</string>
+    <string name="error_message_unable_to_request_otp">Unable to request otp at this time. Please try again later</string>
+    <string name="error_message_request_otp_failed">Request otp failed</string>
+    <string name="action_processing">Processing</string>
+    <string name="message_login_succeeded">Login succeeded - Phone number not stored</string>
+    <string name="error_message_unable_to_connect">Unable to reach the humanID Service at this time</string>
+    <string name="error_message_verify_otp_failed">Verify otp failed</string>
+    <string name="message_cancel">Cancel</string>
+    <string name="title_verification_number">Verification Number</string>
+    <string name="error_invalid_phonenumber">Invalid phone numbers</string>
 </resources>

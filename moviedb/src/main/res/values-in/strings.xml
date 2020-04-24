@@ -40,15 +40,15 @@
 
     <string name="label_mdb">mdb.</string>
     <string name="label_welcome">Welcome to Movie DB</string>
-    <string name="label_continue_with">Continue With</string>
-    <string name="label_recommended_full_privacy">( recommended for full privacy)</string>
+    <string name="label_continue_with">Continue with</string>
+    <string name="label_recommended_full_privacy">(recommended for full privacy)</string>
     <string name="label_agreement">I agree to Movie DB Terms of Service</string>
     <string name="label_verify_your_phone_number">Verify your phone number to connect anonymously with Movie DB</string>
     <string name="hint_phone_number">Your Phone Number</string>
     <string name="message_otp_verification"><![CDATA[OTP verification is managed by an independent 3rd party. Number & fingerprints are never visible to humanID or Movie DB. Learn More]]></string>
     <string name="action_cancel">Cancel</string>
     <string name="action_transfer_account_number">Transfer account to new number?</string>
-    <string name="message_manage_and_monitor_login"><![CDATA[Manage & Monitor all your logins & data with humanID]]></string>
+    <string name="message_manage_and_monitor_login"><![CDATA[Manage & monitor all your logins & data with the humanID app]]></string>
     <string name="message_humanid_description"><![CDATA[humanID is the independent & open online ID - giving back privacy, and the internet, to humans. Learn About Our Mission]]></string>
     <string name="title_switching_number">Switching Number</string>
     <string name="message_switch_number">Let’s transfer your humanID to a new number. First , let’s verify your new phone number</string>
@@ -85,7 +85,7 @@
     <string name="label_warning_logout">This will sign you out of all sessions across all devices</string>
 
     //Title
-    <string name="title_register_number">Create a new Account</string>
+    <string name="title_register_number">Create a new account</string>
     <string name="title_register_email">For Your Security</string>
     <string name="title_new_device">New Device</string>
     <string name="title_change_number">Phone number has been change</string>

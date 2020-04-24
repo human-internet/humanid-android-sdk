@@ -7,7 +7,7 @@ Meet humanID - An anonymous online identity, enabling platforms to offer the spe
 Meet humanID - An anonymous online identity, enabling platforms to offer the speed and comfort of social logins, while guaranteeing absolute privacy and protecting our communities by permanently blocking bots, spams, and trolls.
 
 
-![](https://lh3.googleusercontent.com/umzCnjYdKctZ1oiZS4rmOCyrZtpP9KTKQ2f1t6c9mUbs8TKuZ51zmPwIe-06fS1Xbna_FJbQCyN2pMSzLg4daik2boNdPnTXdFCAYh_GYRPU6hnu-K1ZtVcIPUv-OBuPbo7uzuGn)
+![](https://github.com/bluenumberfoundation/humanid-android-sdk/blob/master/human-id-logo.png)
 ## Download
 
     allprojects {

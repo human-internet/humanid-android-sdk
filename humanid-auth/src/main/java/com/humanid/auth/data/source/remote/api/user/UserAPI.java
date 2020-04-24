@@ -2,23 +2,15 @@ package com.humanid.auth.data.source.remote.api.user;
 
 import android.content.Context;
 import android.text.TextUtils;
-
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
-
 import com.humanid.auth.data.source.remote.api.APIResponse;
 import com.humanid.auth.data.source.remote.api.HttpClient;
-import com.humanid.auth.data.source.remote.api.user.login.LoginRequest;
-import com.humanid.auth.data.source.remote.api.user.login.LoginResponse;
 import com.humanid.auth.data.source.remote.api.user.login.check.CheckLoginResponse;
 import com.humanid.auth.data.source.remote.api.user.otp.OTPRequest;
 import com.humanid.auth.data.source.remote.api.user.otp.OTPResponse;
 import com.humanid.auth.data.source.remote.api.user.register.RegisterRequest;
 import com.humanid.auth.data.source.remote.api.user.register.RegisterResponse;
-import com.humanid.auth.data.source.remote.api.user.update.UpdateRequest;
-import com.humanid.auth.data.source.remote.api.user.update.UpdateResponse;
-import com.humanid.auth.data.source.remote.api.user.updatephone.UpdatePhoneRequest;
-import com.humanid.auth.data.source.remote.api.user.updatephone.UpdatePhoneResponse;
 import com.humanid.util.Preconditions;
 
 public class UserAPI implements UserAPIService {
@@ -70,14 +62,6 @@ public class UserAPI implements UserAPIService {
 
     @NonNull
     @Override
-    public LiveData<APIResponse<LoginResponse>> login(@NonNull LoginRequest request) {
-        Preconditions.checkNotNull(request, "LoginRequest cannot be null.");
-
-        return service.login(request);
-    }
-
-    @NonNull
-    @Override
     public LiveData<APIResponse<CheckLoginResponse>> checkLogin(
             @NonNull String userHash, @NonNull String applicationID,
             @NonNull String applicationSecret) {
@@ -86,22 +70,5 @@ public class UserAPI implements UserAPIService {
         Preconditions.checkArgument(!TextUtils.isEmpty(applicationSecret), "applicationSecret");
 
         return service.checkLogin(userHash, applicationID, applicationSecret);
-    }
-
-    @NonNull
-    @Override
-    public LiveData<APIResponse<UpdateResponse>> update(@NonNull UpdateRequest request) {
-        Preconditions.checkNotNull(request, "UpdateRequest cannot be null.");
-
-        return service.update(request);
-    }
-
-    @NonNull
-    @Override
-    public LiveData<APIResponse<UpdatePhoneResponse>> updatePhone(
-            @NonNull UpdatePhoneRequest request) {
-        Preconditions.checkNotNull(request, "UpdatePhoneRequest cannot be null.");
-
-        return service.updatePhone(request);
     }
 }

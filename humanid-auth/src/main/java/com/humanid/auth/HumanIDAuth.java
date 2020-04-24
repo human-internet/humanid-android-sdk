@@ -114,42 +114,7 @@ public class HumanIDAuth {
                     case SUCCESS:
                         source.removeObserver(this);
                         if (resource.data != null) {
-                            newTask.setResult(new HumanIDUser(resource.data.getUserHash()));
-                        } else {
-                            newTask.setResult(null);
-                        }
-                        break;
-                    case ERROR:
-                        source.removeObserver(this);
-                        newTask.setException(new Exception(resource.message));
-                        break;
-                }
-            }
-        });
-
-        return newTask.getTask();
-    }
-
-    @NonNull
-    public Task<HumanIDUser> login(@NonNull String userHash) {
-        TaskCompletionSource<HumanIDUser> newTask = new TaskCompletionSource<>();
-        LiveData<Resource<User>> source = UserRepository.getInstance(applicationContext)
-                .login(
-                        userHash,
-                        DeviceIDManager.getInstance(applicationContext).getNotificationID(),
-                        HumanIDSDK.getInstance().getOptions().getApplicationID(),
-                        HumanIDSDK.getInstance().getOptions().getApplicationSecret()
-                );
-
-        source.observeForever(new Observer<Resource<User>>() {
-            @Override
-            public void onChanged(Resource<User> resource) {
-                if (resource == null) return;
-                switch (resource.status) {
-                    case SUCCESS:
-                        source.removeObserver(this);
-                        if (resource.data != null) {
-                            newTask.setResult(new HumanIDUser(resource.data.getUserHash()));
+                            newTask.setResult(new HumanIDUser(resource.data.getExchangeToken()));
                         } else {
                             newTask.setResult(null);
                         }
@@ -199,67 +164,5 @@ public class HumanIDAuth {
     public Task<Void> logout() {
         UserRepository.getInstance(applicationContext).logout();
         return Tasks.forResult(null);
-    }
-
-    @NonNull
-    public Task<Void> update(@NonNull String userHash) {
-        TaskCompletionSource<Void> newTask = new TaskCompletionSource<>();
-        LiveData<Resource<User>> source = UserRepository.getInstance(applicationContext)
-                .update(
-                        userHash,
-                        DeviceIDManager.getInstance(applicationContext).getNotificationID(),
-                        HumanIDSDK.getInstance().getOptions().getApplicationID(),
-                        HumanIDSDK.getInstance().getOptions().getApplicationSecret()
-                );
-
-        source.observeForever(new Observer<Resource<User>>() {
-            @Override
-            public void onChanged(Resource<User> resource) {
-                if (resource == null) return;
-                switch (resource.status) {
-                    case SUCCESS:
-                        source.removeObserver(this);
-                        newTask.setResult(null);
-                        break;
-                    case ERROR:
-                        source.removeObserver(this);
-                        newTask.setException(new Exception(resource.message));
-                        break;
-                }
-            }
-        });
-
-        return newTask.getTask();
-    }
-
-    @NonNull
-    public Task<Void> updatePhone(@NonNull String countryCode, @NonNull String phone,
-                                  @NonNull String verificationCode,
-                                  @NonNull String existingUserHash) {
-        TaskCompletionSource<Void> newTask = new TaskCompletionSource<>();
-        LiveData<Resource<String>> source = UserRepository.getInstance(applicationContext)
-                .updatePhone(countryCode, phone, verificationCode, existingUserHash,
-                        HumanIDSDK.getInstance().getOptions().getApplicationID(),
-                        HumanIDSDK.getInstance().getOptions().getApplicationSecret()
-                );
-
-        source.observeForever(new Observer<Resource<String>>() {
-            @Override
-            public void onChanged(Resource<String> resource) {
-                if (resource == null) return;
-                switch (resource.status) {
-                    case SUCCESS:
-                        source.removeObserver(this);
-                        newTask.setResult(null);
-                        break;
-                    case ERROR:
-                        source.removeObserver(this);
-                        newTask.setException(new Exception(resource.message));
-                        break;
-                }
-            }
-        });
-
-        return newTask.getTask();
     }
 }

@@ -1,13 +1,10 @@
-package com.humanid.auth.data.source.remote.api.user.login;
-
-import android.text.TextUtils;
+package com.humanid.auth.data.source.remote.api.user.register;
 
 import androidx.annotation.NonNull;
 
 import com.google.gson.annotations.SerializedName;
-import com.humanid.util.Preconditions;
 
-public class LoginResponse {
+public class RegisterItem {
 
 	@SerializedName("userHash")
 	private String userHash;
@@ -15,18 +12,8 @@ public class LoginResponse {
 	@SerializedName("exchangeToken")
 	private String exchangeToken;
 
-	public LoginResponse() {
-		// Default constructor
-	}
-
-	public LoginResponse(@NonNull String userHash) {
-		Preconditions.checkArgument(!TextUtils.isEmpty(userHash), "userHash");
-
-		this.userHash = userHash;
-	}
-
-	public String getExchangeToken() {
-		return exchangeToken;
+	public RegisterItem() {
+		// Default Constructor
 	}
 
 	@NonNull
@@ -34,11 +21,15 @@ public class LoginResponse {
 		return userHash;
 	}
 
+	public String getExchangeToken() {
+		return exchangeToken;
+	}
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
-		LoginResponse that = (LoginResponse) o;
+		RegisterItem that = (RegisterItem) o;
 		return userHash.equals(that.userHash);
 	}
 
@@ -53,9 +44,9 @@ public class LoginResponse {
 	@NonNull
 	@Override
 	public String toString() {
-		return "LoginResponse{" +
+		return "RegisterResponse{" +
 				"userHash='" + userHash + '\'' +
-				"exchangeToken=''" + exchangeToken +
+				" exchangeToken='" + exchangeToken +
 				'}';
 	}
 }

@@ -93,7 +93,7 @@ Register securely by confirming your phone number. It is deleted after verificat
     <string name="message_nonprofit_foundation">We are a nonprofit foundation with no financial interest in your data. Our software is open source, for everyone to look at, and verified by industrial specialists. Your data is never safed on our servers , or handed to our partner platforms</string>
     <string name="action_learn_more_humanid">Learn more about humanID</string>
     <string name="action_back">back</string>
-    <string name="message_send_otp_switch">We just sent a text to +1 999-999-999. We will not save or forward this number after the verification</string>
+    <string name="message_send_otp_switch">We just sent a text to %s. We will not save or forward this number after the verification</string>
     <string name="message_enter_otp_switch">Please enter the 4 digit code you received via SMS</string>
     <string name="message_email_confirmation_code">We sent confirmation code  to email, please click link or enter code:</string>
     <string name="message_warning_sign_out_all_session">This will sign you out of all sessions across all devices</string>

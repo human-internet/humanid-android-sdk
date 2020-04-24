@@ -2,6 +2,7 @@ package com.humanid.humanidui.presentation.phonenumber
 
 import android.app.Activity
 import android.content.Intent
+import android.text.TextUtils
 import com.humanid.humanidui.R
 import com.humanid.humanidui.base.BaseActivity
 import com.humanid.humanidui.event.CloseAllActivityEvent
@@ -67,15 +68,14 @@ class PhoneNumberActivity : BaseActivity(), PhoneNumberFragment.OnPhoneNumberLis
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onCloseActivityEventReceived(closeAllActivityEvent: CloseAllActivityEvent){
         val intent = Intent()
-        closeAllActivityEvent.exchangeToken?.let {
-            intent.putExtra(BundleKeys.KEY_USER_HASH, it)
-        }
 
-        closeAllActivityEvent.errorMessage?.let {
-            intent.putExtra(BundleKeys.KEY_LOGIN_ERROR, it)
+        if (!TextUtils.isEmpty(closeAllActivityEvent.exchangeToken)){
+            intent.putExtra(BundleKeys.KEY_EXCHANGE_TOKEN, closeAllActivityEvent.exchangeToken)
+        }else if(!TextUtils.isEmpty(closeAllActivityEvent.errorMessage)){
+            intent.putExtra(BundleKeys.KEY_LOGIN_ERROR, closeAllActivityEvent.errorMessage)
+        }else{
+            intent.putExtra(BundleKeys.KEY_LOGIN_CANCEL, (closeAllActivityEvent.isCancel))
         }
-
-        intent.putExtra(BundleKeys.KEY_LOGIN_CANCEL, (closeAllActivityEvent.isCancel))
 
         setResult(0x300, intent)
         finish()

@@ -10,16 +10,16 @@ import com.humanid.util.Preconditions;
 
 public class HumanIDUser implements Parcelable {
 
-    private String userHash;
+    private String exchangeToken;
 
-    public HumanIDUser(@NonNull String userHash) {
-        Preconditions.checkArgument(!TextUtils.isEmpty(userHash), "userHash");
+    public HumanIDUser(@NonNull String exchangeToken) {
+        Preconditions.checkArgument(!TextUtils.isEmpty(exchangeToken), "exchangeToken");
 
-        this.userHash = userHash;
+        this.exchangeToken = exchangeToken;
     }
 
     private HumanIDUser(Parcel in) {
-        userHash = in.readString();
+        exchangeToken = in.readString();
     }
 
     public static final Creator<HumanIDUser> CREATOR = new Creator<HumanIDUser>() {
@@ -35,8 +35,8 @@ public class HumanIDUser implements Parcelable {
     };
 
     @NonNull
-    public String getUserHash() {
-        return userHash;
+    public String getExchangeToken() {
+        return exchangeToken;
     }
 
     @Override
@@ -44,13 +44,13 @@ public class HumanIDUser implements Parcelable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         HumanIDUser that = (HumanIDUser) o;
-        return userHash.equals(that.userHash);
+        return exchangeToken.equals(that.exchangeToken);
     }
 
     @Override
     public int hashCode() {
         int result = 1;
-        result = 31 * result + (userHash == null ? 0 : userHash.hashCode());
+        result = 31 * result + (exchangeToken == null ? 0 : exchangeToken.hashCode());
 
         return result;
     }
@@ -59,7 +59,7 @@ public class HumanIDUser implements Parcelable {
     @Override
     public String toString() {
         return "HumanIDUser{" +
-                "userHash='" + userHash + '\'' +
+                "userHash='" + exchangeToken + '\'' +
                 '}';
     }
 
@@ -70,6 +70,6 @@ public class HumanIDUser implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(userHash);
+        dest.writeString(exchangeToken);
     }
 }

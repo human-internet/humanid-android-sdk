@@ -30,8 +30,8 @@ class LoginManager(private val activity: Activity) {
                 if (data.getBooleanExtra(BundleKeys.KEY_LOGIN_CANCEL, false)){
                     loginCallback?.onCancel()
                 }else{
-                    if (data.hasExtra(BundleKeys.KEY_USER_HASH)){
-                        loginCallback?.onSuccess(data.getStringExtra(BundleKeys.KEY_USER_HASH))
+                    if (data.hasExtra(BundleKeys.KEY_EXCHANGE_TOKEN)){
+                        loginCallback?.onSuccess(data.getStringExtra(BundleKeys.KEY_EXCHANGE_TOKEN))
                     }
 
                     if (data.hasExtra(BundleKeys.KEY_LOGIN_ERROR)){

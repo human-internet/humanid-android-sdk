@@ -2,11 +2,8 @@ package com.humanid.auth.internal;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
-import java.util.UUID;
 
 public class DeviceIDManager {
 
@@ -25,6 +22,7 @@ public class DeviceIDManager {
                             @NonNull SharedPreferences sharedPreferences) {
         this.applicationContext = applicationContext;
         this.sharedPreferences = sharedPreferences;
+        setDeviceID(generateDeviceID());
     }
 
     @NonNull
@@ -47,7 +45,9 @@ public class DeviceIDManager {
     @NonNull
     public String getDeviceID() {
         String deviceID = sharedPreferences.getString(DEVICE_ID_KEY, null);
-        if (deviceID == null) deviceID = generateNewDeviceID();
+        if (deviceID == null) {
+            deviceID = generateDeviceID();
+        }
         return deviceID;
     }
 
@@ -72,7 +72,7 @@ public class DeviceIDManager {
     }
 
     @NonNull
-    private String generateNewDeviceID() {
-        return UUID.randomUUID().toString();
+    private String generateDeviceID() {
+        return DeviceIDUtils.getPseudoDeviceID(applicationContext);
     }
 }

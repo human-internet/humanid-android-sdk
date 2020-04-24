@@ -96,7 +96,7 @@ Add these codes into your Activity or Fragment file, we recommend you wrap this 
     
 ## You are set!
 
-Now you can integrate your Android app to humanID. See the full sample here to learn more.
+Now you can integrate your Android app to humanID. See the full [sample](https://github.com/bluenumberfoundation/humanid-android-sdk/tree/master/sample) here to learn more.
 
 
 ## License

@@ -55,7 +55,7 @@ class HumanIDActivity : BaseActivity(), WelcomeFragment.OnWelcomeButtonListener 
     fun onCloseActivityEventReceived(closeAllActivityEvent: CloseAllActivityEvent){
         val intent = Intent()
         closeAllActivityEvent.exchangeToken?.let {
-            intent.putExtra(BundleKeys.KEY_USER_HASH, it)
+            intent.putExtra(BundleKeys.KEY_EXCHANGE_TOKEN, it)
         }
 
         closeAllActivityEvent.errorMessage?.let {

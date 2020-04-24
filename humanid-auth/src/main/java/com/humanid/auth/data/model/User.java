@@ -6,13 +6,21 @@ public class User {
 
     private String userHash;
 
-    public User(@NonNull String userHash) {
+    private String exchangeToken;
+
+    public User(@NonNull String userHash, @NonNull String exchangeToken) {
         this.userHash = userHash;
+        this.exchangeToken = exchangeToken;
     }
 
     @NonNull
     public String getUserHash() {
         return userHash;
+    }
+
+    @NonNull
+    public String getExchangeToken() {
+        return exchangeToken;
     }
 
     @Override
@@ -36,6 +44,7 @@ public class User {
     public String toString() {
         return "User{" +
                 "userHash='" + userHash + '\'' +
+                "exchangeToken='" + exchangeToken +
                 '}';
     }
 }

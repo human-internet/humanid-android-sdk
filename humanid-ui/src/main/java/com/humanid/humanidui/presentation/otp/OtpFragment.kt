@@ -66,9 +66,11 @@ class OtpFragment : ReactiveFormFragment() {
     }
 
     private fun updateView() {
+        val message = String.format(getString(R.string.message_send_otp_switch), countryCode + phoneNumber)
         val subMessage = getString(R.string.sub_message_new_accoun)
         val phoneNumber = String.format(getString(R.string.format_phone_number), countryCode + phoneNumber)
 
+        tvMessage.text = message
         tvSubMessage.text = toHtml(subMessage + phoneNumber)
         tvSwitchMessage.gone()
         btnDifferentNumber.gone()
@@ -128,7 +130,7 @@ class OtpFragment : ReactiveFormFragment() {
                 .addOnCompleteListener {
                     hideLoading()
                     if (it.isSuccessful) {
-                        it.result?.userHash?.let { userHash ->
+                        it.result?.exchangeToken?.let { userHash ->
                             onVerifyOtpListener.onVerifySuccess(userHash)
                         }
                     } else {

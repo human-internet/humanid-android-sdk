@@ -201,24 +201,6 @@ class PhoneNumberFragment : ReactiveFormFragment(), OnVerifyOtpListener {
         btnTransfer.gone()
     }
 
-    private fun getCodeNumberData(): List<CodeNumber> {
-        val skinData = mutableListOf<CodeNumber>()
-
-        val codeNumbers = resources.getStringArray(R.array.list_of_code_number)
-        val flags = resources.obtainTypedArray(R.array.list_of_flag)
-
-        codeNumbers.forEachIndexed { i, _ ->
-            skinData.add(
-                CodeNumber(
-                    codeNumbers[i],
-                    flags.getResourceId(i, 0)
-                )
-            )
-        }
-        flags.recycle()
-        return skinData
-    }
-
     private fun setSpannableString() {
         tvOTP.text = getString(string.message_otp_verification)
 

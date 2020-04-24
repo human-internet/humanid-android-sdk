@@ -2,12 +2,14 @@ package com.humanid.auth.data.source.remote.api;
 
 import androidx.annotation.NonNull;
 
+import com.humanid.auth.BuildConfig;
 import com.humanid.auth.util.livedata.LiveDataCallAdapterFactory;
 
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
+import okhttp3.logging.HttpLoggingInterceptor.Level;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -20,7 +22,11 @@ public class HttpClient {
     @NonNull
     private static Retrofit.Builder retrofit() {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-        interceptor.level(HttpLoggingInterceptor.Level.BODY);
+        if (BuildConfig.DEBUG){
+            interceptor.level(HttpLoggingInterceptor.Level.BODY);
+        }else{
+            interceptor.level(Level.NONE);
+        }
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .connectTimeout(1, TimeUnit.MINUTES)
                 .readTimeout(30, TimeUnit.SECONDS)

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.ericjohnson.moviecatalogue.activity.MovieDetailActivity">
+    tools:context="com.humanid.filmreview.activity.MovieDetailActivity">
 
     <include
         android:id="@+id/layout_toolbar"

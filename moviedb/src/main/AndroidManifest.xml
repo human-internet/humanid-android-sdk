@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.ericjohnson.moviecatalogue">
+    package="com.humanid.filmreview">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -10,14 +10,14 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <permission
-        android:name="com.ericjohnson.moviecatalogue.READ_DATABASE"
+        android:name="com.humanid.filmreview.READ_DATABASE"
         android:protectionLevel="normal" />
     <permission
-        android:name="com.ericjohnson.moviecatalogue.WRITE_DATABASE"
+        android:name="com.humanid.filmreview.WRITE_DATABASE"
         android:protectionLevel="normal" />
 
     <application
-        android:name=".BaseApplication"
+        android:name="com.humanid.filmreview.BaseApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -39,14 +39,14 @@
             android:name="com.humanid.sdk.applicationName"
             android:value="@string/app_name"/>
 
-        <activity android:name=".activity.FavoriteActivity"
+        <activity android:name="com.humanid.filmreview.activity.FavoriteActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".activity.ProfileActivity"
+        <activity android:name="com.humanid.filmreview.activity.ProfileActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".activity.ReviewActivity"
+        <activity android:name="com.humanid.filmreview.activity.ReviewActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".activity.MainActivity"
+            android:name="com.humanid.filmreview.activity.MainActivity"
             android:configChanges="orientation|screenSize"
             android:launchMode="singleTop"
             android:screenOrientation="portrait">
@@ -57,24 +57,24 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.MovieDetailActivity"
+            android:name="com.humanid.filmreview.activity.MovieDetailActivity"
             android:configChanges="orientation|screenSize"
-            android:parentActivityName=".activity.MainActivity"
+            android:parentActivityName="com.humanid.filmreview.activity.MainActivity"
             android:theme="@style/AppTheme.TranslucentStatusBar"
             android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".activity.SettingActivity"
+        <activity android:name="com.humanid.filmreview.activity.SettingActivity"
             android:screenOrientation="portrait"/>
 
         <provider
-            android:name=".provider.MoviesProvider"
-            android:authorities="com.ericjohnson.moviecatalogue"
+            android:name="com.humanid.filmreview.provider.MoviesProvider"
+            android:authorities="com.humanid.filmreview"
             android:exported="true"
             android:readPermission="com.ericjohnson.moviecatalogue.READ_DATABASE"
             android:writePermission="com.ericjohnson.moviecatalogue.WRITE_DATABASE" />
 
         <receiver
-            android:name=".service.AlarmReceiver"
+            android:name="com.humanid.filmreview.service.AlarmReceiver"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
@@ -84,13 +84,13 @@
         </receiver>
 
         <service
-            android:name=".service.UpcomingMovieServices"
+            android:name="com.humanid.filmreview.service.UpcomingMovieServices"
             android:enabled="true" />
         <service
-            android:name=".service.StackWidgetService"
+            android:name="com.humanid.filmreview.service.StackWidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
 
-        <receiver android:name=".widget.StackWidget">
+        <receiver android:name="com.humanid.filmreview.widget.StackWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>

@@ -10,7 +10,7 @@ apply plugin: 'kotlin-android-extensions'
 android {
     compileSdkVersion 29
     defaultConfig {
-        applicationId "com.ericjohnson.moviecatalogue"
+        applicationId "com.humanid.filmreview"
         minSdkVersion 17
         targetSdkVersion 29
         versionCode 1

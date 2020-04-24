@@ -2,31 +2,22 @@ package com.humanid.auth.data.repository;
 
 import android.content.Context;
 import android.text.TextUtils;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
-
-import com.humanid.auth.data.source.remote.api.APIResponse;
-import com.humanid.auth.data.source.remote.api.user.update.UpdateRequest;
-import com.humanid.auth.data.source.remote.api.user.update.UpdateResponse;
-import com.humanid.auth.data.source.remote.api.user.updatephone.UpdatePhoneRequest;
-import com.humanid.auth.data.source.remote.api.user.updatephone.UpdatePhoneResponse;
-import com.humanid.auth.util.livedata.AbsentLiveData;
-import com.humanid.auth.util.livedata.NetworkBoundResource;
-import com.humanid.auth.util.livedata.vo.Resource;
 import com.humanid.auth.data.model.User;
 import com.humanid.auth.data.source.local.preference.user.UserPreference;
+import com.humanid.auth.data.source.remote.api.APIResponse;
 import com.humanid.auth.data.source.remote.api.user.UserAPI;
-import com.humanid.auth.data.source.remote.api.user.login.LoginRequest;
-import com.humanid.auth.data.source.remote.api.user.login.LoginResponse;
 import com.humanid.auth.data.source.remote.api.user.login.check.CheckLoginResponse;
 import com.humanid.auth.data.source.remote.api.user.otp.OTPRequest;
 import com.humanid.auth.data.source.remote.api.user.otp.OTPResponse;
 import com.humanid.auth.data.source.remote.api.user.register.RegisterRequest;
 import com.humanid.auth.data.source.remote.api.user.register.RegisterResponse;
+import com.humanid.auth.util.livedata.AbsentLiveData;
+import com.humanid.auth.util.livedata.NetworkBoundResource;
+import com.humanid.auth.util.livedata.vo.Resource;
 import com.humanid.util.Preconditions;
-
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class UserRepository {
@@ -69,6 +60,10 @@ public class UserRepository {
     public User getCurrentUser() {
         loadCurrentUser();
         return currentUser;
+    }
+
+    public void clearUserPreference(){
+        userPreference.clear();
     }
 
     private void loadCurrentUser() {
@@ -173,43 +168,8 @@ public class UserRepository {
             }
 
             @Override
-            protected void saveCallResult(@NonNull RegisterResponse item) {
-                User user = new User(item.getUserHash());
-                setCurrentUser(user);
-            }
-        }.asLiveData();
-    }
-
-    @NonNull
-    public LiveData<Resource<User>> login(
-            @NonNull String userHash, @NonNull String notificationID,
-            @NonNull String applicationID, @NonNull String applicationSecret) {
-        Preconditions.checkArgument(!TextUtils.isEmpty(userHash), "userHash");
-
-        return new NetworkBoundResource<User, LoginResponse>() {
-            @NonNull
-            @Override
-            protected LiveData<User> loadFromLocal() {
-                return userPreference.loadLiveData();
-            }
-
-            @Override
-            protected boolean shouldFetch(@Nullable User data) {
-                return true;
-            }
-
-            @NonNull
-            @Override
-            protected LiveData<APIResponse<LoginResponse>> createCall() {
-                LoginRequest request = new LoginRequest(userHash, notificationID,
-                        applicationID, applicationSecret);
-
-                return userAPI.login(request);
-            }
-
-            @Override
-            protected void saveCallResult(@NonNull LoginResponse item) {
-                User user = new User(item.getUserHash());
+            protected void saveCallResult(@NonNull final RegisterResponse item) {
+                User user = new User(item.getRegisterItem().getUserHash(), item.getRegisterItem().getExchangeToken());
                 setCurrentUser(user);
             }
         }.asLiveData();
@@ -261,92 +221,5 @@ public class UserRepository {
 
     public void logout() {
         setCurrentUser(null);
-    }
-
-    @NonNull
-    public LiveData<Resource<User>> update(
-            @NonNull String userHash, @NonNull String notificationID,
-            @NonNull String applicationID, @NonNull String applicationSecret) {
-        Preconditions.checkArgument(!TextUtils.isEmpty(userHash), "userHash");
-
-        return new NetworkBoundResource<User, UpdateResponse>() {
-            @NonNull
-            @Override
-            protected LiveData<User> loadFromLocal() {
-                return userPreference.loadLiveData();
-            }
-
-            @Override
-            protected boolean shouldFetch(@Nullable User data) {
-                return true;
-            }
-
-            @NonNull
-            @Override
-            protected LiveData<APIResponse<UpdateResponse>> createCall() {
-                UpdateRequest request = new UpdateRequest(userHash,notificationID, applicationID,
-                        applicationSecret);
-
-                return userAPI.update(request);
-            }
-
-            @Override
-            protected void saveCallResult(@NonNull UpdateResponse item) {
-                User user = new User(item.getUserHash());
-                setCurrentUser(user);
-            }
-        }.asLiveData();
-    }
-
-    @NonNull
-    public LiveData<Resource<String>> updatePhone(
-            @NonNull String countryCode, @NonNull String phone, @NonNull String verificationCode,
-            @NonNull String userHash, @NonNull String applicationID,
-            @NonNull String applicationSecret) {
-        Preconditions.checkArgument(!TextUtils.isEmpty(countryCode), "countryCode");
-        Preconditions.checkArgument(!TextUtils.isEmpty(phone), "phone");
-        Preconditions.checkArgument(!TextUtils.isEmpty(verificationCode), "verificationCode");
-        Preconditions.checkArgument(!TextUtils.isEmpty(userHash), "userHash");
-
-        return new NetworkBoundResource<String, UpdatePhoneResponse>() {
-
-            private String result;
-
-            @NonNull
-            @Override
-            protected LiveData<String> loadFromLocal() {
-                if (result == null) {
-                    return AbsentLiveData.create();
-                } else {
-                    return new LiveData<String>() {
-                        @Override
-                        protected void onActive() {
-                            super.onActive();
-                            postValue(result);
-                        }
-                    };
-                }
-            }
-
-            @Override
-            protected boolean shouldFetch(@Nullable String data) {
-                return true;
-            }
-
-
-            @NonNull
-            @Override
-            protected LiveData<APIResponse<UpdatePhoneResponse>> createCall() {
-                UpdatePhoneRequest request = new UpdatePhoneRequest(countryCode, phone,
-                        verificationCode, userHash, applicationID, applicationSecret);
-
-                return userAPI.updatePhone(request);
-            }
-
-            @Override
-            protected void saveCallResult(@NonNull UpdatePhoneResponse item) {
-                result = item.getMessage();
-            }
-        }.asLiveData();
     }
 }

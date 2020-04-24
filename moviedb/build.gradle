@@ -10,7 +10,7 @@ apply plugin: 'kotlin-android-extensions'
 android {
     compileSdkVersion 29
     defaultConfig {
-        applicationId "com.ericjohnson.moviecatalogue"
+        applicationId "com.humanid.filmreview"
         minSdkVersion 17
         targetSdkVersion 29
         versionCode 1
@@ -28,6 +28,7 @@ android {
             buildConfigField("String", "SEARCH", "\"https://api.themoviedb.org/3/search/movie?api_key=\"")
             buildConfigField("String", "UPCOMING", "\"https://api.themoviedb.org/3/movie/upcoming?api_key=\"")
             buildConfigField("String", "MOVIE", "\"https://api.themoviedb.org/3/movie/\"")
+            buildConfigField("String", "DEMO_APP", "\"https://humanid.herokuapp.com/demo-app/api/\"")
         }
         release {
             debuggable false
@@ -38,6 +39,7 @@ android {
             buildConfigField("String", "SEARCH", "\"https://api.themoviedb.org/3/search/movie?api_key=\"")
             buildConfigField("String", "UPCOMING", "\"https://api.themoviedb.org/3/movie/upcoming?api_key=\"")
             buildConfigField("String", "MOVIE", "\"https://api.themoviedb.org/3/movie/\"")
+            buildConfigField("String", "DEMO_APP", "\"https://humanid.herokuapp.com/demo-app/api/\"")
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
@@ -46,6 +48,7 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    buildToolsVersion = '29.0.2'
 }
 
 dependencies {

@@ -10,7 +10,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:usesCleartextTraffic="true"
-        android:name="com.nbs.sample_implementation.BaseApplication"
+        android:name="com.humanid.sample_implementation.BaseApplication"
         android:theme="@style/AppTheme">
         <meta-data
             android:name="com.humanid.sdk.applicationId"

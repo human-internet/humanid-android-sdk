@@ -9,8 +9,11 @@ import com.humanid.util.Preconditions;
 
 public class LoginResponse {
 
-	@SerializedName("hash")
+	@SerializedName("userHash")
 	private String userHash;
+
+	@SerializedName("exchangeToken")
+	private String exchangeToken;
 
 	public LoginResponse() {
 		// Default constructor
@@ -20,6 +23,10 @@ public class LoginResponse {
 		Preconditions.checkArgument(!TextUtils.isEmpty(userHash), "userHash");
 
 		this.userHash = userHash;
+	}
+
+	public String getExchangeToken() {
+		return exchangeToken;
 	}
 
 	@NonNull
@@ -48,6 +55,7 @@ public class LoginResponse {
 	public String toString() {
 		return "LoginResponse{" +
 				"userHash='" + userHash + '\'' +
+				"exchangeToken=''" + exchangeToken +
 				'}';
 	}
 }

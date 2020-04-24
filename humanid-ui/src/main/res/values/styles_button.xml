@@ -54,6 +54,10 @@
         <item name="android:textColor">@color/colorTwilightBlue</item>
     </style>
 
+    <style name="HumanIdTextButton.Medium.White">
+        <item name="android:textColor">@color/colorWhite</item>
+    </style>
+
     <style name="HumanIdTextButton.Medium.PastelRed">
         <item name="android:textColor">@color/colorPastelRed</item>
     </style>

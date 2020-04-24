@@ -40,15 +40,15 @@
 
     <string name="label_mdb">mdb.</string>
     <string name="label_welcome">Welcome to Movie DB</string>
-    <string name="label_continue_with">Continue With</string>
-    <string name="label_recommended_full_privacy">( recommended for full privacy)</string>
+    <string name="label_continue_with">Continue with</string>
+    <string name="label_recommended_full_privacy">(recommended for full privacy)</string>
     <string name="label_agreement">I agree to Movie DB Terms of Service</string>
     <string name="label_verify_your_phone_number">Verify your phone number to connect anonymously with Movie DB</string>
     <string name="hint_phone_number">Your Phone Number</string>
     <string name="message_otp_verification"><![CDATA[OTP verification is managed by an independent 3rd party. Number & fingerprints are never visible to humanID or Movie DB. Learn More]]></string>
     <string name="action_cancel">Cancel</string>
     <string name="action_transfer_account_number">Transfer account to new number?</string>
-    <string name="message_manage_and_monitor_login"><![CDATA[Manage & Monitor all your logins & data with humanID]]></string>
+    <string name="message_manage_and_monitor_login"><![CDATA[Manage & monitor all your logins & data with the humanID app]]></string>
     <string name="message_humanid_description"><![CDATA[humanID is the independent & open online ID - giving back privacy, and the internet, to humans. Learn About Our Mission]]></string>
     <string name="title_switching_number">Switching Number</string>
     <string name="message_switch_number">Let’s transfer your humanID to a new number. First , let’s verify your new phone number</string>
@@ -85,7 +85,7 @@
     <string name="label_warning_logout">This will sign you out of all sessions across all devices</string>
 
     //Title
-    <string name="title_register_number">Create a new Account</string>
+    <string name="title_register_number">Create a new account</string>
     <string name="title_register_email">For Your Security</string>
     <string name="title_new_device">New Device</string>
     <string name="title_change_number">Phone number has been change</string>
@@ -134,4 +134,25 @@
     <string name="hint_enter_your_code">Enter your code</string>
     <string name="hint_search">Cari disini</string>
     <string name="action_logout">Keluar</string>
+
+    <string name="label_review_not_found">Review not found</string>
+    <string name="title_review">Reviews</string>
+    <string name="label_profile">Profile</string>
+    <string name="label_ten">10</string>
+    <string name="label_overview">Overview</string>
+    <string name="label_cast">Cast</string>
+    <string name="label_review">User Review</string>
+    <string name="label_more">More</string>
+    <string name="action_login_review">Login to add review</string>
+    <string name="label_rate_this_movie">RATE THIS MOVIE</string>
+    <string name="label_review_title">Review Title</string>
+    <string name="hint_review">Review</string>
+    <string name="action_rate_and_review">Rate and Review</string>
+    <string name="action_add_fav">Add to favorite</string>
+    <string name="action_rate_now">Rate now</string>
+    <string name="label_logout">Log Out</string>
+    <string name="message_logout">Are you sure to log out?</string>
+    <string name="label_english">English</string>
+    <string name="action_add_review">Add a review</string>
+    <string name="error_message_unable_to_reach_server">Failed to request to server</string>
 </resources>

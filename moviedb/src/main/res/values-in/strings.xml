@@ -134,4 +134,25 @@
     <string name="hint_enter_your_code">Enter your code</string>
     <string name="hint_search">Cari disini</string>
     <string name="action_logout">Keluar</string>
+
+    <string name="label_review_not_found">Review not found</string>
+    <string name="title_review">Reviews</string>
+    <string name="label_profile">Profile</string>
+    <string name="label_ten">10</string>
+    <string name="label_overview">Overview</string>
+    <string name="label_cast">Cast</string>
+    <string name="label_review">User Review</string>
+    <string name="label_more">More</string>
+    <string name="action_login_review">Login to add review</string>
+    <string name="label_rate_this_movie">RATE THIS MOVIE</string>
+    <string name="label_review_title">Review Title</string>
+    <string name="hint_review">Review</string>
+    <string name="action_rate_and_review">Rate and Review</string>
+    <string name="action_add_fav">Add to favorite</string>
+    <string name="action_rate_now">Rate now</string>
+    <string name="label_logout">Log Out</string>
+    <string name="message_logout">Are you sure to log out?</string>
+    <string name="label_english">English</string>
+    <string name="action_add_review">Add a review</string>
+    <string name="error_message_unable_to_reach_server">Failed to request to server</string>
 </resources>

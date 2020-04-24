@@ -16,7 +16,13 @@ Meet humanID - An anonymous online identity, enabling platforms to offer the spe
 		    maven { url 'https://jitpack.io' }
 	    }
 	}
-    
+	.
+	.
+	.
+    dependencies {
+    	implementation 'com.github.bluenumberfoundation:humanid-android-sdk:0.0.2’
+    }
+
 
 ## Get the credentials access
 

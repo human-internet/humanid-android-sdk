@@ -27,7 +27,7 @@ Meet humanID - An anonymous online identity, enabling platforms to offer the spe
 
 ## Get the credentials access
 
-Get the appId and appSecret by filling up this form or drop us an email [bastian@human-id.org](mailto:bastian@human-id.org).
+Get the appId and appSecret by filling up this form or drop us an email [developers@human-id.org](mailto:developers@human-id.org).
 
 ## Configuration
 

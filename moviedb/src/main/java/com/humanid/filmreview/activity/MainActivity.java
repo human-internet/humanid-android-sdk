@@ -10,28 +10,23 @@ import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
-
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
-
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import com.bumptech.glide.Glide;
+import com.google.android.material.tabs.TabLayout;
 import com.humanid.filmreview.R;
 import com.humanid.filmreview.adapter.ViewPagerAdapter;
 import com.humanid.filmreview.domain.LoginHttpRequest;
 import com.humanid.filmreview.domain.UserInteractor;
 import com.humanid.filmreview.domain.UserUsecase;
-import com.google.android.material.tabs.TabLayout;
 import com.humanid.humanidui.presentation.LoginCallback;
 import com.humanid.humanidui.presentation.LoginManager;
-
-import org.jetbrains.annotations.NotNull;
-
 import java.util.UUID;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
+import org.jetbrains.annotations.NotNull;
 
 public class MainActivity extends AppCompatActivity {
 

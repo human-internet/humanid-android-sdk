@@ -1,6 +1,9 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'com.github.dcendents.android-maven'
+
+group = 'com.github.bluenumberfoundation'
 
 android {
     defaultConfig {
@@ -11,7 +14,7 @@ android {
 
 dependencies {
     // HumanID Dependencies
-    api project(path: ':humanid-common')
+    implementation project(path: ':humanid-common')
 
     // Androidx Library
     implementation "androidx.appcompat:appcompat:${project.ext.appcompatVersion}"

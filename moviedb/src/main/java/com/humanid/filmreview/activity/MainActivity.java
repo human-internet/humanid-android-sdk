@@ -18,6 +18,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.bumptech.glide.Glide;
 import com.google.android.material.tabs.TabLayout;
+import com.humanid.auth.HumanIDAuth;
 import com.humanid.filmreview.R;
 import com.humanid.filmreview.adapter.ViewPagerAdapter;
 import com.humanid.filmreview.domain.LoginHttpRequest;

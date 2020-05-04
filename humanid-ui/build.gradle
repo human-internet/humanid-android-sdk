@@ -1,11 +1,7 @@
 apply plugin: 'com.android.library'
-
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-kapt'
-
 apply plugin: 'kotlin-android-extensions'
-
 apply plugin: 'com.github.dcendents.android-maven'
 
 group = 'com.github.bluenumberfoundation'
@@ -40,7 +36,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    api project(':humanid-auth')
+    implementation project(':humanid-auth')
 
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     api 'com.google.android.material:material:1.1.0'

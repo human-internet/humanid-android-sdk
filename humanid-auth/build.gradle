@@ -4,13 +4,13 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'com.github.dcendents.android-maven'
 
 group = 'com.github.bluenumberfoundation'
-project.group 'com.humanid'
 
-project.ext.name = 'HumanID-Auth-Android-SDK'
-project.ext.artifactId = "humanid-auth"
-project.ext.version = "1.0.0"
-project.ext.description = 'HumanID Auth Android SDK'
-project.ext.url = 'https://github.com/bluenumberfoundation/humanid-android-sdk'
+//project.group 'com.humanid'
+//project.ext.name = 'HumanID-Auth-Android-SDK'
+//project.ext.artifactId = "humanid-auth"
+//project.ext.version = "1.0.0"
+//project.ext.description = 'HumanID Auth Android SDK'
+//project.ext.url = 'https://github.com/bluenumberfoundation/humanid-android-sdk'
 
 android {
     defaultConfig {

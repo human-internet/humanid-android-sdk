@@ -88,5 +88,5 @@ dependencies {
     implementation  'com.github.Kennyc1012:MultiStateView:2.1.1'
 
     //humanID
-    implementation 'com.github.bluenumberfoundation:humanid-android-sdk:0.0.2'
+    implementation 'com.github.bluenumberfoundation.humanid-android-sdk:feature~sdk-SNAPSHOT'
 }

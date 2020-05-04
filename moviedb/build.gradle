@@ -87,7 +87,7 @@ dependencies {
     implementation 'com.android.support:multidex:1.0.3'
     implementation  'com.github.Kennyc1012:MultiStateView:2.1.1'
     implementation project(path: ':humanid-ui')
-//    implementation 'com.github.bluenumberfoundation:humanid-android-sdk:0.0.2.4'
+    implementation 'com.github.bluenumberfoundation:humanid-android-sdk:0.0.2.5'
 
 
     //humanID

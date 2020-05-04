@@ -103,3 +103,9 @@
   **[] $VALUES;
   public *;
 }
+
+#HumanID
+-keep class com.humanid.** { *; }
+-keep interface com.humanid.** { *; }
+-dontwarn com.humanid.**
+

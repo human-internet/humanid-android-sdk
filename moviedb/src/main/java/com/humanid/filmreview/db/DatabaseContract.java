@@ -23,7 +23,7 @@ public class DatabaseContract {
         public static final String DESCRIPTION = "description";
     }
 
-    public static final String AUTHORITY = "com.ericjohnson.moviecatalogue";
+    public static final String AUTHORITY = "com.humanid.filmreview";
 
     public static final Uri CONTENT_URI = new Uri.Builder().scheme("content")
             .authority(AUTHORITY)

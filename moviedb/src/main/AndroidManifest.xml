@@ -70,8 +70,8 @@
             android:name="com.humanid.filmreview.provider.MoviesProvider"
             android:authorities="com.humanid.filmreview"
             android:exported="true"
-            android:readPermission="com.ericjohnson.moviecatalogue.READ_DATABASE"
-            android:writePermission="com.ericjohnson.moviecatalogue.WRITE_DATABASE" />
+            android:readPermission="com.humanid.filmreview.READ_DATABASE"
+            android:writePermission="com.humanid.filmreview.WRITE_DATABASE" />
 
         <receiver
             android:name="com.humanid.filmreview.service.AlarmReceiver"

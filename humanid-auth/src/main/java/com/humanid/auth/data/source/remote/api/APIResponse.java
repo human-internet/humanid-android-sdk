@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.google.gson.annotations.SerializedName;
 import java.io.IOException;
 
 import okhttp3.ResponseBody;
@@ -12,20 +13,28 @@ import retrofit2.Response;
 
 public class APIResponse<T> {
 
+    @SerializedName("success")
     private boolean successful;
-    private final T data;
-    private final String errorMessage;
 
-    public APIResponse(boolean successful, @Nullable T data, @Nullable String errorMessage) {
+    @SerializedName("code")
+    private String code;
+
+    @SerializedName("message")
+    private String message;
+
+    private final T data;
+
+    public APIResponse(boolean successful, @Nullable T data, @Nullable String code, @Nullable String message) {
         this.successful = successful;
         this.data = data;
-        this.errorMessage = errorMessage;
+        this.code = code;
+        this.message = message;
     }
 
     public static <T> APIResponse<T> create(@NonNull Response<T> response) {
         if (response.isSuccessful()) {
             if (response.body() == null || response.code() == 204) {
-                return empty();
+                return empty("No Data");
             } else {
                 return success(response.body());
             }
@@ -55,15 +64,16 @@ public class APIResponse<T> {
     }
 
     private static <T> APIResponse<T> success(@NonNull T data) {
-        return new APIResponse<>(true, data, null);
+        return new APIResponse<>(true, data, null, null);
     }
 
-    private static <T> APIResponse<T> empty() {
-        return new APIResponse<>(true, null, null);
+    private static <T> APIResponse<T> empty(String message) {
+        return new APIResponse<>(true, null, null, message);
     }
 
     private static <T> APIResponse<T> error(String msg) {
-        return new APIResponse<>(false, null, msg);
+
+        return new APIResponse<>(false, null, null, msg);
     }
 
     public boolean isSuccessful() {
@@ -76,7 +86,12 @@ public class APIResponse<T> {
     }
 
     @Nullable
-    public String getErrorMessage() {
-        return errorMessage;
+    public String getCode() {
+        return code;
+    }
+
+    @Nullable
+    public String getMessage() {
+        return message;
     }
 }

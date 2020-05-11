@@ -41,8 +41,8 @@ import com.humanid.filmreview.adapter.CastAdapter;
 import com.humanid.filmreview.adapter.ReviewAdapter;
 import com.humanid.filmreview.db.DatabaseContract;
 import com.humanid.filmreview.db.MoviesHelper;
-import com.humanid.filmreview.domain.LoginHttpRequest;
-import com.humanid.filmreview.domain.UserInteractor;
+import com.humanid.filmreview.domain.user.UserInteractor;
+import com.humanid.filmreview.data.login.PostLoginRequest;
 import com.humanid.filmreview.fragment.RateReviewDialogFragment;
 import com.humanid.filmreview.loader.MovieDetailAsynctaskLoader;
 import com.humanid.filmreview.model.Genre;
@@ -238,7 +238,7 @@ public class MovieDetailActivity extends AppCompatActivity implements
         LoginManager.INSTANCE.getInstance(this).registerCallback(new LoginCallback() {
             @Override
             public void onSuccess(@NotNull String exchangeToken) {
-                UserInteractor.getInstance(MovieDetailActivity.this).login(exchangeToken, new LoginHttpRequest.OnLoginCallback() {
+                UserInteractor.getInstance(MovieDetailActivity.this).login(exchangeToken, new PostLoginRequest.OnLoginCallback() {
                     @Override
                     public void onLoading() {
                         progressDialog.setMessage("Please wait...");

@@ -1,41 +1,33 @@
-package com.humanid.filmreview.domain;
+package com.humanid.filmreview.domain.user;
 
 import android.content.Context;
 import android.text.TextUtils;
-
+import com.humanid.filmreview.data.base.RequestMethod;
+import com.humanid.filmreview.data.login.PostLoginRequest;
+import com.humanid.filmreview.data.login.model.LoginRequest;
+import com.humanid.filmreview.data.login.model.LoginResponse;
 import com.humanid.filmreview.preference.AppPreference;
 
 public class UserInteractor implements UserUsecase {
 
     private AppPreference appPreference;
 
-    private LoginHttpRequest loginHttpRequest;
+    private PostLoginRequest loginHttpRequest;
 
     private static UserUsecase userUsecase;
 
     public UserInteractor(Context context) {
         this.appPreference = new AppPreference(context);
-        this.loginHttpRequest = new LoginHttpRequest(context);
+        this.loginHttpRequest = new PostLoginRequest();
     }
 
     @Override
-    public void login(String exchangeToken, LoginHttpRequest.OnLoginCallback onLoginCallback) {
-        loginHttpRequest.login(exchangeToken, new LoginHttpRequest.OnLoginCallback() {
-            @Override
-            public void onLoading() {
-                onLoginCallback.onLoading();
-            }
-
-            @Override
-            public void onLoginSuccess() {
-                onLoginCallback.onLoginSuccess();
-            }
-
-            @Override
-            public void onLoginFailed(String message) {
-                onLoginCallback.onLoginFailed(message);
-            }
-        });
+    public void login(String exchangeToken, PostLoginRequest.OnLoginCallback onLoginCallback) {
+        loginHttpRequest.setRequest(new LoginRequest(exchangeToken));
+        loginHttpRequest.setResponse(new LoginResponse());
+        loginHttpRequest.setOnLoginCallback(onLoginCallback);
+        loginHttpRequest.setRequestMethod(RequestMethod.POST);
+        loginHttpRequest.execute();
     }
 
     @Override

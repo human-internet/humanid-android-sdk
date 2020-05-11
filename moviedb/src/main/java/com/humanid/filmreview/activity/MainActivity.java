@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
@@ -20,9 +21,10 @@ import com.bumptech.glide.Glide;
 import com.google.android.material.tabs.TabLayout;
 import com.humanid.filmreview.R;
 import com.humanid.filmreview.adapter.ViewPagerAdapter;
+import com.humanid.filmreview.data.login.PostLoginRequest;
+import com.humanid.filmreview.data.logout.PutLogoutRequest.OnLogoutCallback;
 import com.humanid.filmreview.domain.user.UserInteractor;
 import com.humanid.filmreview.domain.user.UserUsecase;
-import com.humanid.filmreview.data.login.PostLoginRequest;
 import com.humanid.humanidui.presentation.LoginCallback;
 import com.humanid.humanidui.presentation.LoginManager;
 import java.util.UUID;
@@ -68,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
 
         imgProfile.setOnClickListener(view -> {
             if (UserInteractor.getInstance(this).isLoggedIn()){
-                Toast.makeText(this, "You're logged in anonymously", Toast.LENGTH_SHORT).show();
+                showLogoutAlerDialog();
             }else{
                 loginManager.registerCallback(new LoginCallback() {
                     @Override
@@ -100,26 +102,32 @@ public class MainActivity extends AppCompatActivity {
         userUsecase.login(exchangeToken, new PostLoginRequest.OnLoginCallback() {
             @Override
             public void onLoading() {
-                progressDialog.setMessage("Please wait");
-                progressDialog.show();
+                showLoading();
             }
 
             @Override
             public void onLoginSuccess() {
-                if (progressDialog != null){
-                    progressDialog.dismiss();
-                }
+                hideLoading();
                 setUpAvatar(userUsecase.isLoggedIn());
             }
 
             @Override
             public void onLoginFailed(String message) {
-                if (progressDialog != null){
-                    progressDialog.dismiss();
-                }
+                hideLoading();
                 Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void hideLoading() {
+        if (progressDialog != null){
+            progressDialog.dismiss();
+        }
+    }
+
+    private void showLoading() {
+        progressDialog.setMessage("Please wait");
+        progressDialog.show();
     }
 
     @Override
@@ -170,5 +178,40 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         loginManager.onActivityResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private void showLogoutAlerDialog(){
+        AlertDialog alertDialog = new AlertDialog.Builder(this)
+                .setTitle("Logout")
+                .setMessage("Are you sure want to logout?")
+                .setPositiveButton("Yes", (dialog, which) -> {
+                    logout();
+                }).setNegativeButton("No", (dialog, which) -> {
+                    dialog.dismiss();
+                }).create();
+
+        alertDialog.show();
+    }
+
+    private void logout(){
+        UserInteractor.getInstance(this).logout(new OnLogoutCallback() {
+            @Override
+            public void onLoading() {
+                showLoading();
+            }
+
+            @Override
+            public void onLogoutSuccess() {
+                hideLoading();
+                setUpAvatar(false);
+                Toast.makeText(MainActivity.this, "Logout Succeed", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onLogoutFailure(final String message) {
+                hideLoading();
+                Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

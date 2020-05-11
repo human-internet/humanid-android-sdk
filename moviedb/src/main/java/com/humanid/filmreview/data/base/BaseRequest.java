@@ -1,6 +1,7 @@
 package com.humanid.filmreview.data.base;
 
 import android.content.Context;
+import android.util.Log;
 import com.google.gson.Gson;
 import com.humanid.filmreview.R;
 import com.humanid.filmreview.preference.AppPreference;
@@ -170,6 +171,7 @@ public abstract class BaseRequest<T extends RequestModel, D extends ResponseMode
         StringEntity entity = null;
         String data = request.getJsonString();
         if (data != null){
+            Log.d("Data", data);
             try {
                 entity = new StringEntity(data);
             } catch (UnsupportedEncodingException e) {

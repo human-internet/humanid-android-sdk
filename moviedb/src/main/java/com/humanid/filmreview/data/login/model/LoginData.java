@@ -1,4 +1,4 @@
-package com.humanid.filmreview.domain.login.model;
+package com.humanid.filmreview.data.login.model;
 
 import com.google.gson.annotations.SerializedName;
 

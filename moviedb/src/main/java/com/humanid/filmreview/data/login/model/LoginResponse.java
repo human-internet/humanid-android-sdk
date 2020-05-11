@@ -1,13 +1,13 @@
-package com.humanid.filmreview.domain.login.model;
+package com.humanid.filmreview.data.login.model;
 
 import com.google.gson.annotations.SerializedName;
-import com.humanid.filmreview.domain.base.ResponseModel;
+import com.humanid.filmreview.data.base.ResponseModel;
 
 public class LoginResponse extends ResponseModel {
     @SerializedName("data")
     private LoginData data;
 
-    public LoginResponse(final LoginData data) {
+    public void setData(final LoginData data) {
         this.data = data;
     }
 

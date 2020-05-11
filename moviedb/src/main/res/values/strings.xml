@@ -142,12 +142,12 @@
     <string name="label_review">User Review</string>
     <string name="label_more">More</string>
     <string name="action_login_review">Login to add review</string>
-    <string name="label_rate_this_movie">RATE THIS MOVIE</string>
+    <string name="label_rate_this_movie">REVIEW THIS MOVIE</string>
     <string name="label_review_title">Review Title</string>
     <string name="hint_review">Review</string>
-    <string name="action_rate_and_review">Rate and Review</string>
+    <string name="action_rate_and_review">Add Review</string>
     <string name="action_add_fav">Add to favorite</string>
-    <string name="action_rate_now">Rate now</string>
+    <string name="action_rate_now">Review now</string>
     <string name="label_logout">Log Out</string>
     <string name="message_logout">Are you sure to log out?</string>
     <string name="label_english">English</string>

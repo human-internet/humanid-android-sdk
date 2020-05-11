@@ -2,8 +2,6 @@ package com.humanid.filmreview.data.login.model;
 
 import com.google.gson.annotations.SerializedName;
 import com.humanid.filmreview.data.base.RequestModel;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 public class LoginRequest extends RequestModel {
     @SerializedName("exchangeToken")
@@ -19,12 +17,6 @@ public class LoginRequest extends RequestModel {
 
     @Override
     protected String getJsonString() {
-        JSONObject jsonObject = new JSONObject();
-        try {
-            jsonObject.put("exchangeToken", getExchangeToken());
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return jsonObject.toString();
+        return getGson().toJson(this);
     }
 }

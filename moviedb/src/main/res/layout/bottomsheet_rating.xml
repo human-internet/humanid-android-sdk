@@ -80,7 +80,7 @@
             android:layout_height="match_parent"
             android:focusableInTouchMode="true"
             android:hint="@string/label_review_title"
-            android:inputType="text"
+            android:inputType="textCapWords"
             android:imeOptions="actionNext"
             android:textColorHint="@color/colorWarmGreyTwo"
             android:textSize="@dimen/text_size_14sp" />
@@ -100,7 +100,7 @@
             android:layout_height="match_parent"
             android:focusableInTouchMode="true"
             android:hint="@string/hint_review"
-            android:inputType="text"
+            android:inputType="textCapSentences"
             android:imeOptions="actionNext"
             android:textColorHint="@color/colorWarmGreyTwo"
             android:textSize="@dimen/text_size_14sp" />

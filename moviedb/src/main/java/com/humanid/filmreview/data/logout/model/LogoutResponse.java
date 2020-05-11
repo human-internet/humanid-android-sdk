@@ -1,5 +1,7 @@
 package com.humanid.filmreview.data.logout.model;
 
-public class LogoutResponse {
+import com.humanid.filmreview.data.base.ResponseModel;
+
+public class LogoutResponse extends ResponseModel {
 
 }

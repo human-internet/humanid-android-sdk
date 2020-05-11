@@ -119,6 +119,9 @@ public class MovieDetailActivity extends AppCompatActivity implements
     @BindView(R.id.btnRate)
     Button btnRate;
 
+    @BindView(R.id.pbReview)
+    ProgressBar pbReview;
+
     private boolean isFavourited = false;
 
     private int id;
@@ -454,18 +457,18 @@ public class MovieDetailActivity extends AppCompatActivity implements
                 .getReview(String.valueOf(id), new OnGetReviewCallback() {
                     @Override
                     public void onLoading() {
-                        showLoading();
+                        pbReview.setVisibility(View.VISIBLE);
                     }
 
                     @Override
                     public void onGetReviewSuccess(final ArrayList<Review> reviews) {
-                        hideLoading();
+                        pbReview.setVisibility(View.GONE);
                         showReviews(reviews);
                     }
 
                     @Override
                     public void onGetReviewFailed(final String message) {
-                        hideLoading();
+                        pbReview.setVisibility(View.GONE);
                         Toast.makeText(MovieDetailActivity.this, message, Toast.LENGTH_SHORT).show();
                     }
                 });

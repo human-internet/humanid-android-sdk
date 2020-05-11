@@ -20,9 +20,9 @@ import com.bumptech.glide.Glide;
 import com.google.android.material.tabs.TabLayout;
 import com.humanid.filmreview.R;
 import com.humanid.filmreview.adapter.ViewPagerAdapter;
-import com.humanid.filmreview.domain.LoginHttpRequest;
-import com.humanid.filmreview.domain.UserInteractor;
-import com.humanid.filmreview.domain.UserUsecase;
+import com.humanid.filmreview.domain.user.UserInteractor;
+import com.humanid.filmreview.domain.user.UserUsecase;
+import com.humanid.filmreview.data.login.PostLoginRequest;
 import com.humanid.humanidui.presentation.LoginCallback;
 import com.humanid.humanidui.presentation.LoginManager;
 import java.util.UUID;
@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void authenticateUser(String exchangeToken) {
-        userUsecase.login(exchangeToken, new LoginHttpRequest.OnLoginCallback() {
+        userUsecase.login(exchangeToken, new PostLoginRequest.OnLoginCallback() {
             @Override
             public void onLoading() {
                 progressDialog.setMessage("Please wait");

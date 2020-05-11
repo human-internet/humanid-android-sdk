@@ -132,7 +132,7 @@ public class UserRepository {
 
             @Override
             protected void saveCallResult(@NonNull OTPResponse item) {
-                result = item.getMessage();
+                result = "Request OTP Succeed";
             }
         }.asLiveData();
     }

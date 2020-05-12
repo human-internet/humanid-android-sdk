@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">FilmRevie</string>
+    <string name="app_name">FilmReview</string>
     <string name="label_search">Search</string>
     <string name="hint_search_movie">Search movies</string>
     <string name="label_search_not_found">Search not found</string>

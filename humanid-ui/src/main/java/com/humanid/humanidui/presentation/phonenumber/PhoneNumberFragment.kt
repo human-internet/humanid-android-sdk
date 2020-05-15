@@ -169,7 +169,7 @@ class PhoneNumberFragment : ReactiveFormFragment(), OnVerifyOtpListener {
             }
 
             if (!humanIDOptions?.applicationName.isNullOrEmpty()) {
-                tvMessage.text = getString(string.label_verify_your_phone_number, humanIDOptions?.applicationName)
+                tvMessage.text = String.format(getString(string.label_verify_your_phone_number), humanIDOptions?.applicationName)
                 tvWelcomeApp.text = String.format(getString(string.label_welcome), humanIDOptions?.applicationName)
             }
         }

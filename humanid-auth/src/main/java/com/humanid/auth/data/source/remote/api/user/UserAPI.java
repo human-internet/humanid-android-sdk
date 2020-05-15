@@ -11,6 +11,8 @@ import com.humanid.auth.data.source.remote.api.user.otp.OTPRequest;
 import com.humanid.auth.data.source.remote.api.user.otp.OTPResponse;
 import com.humanid.auth.data.source.remote.api.user.register.RegisterRequest;
 import com.humanid.auth.data.source.remote.api.user.register.RegisterResponse;
+import com.humanid.auth.data.source.remote.api.user.revoke.RevokeAccessRequest;
+import com.humanid.auth.data.source.remote.api.user.revoke.RevokeAccessResponse;
 import com.humanid.util.Preconditions;
 
 public class UserAPI implements UserAPIService {
@@ -70,5 +72,13 @@ public class UserAPI implements UserAPIService {
         Preconditions.checkArgument(!TextUtils.isEmpty(applicationSecret), "applicationSecret");
 
         return service.checkLogin(userHash, applicationID, applicationSecret);
+    }
+
+    @NonNull
+    @Override
+    public LiveData<APIResponse<RevokeAccessResponse>> revokeAccess(final RevokeAccessRequest request) {
+        Preconditions.checkNotNull(request, "RevokeAccessRequest cannot be null.");
+
+        return service.revokeAccess(request);
     }
 }

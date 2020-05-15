@@ -20,6 +20,7 @@ import com.humanid.filmreview.R;
 import com.humanid.filmreview.adapter.ReviewAdapter;
 import com.humanid.filmreview.data.content.review.GetReviewRequest.OnGetReviewCallback;
 import com.humanid.filmreview.domain.content.ContentInteractor;
+import com.humanid.filmreview.domain.user.UserInteractor;
 import com.humanid.filmreview.fragment.RateReviewDialogFragment;
 import com.humanid.filmreview.model.Review;
 import com.humanid.filmreview.utils.Keys;
@@ -75,44 +76,46 @@ public class ReviewActivity extends AppCompatActivity {
     }
 
     private void getData() {
-        ConnectivityManager cm = (ConnectivityManager) getBaseContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetwork = null;
-        if (cm != null) {
-            activeNetwork = cm.getActiveNetworkInfo();
-        }
-        boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+        if (UserInteractor.getInstance(this).isLoggedIn()){
+            ConnectivityManager cm = (ConnectivityManager) getBaseContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo activeNetwork = null;
+            if (cm != null) {
+                activeNetwork = cm.getActiveNetworkInfo();
+            }
+            boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
 
-        if (isConnected) {
-            ContentInteractor.getInstance()
-                .getReview(String.valueOf(id), new OnGetReviewCallback() {
-                    @Override
-                    public void onLoading() {
-                        if (pbReview.getVisibility() == View.GONE) {
-                            pbReview.setVisibility(View.VISIBLE);
-                            rvReview.setVisibility(View.GONE);
-                            tvReviewError.setVisibility(View.GONE);
-                        }
-                    }
+            if (isConnected) {
+                ContentInteractor.getInstance()
+                        .getReview(String.valueOf(id), new OnGetReviewCallback() {
+                            @Override
+                            public void onLoading() {
+                                if (pbReview.getVisibility() == View.GONE) {
+                                    pbReview.setVisibility(View.VISIBLE);
+                                    rvReview.setVisibility(View.GONE);
+                                    tvReviewError.setVisibility(View.GONE);
+                                }
+                            }
 
-                    @Override
-                    public void onGetReviewSuccess(final ArrayList<Review> reviews) {
-                        showReviews(reviews);
-                    }
+                            @Override
+                            public void onGetReviewSuccess(final ArrayList<Review> reviews) {
+                                showReviews(reviews);
+                            }
 
-                    @Override
-                    public void onGetReviewFailed(final String message) {
-                        pbReview.setVisibility(View.GONE);
-                        rvReview.setVisibility(View.GONE);
-                        tvReviewError.setVisibility(View.VISIBLE);
-                        tvReviewError.setText(message);
-                    }
-                });
+                            @Override
+                            public void onGetReviewFailed(final String message) {
+                                pbReview.setVisibility(View.GONE);
+                                rvReview.setVisibility(View.GONE);
+                                tvReviewError.setVisibility(View.VISIBLE);
+                                tvReviewError.setText(message);
+                            }
+                        });
 
-        } else {
-            pbReview.setVisibility(View.GONE);
-            rvReview.setVisibility(View.GONE);
-            tvReviewError.setVisibility(View.VISIBLE);
-            tvReviewError.setText(R.string.label_no_internet_connection);
+            } else {
+                pbReview.setVisibility(View.GONE);
+                rvReview.setVisibility(View.GONE);
+                tvReviewError.setVisibility(View.VISIBLE);
+                tvReviewError.setText(R.string.label_no_internet_connection);
+            }
         }
     }
 

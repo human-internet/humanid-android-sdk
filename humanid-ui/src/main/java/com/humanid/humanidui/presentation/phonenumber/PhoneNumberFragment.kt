@@ -70,9 +70,7 @@ class PhoneNumberFragment : ReactiveFormFragment(), OnVerifyOtpListener {
         btnEnter.isEnabled = false
     }
 
-    override fun initIntent() {
-
-    }
+    override fun initIntent() {}
 
     override fun initUI() {
         context?.let {

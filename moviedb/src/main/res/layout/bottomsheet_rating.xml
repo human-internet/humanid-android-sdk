@@ -31,7 +31,8 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginTop="@dimen/dimen_20dp"
-        android:gravity="center_horizontal">
+        android:gravity="center_horizontal"
+        android:visibility="gone">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/imgStar1"
@@ -79,7 +80,7 @@
             android:layout_height="match_parent"
             android:focusableInTouchMode="true"
             android:hint="@string/label_review_title"
-            android:inputType="text"
+            android:inputType="textCapWords"
             android:imeOptions="actionNext"
             android:textColorHint="@color/colorWarmGreyTwo"
             android:textSize="@dimen/text_size_14sp" />
@@ -99,7 +100,7 @@
             android:layout_height="match_parent"
             android:focusableInTouchMode="true"
             android:hint="@string/hint_review"
-            android:inputType="text"
+            android:inputType="textCapSentences"
             android:imeOptions="actionNext"
             android:textColorHint="@color/colorWarmGreyTwo"
             android:textSize="@dimen/text_size_14sp" />

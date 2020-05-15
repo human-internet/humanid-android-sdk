@@ -14,6 +14,8 @@ import com.humanid.auth.data.source.remote.api.user.otp.OTPRequest;
 import com.humanid.auth.data.source.remote.api.user.otp.OTPResponse;
 import com.humanid.auth.data.source.remote.api.user.register.RegisterRequest;
 import com.humanid.auth.data.source.remote.api.user.register.RegisterResponse;
+import com.humanid.auth.data.source.remote.api.user.revoke.RevokeAccessRequest;
+import com.humanid.auth.data.source.remote.api.user.revoke.RevokeAccessResponse;
 import com.humanid.auth.util.livedata.AbsentLiveData;
 import com.humanid.auth.util.livedata.NetworkBoundResource;
 import com.humanid.auth.util.livedata.vo.Resource;
@@ -132,7 +134,7 @@ public class UserRepository {
 
             @Override
             protected void saveCallResult(@NonNull OTPResponse item) {
-                result = item.getMessage();
+                result = "Request OTP Succeed";
             }
         }.asLiveData();
     }
@@ -221,5 +223,52 @@ public class UserRepository {
 
     public void logout() {
         setCurrentUser(null);
+    }
+
+    @NonNull
+    public LiveData<Resource<String>> revokeAccess(
+            @NonNull String applicationID,
+            @NonNull String applicationSecret) {
+
+        Preconditions.checkArgument(!TextUtils.isEmpty(userPreference.load().getUserHash()), "userHash");
+
+        return new NetworkBoundResource<String, RevokeAccessResponse>() {
+
+            private String result;
+
+            @NonNull
+            @Override
+            protected LiveData<String> loadFromLocal() {
+                return new LiveData<String>() {
+                    private AtomicBoolean started = new AtomicBoolean(false);
+                    @Override
+                    protected void onActive() {
+                        super.onActive();
+
+                        if (started.compareAndSet(false, true)){
+                            postValue("");
+                        }
+                    }
+                };
+            }
+
+            @Override
+            protected boolean shouldFetch(@Nullable String data) {
+                return true;
+            }
+
+            @NonNull
+            @Override
+            protected LiveData<APIResponse<RevokeAccessResponse>> createCall() {
+                RevokeAccessRequest request = new RevokeAccessRequest(applicationID,
+                        applicationSecret, userPreference.load().getUserHash());
+                return userAPI.revokeAccess(request);
+            }
+
+            @Override
+            protected void saveCallResult(@NonNull RevokeAccessResponse item) {
+                result = "Revoke Access Succeed";
+            }
+        }.asLiveData();
     }
 }

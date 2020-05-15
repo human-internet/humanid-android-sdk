@@ -39,10 +39,13 @@ import com.humanid.filmreview.BuildConfig;
 import com.humanid.filmreview.R;
 import com.humanid.filmreview.adapter.CastAdapter;
 import com.humanid.filmreview.adapter.ReviewAdapter;
+import com.humanid.filmreview.data.content.review.GetReviewRequest.OnGetReviewCallback;
+import com.humanid.filmreview.data.content.review.PostReviewRequest.OnPostCommentCallback;
+import com.humanid.filmreview.data.login.PostLoginRequest;
 import com.humanid.filmreview.db.DatabaseContract;
 import com.humanid.filmreview.db.MoviesHelper;
-import com.humanid.filmreview.domain.LoginHttpRequest;
-import com.humanid.filmreview.domain.UserInteractor;
+import com.humanid.filmreview.domain.content.ContentInteractor;
+import com.humanid.filmreview.domain.user.UserInteractor;
 import com.humanid.filmreview.fragment.RateReviewDialogFragment;
 import com.humanid.filmreview.loader.MovieDetailAsynctaskLoader;
 import com.humanid.filmreview.model.Genre;
@@ -116,6 +119,12 @@ public class MovieDetailActivity extends AppCompatActivity implements
     @BindView(R.id.btnRate)
     Button btnRate;
 
+    @BindView(R.id.pbReview)
+    ProgressBar pbReview;
+
+    @BindView(R.id.tvReviewError)
+    TextView tvReviewError;
+
     private boolean isFavourited = false;
 
     private int id;
@@ -177,11 +186,13 @@ public class MovieDetailActivity extends AppCompatActivity implements
         btnAdd.setOnClickListener(v -> addFavorite());
 
         btnMoreReview.setOnClickListener(view -> {
-            Intent intent = new Intent(getBaseContext(), ReviewActivity.class);
-            Uri uri = Uri.parse(DatabaseContract.CONTENT_URI + "/" + id);
-            intent.putExtra(Keys.KEY_MOVIE_ID, id);
-            intent.setData(uri);
-            startActivity(intent);
+            if (UserInteractor.getInstance(this).isLoggedIn()){
+                Intent intent = new Intent(getBaseContext(), ReviewActivity.class);
+                Uri uri = Uri.parse(DatabaseContract.CONTENT_URI + "/" + id);
+                intent.putExtra(Keys.KEY_MOVIE_ID, id);
+                intent.setData(uri);
+                startActivity(intent);
+            }
         });
 
         btnRate.setOnClickListener(view -> {
@@ -202,6 +213,12 @@ public class MovieDetailActivity extends AppCompatActivity implements
             }
 
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getReviews();
     }
 
     private void addFavorite() {
@@ -238,26 +255,21 @@ public class MovieDetailActivity extends AppCompatActivity implements
         LoginManager.INSTANCE.getInstance(this).registerCallback(new LoginCallback() {
             @Override
             public void onSuccess(@NotNull String exchangeToken) {
-                UserInteractor.getInstance(MovieDetailActivity.this).login(exchangeToken, new LoginHttpRequest.OnLoginCallback() {
+                UserInteractor.getInstance(MovieDetailActivity.this).login(exchangeToken, new PostLoginRequest.OnLoginCallback() {
                     @Override
                     public void onLoading() {
-                        progressDialog.setMessage("Please wait...");
-                        progressDialog.show();
+                       showLoading();
                     }
 
                     @Override
                     public void onLoginSuccess() {
-                        if (progressDialog != null){
-                            progressDialog.dismiss();
-                            Toast.makeText(MovieDetailActivity.this, "Login succeed", Toast.LENGTH_SHORT).show();
-                        }
+                        hideLoading();
+                        Toast.makeText(MovieDetailActivity.this, "Login succeed", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onLoginFailed(String message) {
-                        if (progressDialog != null){
-                            progressDialog.dismiss();
-                        }
+                        hideLoading();
                     }
                 });
             }
@@ -274,9 +286,40 @@ public class MovieDetailActivity extends AppCompatActivity implements
         });
     }
 
+    private void hideLoading() {
+        if (progressDialog != null){
+            progressDialog.dismiss();
+        }
+    }
+
+    private void showLoading() {
+        progressDialog.setMessage("Please wait...");
+        progressDialog.show();
+    }
+
     public void showBottomSheet() {
         RateReviewDialogFragment rateReviewDialogFragment =
-                RateReviewDialogFragment.newInstance();
+                RateReviewDialogFragment.newInstance((title, review) -> ContentInteractor.getInstance()
+                        .submitComment(String.valueOf(id), title, review, new OnPostCommentCallback() {
+                            @Override
+                            public void onLoading() {
+                                showLoading();
+                            }
+
+                            @Override
+                            public void onPostCommentSuccess() {
+                                hideLoading();
+                                Toast.makeText(MovieDetailActivity.this, "Your comment posted", Toast.LENGTH_SHORT).show();
+                                getReviews();
+                            }
+
+                            @Override
+                            public void onPostCommentFailed(final String message) {
+                                hideLoading();
+                                Toast.makeText(MovieDetailActivity.this, message, Toast.LENGTH_SHORT).show();
+                            }
+                        }));
+
         rateReviewDialogFragment.show(getSupportFragmentManager(),
                 RateReviewDialogFragment.TAG);
     }
@@ -315,20 +358,6 @@ public class MovieDetailActivity extends AppCompatActivity implements
             rvCast.setAdapter(castAdapter);
 
             reviews = new ArrayList<>();
-            
-            if (data.getReview().size() > 2) {
-                for (int i = 0; i < 3; i++) {
-                    reviews.add(data.getReview().get(i));
-                }
-            } else {
-                reviews.addAll(data.getReview());
-            }
-
-            ReviewAdapter reviewAdapter = new ReviewAdapter(this, reviews);
-            rvReviewDetail.setHasFixedSize(true);
-            rvReviewDetail.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-            rvReviewDetail.setItemAnimator(new DefaultItemAnimator());
-            rvReviewDetail.setAdapter(reviewAdapter);
 
             if (data.getPoster() != null) {
                 Glide.with(this).load(BuildConfig.IMAGE_URL + data.getPoster()).into(imgPoster);
@@ -394,6 +423,8 @@ public class MovieDetailActivity extends AppCompatActivity implements
             }
 
             changeTextButtonFavorite();
+
+            getReviews();
         } else {
             pbMovieDetail.setVisibility(View.GONE);
             tvMovieDetailError.setVisibility(View.VISIBLE);
@@ -430,6 +461,53 @@ public class MovieDetailActivity extends AppCompatActivity implements
             tvMovieDetailError.setVisibility(View.VISIBLE);
             tvMovieDetailError.setText(R.string.label_no_internet_connection);
         }
+    }
+
+    private void getReviews(){
+        if (UserInteractor.getInstance(this).isLoggedIn()){
+            tvReviewError.setVisibility(View.GONE);
+            pbReview.setVisibility(View.GONE);
+            ContentInteractor.getInstance()
+                    .getReview(String.valueOf(id), new OnGetReviewCallback() {
+                        @Override
+                        public void onLoading() {
+                            pbReview.setVisibility(View.VISIBLE);
+                        }
+
+                        @Override
+                        public void onGetReviewSuccess(final ArrayList<Review> reviews) {
+                            pbReview.setVisibility(View.GONE);
+                            showReviews(reviews);
+                        }
+
+                        @Override
+                        public void onGetReviewFailed(final String message) {
+                            pbReview.setVisibility(View.GONE);
+                            Toast.makeText(MovieDetailActivity.this, message, Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        }else{
+            pbReview.setVisibility(View.GONE);
+            tvReviewError.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void showReviews(final ArrayList<Review> data) {
+        reviews.clear();
+
+        if (data.size() > 2) {
+            for (int i = 0; i < 3; i++) {
+                reviews.add(data.get(i));
+            }
+        } else {
+            reviews.addAll(data);
+        }
+
+        ReviewAdapter reviewAdapter = new ReviewAdapter(this, reviews);
+        rvReviewDetail.setHasFixedSize(true);
+        rvReviewDetail.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        rvReviewDetail.setItemAnimator(new DefaultItemAnimator());
+        rvReviewDetail.setAdapter(reviewAdapter);
     }
 
     @Override

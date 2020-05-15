@@ -122,6 +122,9 @@ public class MovieDetailActivity extends AppCompatActivity implements
     @BindView(R.id.pbReview)
     ProgressBar pbReview;
 
+    @BindView(R.id.tvReviewError)
+    TextView tvReviewError;
+
     private boolean isFavourited = false;
 
     private int id;
@@ -183,11 +186,13 @@ public class MovieDetailActivity extends AppCompatActivity implements
         btnAdd.setOnClickListener(v -> addFavorite());
 
         btnMoreReview.setOnClickListener(view -> {
-            Intent intent = new Intent(getBaseContext(), ReviewActivity.class);
-            Uri uri = Uri.parse(DatabaseContract.CONTENT_URI + "/" + id);
-            intent.putExtra(Keys.KEY_MOVIE_ID, id);
-            intent.setData(uri);
-            startActivity(intent);
+            if (UserInteractor.getInstance(this).isLoggedIn()){
+                Intent intent = new Intent(getBaseContext(), ReviewActivity.class);
+                Uri uri = Uri.parse(DatabaseContract.CONTENT_URI + "/" + id);
+                intent.putExtra(Keys.KEY_MOVIE_ID, id);
+                intent.setData(uri);
+                startActivity(intent);
+            }
         });
 
         btnRate.setOnClickListener(view -> {
@@ -208,6 +213,12 @@ public class MovieDetailActivity extends AppCompatActivity implements
             }
 
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getReviews();
     }
 
     private void addFavorite() {
@@ -453,25 +464,32 @@ public class MovieDetailActivity extends AppCompatActivity implements
     }
 
     private void getReviews(){
-        ContentInteractor.getInstance()
-                .getReview(String.valueOf(id), new OnGetReviewCallback() {
-                    @Override
-                    public void onLoading() {
-                        pbReview.setVisibility(View.VISIBLE);
-                    }
+        if (UserInteractor.getInstance(this).isLoggedIn()){
+            tvReviewError.setVisibility(View.GONE);
+            pbReview.setVisibility(View.GONE);
+            ContentInteractor.getInstance()
+                    .getReview(String.valueOf(id), new OnGetReviewCallback() {
+                        @Override
+                        public void onLoading() {
+                            pbReview.setVisibility(View.VISIBLE);
+                        }
 
-                    @Override
-                    public void onGetReviewSuccess(final ArrayList<Review> reviews) {
-                        pbReview.setVisibility(View.GONE);
-                        showReviews(reviews);
-                    }
+                        @Override
+                        public void onGetReviewSuccess(final ArrayList<Review> reviews) {
+                            pbReview.setVisibility(View.GONE);
+                            showReviews(reviews);
+                        }
 
-                    @Override
-                    public void onGetReviewFailed(final String message) {
-                        pbReview.setVisibility(View.GONE);
-                        Toast.makeText(MovieDetailActivity.this, message, Toast.LENGTH_SHORT).show();
-                    }
-                });
+                        @Override
+                        public void onGetReviewFailed(final String message) {
+                            pbReview.setVisibility(View.GONE);
+                            Toast.makeText(MovieDetailActivity.this, message, Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        }else{
+            pbReview.setVisibility(View.GONE);
+            tvReviewError.setVisibility(View.VISIBLE);
+        }
     }
 
     private void showReviews(final ArrayList<Review> data) {

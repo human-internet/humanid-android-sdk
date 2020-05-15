@@ -8,9 +8,12 @@ import com.humanid.auth.data.source.remote.api.user.otp.OTPRequest;
 import com.humanid.auth.data.source.remote.api.user.otp.OTPResponse;
 import com.humanid.auth.data.source.remote.api.user.register.RegisterRequest;
 import com.humanid.auth.data.source.remote.api.user.register.RegisterResponse;
+import com.humanid.auth.data.source.remote.api.user.revoke.RevokeAccessRequest;
+import com.humanid.auth.data.source.remote.api.user.revoke.RevokeAccessResponse;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Query;
 
 public interface UserAPIService {
@@ -28,4 +31,8 @@ public interface UserAPIService {
     LiveData<APIResponse<CheckLoginResponse>> checkLogin(
             @Query("hash") String userHash, @Query("appId") String applicationID,
             @Query("appSecret") String applicationSecret);
+
+    @NonNull
+    @PUT("users/revokeAccess")
+    LiveData<APIResponse<RevokeAccessResponse>> revokeAccess(@Body RevokeAccessRequest request);
 }

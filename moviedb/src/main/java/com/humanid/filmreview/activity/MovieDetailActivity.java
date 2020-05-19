@@ -493,21 +493,28 @@ public class MovieDetailActivity extends AppCompatActivity implements
     }
 
     private void showReviews(final ArrayList<Review> data) {
-        reviews.clear();
+        if (reviews != null && data.size() > 0){
+            reviews.clear();
 
-        if (data.size() > 2) {
-            for (int i = 0; i < 3; i++) {
-                reviews.add(data.get(i));
+            if (data.size() > 2) {
+                for (int i = 0; i < 3; i++) {
+                    reviews.add(data.get(i));
+                }
+            } else {
+                reviews.addAll(data);
             }
-        } else {
-            reviews.addAll(data);
-        }
 
-        ReviewAdapter reviewAdapter = new ReviewAdapter(this, reviews);
-        rvReviewDetail.setHasFixedSize(true);
-        rvReviewDetail.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        rvReviewDetail.setItemAnimator(new DefaultItemAnimator());
-        rvReviewDetail.setAdapter(reviewAdapter);
+            ReviewAdapter reviewAdapter = new ReviewAdapter(this, reviews);
+            rvReviewDetail.setHasFixedSize(true);
+            rvReviewDetail.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+            rvReviewDetail.setItemAnimator(new DefaultItemAnimator());
+            rvReviewDetail.setAdapter(reviewAdapter);
+        }else{
+            pbReview.setVisibility(View.GONE);
+            rvReviewDetail.setVisibility(View.GONE);
+            tvReviewError.setVisibility(View.VISIBLE);
+            tvReviewError.setText("No review found at this time");
+        }
     }
 
     @Override

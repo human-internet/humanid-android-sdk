@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 import androidx.annotation.Nullable;
@@ -27,7 +26,6 @@ import com.humanid.filmreview.domain.user.UserInteractor;
 import com.humanid.filmreview.domain.user.UserUsecase;
 import com.humanid.humanidui.presentation.LoginCallback;
 import com.humanid.humanidui.presentation.LoginManager;
-import com.humanid.humanidui.presentation.RevokeAccessCallback;
 import java.util.UUID;
 import org.jetbrains.annotations.NotNull;
 
@@ -44,9 +42,6 @@ public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.imgProfile)
     ImageView imgProfile;
-
-    @BindView(R.id.edtSearch)
-    EditText edtSearch;
 
     private LoginManager loginManager;
 
@@ -195,6 +190,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void logout(){
+        LoginManager.INSTANCE.getInstance(MainActivity.this).logout();
+
         UserInteractor.getInstance(this).logout(new OnLogoutCallback() {
             @Override
             public void onLoading() {
@@ -205,7 +202,6 @@ public class MainActivity extends AppCompatActivity {
             public void onLogoutSuccess() {
                 hideLoading();
                 setUpAvatar(false);
-                revokeAccess();
                 Toast.makeText(MainActivity.this, "Logout Succeed", Toast.LENGTH_SHORT).show();
             }
 
@@ -213,21 +209,6 @@ public class MainActivity extends AppCompatActivity {
             public void onLogoutFailure(final String message) {
                 hideLoading();
                 Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    private void revokeAccess() {
-        LoginManager.INSTANCE.getInstance(this).revoke(new RevokeAccessCallback() {
-            @Override
-            public void onSuccess() {
-                LoginManager.INSTANCE.getInstance(MainActivity.this).logout();
-                Log.d("Revoke humanID", "Revoke Success");
-            }
-
-            @Override
-            public void onError(@NotNull final String errorMessage) {
-                Log.d("Revoke humanID", "Revoke Failed");
             }
         });
     }

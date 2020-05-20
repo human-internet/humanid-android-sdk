@@ -1,12 +1,9 @@
 package com.humanid.auth.data.source.remote.api;
 
 import androidx.annotation.NonNull;
-
 import com.humanid.auth.BuildConfig;
 import com.humanid.auth.util.livedata.LiveDataCallAdapterFactory;
-
 import java.util.concurrent.TimeUnit;
-
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import okhttp3.logging.HttpLoggingInterceptor.Level;
@@ -17,7 +14,7 @@ public class HttpClient {
 
     private final static String TAG = HttpClient.class.getSimpleName();
 
-    private final static String baseUrl = "https://humanid.herokuapp.com/mobile/";
+    private final static String baseUrl = "https://core.human-id.org/v0.0.1/mobile/";
 
     @NonNull
     private static Retrofit.Builder retrofit() {

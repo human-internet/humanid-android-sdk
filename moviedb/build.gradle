@@ -32,7 +32,7 @@ android {
         }
         release {
             debuggable false
-            buildConfigField("String", "API_KEY", "7fb6198f898eb16d1d8a94c69444b18b")
+            buildConfigField("String", "API_KEY", "\"7fb6198f898eb16d1d8a94c69444b18b\"")
             buildConfigField("String", "IMAGE_URL", "\"http://image.tmdb.org/t/p/w154/\"")
             buildConfigField("String", "IMAGE_URL_342", "\"http://image.tmdb.org/t/p/w342/\"")
             buildConfigField("String", "NOW_PLAYING", "\"https://api.themoviedb.org/3/movie/now_playing?api_key=\"")

@@ -1,5 +1,7 @@
 package com.humanid.humanidui.presentation.phonenumber
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -12,7 +14,6 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior.BottomSheetCa
 import com.humanid.auth.HumanIDAuth
 import com.humanid.humanidui.R
 import com.humanid.humanidui.R.string
-import com.humanid.humanidui.domain.CodeNumber
 import com.humanid.humanidui.event.CloseAllActivityEvent
 import com.humanid.humanidui.presentation.HumanIDOptions
 import com.humanid.humanidui.presentation.otp.OtpFragment
@@ -204,7 +205,7 @@ class PhoneNumberFragment : ReactiveFormFragment(), OnVerifyOtpListener {
 
         tvOTP.makeLinks(
             Pair(getString(R.string.label_learn_more), View.OnClickListener {
-                Toast.makeText(context, getString(R.string.label_learn_more), Toast.LENGTH_SHORT).show()
+                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://www.human-id.org/privacypolicy")))
             })
         )
     }

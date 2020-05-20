@@ -11,7 +11,7 @@
     <string name="label_agreement">I hereby agree to MovieDB’s Terms of Service</string>
     <string name="label_verify_your_phone_number">Verify your phone number to connect anonymously\nwith %s</string>
     <string name="hint_phone_number">Phone Number</string>
-    <string name="message_otp_verification"><![CDATA[OTP verification is managed by an independent 3rd party. Number is never visible to humanID or partner app. Learn More]]></string>
+    <string name="message_otp_verification"><![CDATA[OTP verification is managed by an independent 3rd party.Number is never visible to humanID or partner app. Learn More]]></string>
     <string name="action_cancel">Cancel</string>
     <string name="action_transfer_account_number">Transfer account to new number?</string>
     <string name="message_manage_and_monitor_login"><![CDATA[Manage & monitor all your logins & data with the humanID app]]></string>

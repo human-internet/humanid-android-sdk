@@ -165,4 +165,34 @@ public class HumanIDAuth {
         UserRepository.getInstance(applicationContext).logout();
         return Tasks.forResult(null);
     }
+
+    @NonNull
+    public Task<Void> revokeAccess() {
+        TaskCompletionSource<Void> task = new TaskCompletionSource<>();
+        LiveData<Resource<String>> source = UserRepository.getInstance(applicationContext)
+                .revokeAccess(
+                        HumanIDSDK.getInstance().getOptions().getApplicationID(),
+                        HumanIDSDK.getInstance().getOptions().getApplicationSecret()
+                );
+
+        source.observeForever(new Observer<Resource<String>>() {
+            @Override
+            public void onChanged(Resource<String> resource) {
+                if (resource == null) return;
+                switch (resource.status) {
+                    case SUCCESS:
+                        source.removeObserver(this);
+                        task.setResult(null);
+                        break;
+                    case ERROR:
+                        source.removeObserver(this);
+                        task.setException(new Exception(resource.message));
+                        break;
+                }
+            }
+        });
+
+        return task.getTask();
+    }
+
 }

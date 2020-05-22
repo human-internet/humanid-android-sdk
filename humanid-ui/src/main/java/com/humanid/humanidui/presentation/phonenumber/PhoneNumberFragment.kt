@@ -1,5 +1,7 @@
 package com.humanid.humanidui.presentation.phonenumber
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -12,7 +14,6 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior.BottomSheetCa
 import com.humanid.auth.HumanIDAuth
 import com.humanid.humanidui.R
 import com.humanid.humanidui.R.string
-import com.humanid.humanidui.domain.CodeNumber
 import com.humanid.humanidui.event.CloseAllActivityEvent
 import com.humanid.humanidui.presentation.HumanIDOptions
 import com.humanid.humanidui.presentation.otp.OtpFragment
@@ -70,9 +71,7 @@ class PhoneNumberFragment : ReactiveFormFragment(), OnVerifyOtpListener {
         btnEnter.isEnabled = false
     }
 
-    override fun initIntent() {
-
-    }
+    override fun initIntent() {}
 
     override fun initUI() {
         context?.let {
@@ -169,7 +168,7 @@ class PhoneNumberFragment : ReactiveFormFragment(), OnVerifyOtpListener {
             }
 
             if (!humanIDOptions?.applicationName.isNullOrEmpty()) {
-                tvMessage.text = getString(string.label_verify_your_phone_number, humanIDOptions?.applicationName)
+                tvMessage.text = String.format(getString(string.label_verify_your_phone_number), humanIDOptions?.applicationName)
                 tvWelcomeApp.text = String.format(getString(string.label_welcome), humanIDOptions?.applicationName)
             }
         }
@@ -206,7 +205,7 @@ class PhoneNumberFragment : ReactiveFormFragment(), OnVerifyOtpListener {
 
         tvOTP.makeLinks(
             Pair(getString(R.string.label_learn_more), View.OnClickListener {
-                Toast.makeText(context, getString(R.string.label_learn_more), Toast.LENGTH_SHORT).show()
+                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://www.human-id.org/privacypolicy")))
             })
         )
     }

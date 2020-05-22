@@ -2,7 +2,7 @@
 <resources>
     <style name="MovieCatalogueTextView">
         <item name="android:fontFamily">@font/roboto_regular</item>
-        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
 

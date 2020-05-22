@@ -21,7 +21,7 @@ fun TextView.makeLinks(vararg links: Pair<String, View.OnClickListener>) {
             }
 
             override fun updateDrawState(ds: TextPaint) {
-                ds.color = resources.getColor(R.color.colorTwilightBlue)
+                ds.color = resources.getColor(R.color.colorWhite)
                 ds.isUnderlineText = false
                 ds.typeface = Typeface.DEFAULT_BOLD
             }

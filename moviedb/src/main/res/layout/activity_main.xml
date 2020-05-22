@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
     android:background="@color/colorWhite"
+    android:fitsSystemWindows="true"
     android:orientation="vertical">
 
     <androidx.appcompat.widget.Toolbar
@@ -22,27 +22,14 @@
             android:layout_margin="@dimen/dimen_8dp"
             android:orientation="horizontal">
 
-            <com.google.android.material.card.MaterialCardView
+            <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:backgroundTint="@color/colorBlueStone"
-                app:cardCornerRadius="@dimen/dimen_4dp"
-                app:cardElevation="0dp"
-                tools:targetApi="lollipop">
-
-                <EditText
-                    android:id="@+id/edtSearch"
-                    style="@style/MovieCatalogueTextView.White"
-                    android:layout_margin="@dimen/dimen_12dp"
-                    android:background="@android:color/transparent"
-                    android:drawableStart="@drawable/ic_search_white"
-                    android:drawablePadding="@dimen/dimen_8dp"
-                    android:textColorHint="@color/colorWhite056"
-                    android:gravity="center_vertical"
-                    android:hint="@string/hint_search"
-                    android:textSize="@dimen/text_size_12sp" />
-            </com.google.android.material.card.MaterialCardView>
+                android:text="@string/app_name"
+                android:fontFamily="@font/roboto_bold"
+                android:textColor="@color/colorWhite"
+                android:textSize="22sp" />
 
             <ImageView
                 android:id="@+id/imgProfile"
@@ -66,6 +53,6 @@
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/vpMain"
-        android:layout_height="match_parent"
-        android:layout_width="match_parent" />
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </LinearLayout>

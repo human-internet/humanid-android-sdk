@@ -6,15 +6,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
-import com.humanid.filmreview.R;
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.google.android.material.textfield.TextInputLayout;
+import com.humanid.filmreview.R;
 
 public class RateReviewDialogFragment extends BottomSheetDialogFragment implements View.OnClickListener{
 
@@ -36,12 +34,22 @@ public class RateReviewDialogFragment extends BottomSheetDialogFragment implemen
     @BindView(R.id.btnRateReview)
     Button btnRateReview;
 
+    @BindView(R.id.tilReviewTitle)
+    TextInputLayout tilTitle;
+
+    @BindView(R.id.tilReview)
+    TextInputLayout tilReview;
+
+    private OnSubmitedReviewCallback onSubmitedReviewCallback;
+
     private  ImageView[] stars = new ImageView[5];
 
     public static final String TAG = "RateReviewDialog";
 
-    public static RateReviewDialogFragment newInstance() {
-        return new RateReviewDialogFragment();
+    public static RateReviewDialogFragment newInstance(OnSubmitedReviewCallback onSubmitedReviewCallback) {
+        RateReviewDialogFragment rateReviewDialogFragment = new RateReviewDialogFragment();
+        rateReviewDialogFragment.onSubmitedReviewCallback = onSubmitedReviewCallback;
+        return rateReviewDialogFragment;
     }
 
     @Nullable
@@ -118,8 +126,15 @@ public class RateReviewDialogFragment extends BottomSheetDialogFragment implemen
                 break;
 
             case R.id.btnRateReview:
+                onSubmitedReviewCallback.onSubmitReview(tilTitle.getEditText().getText().toString(),
+                        tilReview.getEditText().getText().toString());
+                dismiss();
                 break;
         }
 
+    }
+
+    public interface OnSubmitedReviewCallback{
+        void onSubmitReview(String title, String review);
     }
 }

@@ -28,18 +28,18 @@ android {
             buildConfigField("String", "SEARCH", "\"https://api.themoviedb.org/3/search/movie?api_key=\"")
             buildConfigField("String", "UPCOMING", "\"https://api.themoviedb.org/3/movie/upcoming?api_key=\"")
             buildConfigField("String", "MOVIE", "\"https://api.themoviedb.org/3/movie/\"")
-            buildConfigField("String", "DEMO_APP", "\"https://humanid.herokuapp.com/demo-app/api/\"")
+            buildConfigField("String", "DEMO_APP", "\"https://moviedb--api.human-id.org/v1/\"")
         }
         release {
             debuggable false
-            buildConfigField("String", "API_KEY", "7fb6198f898eb16d1d8a94c69444b18b")
+            buildConfigField("String", "API_KEY", "\"7fb6198f898eb16d1d8a94c69444b18b\"")
             buildConfigField("String", "IMAGE_URL", "\"http://image.tmdb.org/t/p/w154/\"")
             buildConfigField("String", "IMAGE_URL_342", "\"http://image.tmdb.org/t/p/w342/\"")
             buildConfigField("String", "NOW_PLAYING", "\"https://api.themoviedb.org/3/movie/now_playing?api_key=\"")
             buildConfigField("String", "SEARCH", "\"https://api.themoviedb.org/3/search/movie?api_key=\"")
             buildConfigField("String", "UPCOMING", "\"https://api.themoviedb.org/3/movie/upcoming?api_key=\"")
             buildConfigField("String", "MOVIE", "\"https://api.themoviedb.org/3/movie/\"")
-            buildConfigField("String", "DEMO_APP", "\"https://humanid.herokuapp.com/demo-app/api/\"")
+            buildConfigField("String", "DEMO_APP", "\"https://moviedb--api.human-id.org/v1/\"")
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
@@ -64,8 +64,9 @@ dependencies {
 
     implementation "androidx.multidex:multidex:2.0.1"
 
-    // Asynctask
+    // Network
     implementation 'com.loopj.android:android-async-http:1.4.9'
+    implementation 'com.google.code.gson:gson:2.8.6'
 
     //  Glide
     implementation 'com.github.bumptech.glide:glide:4.10.0'
@@ -88,5 +89,6 @@ dependencies {
     implementation  'com.github.Kennyc1012:MultiStateView:2.1.1'
 
     //humanID
-    implementation 'com.github.bluenumberfoundation:humanid-android-sdk:0.0.3'
+    //implementation 'com.github.bluenumberfoundation:humanid-android-sdk:0.0.3'
+    implementation project(":humanid-ui")
 }

@@ -78,8 +78,8 @@ public abstract class NetworkBoundResource<ResultType, RequestType> {
                 onFetchFailed();
                 result.addSource(localSource, newData -> {
                     String errorMessage = null;
-                    if (response != null && !TextUtils.isEmpty(response.getErrorMessage())) {
-                        errorMessage = response.getErrorMessage();
+                    if (response != null && !TextUtils.isEmpty(response.getMessage())) {
+                        errorMessage = response.getMessage();
                     }
                     setValue(Resource.error(errorMessage, newData));
                 });

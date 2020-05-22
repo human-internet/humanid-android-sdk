@@ -2,6 +2,7 @@ package com.humanid.humanidui.presentation
 
 import android.app.Activity
 import android.content.Intent
+import com.humanid.auth.HumanIDAuth
 import com.humanid.humanidui.presentation.phonenumber.PhoneNumberActivity
 import com.humanid.humanidui.util.BundleKeys
 import com.humanid.humanidui.util.ContextProvider
@@ -22,6 +23,20 @@ class LoginManager(private val activity: Activity) {
     fun registerCallback(callback: LoginCallback){
         this.loginCallback = callback
         PhoneNumberActivity.start(activity)
+    }
+
+    fun logout(){
+        HumanIDAuth.getInstance().logout()
+    }
+
+    fun revoke(callback: RevokeAccessCallback){
+        HumanIDAuth.getInstance().revokeAccess().addOnCompleteListener {
+            callback.onSuccess()
+        }.addOnFailureListener {
+            it.message?.let {message ->
+                callback.onError(message)
+            }
+        }
     }
 
     fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?){
@@ -49,4 +64,10 @@ interface LoginCallback{
     fun onError(errorMessage: String)
 
     fun onCancel()
+}
+
+interface RevokeAccessCallback{
+    fun onSuccess()
+
+    fun onError(errorMessage: String)
 }

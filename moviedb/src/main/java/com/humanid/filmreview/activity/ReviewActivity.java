@@ -1,8 +1,6 @@
 package com.humanid.filmreview.activity;
 
-import android.app.LoaderManager;
 import android.content.Context;
-import android.content.Loader;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -11,28 +9,24 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.humanid.filmreview.R;
-import com.humanid.filmreview.adapter.ReviewAdapter;
-import com.humanid.filmreview.fragment.RateReviewDialogFragment;
-import com.humanid.filmreview.loader.ReviewAsynctaskLoader;
-import com.humanid.filmreview.model.Review;
-import com.humanid.filmreview.utils.Keys;
-
-import java.util.ArrayList;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.humanid.filmreview.R;
+import com.humanid.filmreview.adapter.ReviewAdapter;
+import com.humanid.filmreview.data.content.review.GetReviewRequest.OnGetReviewCallback;
+import com.humanid.filmreview.domain.content.ContentInteractor;
+import com.humanid.filmreview.domain.user.UserInteractor;
+import com.humanid.filmreview.fragment.RateReviewDialogFragment;
+import com.humanid.filmreview.model.Review;
+import com.humanid.filmreview.utils.Keys;
+import java.util.ArrayList;
 
-public class ReviewActivity extends AppCompatActivity implements
-        LoaderManager.LoaderCallbacks<ArrayList<Review>> {
+public class ReviewActivity extends AppCompatActivity {
 
     @BindView(R.id.pbReview)
     ProgressBar pbReview;
@@ -81,15 +75,51 @@ public class ReviewActivity extends AppCompatActivity implements
         getData();
     }
 
-    @NonNull
-    @Override
-    public Loader<ArrayList<Review>> onCreateLoader(int id, Bundle args) {
-        int movieId = args.getInt(Keys.KEY_MOVIE_ID);
-        return new ReviewAsynctaskLoader(this, movieId);
+    private void getData() {
+        if (UserInteractor.getInstance(this).isLoggedIn()){
+            ConnectivityManager cm = (ConnectivityManager) getBaseContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo activeNetwork = null;
+            if (cm != null) {
+                activeNetwork = cm.getActiveNetworkInfo();
+            }
+            boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+
+            if (isConnected) {
+                ContentInteractor.getInstance()
+                        .getReview(String.valueOf(id), new OnGetReviewCallback() {
+                            @Override
+                            public void onLoading() {
+                                if (pbReview.getVisibility() == View.GONE) {
+                                    pbReview.setVisibility(View.VISIBLE);
+                                    rvReview.setVisibility(View.GONE);
+                                    tvReviewError.setVisibility(View.GONE);
+                                }
+                            }
+
+                            @Override
+                            public void onGetReviewSuccess(final ArrayList<Review> reviews) {
+                                showReviews(reviews);
+                            }
+
+                            @Override
+                            public void onGetReviewFailed(final String message) {
+                                pbReview.setVisibility(View.GONE);
+                                rvReview.setVisibility(View.GONE);
+                                tvReviewError.setVisibility(View.VISIBLE);
+                                tvReviewError.setText(message);
+                            }
+                        });
+
+            } else {
+                pbReview.setVisibility(View.GONE);
+                rvReview.setVisibility(View.GONE);
+                tvReviewError.setVisibility(View.VISIBLE);
+                tvReviewError.setText(R.string.label_no_internet_connection);
+            }
+        }
     }
 
-    @Override
-    public void onLoadFinished(Loader<ArrayList<Review>> loader, ArrayList<Review> data) {
+    private void showReviews(final ArrayList<Review> data) {
         pbReview.setVisibility(View.GONE);
         adapter.clearReviewList();
         if (data != null && !data.isEmpty()) {
@@ -103,45 +133,13 @@ public class ReviewActivity extends AppCompatActivity implements
             rvReview.setVisibility(View.GONE);
         }
         adapter.notifyDataSetChanged();
-
-    }
-
-    @Override
-    public void onLoaderReset(@NonNull Loader<ArrayList<Review>> loader) {
-        adapter.clearReviewList();
-        adapter.notifyDataSetChanged();
-    }
-
-    private void getData() {
-        ConnectivityManager cm = (ConnectivityManager) getBaseContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetwork = null;
-        if (cm != null) {
-            activeNetwork = cm.getActiveNetworkInfo();
-        }
-        boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
-
-        if (isConnected) {
-            Bundle bundle = new Bundle();
-            bundle.putInt(Keys.KEY_MOVIE_ID, id);
-            getLoaderManager().initLoader(5, bundle, this);
-
-            if (pbReview.getVisibility() == View.GONE) {
-                pbReview.setVisibility(View.VISIBLE);
-                rvReview.setVisibility(View.GONE);
-                tvReviewError.setVisibility(View.GONE);
-            }
-
-        } else {
-            pbReview.setVisibility(View.GONE);
-            rvReview.setVisibility(View.GONE);
-            tvReviewError.setVisibility(View.VISIBLE);
-            tvReviewError.setText(R.string.label_no_internet_connection);
-        }
     }
 
     public void showBottomSheet() {
         RateReviewDialogFragment rateReviewDialogFragment =
-                RateReviewDialogFragment.newInstance();
+                RateReviewDialogFragment.newInstance((title, review) -> {
+
+                });
         rateReviewDialogFragment.show(getSupportFragmentManager(),
                 RateReviewDialogFragment.TAG);
     }

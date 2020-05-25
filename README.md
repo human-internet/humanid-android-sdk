@@ -18,7 +18,7 @@ Meet humanID - An anonymous online identity, enabling platforms to offer the spe
 	.
 	.
     dependencies {
-    	implementation 'com.github.bluenumberfoundation:humanid-android-sdk:0.0.3’
+    	implementation 'com.github.bluenumberfoundation:humanid-android-sdk:0.0.4’
     }
 
 

@@ -6,6 +6,8 @@ Meet humanID - An anonymous online identity, enabling platforms to offer the spe
 
 <img src="https://github.com/bluenumberfoundation/humanid-android-sdk/blob/master/human-id-logo.png" width="200" height="200">
 
+<img src="https://github.com/bluenumberfoundation/humanid-android-sdk/blob/master/humanID%20-%20Login%20Screen%20Number.png" width="200" height="400"
+
 ## Download
 
     allprojects {

@@ -49,7 +49,7 @@ Add these codes into your AndroidManifest.xml and make sure all meta-data is ful
       android:value="YOUR_APP_SECRET"/>
       
 
-## How Do I Use humanID Android SDK in Kotlin
+## Android SDK in Kotlin
 
 Add these codes into your Activity or Fragment file, we recommend you wrap this in a function that handles the login button.
 
@@ -71,7 +71,7 @@ Add these codes into your Activity or Fragment file, we recommend you wrap this 
 		  super.onActivityResult(requestCode, resultCode, data)  
 	    }
 
-## How Do I Use humanID Android SDK in Java
+## Android SDK in Java
 
 Add these codes into your Activity or Fragment file, we recommend you wrap this in a function that handles the login button.
 
@@ -97,7 +97,7 @@ Add these codes into your Activity or Fragment file, we recommend you wrap this 
 		 super.onActivityResult(requestCode, resultCode, data);
 	 }
     
-## You are set!
+## You're set!
 
 Now you can integrate your Android app to humanID. See the full [sample](https://github.com/bluenumberfoundation/humanid-android-sdk/tree/master/sample) here to learn more.
 

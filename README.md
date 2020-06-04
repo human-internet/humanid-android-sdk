@@ -2,7 +2,9 @@
 
 **humanID Android SDK**
 
+<p align="center">
 [Wiki](https://github.com/bluenumberfoundation/humanid-android-sdk/wiki) • [Contributing](https://github.com/bluenumberfoundation/humanid-android-sdk/wiki/contributing) • [Gallery](https://github.com/bluenumberfoundation/humanid-android-sdk/wiki/gallery) • [FAQ](https://github.com/bluenumberfoundation/humanid-android-sdk/wiki/faq) • [Integration](https://github.com/bluenumberfoundation/humanid-android-sdk/wiki/integration)
+</p>
 
 Meet humanID - An anonymous online identity, enabling platforms to offer the speed and comfort of social logins, while guaranteeing absolute privacy and protecting our communities by permanently blocking bots, spams, and trolls.
 

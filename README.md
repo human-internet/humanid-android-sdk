@@ -1,8 +1,8 @@
 [![](https://jitpack.io/v/bluenumberfoundation/humanid-android-sdk.svg)](https://jitpack.io/#bluenumberfoundation/humanid-android-sdk)
 
-**humanID Android SDK**
+# humanID Android SDK
 
-Meet humanID - An anonymous online identity, enabling platforms to offer the speed and comfort of social logins, while guaranteeing absolute privacy and protecting our communities by permanently blocking bots, spams, and trolls.
+
 
 <p align="center">
 <img src="https://github.com/bluenumberfoundation/humanid-android-sdk/blob/master/human-id-logo.png" width="200" height="200">
@@ -14,8 +14,10 @@ Meet humanID - An anonymous online identity, enabling platforms to offer the spe
 <a href="https://github.com/bluenumberfoundation/humanid-android-sdk/wiki/gallery">Gallery</a> • 
 <a href="https://github.com/bluenumberfoundation/humanid-android-sdk/wiki/faq">FAQ</a> • 
 <a href="https://github.com/bluenumberfoundation/humanid-android-sdk/wiki/integration">Integration</a>
-</p>
 
+<p align="center">
+Meet humanID - An anonymous online identity, enabling platforms to offer the speed and comfort of social logins, while guaranteeing absolute privacy and protecting our communities by permanently blocking bots, spams, and trolls.
+</p>
 
 
 ## Download

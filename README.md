@@ -36,6 +36,14 @@ Here's what makes humanID so great:
 </ul>
 
 
+## Requirements
+<ul>
+	<li>API level 18 or higher</li>
+	<li>Kotlin</li>
+</ul>
+
+Please update to the latest SDK!
+
 ## Downloads
 
     allprojects {

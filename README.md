@@ -13,7 +13,7 @@
 <a href="https://github.com/bluenumberfoundation/humanid-android-sdk/wiki/integration">Integration</a> •
 <a href="https://github.com/bluenumberfoundation/humanid-android-sdk/wiki/contributing">Contributing</a> • 
 <a href="https://github.com/bluenumberfoundation/humanid-android-sdk/wiki/gallery">Gallery</a> • 
-<a href="https://github.com/bluenumberfoundation/humanid-android-sdk/wiki/faq">FAQ</a> • 
+<a href="https://github.com/bluenumberfoundation/humanid-android-sdk/wiki/faq">FAQ</a>
 
 
 <p align="center">

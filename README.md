@@ -35,7 +35,7 @@ Here's what makes humanID so great:
 </ul>
 
 
-## Download
+## Downloads
 
     allprojects {
 	    repositories {

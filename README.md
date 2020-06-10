@@ -19,6 +19,19 @@
 Meet humanID - An anonymous online identity, enabling platforms to offer the speed and comfort of social logins, while guaranteeing absolute privacy and protecting our communities by permanently blocking bots, spams, and trolls.
 </p>
 
+## Overview
+
+humanID is an nonprofit, open-source initiative building a replacement to social media logins like “Login with Facebook”. Unlike existing logins, humanID allows users to sign onto third-party websites or apps with full anonymity. humanID creates a fully anonymous, privacy-first identity that enables communities to block bots and abusive users - creating accountable, civil communities.
+
+Here's what makes humanID so great:
+
+<ul>
+	<li>No accessible user data is stored, so users remain fully anonymous</li>
+	<li>Fast and easy to login</li>
+	<li>It's free for end users</li>
+	<li>Blocks automated accounts, cyber-bullies, trolls and freeloaders from websites and applications</li>
+	<li>Makes bot networks at least 40x more costly to operate and easier to identify</li>
+	<li>Gives platforms the ability to turn privacy and trust into a competitive advantage</li>
 
 ## Download
 

@@ -32,6 +32,8 @@ Here's what makes humanID so great:
 	<li>Blocks automated accounts, cyber-bullies, trolls and freeloaders from websites and applications</li>
 	<li>Makes bot networks at least 40x more costly to operate and easier to identify</li>
 	<li>Gives platforms the ability to turn privacy and trust into a competitive advantage</li>
+</ul>
+
 
 ## Download
 

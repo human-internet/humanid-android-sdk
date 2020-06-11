@@ -64,6 +64,8 @@
             android:cursorVisible="true"
             android:imeOptions="actionDone"
             android:inputType="number"
+            android:textColor="@color/colorBlack"
+            android:textCursorDrawable="@null"
             android:textSize="@dimen/text_size_14sp"
             app:itemCount="4"
             app:itemSpacing="@dimen/dimen_32dp"

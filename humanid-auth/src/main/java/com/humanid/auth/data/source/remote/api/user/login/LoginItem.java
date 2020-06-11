@@ -1,10 +1,10 @@
-package com.humanid.auth.data.source.remote.api.user.register;
+package com.humanid.auth.data.source.remote.api.user.login;
 
 import androidx.annotation.NonNull;
 
 import com.google.gson.annotations.SerializedName;
 
-public class RegisterItem {
+public class LoginItem {
 
 	@SerializedName("userHash")
 	private String userHash;
@@ -12,7 +12,7 @@ public class RegisterItem {
 	@SerializedName("exchangeToken")
 	private String exchangeToken;
 
-	public RegisterItem() {
+	public LoginItem() {
 		// Default Constructor
 	}
 
@@ -29,7 +29,7 @@ public class RegisterItem {
 	public boolean equals(Object o) {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
-		RegisterItem that = (RegisterItem) o;
+		LoginItem that = (LoginItem) o;
 		return userHash.equals(that.userHash);
 	}
 

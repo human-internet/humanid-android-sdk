@@ -6,41 +6,41 @@ import com.google.gson.annotations.SerializedName;
 
 public class LoginRequest {
 
-	@SerializedName("existingHash")
-	private String existingUserHash;
-	@SerializedName("notifId")
-	private String notificationID;
-	@SerializedName("appId")
-	private String applicationID;
-	@SerializedName("appSecret")
-	private String applicationSecret;
+	@SerializedName("countryCode")
+	private String countryCode;
+	@SerializedName("phone")
+	private String phone;
+	@SerializedName("verificationCode")
+	private String verificationCode;
+	@SerializedName("deviceId")
+	private String deviceID;
 
-	public LoginRequest(@NonNull String existingHash, @NonNull String notificationID,
-						@NonNull String applicationID, @NonNull String applicationSecret) {
-		this.existingUserHash = existingHash;
-		this.notificationID = notificationID;
-		this.applicationID = applicationID;
-		this.applicationSecret = applicationSecret;
+	public LoginRequest(@NonNull String countryCode, @NonNull String phone,
+						   @NonNull String verificationCode, @NonNull String deviceID) {
+		this.countryCode = countryCode;
+		this.phone = phone;
+		this.verificationCode = verificationCode;
+		this.deviceID = deviceID;
 	}
 
 	@NonNull
-	public String getExistingUserHash(){
-		return existingUserHash;
+	public String getCountryCode() {
+		return countryCode;
 	}
 
 	@NonNull
-	public String getNotificationID(){
-		return notificationID;
+	public String getPhone() {
+		return phone;
 	}
 
 	@NonNull
-	public String getApplicationID(){
-		return applicationID;
+	public String getVerificationCode() {
+		return verificationCode;
 	}
 
 	@NonNull
-	public String getApplicationSecret() {
-		return applicationSecret;
+	public String getDeviceID() {
+		return deviceID;
 	}
 
 	@Override
@@ -48,19 +48,19 @@ public class LoginRequest {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
 		LoginRequest that = (LoginRequest) o;
-		return existingUserHash.equals(that.existingUserHash) &&
-				notificationID.equals(that.notificationID) &&
-				applicationID.equals(that.applicationID) &&
-				applicationSecret.equals(that.applicationSecret);
+		return countryCode.equals(that.countryCode) &&
+				phone.equals(that.phone) &&
+				verificationCode.equals(that.verificationCode) &&
+				deviceID.equals(that.deviceID);
 	}
 
 	@Override
 	public int hashCode() {
 		int result = 1;
-		result = 31 * result + (existingUserHash == null ? 0 : existingUserHash.hashCode());
-		result = 31 * result + (notificationID == null ? 0 : notificationID.hashCode());
-		result = 31 * result + (applicationID == null ? 0 : applicationID.hashCode());
-		result = 31 * result + (applicationSecret == null ? 0 : applicationSecret.hashCode());
+		result = 31 * result + (countryCode == null ? 0 : countryCode.hashCode());
+		result = 31 * result + (phone == null ? 0 : phone.hashCode());
+		result = 31 * result + (verificationCode == null ? 0 : verificationCode.hashCode());
+		result = 31 * result + (deviceID == null ? 0 : deviceID.hashCode());
 
 		return result;
 	}
@@ -68,11 +68,11 @@ public class LoginRequest {
 	@NonNull
 	@Override
 	public String toString() {
-		return "LoginRequest{" +
-				"existingUserHash='" + existingUserHash + '\'' +
-				", notificationID='" + notificationID + '\'' +
-				", applicationID='" + applicationID + '\'' +
-				", applicationSecret='" + applicationSecret + '\'' +
+		return "RegisterRequest{" +
+				"countryCode='" + countryCode + '\'' +
+				", phone='" + phone + '\'' +
+				", verificationCode='" + verificationCode + '\'' +
+				", deviceID='" + deviceID + '\'' +
 				'}';
 	}
 }

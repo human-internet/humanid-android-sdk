@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
                 loginManager.registerCallback(new LoginCallback() {
                     @Override
                     public void onCancel() {
-                        Toast.makeText(MainActivity.this, "request cancel", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, getString(R.string.message_login_canceled), Toast.LENGTH_SHORT).show();
                     }
 
                     @Override

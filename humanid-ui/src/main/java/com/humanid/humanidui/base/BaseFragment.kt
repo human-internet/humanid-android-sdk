@@ -82,9 +82,16 @@ abstract class BaseFragment : Fragment(), BaseView {
         initProcess()
     }
 
-    protected fun hideSoftKeyboard(){
+    protected fun hideSoftKeyboard(view: View?, context: Context?){
         val imm: InputMethodManager = context!!.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(view!!.windowToken, 0)
+        imm.hideSoftInputFromWindow(view?.windowToken, 0)
+    }
+
+    protected fun showKeyboard(view: View, context: Context?) {
+        if (view.requestFocus()) {
+            val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
+            imm?.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT)
+        }
     }
 
     //    Init Presenter and Component Injection here

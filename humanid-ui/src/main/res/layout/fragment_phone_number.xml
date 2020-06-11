@@ -24,54 +24,52 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:id="@+id/imgAppLogo"
+                    android:id="@+id/imgHumanIdLogo"
                     android:layout_width="@dimen/dimen_100dp"
                     android:layout_height="@dimen/dimen_100dp"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginBottom="@dimen/dimen_24dp"
-                    android:src="@drawable/ic_logo_humanid_light" />
+                    android:background="@color/colorTwilightBlue"
+                    android:src="@drawable/ic_logo_humanid_icon" />
 
-                <LinearLayout
+                <RelativeLayout
                     android:id="@+id/containerTopNormal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:orientation="vertical">
+                    android:orientation="horizontal">
 
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tvWelcomeApp"
-                        style="@style/HumanIdTextView.Medium.White"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/dimen_21dp"
-                        android:layout_marginStart="@dimen/dimen_8dp"
-                        android:text="@string/label_welcome"
-                        android:textAlignment="center"
-                        android:textSize="@dimen/text_size_18sp"
-                        android:layout_marginLeft="@dimen/dimen_8dp"
-                        android:gravity="center_horizontal" />
+                    <ImageView
+                        android:id="@+id/imgAppLogo"
+                        android:layout_width="@dimen/dimen_50dp"
+                        android:layout_height="@dimen/dimen_50dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginBottom="@dimen/dimen_24dp"
+                        android:layout_centerVertical="true"
+                        android:visibility="gone"/>
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tvMessage"
                         style="@style/HumanIdTextView.BlackColor"
-                        android:layout_width="wrap_content"
+                        android:layout_toRightOf="@id/imgAppLogo"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/dimen_8dp"
                         android:text="@string/label_verify_your_phone_number"
-                        android:textAlignment="center"
                         android:textColor="@color/colorWhite"
+                        android:textAlignment="center"
+                        android:gravity="center_horizontal"
+                        android:layout_centerVertical="true"
                         android:textSize="@dimen/text_size_12sp"
-                        android:layout_marginLeft="@dimen/dimen_8dp"
-                        android:gravity="center_horizontal" />
+                        android:layout_marginLeft="@dimen/dimen_8dp" />
 
-                </LinearLayout>
+                </RelativeLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dimen_24dp"
+                    android:layout_height="@dimen/dimen_48dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
+                    android:layout_marginTop="@dimen/dimen_16dp"
                     android:paddingLeft="@dimen/dimen_8dp"
                     android:paddingRight="@dimen/dimen_8dp">
 
@@ -88,15 +86,14 @@
                             app:ccpDialog_keyboardAutoPopup="false"
                             app:ccpDialog_showCloseIcon="true"
                             app:ccpDialog_showFastScroller="false"
-                            app:ccpDialog_showFlag="false"
                             app:ccpDialog_showPhoneCode="true"
                             app:ccpDialog_showTitle="false"
-                            app:ccpDialog_textColor="@color/colorWhite"
+                            app:ccp_contentColor="@color/colorWhite"
+                            app:ccp_flagBorderColor="@color/colorTransparent"
                             app:ccp_arrowColor="@color/colorWhite"
                             app:ccp_arrowSize="16dp"
                             app:ccp_autoDetectCountry="true"
                             app:ccp_clickable="true"
-                            app:ccp_contentColor="@color/colorWhite"
                             app:ccp_countryAutoDetectionPref="SIM_NETWORK_LOCALE"
                             app:ccp_showArrow="true"
                             app:ccp_showFlag="true"
@@ -124,16 +121,17 @@
                         <androidx.appcompat.widget.AppCompatEditText
                             android:id="@+id/edtPhoneNumber"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
+                            android:layout_height="wrap_content"
                             android:background="@null"
                             android:digits="1234567890"
                             android:fontFamily="@font/roboto_regular"
+                            android:textCursorDrawable="@null"
                             android:hint="@string/hint_phone_number"
                             android:imeOptions="actionDone"
                             android:inputType="phone"
                             android:maxLength="12"
                             android:maxLines="1"
-                            android:padding="8.5dp"
+                            android:padding="9dp"
                             android:textColor="@color/colorWhite"
                             android:textColorHint="@color/colorWhite"
                             android:textSize="12sp"
@@ -154,7 +152,6 @@
                         android:id="@+id/btnEnter"
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/dimen_48dp"
-                        android:enabled="false"
                         android:padding="4dp"
                         android:text="@string/action_enter"
                         android:textAllCaps="true"

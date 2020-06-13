@@ -9,7 +9,7 @@
     <string name="label_continue_with">Continue with</string>
     <string name="label_recommended_full_privacy">(recommended for full privacy)</string>
     <string name="label_agreement">I hereby agree to MovieDB’s Terms of Service</string>
-    <string name="label_verify_your_phone_number"><![CDATA[humanID confirms your phone number <b>without</b><br>sharing it with <b>%s</b>.<br>Your data is permanently deleted after verification.]]></string>
+    <string name="label_verify_your_phone_number"><![CDATA[humanID confirms your phone number <b>without</b> sharing it with <b>%s</b>.<br>Your data is permanently deleted after verification.]]></string>
     <string name="hint_phone_number">Phone Number</string>
     <string name="message_otp_verification"><![CDATA[humanID gives you back control over your privacy. The non profit organization authenticates you without sharing your data or retaining your data.\nLearn More]]></string>
     <string name="action_cancel">Cancel</string>

@@ -34,10 +34,8 @@ import kotlinx.android.synthetic.main.fragment_phone_number.btnCancel
 import kotlinx.android.synthetic.main.fragment_phone_number.btnEnter
 import kotlinx.android.synthetic.main.fragment_phone_number.btnTransfer
 import kotlinx.android.synthetic.main.fragment_phone_number.ccpPhoneNumber
-import kotlinx.android.synthetic.main.fragment_phone_number.containerTopNormal
 import kotlinx.android.synthetic.main.fragment_phone_number.edtPhoneNumber
 import kotlinx.android.synthetic.main.fragment_phone_number.imgAppLogo
-import kotlinx.android.synthetic.main.fragment_phone_number.imgHumanIdLogo
 import kotlinx.android.synthetic.main.fragment_phone_number.tvMessage
 import kotlinx.android.synthetic.main.fragment_phone_number.tvOTP
 import kotlinx.android.synthetic.main.layout_bottom_sheet.bottomSheet
@@ -80,6 +78,7 @@ class PhoneNumberFragment : PassiveFormFragment(), OnVerifyOtpListener {
 
         showKeyboard(edtPhoneNumber, requireContext())
         edtPhoneNumber.requestFocus()
+        edtPhoneNumber.error = null
     }
 
     private fun configureOtpBottomSheet(){
@@ -90,7 +89,11 @@ class PhoneNumberFragment : PassiveFormFragment(), OnVerifyOtpListener {
         bottomSheetBehavior.isHideable = false
 
         bottomSheetBehavior.setBottomSheetCallback(object : BottomSheetCallback() {
-            override fun onStateChanged(bottomSheet: View, newState: Int) {}
+            override fun onStateChanged(bottomSheet: View, newState: Int) {
+                if (newState == BottomSheetBehavior.STATE_DRAGGING) {
+                    bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+                }
+            }
             override fun onSlide(bottomSheet: View, slideOffset: Float) {}
         })
     }
@@ -161,7 +164,7 @@ class PhoneNumberFragment : PassiveFormFragment(), OnVerifyOtpListener {
             val humanIDOptions = HumanIDOptions.fromResource(it)
             if (humanIDOptions?.applicationIcon != -1) {
                 humanIDOptions?.applicationIcon?.let { it1 ->
-//                    imgAppLogo.visible()
+                    //imgAppLogo.visible()
                     imgAppLogo.setImageDrawable(ContextCompat.getDrawable(it, it1))
                 }
             }
@@ -194,7 +197,7 @@ class PhoneNumberFragment : PassiveFormFragment(), OnVerifyOtpListener {
     }
 
     private fun initView() {
-        containerTopNormal.visible()
+        tvMessage.visible()
         btnTransfer.gone()
     }
 

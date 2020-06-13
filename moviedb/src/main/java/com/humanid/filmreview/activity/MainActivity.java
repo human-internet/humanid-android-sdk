@@ -9,13 +9,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.Toast;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentManager;
 import androidx.viewpager.widget.ViewPager;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
 import com.bumptech.glide.Glide;
 import com.google.android.material.tabs.TabLayout;
 import com.humanid.filmreview.R;
@@ -26,7 +30,11 @@ import com.humanid.filmreview.domain.user.UserInteractor;
 import com.humanid.filmreview.domain.user.UserUsecase;
 import com.humanid.humanidui.presentation.LoginCallback;
 import com.humanid.humanidui.presentation.LoginManager;
+import com.humanid.humanidui.presentation.welcome.HumanIDActivity;
+import com.humanid.humanidui.presentation.welcome.WelcomeDialogFragment;
+
 import java.util.UUID;
+
 import org.jetbrains.annotations.NotNull;
 
 public class MainActivity extends AppCompatActivity {
@@ -49,6 +57,8 @@ public class MainActivity extends AppCompatActivity {
 
     private ProgressDialog progressDialog;
 
+    private WelcomeDialogFragment welcomeDialogFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,10 +71,15 @@ public class MainActivity extends AppCompatActivity {
 
         progressDialog = new ProgressDialog(this);
 
+        welcomeDialogFragment = new WelcomeDialogFragment();
+
 
         userUsecase = new UserInteractor(this);
 
         imgProfile.setOnClickListener(view -> {
+            //todo: please complete it
+            //welcomeDialogFragment.show(getSupportFragmentManager(), welcomeDialogFragment.getTag());
+
             if (UserInteractor.getInstance(this).isLoggedIn()){
                 showLogoutAlerDialog();
             }else{
@@ -86,13 +101,15 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
             }
-        });
+    });
 
-        loginManager = LoginManager.INSTANCE.getInstance(this);
+    loginManager =LoginManager.INSTANCE.getInstance(this);
 
-        Log.d("UUID", UUID.randomUUID().toString());
+        Log.d("UUID",UUID.randomUUID().
 
-    }
+    toString());
+
+}
 
     private void authenticateUser(String exchangeToken) {
         userUsecase.login(exchangeToken, new PostLoginRequest.OnLoginCallback() {
@@ -116,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void hideLoading() {
-        if (progressDialog != null){
+        if (progressDialog != null) {
             progressDialog.dismiss();
         }
     }
@@ -134,9 +151,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void setUpAvatar(Boolean isLoggeIn) {
         int avatar = 0;
-        if (isLoggeIn){
+        if (isLoggeIn) {
             avatar = R.drawable.wolverine;
-        }else{
+        } else {
             avatar = R.drawable.ic_person_black_24dp;
         }
 
@@ -176,7 +193,7 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    private void showLogoutAlerDialog(){
+    private void showLogoutAlerDialog() {
         AlertDialog alertDialog = new AlertDialog.Builder(this)
                 .setTitle("Logout")
                 .setMessage("Are you sure want to logout?")
@@ -189,7 +206,7 @@ public class MainActivity extends AppCompatActivity {
         alertDialog.show();
     }
 
-    private void logout(){
+    private void logout() {
         LoginManager.INSTANCE.getInstance(MainActivity.this).logout();
 
         UserInteractor.getInstance(this).logout(new OnLogoutCallback() {

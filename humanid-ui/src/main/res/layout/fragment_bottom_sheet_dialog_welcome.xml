@@ -98,7 +98,7 @@
                                 android:layout_height="wrap_content"
                                 android:gravity="center_vertical"
                                 android:text="@string/label_continue_with"
-                                android:textSize="@dimen/text_size_10sp" />
+                                android:textSize="@dimen/text_size_14sp" />
 
                             <androidx.appcompat.widget.AppCompatImageView
                                 android:layout_width="wrap_content"
@@ -115,7 +115,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/label_recommended_full_privacy"
-                            android:textSize="@dimen/text_size_10sp" />
+                            android:textSize="@dimen/text_size_12sp" />
 
                     </LinearLayout>
 

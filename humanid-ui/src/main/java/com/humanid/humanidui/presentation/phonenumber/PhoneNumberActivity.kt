@@ -24,7 +24,6 @@ class PhoneNumberActivity : BaseActivity(), PhoneNumberFragment.OnPhoneNumberLis
         get() = R.layout.activity_phone_number
 
     override fun initLib() {
-        EventBus.getDefault().register(this)
     }
 
     override fun initIntent() {
@@ -61,23 +60,6 @@ class PhoneNumberActivity : BaseActivity(), PhoneNumberFragment.OnPhoneNumberLis
     }
 
     override fun onDestroy() {
-        EventBus.getDefault().unregister(this)
         super.onDestroy()
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onCloseActivityEventReceived(closeAllActivityEvent: CloseAllActivityEvent){
-        val intent = Intent()
-
-        if (!TextUtils.isEmpty(closeAllActivityEvent.exchangeToken)){
-            intent.putExtra(BundleKeys.KEY_EXCHANGE_TOKEN, closeAllActivityEvent.exchangeToken)
-        }else if(!TextUtils.isEmpty(closeAllActivityEvent.errorMessage)){
-            intent.putExtra(BundleKeys.KEY_LOGIN_ERROR, closeAllActivityEvent.errorMessage)
-        }else{
-            intent.putExtra(BundleKeys.KEY_LOGIN_CANCEL, (closeAllActivityEvent.isCancel))
-        }
-
-        setResult(0x300, intent)
-        finish()
     }
 }

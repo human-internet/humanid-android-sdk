@@ -182,7 +182,7 @@ class PhoneNumberFragment : PassiveFormFragment(), OnVerifyOtpListener {
                 listOf(
                     notEmptyRule(getString(string.error_field_required)),
                     numberOnlyRule(getString(string.error_number_format)),
-                    minMaxLengthRule(getString(string.error_invalid_phonenumber), 6, 13)
+                    minMaxLengthRule(getString(string.error_invalid_phonenumber), 8, 13)
                 )
             )
         )

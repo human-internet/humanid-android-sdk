@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import com.humanid.auth.HumanIDAuth
 import com.humanid.humanidui.presentation.phonenumber.PhoneNumberActivity
+import com.humanid.humanidui.presentation.welcome.HumanIDActivity
 import com.humanid.humanidui.util.BundleKeys
 import com.humanid.humanidui.util.ContextProvider
 import com.humanid.humanidui.util.SingletonHolder
@@ -22,7 +23,7 @@ class LoginManager(private val activity: Activity) {
 
     fun registerCallback(callback: LoginCallback){
         this.loginCallback = callback
-        PhoneNumberActivity.start(activity)
+        HumanIDActivity.start(activity)
     }
 
     fun logout(){

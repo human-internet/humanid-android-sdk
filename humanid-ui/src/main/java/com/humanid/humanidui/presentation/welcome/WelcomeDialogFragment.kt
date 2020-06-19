@@ -1,6 +1,7 @@
 package com.humanid.humanidui.presentation.welcome
 
 import android.app.Dialog
+import android.content.DialogInterface
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.LayerDrawable
@@ -29,7 +30,7 @@ import kotlinx.android.synthetic.main.fragment_bottom_sheet_dialog_welcome.*
  */
 class WelcomeDialogFragment : BottomSheetDialogFragment() {
 
-    companion object{
+    companion object {
         var listener: OnWelcomeDialogListener? = null
 
         fun newInstance(): WelcomeDialogFragment {
@@ -45,8 +46,10 @@ class WelcomeDialogFragment : BottomSheetDialogFragment() {
         setStyle(DialogFragment.STYLE_NO_FRAME, R.style.AppBottomSheetDialogTheme)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
 
         return inflater.inflate(R.layout.fragment_bottom_sheet_dialog_welcome, container, false)
     }
@@ -56,26 +59,23 @@ class WelcomeDialogFragment : BottomSheetDialogFragment() {
 
         context?.let {
             val humanIDOptions = HumanIDOptions.fromResource(it)
-            if (humanIDOptions?.applicationIcon != -1){
+            if (humanIDOptions?.applicationIcon != -1) {
                 humanIDOptions?.applicationIcon?.let { it1 ->
                     imgAppIcon.visible()
                     imgAppIcon.setImageDrawable(ContextCompat.getDrawable(it, it1))
                 }
             }
 
-            if (!humanIDOptions?.applicationName.isNullOrEmpty()){
+            if (!humanIDOptions?.applicationName.isNullOrEmpty()) {
                 tvAppName.visible()
                 tvTnC.visible()
                 tvAppName.text = humanIDOptions?.applicationName
-                tvTnC.text = "I hereby agree to ${humanIDOptions?.applicationName} Terms of Service"
+                tvTnC.text = "I hereby agree to ${humanIDOptions?.applicationName} terms of service"
             }
         }
 
         btnContinue.onClick {
             listener?.onButtonContinueClicked()
-        }
-
-        bottomSheetWelcome.onClick {
             dismiss()
         }
     }
@@ -125,5 +125,10 @@ class WelcomeDialogFragment : BottomSheetDialogFragment() {
         } catch (e: IllegalStateException) {
             Log.d("TransactionOnShow", "Exception", e)
         }
+    }
+
+    override fun onCancel(dialog: DialogInterface) {
+        super.onCancel(dialog)
+        activity?.finish()
     }
 }

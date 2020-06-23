@@ -66,16 +66,13 @@ class HumanIDActivity : BaseActivity(), WelcomeDialogFragment.OnWelcomeDialogLis
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onCloseActivityEventReceived(closeAllActivityEvent: CloseAllActivityEvent){
         val intent = Intent()
-        closeAllActivityEvent.exchangeToken?.let {
-            intent.putExtra(BundleKeys.KEY_EXCHANGE_TOKEN, it)
+        if (!closeAllActivityEvent.exchangeToken.isNullOrEmpty()){
+            intent.putExtra(BundleKeys.KEY_EXCHANGE_TOKEN, closeAllActivityEvent.exchangeToken)
+        }else if(!closeAllActivityEvent.errorMessage.isNullOrEmpty()){
+            intent.putExtra(BundleKeys.KEY_LOGIN_ERROR, closeAllActivityEvent.errorMessage)
+        }else{
+            intent.putExtra(BundleKeys.KEY_LOGIN_CANCEL, (closeAllActivityEvent.isCancel))
         }
-
-        closeAllActivityEvent.errorMessage?.let {
-            intent.putExtra(BundleKeys.KEY_LOGIN_ERROR, it)
-        }
-
-        intent.putExtra(BundleKeys.KEY_LOGIN_CANCEL, (closeAllActivityEvent.isCancel))
-
         setResult(0x300, intent)
         finish()
     }

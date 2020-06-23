@@ -9,17 +9,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.Toast;
-
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.FragmentManager;
 import androidx.viewpager.widget.ViewPager;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
 import com.bumptech.glide.Glide;
 import com.google.android.material.tabs.TabLayout;
 import com.humanid.filmreview.R;
@@ -30,11 +26,6 @@ import com.humanid.filmreview.domain.user.UserInteractor;
 import com.humanid.filmreview.domain.user.UserUsecase;
 import com.humanid.humanidui.presentation.LoginCallback;
 import com.humanid.humanidui.presentation.LoginManager;
-import com.humanid.humanidui.presentation.welcome.HumanIDActivity;
-import com.humanid.humanidui.presentation.welcome.WelcomeDialogFragment;
-
-import java.util.UUID;
-
 import org.jetbrains.annotations.NotNull;
 
 public class MainActivity extends AppCompatActivity {
@@ -51,13 +42,9 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.imgProfile)
     ImageView imgProfile;
 
-    private LoginManager loginManager;
-
     private UserUsecase userUsecase;
 
     private ProgressDialog progressDialog;
-
-    private WelcomeDialogFragment welcomeDialogFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,19 +58,13 @@ public class MainActivity extends AppCompatActivity {
 
         progressDialog = new ProgressDialog(this);
 
-        welcomeDialogFragment = new WelcomeDialogFragment();
-
-
         userUsecase = new UserInteractor(this);
 
         imgProfile.setOnClickListener(view -> {
-            //todo: please complete it
-            //welcomeDialogFragment.show(getSupportFragmentManager(), welcomeDialogFragment.getTag());
-
             if (UserInteractor.getInstance(this).isLoggedIn()){
                 showLogoutAlerDialog();
             }else{
-                loginManager.registerCallback(new LoginCallback() {
+                LoginManager.registerCallback(this, new LoginCallback() {
                     @Override
                     public void onCancel() {
                         Toast.makeText(MainActivity.this, getString(R.string.message_login_canceled), Toast.LENGTH_SHORT).show();
@@ -101,15 +82,8 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
             }
-    });
-
-    loginManager =LoginManager.INSTANCE.getInstance(this);
-
-        Log.d("UUID",UUID.randomUUID().
-
-    toString());
-
-}
+        });
+    }
 
     private void authenticateUser(String exchangeToken) {
         userUsecase.login(exchangeToken, new PostLoginRequest.OnLoginCallback() {
@@ -189,7 +163,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        loginManager.onActivityResult(requestCode, resultCode, data);
+        LoginManager.onActivityResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
     }
 
@@ -207,7 +181,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void logout() {
-        LoginManager.INSTANCE.getInstance(MainActivity.this).logout();
+        LoginManager.logout();
 
         UserInteractor.getInstance(this).logout(new OnLogoutCallback() {
             @Override

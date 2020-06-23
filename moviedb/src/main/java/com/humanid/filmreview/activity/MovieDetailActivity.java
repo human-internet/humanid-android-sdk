@@ -252,26 +252,11 @@ public class MovieDetailActivity extends AppCompatActivity implements
     }
 
     private void loginHumanID(){
-        LoginManager.INSTANCE.getInstance(this).registerCallback(new LoginCallback() {
+        LoginManager.registerCallback(this, new LoginCallback() {
             @Override
             public void onSuccess(@NotNull String exchangeToken) {
-                UserInteractor.getInstance(MovieDetailActivity.this).login(exchangeToken, new PostLoginRequest.OnLoginCallback() {
-                    @Override
-                    public void onLoading() {
-                       showLoading();
-                    }
-
-                    @Override
-                    public void onLoginSuccess() {
-                        hideLoading();
-                        Toast.makeText(MovieDetailActivity.this, "Login succeed", Toast.LENGTH_SHORT).show();
-                    }
-
-                    @Override
-                    public void onLoginFailed(String message) {
-                        hideLoading();
-                    }
-                });
+                hideLoading();
+                loginFilmReview(exchangeToken);
             }
 
             @Override
@@ -281,14 +266,36 @@ public class MovieDetailActivity extends AppCompatActivity implements
 
             @Override
             public void onCancel() {
-                Toast.makeText(MovieDetailActivity.this, "request cancel", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MovieDetailActivity.this, "Login canceled", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void loginFilmReview(@NotNull final String exchangeToken) {
+        UserInteractor.getInstance(MovieDetailActivity.this).login(exchangeToken, new PostLoginRequest.OnLoginCallback() {
+            @Override
+            public void onLoading() {
+               showLoading();
+            }
+
+            @Override
+            public void onLoginSuccess() {
+                hideLoading();
+                getReviews();
+                Toast.makeText(MovieDetailActivity.this, "Login succeed", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onLoginFailed(String message) {
+                hideLoading();
+                Toast.makeText(MovieDetailActivity.this, message, Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     private void hideLoading() {
         if (progressDialog != null){
-            progressDialog.dismiss();
+            progressDialog.cancel();
         }
     }
 
@@ -519,7 +526,7 @@ public class MovieDetailActivity extends AppCompatActivity implements
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        LoginManager.INSTANCE.getInstance(this).onActivityResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
+        LoginManager.onActivityResult(requestCode, resultCode, data);
     }
 }

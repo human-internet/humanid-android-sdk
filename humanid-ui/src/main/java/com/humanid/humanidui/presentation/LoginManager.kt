@@ -9,27 +9,22 @@ import com.humanid.humanidui.util.BundleKeys
 import com.humanid.humanidui.util.ContextProvider
 import com.humanid.humanidui.util.SingletonHolder
 
-class LoginManager(private val activity: Activity) {
-
-    companion object INSTANCE : SingletonHolder<LoginManager, Activity>({
-        LoginManager(activity = it)
-    })
-
-    init {
-        ContextProvider.initialize(activity)
-    }
-
+object LoginManager {
     private var loginCallback: LoginCallback? = null
 
-    fun registerCallback(callback: LoginCallback){
+    @JvmStatic
+    fun registerCallback(activity: Activity, callback: LoginCallback){
+        ContextProvider.initialize(activity)
         this.loginCallback = callback
         HumanIDActivity.start(activity)
     }
 
+    @JvmStatic
     fun logout(){
         HumanIDAuth.getInstance().logout()
     }
 
+    @JvmStatic
     fun revoke(callback: RevokeAccessCallback){
         HumanIDAuth.getInstance().revokeAccess().addOnCompleteListener {
             callback.onSuccess()
@@ -40,17 +35,18 @@ class LoginManager(private val activity: Activity) {
         }
     }
 
+    @JvmStatic
     fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?){
-        if (requestCode == 200){
-            if (data != null){
-                if (data.getBooleanExtra(BundleKeys.KEY_LOGIN_CANCEL, false)){
+        if (requestCode == 200 || resultCode == 0x300) {
+            if (data != null) {
+                if (data.getBooleanExtra(BundleKeys.KEY_LOGIN_CANCEL, false)) {
                     loginCallback?.onCancel()
-                }else{
-                    if (data.hasExtra(BundleKeys.KEY_EXCHANGE_TOKEN)){
+                } else {
+                    if (data.hasExtra(BundleKeys.KEY_EXCHANGE_TOKEN)) {
                         loginCallback?.onSuccess(data.getStringExtra(BundleKeys.KEY_EXCHANGE_TOKEN))
                     }
 
-                    if (data.hasExtra(BundleKeys.KEY_LOGIN_ERROR)){
+                    if (data.hasExtra(BundleKeys.KEY_LOGIN_ERROR)) {
                         loginCallback?.onError(data.getStringExtra(BundleKeys.KEY_LOGIN_ERROR))
                     }
                 }

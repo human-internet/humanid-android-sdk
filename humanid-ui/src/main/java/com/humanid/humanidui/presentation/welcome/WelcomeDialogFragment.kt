@@ -2,9 +2,11 @@ package com.humanid.humanidui.presentation.welcome
 
 import android.app.Dialog
 import android.content.DialogInterface
+import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.LayerDrawable
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.util.DisplayMetrics
@@ -77,6 +79,10 @@ class WelcomeDialogFragment : BottomSheetDialogFragment() {
         btnContinue.onClick {
             listener?.onButtonContinueClicked()
             dismiss()
+        }
+
+        tvTnC.setOnClickListener {
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://www.human-id.org/privacypolicy")))
         }
     }
 

@@ -77,7 +77,7 @@ Register securely by confirming your phone number. It is deleted after verificat
     <string name="sub_message_register_dialog">Let’s get your setup:</string>
 
     //Format
-    <string name="format_phone_number"><![CDATA[<font color=\'#075070\'><b> +%s</b></font>]]></string>
+    <string name="format_phone_number"><![CDATA[<font color=\'#075070\'><b>%s</b></font>]]></string>
     <string name="format_phone_number_dialog">&lt;font color=&quot;#075070&quot;&gt; %s&lt;/font&gt;</string>
 
     //Error

@@ -110,4 +110,6 @@ Register securely by confirming your phone number. It is deleted after verificat
     <string name="message_cancel">Cancel</string>
     <string name="title_verification_number">Verification Number</string>
     <string name="error_invalid_phonenumber">Invalid phone numbers</string>
+    <string name="error_message_invalid_veridication_code">Invalid verification code</string>
+    <string name="action_close">Close</string>
 </resources>

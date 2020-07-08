@@ -22,3 +22,7 @@ build
 *.iml
 *.ipr
 *.iws
+
+moviedb/release/moviedb-release.apk
+
+moviedb/release/output.json

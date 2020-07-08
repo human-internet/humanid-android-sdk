@@ -84,10 +84,10 @@ class OtpFragment : PassiveFormFragment() {
     private fun updateView() {
         val message = String.format(getString(R.string.message_send_otp_switch), "(+$countryCode) $phoneNumber")
         val subMessage = getString(R.string.sub_message_new_accoun)
-        val phoneNumber = String.format(getString(R.string.format_phone_number), "(+$countryCode $phoneNumber")
+        val phoneNumber = String.format(getString(R.string.format_phone_number), "(+$countryCode) $phoneNumber")
 
         tvMessage.text = message
-        tvSubMessage.text = toHtml(subMessage + phoneNumber)
+        tvSubMessage.text = toHtml("$subMessage $phoneNumber")
         tvSwitchMessage.gone()
         btnDifferentNumber.gone()
     }
@@ -167,7 +167,7 @@ class OtpFragment : PassiveFormFragment() {
                 hideLoading()
                 it.message?.let { message ->
                     if (message.contains("Existing login found on deviceId")) {
-                        showToast(getString(string.message_login_succeeded))
+                        showExistingLoginFoundDialog(message)
                     } else {
                         showOtpFailedDialog()
                     }
@@ -175,15 +175,26 @@ class OtpFragment : PassiveFormFragment() {
             }
     }
 
+    private fun showExistingLoginFoundDialog(message: String) {
+        context?.let {
+            AlertDialog.Builder(it)
+                .setMessage(message)
+                .setPositiveButton(getString(string.action_close)) { dialog, which ->
+                    dialog.dismiss()
+                    activity?.finish()
+                }.show()
+        }
+    }
+
     private fun showOtpFailedDialog() {
         context?.let {
             AlertDialog.Builder(it)
                 .setMessage(getString(string.error_message_invalid_veridication_code))
-                .setPositiveButton(getString(string.action_close), DialogInterface.OnClickListener { dialog, _ ->
+                .setPositiveButton(getString(string.action_close)) { dialog, _ ->
                     dialog.dismiss()
                     edtOtp.editableText?.clear()
                     requestFocusAndShowKeyboard(it)
-                })
+                }
                 .show()
         }
     }

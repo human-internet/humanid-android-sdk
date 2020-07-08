@@ -7,14 +7,16 @@ apply plugin: 'kotlin-kapt'
 
 apply plugin: 'kotlin-android-extensions'
 
+apply plugin: 'com.google.gms.google-services'
+
 android {
     compileSdkVersion 29
     defaultConfig {
         applicationId "com.humanid.filmreview"
         minSdkVersion 17
         targetSdkVersion 29
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "1.2"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
@@ -87,6 +89,8 @@ dependencies {
 
     implementation 'com.android.support:multidex:1.0.3'
     implementation  'com.github.Kennyc1012:MultiStateView:2.1.1'
+
+    implementation 'com.google.firebase:firebase-analytics:17.2.2'
 
     //humanID
     //implementation 'com.github.bluenumberfoundation:humanid-android-sdk:0.0.3'

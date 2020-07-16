@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun loginHumanID() {
-        LoginManager.getInstance(this).registerCallback(object : LoginCallback {
+        LoginManager.registerCallback(this, object : LoginCallback {
             override fun onCancel() {
                 showToast("Login Cancelled")
             }
@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        LoginManager.getInstance(this).onActivityResult(requestCode, resultCode, data)
+        LoginManager.onActivityResult(requestCode, resultCode, data)
         super.onActivityResult(requestCode, resultCode, data)
     }
 }

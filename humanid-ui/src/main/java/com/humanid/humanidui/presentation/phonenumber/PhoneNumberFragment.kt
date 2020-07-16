@@ -3,10 +3,10 @@ package com.humanid.humanidui.presentation.phonenumber
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.text.Html
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -18,7 +18,7 @@ import com.humanid.humanidui.event.CloseAllActivityEvent
 import com.humanid.humanidui.presentation.HumanIDOptions
 import com.humanid.humanidui.presentation.otp.OtpFragment
 import com.humanid.humanidui.presentation.otp.OtpFragment.OnVerifyOtpListener
-import com.humanid.humanidui.util.ReactiveFormFragment
+import com.humanid.humanidui.util.PassiveFormFragment
 import com.humanid.humanidui.util.emptyString
 import com.humanid.humanidui.util.extensions.gone
 import com.humanid.humanidui.util.extensions.onClick
@@ -34,16 +34,14 @@ import kotlinx.android.synthetic.main.fragment_phone_number.btnCancel
 import kotlinx.android.synthetic.main.fragment_phone_number.btnEnter
 import kotlinx.android.synthetic.main.fragment_phone_number.btnTransfer
 import kotlinx.android.synthetic.main.fragment_phone_number.ccpPhoneNumber
-import kotlinx.android.synthetic.main.fragment_phone_number.containerTopNormal
 import kotlinx.android.synthetic.main.fragment_phone_number.edtPhoneNumber
 import kotlinx.android.synthetic.main.fragment_phone_number.imgAppLogo
 import kotlinx.android.synthetic.main.fragment_phone_number.tvMessage
 import kotlinx.android.synthetic.main.fragment_phone_number.tvOTP
-import kotlinx.android.synthetic.main.fragment_phone_number.tvWelcomeApp
 import kotlinx.android.synthetic.main.layout_bottom_sheet.bottomSheet
 import org.greenrobot.eventbus.EventBus
 
-class PhoneNumberFragment : ReactiveFormFragment(), OnVerifyOtpListener {
+class PhoneNumberFragment : PassiveFormFragment(), OnVerifyOtpListener {
 
     private var listener: OnPhoneNumberListener? = null
 
@@ -66,11 +64,6 @@ class PhoneNumberFragment : ReactiveFormFragment(), OnVerifyOtpListener {
 
     override val layoutResource: Int = R.layout.fragment_phone_number
 
-    override fun initLib() {
-        super.initLib()
-        btnEnter.isEnabled = false
-    }
-
     override fun initIntent() {}
 
     override fun initUI() {
@@ -81,7 +74,11 @@ class PhoneNumberFragment : ReactiveFormFragment(), OnVerifyOtpListener {
 
         configureOtpBottomSheet()
 
-        activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
+        activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
+
+        showKeyboard(edtPhoneNumber, requireContext())
+        edtPhoneNumber.requestFocus()
+        edtPhoneNumber.error = null
     }
 
     private fun configureOtpBottomSheet(){
@@ -92,7 +89,11 @@ class PhoneNumberFragment : ReactiveFormFragment(), OnVerifyOtpListener {
         bottomSheetBehavior.isHideable = false
 
         bottomSheetBehavior.setBottomSheetCallback(object : BottomSheetCallback() {
-            override fun onStateChanged(bottomSheet: View, newState: Int) {}
+            override fun onStateChanged(bottomSheet: View, newState: Int) {
+                if (newState == BottomSheetBehavior.STATE_DRAGGING) {
+                    bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+                }
+            }
             override fun onSlide(bottomSheet: View, slideOffset: Float) {}
         })
     }
@@ -107,7 +108,8 @@ class PhoneNumberFragment : ReactiveFormFragment(), OnVerifyOtpListener {
         }
 
         btnEnter.onClick {
-            requestOtp()
+            setupFormValidation()
+            validate()
         }
 
         val typface = context?.let { ResourcesCompat.getFont(it, R.font.roboto_bold) }
@@ -162,14 +164,13 @@ class PhoneNumberFragment : ReactiveFormFragment(), OnVerifyOtpListener {
             val humanIDOptions = HumanIDOptions.fromResource(it)
             if (humanIDOptions?.applicationIcon != -1) {
                 humanIDOptions?.applicationIcon?.let { it1 ->
-                    imgAppLogo.visible()
+                    //imgAppLogo.visible()
                     imgAppLogo.setImageDrawable(ContextCompat.getDrawable(it, it1))
                 }
             }
 
             if (!humanIDOptions?.applicationName.isNullOrEmpty()) {
-                tvMessage.text = String.format(getString(string.label_verify_your_phone_number), humanIDOptions?.applicationName)
-                tvWelcomeApp.text = String.format(getString(string.label_welcome), humanIDOptions?.applicationName)
+                tvMessage.text = Html.fromHtml(String.format(getString(string.label_verify_your_phone_number), humanIDOptions?.applicationName))
             }
         }
     }
@@ -181,22 +182,22 @@ class PhoneNumberFragment : ReactiveFormFragment(), OnVerifyOtpListener {
                 listOf(
                     notEmptyRule(getString(string.error_field_required)),
                     numberOnlyRule(getString(string.error_number_format)),
-                    minMaxLengthRule(getString(string.error_field_required), 11, 13)
+                    minMaxLengthRule(getString(string.error_invalid_phonenumber), 8, 13)
                 )
             )
         )
     }
 
     override fun onValidationFailed() {
-        btnEnter.isEnabled = false
+
     }
 
     override fun onValidationSuccess() {
-        btnEnter.isEnabled = true
+        requestOtp()
     }
 
     private fun initView() {
-        containerTopNormal.visible()
+        tvMessage.visible()
         btnTransfer.gone()
     }
 

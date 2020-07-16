@@ -9,9 +9,9 @@
     <string name="label_continue_with">Continue with</string>
     <string name="label_recommended_full_privacy">(recommended for full privacy)</string>
     <string name="label_agreement">I hereby agree to MovieDB’s Terms of Service</string>
-    <string name="label_verify_your_phone_number">Verify your phone number to connect anonymously\nwith %s</string>
+    <string name="label_verify_your_phone_number"><![CDATA[humanID confirms your phone number <b>without</b> sharing it with <b>%s</b>.<br>Your data is permanently deleted after verification.]]></string>
     <string name="hint_phone_number">Phone Number</string>
-    <string name="message_otp_verification"><![CDATA[OTP verification is managed by an independent 3rd party.Number is never visible to humanID or partner app. Learn More]]></string>
+    <string name="message_otp_verification"><![CDATA[humanID gives you back control over your privacy. The non profit organization authenticates you without sharing your data or retaining your data.\nLearn More]]></string>
     <string name="action_cancel">Cancel</string>
     <string name="action_transfer_account_number">Transfer account to new number?</string>
     <string name="message_manage_and_monitor_login"><![CDATA[Manage & monitor all your logins & data with the humanID app]]></string>
@@ -77,7 +77,7 @@ Register securely by confirming your phone number. It is deleted after verificat
     <string name="sub_message_register_dialog">Let’s get your setup:</string>
 
     //Format
-    <string name="format_phone_number"><![CDATA[<font color=\'#075070\'><b> +%s</b></font>]]></string>
+    <string name="format_phone_number"><![CDATA[<font color=\'#075070\'><b>%s</b></font>]]></string>
     <string name="format_phone_number_dialog">&lt;font color=&quot;#075070&quot;&gt; %s&lt;/font&gt;</string>
 
     //Error
@@ -110,4 +110,6 @@ Register securely by confirming your phone number. It is deleted after verificat
     <string name="message_cancel">Cancel</string>
     <string name="title_verification_number">Verification Number</string>
     <string name="error_invalid_phonenumber">Invalid phone numbers</string>
+    <string name="error_message_invalid_veridication_code">Invalid verification code</string>
+    <string name="action_close">Close</string>
 </resources>

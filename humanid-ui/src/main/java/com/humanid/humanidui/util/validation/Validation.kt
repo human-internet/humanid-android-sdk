@@ -39,10 +39,12 @@ class Validation(val view: View, private val rules: List<Rule>) {
                 isValid = false
                 ruleNotPassedIndex = index
                 val errorMessage = rule.errorMessage
-                when (view) {
-                    is EditText -> view.error = errorMessage
-                    is TextInputLayout -> view.error = errorMessage
-                    is ErrorableView -> view.showError(errorMessage)
+                if (errorMessage.isNotEmpty()){
+                    when (view) {
+                        is EditText -> view.error = errorMessage
+                        is TextInputLayout -> view.error = errorMessage
+                        is ErrorableView -> view.showError(errorMessage)
+                    }
                 }
                 break
             }

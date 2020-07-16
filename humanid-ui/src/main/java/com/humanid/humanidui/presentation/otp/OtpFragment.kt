@@ -1,23 +1,36 @@
 package com.humanid.humanidui.presentation.otp
 
+import android.content.Context
+import android.content.DialogInterface
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import com.humanid.auth.HumanIDAuth
 import com.humanid.humanidui.R
 import com.humanid.humanidui.R.string
 import com.humanid.humanidui.util.BundleKeys
-import com.humanid.humanidui.util.ReactiveFormFragment
+import com.humanid.humanidui.util.PassiveFormFragment
 import com.humanid.humanidui.util.emptyString
-import com.humanid.humanidui.util.extensions.*
+import com.humanid.humanidui.util.extensions.gone
+import com.humanid.humanidui.util.extensions.onClick
+import com.humanid.humanidui.util.extensions.showToast
+import com.humanid.humanidui.util.extensions.toHtml
 import com.humanid.humanidui.util.makeLinks
 import com.humanid.humanidui.util.validation.Validation
 import com.humanid.humanidui.util.validation.util.minMaxLengthRule
-import kotlinx.android.synthetic.main.fragment_otp.*
+import kotlinx.android.synthetic.main.fragment_otp.btnDifferentNumber
+import kotlinx.android.synthetic.main.fragment_otp.btnResendCode
+import kotlinx.android.synthetic.main.fragment_otp.edtOtp
+import kotlinx.android.synthetic.main.fragment_otp.tvMessage
+import kotlinx.android.synthetic.main.fragment_otp.tvSubMessage
+import kotlinx.android.synthetic.main.fragment_otp.tvSwitchMessage
 
-class OtpFragment : ReactiveFormFragment() {
+class OtpFragment : PassiveFormFragment() {
 
     private var phoneNumber: String = emptyString()
     private var countryCode: String = emptyString()
@@ -35,9 +48,11 @@ class OtpFragment : ReactiveFormFragment() {
         private const val KEY_TIMER_STATE: String = "timer_state"
         private const val COUNT_DOWN_TIMER_INTERVAL: Long = 1000
 
-        var listener: OnOtpListener? = null
-
-        fun newInstance(countryCode: String, phoneNumber: String, onVerifyOtpListener: OnVerifyOtpListener): OtpFragment {
+        fun newInstance(
+            countryCode: String,
+            phoneNumber: String,
+            onVerifyOtpListener: OnVerifyOtpListener
+        ): OtpFragment {
             val fragment = OtpFragment()
             fragment.onVerifyOtpListener = onVerifyOtpListener
 
@@ -60,18 +75,19 @@ class OtpFragment : ReactiveFormFragment() {
     }
 
     override fun initUI() {
+        requestFocusAndShowKeyboard(requireContext())
         setSpannableString()
         startCountDownTimer()
         updateView()
     }
 
     private fun updateView() {
-        val message = String.format(getString(R.string.message_send_otp_switch), countryCode + phoneNumber)
+        val message = String.format(getString(R.string.message_send_otp_switch), "(+$countryCode) $phoneNumber")
         val subMessage = getString(R.string.sub_message_new_accoun)
-        val phoneNumber = String.format(getString(R.string.format_phone_number), countryCode + phoneNumber)
+        val phoneNumber = String.format(getString(R.string.format_phone_number), "(+$countryCode) $phoneNumber")
 
         tvMessage.text = message
-        tvSubMessage.text = toHtml(subMessage + phoneNumber)
+        tvSubMessage.text = toHtml("$subMessage $phoneNumber")
         tvSwitchMessage.gone()
         btnDifferentNumber.gone()
     }
@@ -81,6 +97,18 @@ class OtpFragment : ReactiveFormFragment() {
             edtOtp.setText("")
             resendOtp()
         }
+
+        edtOtp.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                validate()
+            }
+        })
     }
 
     private fun resendOtp() {
@@ -93,31 +121,31 @@ class OtpFragment : ReactiveFormFragment() {
                 if (it.isSuccessful) {
                     startCountDownTimer()
                 } else {
-                    btnResendCode.text = getString(R.string.action_resend_code)
+                    btnResendCode.text = getString(string.action_resend_code)
                 }
             }.addOnFailureListener {
-                btnResendCode.text = getString(R.string.action_resend_code)
+                btnResendCode.text = getString(string.action_resend_code)
                 btnResendCode.isClickable = true
             }
     }
 
     override fun initProcess() {
+        setupFormValidation()
     }
 
     override fun setupFormValidation() {
         addValidation(
             Validation(
                 edtOtp,
-                listOf(minMaxLengthRule(getString(string.error_length), 4, 4))
+                listOf(minMaxLengthRule(emptyString(), 4, 4))
             )
         )
     }
 
-    override fun onValidationFailed() {
-    }
+    override fun onValidationFailed() {}
 
     override fun onValidationSuccess() {
-        hideSoftKeyboard()
+        hideSoftKeyboard(edtOtp, requireContext())
         cancelCountDownTimer()
         val otpCode: String = edtOtp.text.toString().trim()
         verifyOtp(otpCode)
@@ -126,27 +154,54 @@ class OtpFragment : ReactiveFormFragment() {
     private fun verifyOtp(otpCode: String) {
         showLoading()
         cancelCountDownTimer()
-        HumanIDAuth.getInstance().register(countryCode.replace("+", "").trim(), phoneNumber, otpCode)
-                .addOnCompleteListener {
-                    hideLoading()
-                    if (it.isSuccessful) {
-                        it.result?.exchangeToken?.let { userHash ->
-                            onVerifyOtpListener.onVerifySuccess(userHash)
-                        }
-                    } else {
-                        onVerifyOtpListener.onVerifyFailed(getString(string.error_message_verify_otp_failed))
-                    }
-
-                }.addOnFailureListener {
-                    hideLoading()
-                    it.message?.let { message ->
-                        if (message.contains("Existing login found on deviceId")) {
-                            onVerifyOtpListener.onVerifyFailed(getString(string.message_login_succeeded))
-                        } else {
-                            onVerifyOtpListener.onVerifyFailed(message)
-                        }
+        HumanIDAuth.getInstance().login(countryCode.replace("+", "").trim(), phoneNumber, otpCode)
+            .addOnCompleteListener {
+                hideLoading()
+                if (it.isSuccessful) {
+                    it.result?.exchangeToken?.let { userHash ->
+                        onVerifyOtpListener.onVerifySuccess(userHash)
                     }
                 }
+
+            }.addOnFailureListener {
+                hideLoading()
+                it.message?.let { message ->
+                    if (message.contains("Existing login found on deviceId")) {
+                        showExistingLoginFoundDialog(message)
+                    } else {
+                        showOtpFailedDialog()
+                    }
+                }
+            }
+    }
+
+    private fun showExistingLoginFoundDialog(message: String) {
+        context?.let {
+            AlertDialog.Builder(it)
+                .setMessage(message)
+                .setPositiveButton(getString(string.action_close)) { dialog, which ->
+                    dialog.dismiss()
+                    activity?.finish()
+                }.show()
+        }
+    }
+
+    private fun showOtpFailedDialog() {
+        context?.let {
+            AlertDialog.Builder(it)
+                .setMessage(getString(string.error_message_invalid_veridication_code))
+                .setPositiveButton(getString(string.action_close)) { dialog, _ ->
+                    dialog.dismiss()
+                    edtOtp.editableText?.clear()
+                    requestFocusAndShowKeyboard(it)
+                }
+                .show()
+        }
+    }
+
+    private fun requestFocusAndShowKeyboard(context: Context) {
+        showKeyboard(edtOtp, context)
+        edtOtp.requestFocus()
     }
 
     private fun setSpannableString() {
@@ -156,11 +211,6 @@ class OtpFragment : ReactiveFormFragment() {
                 Toast.makeText(context, getString(R.string.label_learn_about_out_mission), Toast.LENGTH_SHORT).show()
             })
         )
-    }
-
-    interface OnOtpListener {
-        fun onButtonDifferentNumberClicked(type: String)
-        fun onOtpValidationSuccess(type: String, otpCode: String, countryCode: String, phoneNumber: String)
     }
 
     //region CountDownTimer
@@ -210,12 +260,12 @@ class OtpFragment : ReactiveFormFragment() {
                 val timeInSeconds: Long = milisUntilFinished / COUNT_DOWN_TIMER_INTERVAL
                 Log.d(TAG, "Timer : $timeInSeconds")
                 if (timeInSeconds == 0L) {
-                    btnResendCode.text = getString(R.string.action_resend_code)
+                    btnResendCode.text = getString(string.action_resend_code)
                     isCountingFinished = true
                     btnResendCode.isClickable = true
                     btnResendCode.setTextColor(resources.getColor(R.color.colorTwilightBlue))
                 } else {
-                    btnResendCode.text = getString(R.string.action_resend_code_sec, "${timeInSeconds}s")
+                    btnResendCode.text = getString(string.action_resend_code_sec, "${timeInSeconds}s")
                     btnResendCode.isClickable = false
                     btnResendCode.setTextColor(resources.getColor(R.color.colorWarmGrey))
                 }
@@ -225,7 +275,7 @@ class OtpFragment : ReactiveFormFragment() {
 
     //endregion
 
-    interface OnVerifyOtpListener{
+    interface OnVerifyOtpListener {
         fun onVerifySuccess(exchangeToken: String)
 
         fun onVerifyFailed(message: String)

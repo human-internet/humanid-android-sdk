@@ -10,17 +10,10 @@ public class OTPRequest {
 	private String countryCode;
 	@SerializedName("phone")
 	private String phone;
-	@SerializedName("appId")
-	private String applicationID;
-	@SerializedName("appSecret")
-	private String applicationSecret;
 
-	public OTPRequest(@NonNull String countryCode, @NonNull String phone,
-					  @NonNull String applicationID, @NonNull String applicationSecret) {
+	public OTPRequest(@NonNull String countryCode, @NonNull String phone) {
 		this.countryCode = countryCode;
 		this.phone = phone;
-		this.applicationID = applicationID;
-		this.applicationSecret = applicationSecret;
 	}
 
 	@NonNull
@@ -33,25 +26,13 @@ public class OTPRequest {
 		return phone;
 	}
 
-	@NonNull
-	public String getApplicationID(){
-		return applicationID;
-	}
-
-	@NonNull
-	public String getApplicationSecret() {
-		return applicationSecret;
-	}
-
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
 		OTPRequest that = (OTPRequest) o;
 		return countryCode.equals(that.countryCode) &&
-				phone.equals(that.phone) &&
-				applicationID.equals(that.applicationID) &&
-				applicationSecret.equals(that.applicationSecret);
+				phone.equals(that.phone);
 	}
 
 	@Override
@@ -59,8 +40,6 @@ public class OTPRequest {
 		int result = 1;
 		result = 31 * result + (countryCode == null ? 0 : countryCode.hashCode());
 		result = 31 * result + (phone == null ? 0 : phone.hashCode());
-		result = 31 * result + (applicationID == null ? 0 : applicationID.hashCode());
-		result = 31 * result + (applicationSecret == null ? 0 : applicationSecret.hashCode());
 
 		return result;
 	}
@@ -71,8 +50,6 @@ public class OTPRequest {
 		return "OTPRequest{" +
 				"countryCode='" + countryCode + '\'' +
 				", phone='" + phone + '\'' +
-				", applicationID='" + applicationID + '\'' +
-				", applicationSecret='" + applicationSecret + '\'' +
 				'}';
 	}
 }

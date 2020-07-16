@@ -26,7 +26,6 @@ import com.humanid.filmreview.domain.user.UserInteractor;
 import com.humanid.filmreview.domain.user.UserUsecase;
 import com.humanid.humanidui.presentation.LoginCallback;
 import com.humanid.humanidui.presentation.LoginManager;
-import java.util.UUID;
 import org.jetbrains.annotations.NotNull;
 
 public class MainActivity extends AppCompatActivity {
@@ -42,8 +41,6 @@ public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.imgProfile)
     ImageView imgProfile;
-
-    private LoginManager loginManager;
 
     private UserUsecase userUsecase;
 
@@ -61,17 +58,16 @@ public class MainActivity extends AppCompatActivity {
 
         progressDialog = new ProgressDialog(this);
 
-
         userUsecase = new UserInteractor(this);
 
         imgProfile.setOnClickListener(view -> {
             if (UserInteractor.getInstance(this).isLoggedIn()){
                 showLogoutAlerDialog();
             }else{
-                loginManager.registerCallback(new LoginCallback() {
+                LoginManager.registerCallback(this, new LoginCallback() {
                     @Override
                     public void onCancel() {
-                        Toast.makeText(MainActivity.this, "request cancel", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, getString(R.string.message_login_canceled), Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
@@ -87,11 +83,6 @@ public class MainActivity extends AppCompatActivity {
                 });
             }
         });
-
-        loginManager = LoginManager.INSTANCE.getInstance(this);
-
-        Log.d("UUID", UUID.randomUUID().toString());
-
     }
 
     private void authenticateUser(String exchangeToken) {
@@ -116,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void hideLoading() {
-        if (progressDialog != null){
+        if (progressDialog != null) {
             progressDialog.dismiss();
         }
     }
@@ -134,9 +125,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void setUpAvatar(Boolean isLoggeIn) {
         int avatar = 0;
-        if (isLoggeIn){
+        if (isLoggeIn) {
             avatar = R.drawable.wolverine;
-        }else{
+        } else {
             avatar = R.drawable.ic_person_black_24dp;
         }
 
@@ -172,11 +163,11 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        loginManager.onActivityResult(requestCode, resultCode, data);
+        LoginManager.onActivityResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    private void showLogoutAlerDialog(){
+    private void showLogoutAlerDialog() {
         AlertDialog alertDialog = new AlertDialog.Builder(this)
                 .setTitle("Logout")
                 .setMessage("Are you sure want to logout?")
@@ -189,8 +180,8 @@ public class MainActivity extends AppCompatActivity {
         alertDialog.show();
     }
 
-    private void logout(){
-        LoginManager.INSTANCE.getInstance(MainActivity.this).logout();
+    private void logout() {
+        LoginManager.logout();
 
         UserInteractor.getInstance(this).logout(new OnLogoutCallback() {
             @Override

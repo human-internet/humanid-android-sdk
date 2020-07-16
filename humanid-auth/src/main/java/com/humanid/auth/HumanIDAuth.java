@@ -67,11 +67,7 @@ public class HumanIDAuth {
     public Task<Void> requestOTP(@NonNull String countryCode, @NonNull String phone) {
         TaskCompletionSource<Void> task = new TaskCompletionSource<>();
         LiveData<Resource<String>> source = UserRepository.getInstance(applicationContext)
-                .requestOTP(
-                        countryCode, phone,
-                        HumanIDSDK.getInstance().getOptions().getApplicationID(),
-                        HumanIDSDK.getInstance().getOptions().getApplicationSecret()
-                );
+                .requestOTP(countryCode, phone);
 
         source.observeForever(new Observer<Resource<String>>() {
             @Override
@@ -94,16 +90,13 @@ public class HumanIDAuth {
     }
 
     @NonNull
-    public Task<HumanIDUser> register(@NonNull String countryCode, @NonNull String phone,
+    public Task<HumanIDUser> login(@NonNull String countryCode, @NonNull String phone,
                                       @NonNull String verificationCode) {
         TaskCompletionSource<HumanIDUser> newTask = new TaskCompletionSource<>();
         LiveData<Resource<User>> source = UserRepository.getInstance(applicationContext)
-                .register(
-                        countryCode, phone, verificationCode,
-                        DeviceIDManager.getInstance(applicationContext).getDeviceID(),
-                        DeviceIDManager.getInstance(applicationContext).getNotificationID(),
-                        HumanIDSDK.getInstance().getOptions().getApplicationID(),
-                        HumanIDSDK.getInstance().getOptions().getApplicationSecret()
+                .login(countryCode, phone,
+                        verificationCode,
+                        DeviceIDManager.getInstance(applicationContext).getDeviceID()
                 );
 
         source.observeForever(new Observer<Resource<User>>() {
@@ -118,36 +111,6 @@ public class HumanIDAuth {
                         } else {
                             newTask.setResult(null);
                         }
-                        break;
-                    case ERROR:
-                        source.removeObserver(this);
-                        newTask.setException(new Exception(resource.message));
-                        break;
-                }
-            }
-        });
-
-        return newTask.getTask();
-    }
-
-    @NonNull
-    public Task<Void> loginCheck(@NonNull String userHash) {
-        TaskCompletionSource<Void> newTask = new TaskCompletionSource<>();
-        LiveData<Resource<String>> source = UserRepository.getInstance(applicationContext)
-                .loginCheck(
-                        userHash,
-                        HumanIDSDK.getInstance().getOptions().getApplicationID(),
-                        HumanIDSDK.getInstance().getOptions().getApplicationSecret()
-                );
-
-        source.observeForever(new Observer<Resource<String>>() {
-            @Override
-            public void onChanged(Resource<String> resource) {
-                if (resource == null) return;
-                switch (resource.status) {
-                    case SUCCESS:
-                        source.removeObserver(this);
-                        newTask.setResult(null);
                         break;
                     case ERROR:
                         source.removeObserver(this);

@@ -9,6 +9,8 @@ import com.google.gson.annotations.SerializedName;
 import java.io.IOException;
 
 import okhttp3.ResponseBody;
+import org.json.JSONException;
+import org.json.JSONObject;
 import retrofit2.Response;
 
 public class APIResponse<T> {
@@ -45,8 +47,10 @@ public class APIResponse<T> {
 
             if (errorBody != null) {
                 try {
-                    error = errorBody.string();
-                } catch (IOException e) {
+                    String errorResponse = errorBody.string();
+                    JSONObject err = new JSONObject(errorResponse);
+                    error = err.optString("message");
+                } catch (IOException | JSONException e) {
                     e.printStackTrace();
                 }
             } else {

@@ -41,7 +41,7 @@ Please update to the latest SDK!
 	.
 	.
     dependencies {
-    	implementation 'com.github.bluenumberfoundation:humanid-android-sdk:0.0.4’
+    	implementation 'com.github.bluenumberfoundation:humanid-android-sdk:0.0.5’
     }
 
 

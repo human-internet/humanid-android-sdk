@@ -6,15 +6,34 @@ import com.google.gson.annotations.SerializedName;
 
 public class LoginRequest {
 
+	/**
+	 * String storing phone number without country code.
+	 */
 	@SerializedName("countryCode")
 	private String countryCode;
+	/**
+	 * String storing country code of phone number.
+	 */
 	@SerializedName("phone")
 	private String phone;
+	/**
+	 * String storing verification code.
+	 */
 	@SerializedName("verificationCode")
 	private String verificationCode;
+	/**
+	 * String storing device id.
+	 */
 	@SerializedName("deviceId")
 	private String deviceID;
 
+	/**
+	 * Constructor.
+	 * @param countryCode : String
+	 * @param phone : String
+	 * @param verificationCode : String
+	 * @param deviceID : String
+	 */
 	public LoginRequest(@NonNull String countryCode, @NonNull String phone,
 						   @NonNull String verificationCode, @NonNull String deviceID) {
 		this.countryCode = countryCode;
@@ -23,26 +42,47 @@ public class LoginRequest {
 		this.deviceID = deviceID;
 	}
 
+	/**
+	 *
+	 * @return : Returns the country code of a phone number.
+	 */
 	@NonNull
 	public String getCountryCode() {
 		return countryCode;
 	}
 
+	/**
+	 *
+	 * @return : Returns phone number without the country code.
+	 */
 	@NonNull
 	public String getPhone() {
 		return phone;
 	}
 
+	/**
+	 *
+	 * @return : Returns verification code.
+	 */
 	@NonNull
 	public String getVerificationCode() {
 		return verificationCode;
 	}
 
+	/**
+	 *
+	 * @return : Returns deviceID.
+	 */
 	@NonNull
 	public String getDeviceID() {
 		return deviceID;
 	}
 
+	/**
+	 *
+	 * @param o : Object to compare with.
+	 * @return : Compares Object o with self.
+	 */
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
@@ -54,6 +94,10 @@ public class LoginRequest {
 				deviceID.equals(that.deviceID);
 	}
 
+	/**
+	 *
+	 * @return : Returns a unique hash code using the unique variables in self.
+	 */
 	@Override
 	public int hashCode() {
 		int result = 1;
@@ -65,6 +109,10 @@ public class LoginRequest {
 		return result;
 	}
 
+	/**
+	 *
+	 * @return : Returns print-friendly representation of self.
+	 */
 	@NonNull
 	@Override
 	public String toString() {

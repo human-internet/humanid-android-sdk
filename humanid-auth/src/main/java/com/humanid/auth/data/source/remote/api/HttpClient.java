@@ -13,12 +13,25 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class HttpClient {
 
+    /**
+     * Tag holding class name "HttpClient"
+     */
     private final static String TAG = HttpClient.class.getSimpleName();
 
+    /**
+     * HumanIDSDK instance.
+     */
     private final static HumanIDSDK sdk = HumanIDSDK.getInstance();
 
+    /**
+     * String holding the base url to access for applying client ,converter , and call adapter.
+     */
     private final static String baseUrl = "https://core.human-id.org/v0.0.2/mobile/";
 
+    /**
+     *
+     * @return : Returns retrofit.builder object
+     */
     @NonNull
     private static Retrofit.Builder retrofit() {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
@@ -42,6 +55,11 @@ public class HttpClient {
                 .addCallAdapterFactory(LiveDataCallAdapterFactory.create());
     }
 
+    /**
+     *
+     * @param service : Generic type object
+     * @return : Return retrofit object to configure and prepare your requests, responses, authentication, logging and error handling.
+     */
     @NonNull
     public static  <T> T createService(@NonNull final Class<T> service) {
         return retrofit().build().create(service);

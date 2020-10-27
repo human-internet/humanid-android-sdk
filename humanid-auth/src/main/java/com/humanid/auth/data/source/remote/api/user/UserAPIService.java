@@ -18,7 +18,7 @@ import retrofit2.http.PUT;
 public interface UserAPIService {
 
     /**
-     * Interface. Responds to HTTP post request to “users/login/request-otp”.
+     * Interface. Responds to HTTP post request to users/login/request-otp.
      * @param countryCode : String
      * @param phone : String
      * @return : Returns LiveData<APIResponse <OTPResponse>> object
@@ -29,7 +29,7 @@ public interface UserAPIService {
     LiveData<APIResponse<OTPResponse>> requestOTP(@Field("countryCode") String countryCode, @Field("phone") String phone);
 
     /**
-     * Interface. Responds to HTTP post request to “users/login”.
+     * Interface. Responds to HTTP post request to users/login.
      * @param params : Login information Map type.
      * @return : Returns LiveData<APIResponse <LoginResponse>> object.
      */
@@ -39,7 +39,7 @@ public interface UserAPIService {
     LiveData<APIResponse<LoginResponse>> login(@FieldMap Map<String, String> params);
 
     /**
-     * Interface. Responds to HTTP post request to “users/revokeCccess”.
+     * Interface. Responds to HTTP post request to users/revokeCccess.
      * @param request : Reponse body.
      * @return : Returns LiveData<APIResponse <RevokeAcessResponse>> object.
      */

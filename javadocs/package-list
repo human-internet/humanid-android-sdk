@@ -1,0 +1,16 @@
+com.humanid
+com.humanid.auth
+com.humanid.auth.data.model
+com.humanid.auth.data.repository
+com.humanid.auth.data.source.local.preference.user
+com.humanid.auth.data.source.remote.api
+com.humanid.auth.data.source.remote.api.user
+com.humanid.auth.data.source.remote.api.user.login
+com.humanid.auth.data.source.remote.api.user.otp
+com.humanid.auth.data.source.remote.api.user.revoke
+com.humanid.auth.internal
+com.humanid.auth.service
+com.humanid.auth.util.livedata
+com.humanid.auth.util.livedata.vo
+com.humanid.provider
+com.humanid.util

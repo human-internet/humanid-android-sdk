@@ -8,7 +8,7 @@ import com.humanid.auth.internal.DeviceIDManager;
 public class HumanIDFCMService extends FirebaseMessagingService {
 
     /**
-     * Java string with value “HumanIDFCMService”.
+     * Java string with value HumanIDFCMService.
      */
     private final static String TAG = HumanIDFCMService.class.getSimpleName();
 

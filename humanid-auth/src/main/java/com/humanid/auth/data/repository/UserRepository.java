@@ -25,7 +25,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class UserRepository {
 
     /**
-     * Java string with value “UserRepository”.
+     * Java string with value UserRepository.
      */
     private final static String TAG = UserRepository.class.getSimpleName();
 

@@ -16,17 +16,17 @@ import com.humanid.util.Preconditions;
 public class UserPreference {
 
     /**
-     *Java string with value “UserPreference”.
+     *Java string with value UserPreference.
      */
     private final static String TAG = UserPreference.class.getSimpleName();
 
     /**
-     * Java string with value "com.humanid.auth".
+     * Java string with value com.humanid.auth.
      */
     private final static String SHARED_PREF_NAME = "com.humanid.auth";
 
     /**
-     * Java string with value “USER”.
+     * Java string with value USER.
      */
     private final static String USER_KEY = "USER";
 

@@ -20,11 +20,11 @@ import com.humanid.util.Preconditions;
  */
 public class HumanIDInitProvider extends ContentProvider {
     /**
-     *“HumanIDSDK”
+     *HumanIDSDK
      */
     private final static String TAG = HumanIDSDK.class.getSimpleName();
     /**
-     *"com.humanid.provider.HumanIDInitProvider"
+     *com.humanid.provider.HumanIDInitProvider
      */
     @VisibleForTesting
     static final String EMPTY_APPLICATION_ID_PROVIDER_AUTHORITY =

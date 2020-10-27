@@ -13,7 +13,7 @@ import com.humanid.util.Preconditions;
  */
 public final class HumanIDSDK {
     /**
-     *“HumanIDSDK”
+     *HumanIDSDK
      */
     private final static String TAG = HumanIDSDK.class.getSimpleName();
     /**

@@ -16,7 +16,7 @@ import java.util.Map;
 public class UserAPI implements UserAPIService {
 
     /**
-     Java string with value “UserAPI”.
+     Java string with value UserAPI.
      */
     private final static String TAG = UserAPI.class.getSimpleName();
 

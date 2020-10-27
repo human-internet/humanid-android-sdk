@@ -20,7 +20,7 @@ import com.humanid.auth.util.livedata.vo.Resource;
 
 public class HumanIDAuth {
     /**
-     * Java string with value “HumanIDAuth”.
+     * Java string with value HumanIDAuth.
      */
     private final static String TAG = HumanIDAuth.class.getSimpleName();
 

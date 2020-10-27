@@ -12,7 +12,7 @@ import java.util.concurrent.Executor;
  */
 public class Executors {
     /**
-     *“Executors”
+     *Executors
      */
     private final static String TAG = Executors.class.getSimpleName();
     /**

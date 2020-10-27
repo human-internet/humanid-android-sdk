@@ -8,22 +8,22 @@ import androidx.annotation.Nullable;
 public class DeviceIDManager {
 
     /**
-     * Java string with value “DeviceIDManager”.
+     * Java string with value DeviceIDManager.
      */
     private final static String TAG = DeviceIDManager.class.getSimpleName();
 
     /**
-     * Java string with value “com.humanid.auth.internal.DeviceIDManager”.
+     * Java string with value com.humanid.auth.internal.DeviceIDManager.
      */
     private final static String SHARED_PREF_NAME = DeviceIDManager.class.getCanonicalName();
 
     /**
-     * Java string with value “DEVICE_ID”.
+     * Java string with value DEVICE_ID.
      */
     private final static String DEVICE_ID_KEY = "DEVICE_ID";
 
     /**
-     * Java string with value “NOTIFICATION_ID”.
+     * Java string with value NOTIFICATION_ID.
      */
     private final static String NOTIFICATION_ID_KEY = "NOTIFICATION_ID";
 

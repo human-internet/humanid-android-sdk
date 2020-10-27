@@ -18,12 +18,26 @@ import retrofit2.Retrofit;
 
 public final class LiveDataCallAdapterFactory extends CallAdapter.Factory {
 
+    /**
+     * Constructor.
+     */
     private LiveDataCallAdapterFactory() { }
 
+    /**
+     * Creates and returns new LiveDataCallAdapterFactory object.
+     * @return
+     */
     public static LiveDataCallAdapterFactory create() {
         return new LiveDataCallAdapterFactory();
     }
 
+    /**
+     *
+     * @param returnType
+     * @param annotations
+     * @param retrofit
+     * @return : LiveDataCallAdapterFactory: the new object created by this function.
+     */
     @Override
     public CallAdapter<?, ?> get(@NonNull Type returnType, @NonNull Annotation[] annotations,
                                  @NonNull Retrofit retrofit) {
@@ -48,6 +62,10 @@ public final class LiveDataCallAdapterFactory extends CallAdapter.Factory {
         return new LiveDataCallAdapter<>(bodyType);
     }
 
+    /**
+     * Creates and returns LiveDataCallAdapter object of Type returnType.
+     * @param <R> : CallAdapter<R>: a LiveDataCallAdapter object of type R that extends the CallAdapter class.
+     */
     private static final class LiveDataCallAdapter<R>
             implements CallAdapter<R, LiveData<APIResponse<R>>> {
         private final Type responseType;

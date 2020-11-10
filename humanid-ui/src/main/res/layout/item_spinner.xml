@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="@dimen/dimen_2dp"
+    android:layout_marginStart="@dimen/dimen_4dp">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imgFlag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dimen_4dp"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvCodeNumber"
+        style="@style/HumanIdTextView.Bold.Black"
+        android:textSize="@dimen/text_size_14sp"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="@dimen/dimen_8dp"/>
+</LinearLayout>

@@ -1,0 +1,16 @@
+apply plugin: 'com.android.library'
+apply plugin: 'com.github.dcendents.android-maven'
+
+group = 'com.github.bluenumberfoundation'
+
+android {
+    defaultConfig {
+        versionName project.ext.version
+        consumerProguardFiles 'proguard-rules.pro'
+    }
+}
+
+dependencies {
+    // Androidx Library
+    implementation "androidx.annotation:annotation:${project.ext.annotationVersion}"
+}

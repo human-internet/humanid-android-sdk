@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="HumanIdTextView">
+        <item name="android:fontFamily">@font/roboto_regular</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="HumanIdTextView.Medium">
+        <item name="android:fontFamily">@font/roboto_medium</item>
+    </style>
+
+    <style name="HumanIdTextView.Bold">
+        <item name="android:fontFamily">@font/roboto_bold</item>
+    </style>
+
+    <style name="HumanIdTextView.Light">
+        <item name="android:fontFamily">@font/roboto_light</item>
+    </style>
+
+    <style name="HumanIdTextView.Medium.White">
+        <item name="android:textColor">@color/colorWhite</item>
+    </style>
+
+    <style name="HumanIdTextView.Medium.Tomato">
+        <item name="android:textColor">@color/colorTomato</item>
+    </style>
+
+
+    <style name="HumanIdTextView.Bold.Black">
+        <item name="android:textColor">@color/colorBlack</item>
+    </style>
+
+    <style name="HumanIdTextView.Light.Black">
+        <item name="android:textColor">@color/colorBlack</item>
+    </style>
+
+    <style name="HumanIdTextView.BlackColor">
+        <item name="android:textColor">@color/colorBlack</item>
+    </style>
+
+    <style name="HumanIdTextView.BlackTwo">
+        <item name="android:textColor">@color/colorBlackTwo</item>
+    </style>
+
+    <style name="HumanIdTextView.Tomato">
+        <item name="android:textColor">@color/colorTomato</item>
+    </style>
+
+    <style name="HumanIdTextView.GreyishBrown">
+        <item name="android:textColor">@color/colorGreyishBrown</item>
+    </style>
+
+    <style name="HumanIdTextView.PinkishGrey">
+        <item name="android:textColor">@color/colorPinkishGrey</item>
+    </style>
+
+    <style name="HumanIdTextView.Medium.LightMustard">
+        <item name="android:textColor">@color/colorLightMustard</item>
+    </style>
+
+    <style name="HumanIdTextView.Light.WarmGrey">
+        <item name="android:textColor">@color/colorWarmGrey</item>
+    </style>
+
+    <style name="HumanIdTextView.Light.TwilightBlue">
+        <item name="android:textColor">@color/colorTwilightBlue</item>
+    </style>
+
+    <style name="HumanIdTextView.Medium.Black">
+        <item name="android:textColor">@color/colorBlack</item>
+    </style>
+
+    <style name="HumanIdTextView.Black">
+        <item name="android:textColor">@color/colorBlack</item>
+    </style>
+
+    <style name="HumanIdTextView.Medium.TwilightBlue">
+        <item name="android:textColor">@color/colorTwilightBlue</item>
+    </style>
+
+    <style name="HumanIdTextView.Bold.Tael">
+        <item name="android:textColor">@color/colorTael</item>
+    </style>
+
+</resources>

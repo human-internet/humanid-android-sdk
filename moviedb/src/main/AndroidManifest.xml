@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.humanid.filmreview">
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+
+    <permission
+        android:name="com.humanid.filmreview.READ_DATABASE"
+        android:protectionLevel="normal" />
+    <permission
+        android:name="com.humanid.filmreview.WRITE_DATABASE"
+        android:protectionLevel="normal" />
+
+    <application
+        android:name="com.humanid.filmreview.BaseApplication"
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher_app"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme.NoActionBar"
+        android:usesCleartextTraffic="true"
+        tools:ignore="GoogleAppIndexingWarning">
+        <meta-data
+            android:name="com.humanid.sdk.applicationId"
+            android:value="@string/human_id_appid"/>
+        <meta-data
+            android:name="com.humanid.sdk.applicationSecret"
+            android:value="@string/human_id_secret"/>
+        <meta-data
+            android:name="com.humanid.sdk.applicationIcon"
+            android:resource="@drawable/ic_launcher_app"/>
+        <meta-data
+            android:name="com.humanid.sdk.applicationName"
+            android:value="@string/app_name"/>
+        <meta-data android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id"/>
+
+        <activity android:name="com.facebook.FacebookActivity"
+            android:configChanges=
+                "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name" />
+        <activity
+            android:name="com.facebook.CustomTabActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="@string/fb_login_protocol_scheme" />
+            </intent-filter>
+        </activity>
+
+
+        <activity android:name="com.humanid.filmreview.activity.FavoriteActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name="com.humanid.filmreview.activity.ProfileActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name="com.humanid.filmreview.activity.ReviewActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.humanid.filmreview.activity.MainActivity"
+            android:configChanges="orientation|screenSize"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.humanid.filmreview.activity.MovieDetailActivity"
+            android:configChanges="orientation|screenSize"
+            android:parentActivityName="com.humanid.filmreview.activity.MainActivity"
+            android:theme="@style/AppTheme.TranslucentStatusBar"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity android:name="com.humanid.filmreview.activity.SettingActivity"
+            android:screenOrientation="portrait"/>
+
+        <provider
+            android:name="com.humanid.filmreview.provider.MoviesProvider"
+            android:authorities="com.humanid.filmreview"
+            android:exported="true"
+            android:readPermission="com.humanid.filmreview.READ_DATABASE"
+            android:writePermission="com.humanid.filmreview.WRITE_DATABASE" />
+
+        <receiver
+            android:name="com.humanid.filmreview.service.AlarmReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name="com.humanid.filmreview.service.UpcomingMovieServices"
+            android:enabled="true" />
+        <service
+            android:name="com.humanid.filmreview.service.StackWidgetService"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
+
+        <receiver android:name="com.humanid.filmreview.widget.StackWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/stack_widget_info" />
+        </receiver>
+
+
+
+    </application>
+
+
+
+</manifest>

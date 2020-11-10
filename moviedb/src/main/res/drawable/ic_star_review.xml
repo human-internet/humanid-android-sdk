@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/ic_star_review_selected" android:state_pressed="true" />
+    <item android:drawable="@drawable/ic_star_review_selected" android:state_active="true" />
+    <item android:drawable="@drawable/ic_star_review_selected" android:state_selected="true" />
+
+    <item android:drawable="@drawable/ic_star_review_unselected" android:state_pressed="false" />
+    <item android:drawable="@drawable/ic_star_review_unselected" android:state_active="false" />
+    <item android:drawable="@drawable/ic_star_review_unselected" android:state_selected="false" />
+
+    <item android:drawable="@drawable/ic_star_review_unselected" />
+</selector>

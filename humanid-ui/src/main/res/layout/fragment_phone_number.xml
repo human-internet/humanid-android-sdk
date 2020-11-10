@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/colorTwilightBlue">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/dimen_16dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/bottomSheetNotification"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/imgHumanIdLogo"
+                android:layout_width="@dimen/dimen_100dp"
+                android:layout_height="@dimen/dimen_100dp"
+                android:background="@color/colorTwilightBlue"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_humanid_logo_white_transparent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/imgAppLogo"
+                android:layout_width="@dimen/dimen_50dp"
+                android:layout_height="@dimen/dimen_50dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@id/tvMessage"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tvMessage" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvMessage"
+                style="@style/HumanIdTextView.BlackColor"
+                android:layout_width="@dimen/dimen_0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_8dp"
+                android:layout_marginLeft="@dimen/dimen_8dp"
+                android:layout_marginTop="@dimen/dimen_24dp"
+                android:gravity="center_horizontal"
+                android:text="@string/label_verify_your_phone_number"
+                android:textAlignment="center"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/text_size_12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/imgAppLogo"
+                app:layout_constraintTop_toBottomOf="@id/imgHumanIdLogo"
+                app:layout_goneMarginStart="@dimen/dimen_0dp" />
+
+            <com.hbb20.CountryCodePicker
+                android:id="@+id/ccpPhoneNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_8dp"
+                android:layout_marginLeft="@dimen/dimen_8dp"
+                android:layout_marginTop="@dimen/dimen_16dp"
+                android:background="@drawable/bg_white_underline"
+                app:ccpDialog_initialScrollToSelection="true"
+                app:ccpDialog_keyboardAutoPopup="false"
+                app:ccpDialog_showCloseIcon="true"
+                app:ccpDialog_showFastScroller="false"
+                app:ccpDialog_showPhoneCode="true"
+                app:ccpDialog_showTitle="false"
+                app:ccp_arrowColor="@color/colorWhite"
+                app:ccp_arrowSize="16dp"
+                app:ccp_autoDetectCountry="true"
+                app:ccp_clickable="true"
+                app:ccp_contentColor="@color/colorWhite"
+                app:ccp_countryAutoDetectionPref="SIM_NETWORK_LOCALE"
+                app:ccp_flagBorderColor="@color/colorTransparent"
+                app:ccp_showArrow="true"
+                app:ccp_showFlag="true"
+                app:ccp_showNameCode="false"
+                app:ccp_showPhoneCode="true"
+                app:ccp_textGravity="RIGHT"
+                app:ccp_textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvMessage" />
+
+            <com.humanid.humanidui.presentation.custom.CustomEditText
+                android:id="@+id/edtPhoneNumber"
+                android:layout_width="@dimen/dimen_0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/dimen_4dp"
+                android:digits="1234567890"
+                android:background="@drawable/bg_white_underline"
+                android:ellipsize="end"
+                android:fontFamily="@font/roboto_regular"
+                android:hint="@string/hint_phone_number"
+                android:imeOptions="actionDone"
+                android:gravity="center_vertical"
+                android:inputType="phone"
+                android:lines="1"
+                android:maxLength="14"
+                android:maxLines="1"
+                android:padding="9dp"
+                android:textColor="@color/colorWhite"
+                android:textColorHint="@color/colorWhite"
+                android:textCursorDrawable="@null"
+                android:textSize="12sp"
+                app:autoSizeMaxTextSize="@dimen/text_size_14sp"
+                app:autoSizeMinTextSize="@dimen/text_size_10sp"
+                app:autoSizeStepGranularity="2sp"
+                app:backgroundTint="@color/colorWhite"
+                app:layout_constraintBottom_toBottomOf="@id/ccpPhoneNumber"
+                app:layout_constraintEnd_toStartOf="@+id/btnEnter"
+                app:layout_constraintStart_toEndOf="@id/ccpPhoneNumber"
+                app:layout_constraintTop_toTopOf="@id/ccpPhoneNumber" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnEnter"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dimen_48dp"
+                android:padding="4dp"
+                android:text="@string/action_enter"
+                android:textAllCaps="true"
+                android:textColor="@color/colorTwilightBlue"
+                android:textSize="12sp"
+                app:backgroundTint="@color/colorLightMustard"
+                app:layout_constraintBottom_toBottomOf="@id/edtPhoneNumber"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/edtPhoneNumber" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvOTP"
+                style="@style/HumanIdTextView.Light.Black"
+                android:layout_width="@dimen/dimen_0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/dimen_16dp"
+                android:gravity="center"
+                android:text="@string/message_otp_verification"
+                android:textAlignment="center"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/text_size_10sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/edtPhoneNumber" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnCancel"
+                style="@style/HumanIdTextButton.Medium.White"
+                android:layout_width="@dimen/dimen_0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_18dp"
+                android:layout_marginEnd="@dimen/dimen_8dp"
+                android:layout_marginRight="@dimen/dimen_8dp"
+                android:gravity="center"
+                android:padding="@dimen/dimen_16dp"
+                android:text="@string/action_cancel"
+                android:textSize="@dimen/text_size_14sp"
+                app:layout_constraintEnd_toStartOf="@id/btnTransfer"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvOTP"
+                app:layout_goneMarginRight="@dimen/dimen_0dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnTransfer"
+                style="@style/HumanIdTextButton.Medium.PastelRed"
+                android:layout_width="@dimen/dimen_0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_8dp"
+                android:layout_marginLeft="@dimen/dimen_8dp"
+                android:gravity="center"
+                android:padding="@dimen/dimen_4dp"
+                android:text="@string/action_transfer_account_number"
+                android:textSize="@dimen/text_size_10sp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@id/btnCancel"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/btnCancel"
+                app:layout_constraintTop_toTopOf="@id/btnCancel" />
+
+            <LinearLayout
+                android:id="@+id/mcvAd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_18dp"
+                android:background="@color/colorLightBlueGrey"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingStart="@dimen/dimen_14dp"
+                android:paddingTop="@dimen/dimen_10dp"
+                android:paddingEnd="@dimen/dimen_14dp"
+                android:paddingBottom="@dimen/dimen_10dp"
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@id/btnCancel">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_logo_humanid_icon" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/HumanIdTextView.Light.TwilightBlue"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dimen_8dp"
+                    android:layout_marginEnd="@dimen/dimen_8dp"
+                    android:layout_weight="1"
+                    android:text="@string/message_manage_and_monitor_login"
+                    android:textSize="@dimen/text_size_10sp" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_others_gplay" />
+
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+    <include layout="@layout/layout_bottom_sheet" />
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

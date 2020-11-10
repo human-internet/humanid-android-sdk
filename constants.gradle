@@ -1,0 +1,26 @@
+project.ext {
+    // BuildScript
+    gradleVersion = "3.5.0"
+    googleServiceVersion = "4.2.0"
+
+    // SDK and Tools
+    buildTools = "28.0.3"
+    compileSdk = 28
+    minSdk = 16
+    targetSdk = 28
+
+    // SDK Dependencies
+    annotationVersion = "1.1.0"
+    appcompatVersion = "1.1.0"
+    constraintVersion = "1.1.3"
+    lifecycleVersion = "2.1.0"
+    gsonVersion = "2.8.5"
+    retrofitVersion = "2.6.0"
+    okhttp3Version = "4.0.1"
+
+    // Test Dependencies
+    jUnitVersion = "4.12"
+
+    version = "samples"
+    kotlin_version = '1.3.50'
+}

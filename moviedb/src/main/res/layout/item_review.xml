@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/llReview"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginBottom="@dimen/dimen_16dp">
+
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/mcvReview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="@dimen/dimen_7dp"
+        app:cardBackgroundColor="@color/colorWhite"
+        app:strokeWidth="@dimen/dimen_1dp"
+        app:strokeColor="@color/colorWhiteTwo">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/dimen_12dp">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvContent"
+                style="@style/MovieCatalogueTextView.WarmGreyTwo"
+                android:ellipsize="end"
+                android:maxLines="3"
+                android:text="@string/sample_review"
+                android:textSize="@dimen/text_size_10sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/minus" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvAuthor"
+                    style="@style/MovieCatalogueTextView.Medium.BlackTwo"
+                    android:layout_marginStart="@dimen/dimen_8dp"
+                    android:text="@string/sample_author"
+                    android:textSize="@dimen/text_size_10sp" />
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+</LinearLayout>

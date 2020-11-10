@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/colorWhite"
+    android:clipToPadding="false"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/toolbarReview"
+        layout="@layout/layout_toolbar" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvReview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:padding="@dimen/dimen_16dp"
+            android:visibility="gone"/>
+
+        <ProgressBar
+            android:id="@+id/pbReview"
+            style="@style/CustomProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true" />
+
+        <TextView
+            android:id="@+id/tvReviewError"
+            style="@style/CustomTextViewError"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/label_failed_to_load_data"
+            android:visibility="gone" />
+
+    </RelativeLayout>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dimen_8dp"
+        app:strokeColor="@color/colorWhiteTwo"
+        app:strokeWidth="@dimen/dimen_1dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dimen_8dp">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnAddReview"
+                style="@style/MovieCatalogueButton.White"
+                android:layout_width="match_parent"
+                android:textSize="@dimen/text_size_12sp"
+                android:backgroundTint="@color/colorElm"
+                android:padding="@dimen/dimen_16dp"
+                android:text="@string/action_add_review"
+                app:cornerRadius="@dimen/dimen_6dp"
+                tools:targetApi="lollipop" />
+
+        </RelativeLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</LinearLayout>

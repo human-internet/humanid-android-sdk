@@ -1,0 +1,73 @@
+<resources>
+
+
+    <string name="app_name">Film Review</string>
+    <string name="label_search">Search</string>
+    <string name="hint_search_movie">Search movies</string>
+    <string name="label_search_not_found">Search not found</string>
+    <string name="label_movies_not_found">Movies not found</string>
+    <string name="label_review_not_found">Review not found</string>
+    <string name="label_no_internet_connection">No internet connection</string>
+    <string name="label_synopsis">Synopsis</string>
+    <string name="label_release_date">Release date:</string>
+    <string name="label_language">Language</string>
+    <string name="label_genre">Genre:</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_settings">Settings</string>
+    <string name="label_movie_poster">movie poster</string>
+    <string name="label_now_playing">Now Playing</string>
+    <string name="label_upcoming_movies">Coming Soon</string>
+    <string name="action_search">Search</string>
+    <string name="label_setting">Settings</string>
+    <string name="label_search_result">Search Result</string>
+    <string name="label_notification">Notification</string>
+    <string name="label_upcoming_reminder_notification">Upcoming Reminder Notification</string>
+    <string name="label_turn_on_off_upcoming_reminder">Turn on/off upcoming reminder</string>
+    <string name="label_change_language">Change Language</string>
+    <string name="label_notif_message"> is out!</string>
+    <string name="label_off">OFF</string>
+    <string name="label_on">ON</string>
+    <string name="label_favourite_movie">Favourite Movie</string>
+    <string name="label_favourite">My Favorite Film</string>
+    <string name="title_review">Reviews</string>
+    <string name="label_added_to_favourite">Added to favourite</string>
+    <string name="label_removed_from_favourite">Removed from favourite</string>
+    <string name="label_empty_favorite_movies">No Favorite Movies</string>
+    <string name="label_daily_reminder_notification">Daily Reminder Notification</string>
+    <string name="label_turn_on_off_daily_reminder">Turn on/off daily reminder</string>
+    <string name="message_error_load_data">Can\'t loaded data</string>
+    <string name="label_missing_you">missing you</string>
+    <string name="appwidget_text">Your Favorite Movie</string>
+    <string name="add_widget">Add widget</string>
+    <string name="empty_text">No Data</string>
+    <string name="label_failed_to_load_data">Failed to load data</string>
+
+    <string name="hint_search">Search here</string>
+    <string name="action_logout">Logout</string>
+    <string name="label_profile">Profile</string>
+    <string name="label_ten">10</string>
+    <string name="label_overview">Overview</string>
+    <string name="label_cast">Cast</string>
+    <string name="label_review">User Review</string>
+    <string name="label_more">More</string>
+    <string name="action_login_review">Login to add review</string>
+    <string name="label_rate_this_movie">REVIEW THIS MOVIE</string>
+    <string name="label_review_title">Review Title</string>
+    <string name="hint_review">Review</string>
+    <string name="action_rate_and_review">Add Review</string>
+    <string name="action_add_fav">Add to favorite</string>
+    <string name="action_rate_now">Review now</string>
+    <string name="label_logout">Log Out</string>
+    <string name="message_logout">Are you sure to log out?</string>
+    <string name="label_english">English</string>
+    <string name="action_add_review">Add a review</string>
+    <string name="error_message_unable_to_reach_server">Failed to request to server</string>
+    <string name="human_id_secret" translatable="false">12FZ3llRg5KFDuJFLftOxlQof1DKBtgL7mZrY4AE1zaM78o1Fvza2IZdKjdxT45Q</string>
+    <string name="human_id_appid" translatable="false">MOBILE_m65nshUmT9BDchwFEKdz</string>
+    <string name="api_secret" translatable="false">vgpPxR8F3uCRmhSnRwnRkizL0IvIbZ9UN0Q3x2geaTQjXPGz</string>
+    <string name="message_login_canceled">Login canceled</string>
+    <string name="facebook_app_id">1267313883636171</string>
+    <string name="fb_login_protocol_scheme">fb1267313883636171</string>
+
+</resources>

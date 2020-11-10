@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/bottomSheetNotification"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/dimen_16dp"
+    android:paddingRight="@dimen/dimen_16dp">
+
+    <FrameLayout
+        android:id="@+id/flDialogPhone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/HumanIdTextView.Medium.Tomato"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/dimen_12dp"
+                android:text="@string/label_are_you_sure"
+                android:textSize="@dimen/text_size_14sp" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/HumanIdTextView.Light.Black"
+                android:layout_marginTop="@dimen/dimen_10dp"
+                android:text="@string/message_cannot_recover_account"
+                android:textAlignment="center"
+                android:textSize="@dimen/text_size_12sp" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/HumanIdTextView.Light.Black"
+                android:layout_marginTop="@dimen/dimen_10dp"
+                android:text="@string/message_provide_email"
+                android:textAlignment="center"
+                android:textSize="@dimen/text_size_12sp" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/HumanIdTextView.Medium.Tomato"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/dimen_12dp"
+                android:text="@string/label_dont_trust_us"
+                android:textSize="@dimen/text_size_14sp" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/HumanIdTextView.Light.Black"
+                android:layout_marginTop="@dimen/dimen_10dp"
+                android:text="@string/message_nonprofit_foundation"
+                android:textAlignment="center"
+                android:textSize="@dimen/text_size_12sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/dimen_20dp">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnBack"
+                    style="@style/HumanIdButton.TwilightBlue"
+                    android:layout_width="0dp"
+                    android:layout_marginEnd="@dimen/dimen_8dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/colorLightMustard"
+                    android:padding="@dimen/dimen_12dp"
+                    android:text="@string/action_back"
+                    android:textAllCaps="true"
+                    android:elevation="0dp"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnSkip"
+                    style="@style/HumanIdButton.OutlinedButton.TwilightBlue"
+                    android:layout_width="0dp"
+                    android:layout_marginStart="@dimen/dimen_8dp"
+                    android:layout_weight="1"
+                    android:padding="@dimen/dimen_12dp"
+                    android:text="skip"
+                    android:textAllCaps="true"
+                    app:strokeColor="@color/colorMarineBlue" />
+
+            </LinearLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnCancel"
+                style="@style/HumanIdTextButton.TwilightBlue"
+                android:layout_width="match_parent"
+                android:layout_marginTop="@dimen/dimen_22dp"
+                android:gravity="center"
+                android:text="@string/action_learn_more_humanid"
+                android:textSize="@dimen/text_size_10sp" />
+
+        </LinearLayout>
+
+
+    </FrameLayout>
+
+</LinearLayout>

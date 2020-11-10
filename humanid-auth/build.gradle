@@ -1,0 +1,40 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'com.github.dcendents.android-maven'
+
+group = 'com.github.bluenumberfoundation'
+
+android {
+    defaultConfig {
+        versionName project.ext.version
+        consumerProguardFiles 'proguard-rules.pro'
+    }
+}
+
+dependencies {
+    // HumanID Dependencies
+    implementation project(path: ':humanid-common')
+
+    // Androidx Library
+    implementation "androidx.appcompat:appcompat:${project.ext.appcompatVersion}"
+    implementation "androidx.constraintlayout:constraintlayout:${project.ext.constraintVersion}"
+    implementation "androidx.lifecycle:lifecycle-extensions:${project.ext.lifecycleVersion}"
+    implementation "androidx.lifecycle:lifecycle-common-java8:${project.ext.lifecycleVersion}"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    // Material Design
+    implementation "com.google.android.material:material:1.0.0"
+
+    // Play Service
+    implementation "com.google.android.gms:play-services-tasks:17.0.0"
+
+    // Firebase
+    implementation 'com.google.firebase:firebase-messaging:20.0.0'
+
+    // HTTP Client
+    implementation "com.squareup.okhttp3:okhttp:${project.ext.okhttp3Version}"
+    implementation "com.squareup.okhttp3:logging-interceptor:${project.ext.okhttp3Version}"
+    implementation "com.squareup.retrofit2:retrofit:${project.ext.retrofitVersion}"
+    implementation "com.squareup.retrofit2:converter-gson:${project.ext.retrofitVersion}"
+}

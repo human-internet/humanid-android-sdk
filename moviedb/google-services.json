@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "538833765549",
+    "firebase_url": "https://filmreview-af893.firebaseio.com",
+    "project_id": "filmreview-af893",
+    "storage_bucket": "filmreview-af893.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:538833765549:android:c3d7a458f09a3b3d7af224",
+        "android_client_info": {
+          "package_name": "com.humanid.filmreview"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "538833765549-2mbj8qqv151g2flii3jqqe1b0fem9uhv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDNIHcy957udcJmp9tg_cmOZYD-OJXCWpM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "538833765549-2mbj8qqv151g2flii3jqqe1b0fem9uhv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

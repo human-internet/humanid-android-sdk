@@ -11,7 +11,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/HumanIDSDKThemeMaterialNoActionBar"/>
         <activity android:name="com.humanid.humanidui.presentation.welcome.HumanIDActivity"
-            android:screenOrientation="portrait"
+
             android:theme="@style/Theme.Transparent"/>
     </application>
 

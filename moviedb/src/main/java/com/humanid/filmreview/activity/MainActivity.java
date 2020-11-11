@@ -147,7 +147,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         Toast.makeText(MainActivity.this,"onActivityResult was called",Toast.LENGTH_SHORT).show();
-        CallbackManager.Factory.create().onActivityResult(requestCode,resultCode,data);
+        //CallbackManager.Factory.create().onActivityResult(requestCode,resultCode,data);
+        callbackManager.onActivityResult(requestCode,resultCode,data);
         //CallbackManager.onActivityResult(requestCode, resultCode, data); //
         super.onActivityResult(requestCode, resultCode, data);
     }

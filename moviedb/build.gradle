@@ -65,7 +65,7 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
 
     //Facebook
-    implementation 'com.facebook.android:facebook-android-sdk:[5,6)'
+    implementation 'com.facebook.android:facebook-android-sdk:5.15.3'
 
 
     implementation "androidx.multidex:multidex:2.0.1"

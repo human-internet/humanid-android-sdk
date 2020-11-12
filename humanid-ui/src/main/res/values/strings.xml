@@ -112,4 +112,7 @@ Register securely by confirming your phone number. It is deleted after verificat
     <string name="error_invalid_phonenumber">Invalid phone numbers</string>
     <string name="error_message_invalid_veridication_code">Invalid verification code</string>
     <string name="action_close">Close</string>
+
+    <string name="facebook_app_id">1267313883636171</string>
+    <string name="fb_login_protocol_scheme">fb1267313883636171</string>
 </resources>

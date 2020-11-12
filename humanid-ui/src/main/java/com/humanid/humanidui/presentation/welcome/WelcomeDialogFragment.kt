@@ -76,6 +76,10 @@ class WelcomeDialogFragment : BottomSheetDialogFragment() {
             }
         }
 
+        login_button_FB.onClick {
+            listener?.onFacebookClicked()
+            dismiss()
+        }
         btnContinue.onClick {
             listener?.onButtonContinueClicked()
             dismiss()
@@ -88,6 +92,7 @@ class WelcomeDialogFragment : BottomSheetDialogFragment() {
 
     interface OnWelcomeDialogListener {
         fun onButtonContinueClicked()
+        fun onFacebookClicked()
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {

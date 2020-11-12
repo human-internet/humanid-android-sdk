@@ -2,6 +2,9 @@ package com.humanid.humanidui.presentation.welcome
 
 import android.app.Activity
 import android.content.Intent
+import android.widget.Toast
+import com.facebook.AccessToken
+import com.facebook.CallbackManager
 import com.humanid.humanidui.R
 import com.humanid.humanidui.base.BaseActivity
 import com.humanid.humanidui.event.CloseAllActivityEvent
@@ -10,6 +13,7 @@ import com.humanid.humanidui.util.BundleKeys
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
+
 
 class HumanIDActivity : BaseActivity(), WelcomeDialogFragment.OnWelcomeDialogListener {
     companion object{
@@ -46,6 +50,13 @@ class HumanIDActivity : BaseActivity(), WelcomeDialogFragment.OnWelcomeDialogLis
 
     override fun onButtonContinueClicked() {
         PhoneNumberActivity.start(this)
+    }
+
+    override fun onFacebookClicked() {
+        Toast.makeText(this, "Test FB Click", Toast.LENGTH_SHORT).show()
+        var callbackManager = CallbackManager.Factory.create()
+        val accessToken = AccessToken.getCurrentAccessToken()
+        val isLoggedIn = accessToken != null && !accessToken.isExpired
     }
 
     override fun onDestroy() {

@@ -5,6 +5,7 @@ import android.content.Intent
 import android.widget.Toast
 import com.facebook.AccessToken
 import com.facebook.CallbackManager
+import com.facebook.FacebookActivity
 import com.humanid.humanidui.R
 import com.humanid.humanidui.base.BaseActivity
 import com.humanid.humanidui.event.CloseAllActivityEvent
@@ -54,9 +55,8 @@ class HumanIDActivity : BaseActivity(), WelcomeDialogFragment.OnWelcomeDialogLis
 
     override fun onFacebookClicked() {
         Toast.makeText(this, "Test FB Click", Toast.LENGTH_SHORT).show()
-        var callbackManager = CallbackManager.Factory.create()
-        val accessToken = AccessToken.getCurrentAccessToken()
-        val isLoggedIn = accessToken != null && !accessToken.isExpired
+        //var facebookIntent : Intent = Intent(this , FacebookActivity::class.java)
+       //startActivity(facebookIntent)
     }
 
     override fun onDestroy() {

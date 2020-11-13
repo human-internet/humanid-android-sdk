@@ -87,6 +87,7 @@ object LoginManager {
 
     @JvmStatic
     fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?){
+
         if ( loginCallback != null && requestCode == 200 || resultCode == 0x300 ) {
             if (data != null) {
                 if (data.getBooleanExtra(BundleKeys.KEY_LOGIN_CANCEL, false)) {

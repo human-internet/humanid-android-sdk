@@ -3,9 +3,6 @@ package com.humanid.humanidui.presentation.welcome
 import android.app.Activity
 import android.content.Intent
 import android.widget.Toast
-import com.facebook.AccessToken
-import com.facebook.CallbackManager
-import com.facebook.FacebookActivity
 import com.humanid.humanidui.R
 import com.humanid.humanidui.base.BaseActivity
 import com.humanid.humanidui.event.CloseAllActivityEvent
@@ -53,11 +50,7 @@ class HumanIDActivity : BaseActivity(), WelcomeDialogFragment.OnWelcomeDialogLis
         PhoneNumberActivity.start(this)
     }
 
-    override fun onFacebookClicked() {
-        Toast.makeText(this, "Test FB Click", Toast.LENGTH_SHORT).show()
-        //var facebookIntent : Intent = Intent(this , FacebookActivity::class.java)
-       //startActivity(facebookIntent)
-    }
+
 
     override fun onDestroy() {
         welcomeDialogFragment?.let {

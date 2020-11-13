@@ -93,7 +93,7 @@ class WelcomeDialogFragment : BottomSheetDialogFragment() {
                 AccessToken.setCurrentAccessToken(null);
                 if (LoginManager.getInstance() != null) {
                     LoginManager.getInstance().logOut();
-                    
+
                 }}
             else{
             com.facebook.login.LoginManager.getInstance().logInWithReadPermissions(this, listOf("public_profile", "email"))

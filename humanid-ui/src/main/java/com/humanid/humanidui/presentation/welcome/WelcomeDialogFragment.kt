@@ -23,6 +23,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.facebook.*
 import com.facebook.FacebookSdk.getApplicationContext
+import com.facebook.login.LoginBehavior
 import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -82,20 +83,33 @@ class WelcomeDialogFragment : BottomSheetDialogFragment() {
             }
         }
         FacebookSdk.sdkInitialize(getApplicationContext())
+        //var isLoggedIns = AccessToken.getCurrentAccessToken() != null && !AccessToken.getCurrentAccessToken().isExpired
+        var isLoggedIns = false
         //login_button_FB.setReadPermissions(listOf("public_profile", "email"))
 
+        logout_button_FB.setOnClickListener{
+            isLoggedIns=true
+            if(isLoggedIns){
+                Toast.makeText(context, "Logged in", Toast.LENGTH_SHORT).show()
+                AccessToken.setCurrentAccessToken(null);
+                        if (LoginManager.getInstance() != null) {
+                            LoginManager.getInstance().logOut()
+                            //LoginManager.getInstance().setLoginBehavior(LoginBehavior.WEB_ONLY)
+                            val intent = Intent(activity, HumanIDActivity::class.java)
+                            startActivity(intent)
+
+                        } }}
 
         login_button_FB.setOnClickListener {
 
-            var isLoggedIn = AccessToken.getCurrentAccessToken() != null && !AccessToken.getCurrentAccessToken().isExpired
-            if(isLoggedIn){  Toast.makeText(context, "Logged in", Toast.LENGTH_SHORT).show()
-                isLoggedIn= false
-                AccessToken.setCurrentAccessToken(null);
-                if (LoginManager.getInstance() != null) {
-                    LoginManager.getInstance().logOut();
+                isLoggedIns = false
 
-                }}
-            else{
+                //login_button_FB.visibility = View.VISIBLE
+
+
+
+
+          //  else{
             com.facebook.login.LoginManager.getInstance().logInWithReadPermissions(this, listOf("public_profile", "email"))
             //login_button_FB.setFragment(this)
             //var callbackManager = CallbackManager.Factory.create()
@@ -122,6 +136,10 @@ class WelcomeDialogFragment : BottomSheetDialogFragment() {
 
 
                     }
+                    login_button_FB.visibility = View.GONE
+                    logout_button_FB.visibility = View.VISIBLE
+                    logout_button_FB.transformationMethod = null
+
                 }
 
                 override fun onCancel() {
@@ -133,7 +151,7 @@ class WelcomeDialogFragment : BottomSheetDialogFragment() {
                 }
             })
         }
-        }
+
 
 
 

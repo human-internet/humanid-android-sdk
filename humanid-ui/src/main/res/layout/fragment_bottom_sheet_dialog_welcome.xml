@@ -131,6 +131,23 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/dimen_20dp" />
 
+            <Button
+                android:id="@+id/logout_button_FB"
+                android:visibility="gone"
+                android:text="Logout"
+                app:backgroundTint="#3b5998"
+                android:textColor="#ffffff"
+                android:textSize="16sp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:layout_width="285dp"
+                android:layout_height="@dimen/dimen_50dp"
+                android:layout_marginTop="@dimen/dimen_20dp"
+
+
+
+                />
+
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvTnC"
                 style="@style/HumanIdTextView.Medium.LightMustard"

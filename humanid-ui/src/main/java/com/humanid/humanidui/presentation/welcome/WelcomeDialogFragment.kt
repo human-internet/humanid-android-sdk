@@ -85,12 +85,12 @@ class WelcomeDialogFragment : BottomSheetDialogFragment() {
         FacebookSdk.sdkInitialize(getApplicationContext())
         //var isLoggedIns = AccessToken.getCurrentAccessToken() != null && !AccessToken.getCurrentAccessToken().isExpired
         var isLoggedIns = false
-        //login_button_FB.setReadPermissions(listOf("public_profile", "email"))
+
 
         logout_button_FB.setOnClickListener{
             isLoggedIns=true
             if(isLoggedIns){
-                Toast.makeText(context, "Logged in", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(context, "Logged in", Toast.LENGTH_SHORT).show()
                 AccessToken.setCurrentAccessToken(null);
                         if (LoginManager.getInstance() != null) {
                             LoginManager.getInstance().logOut()
@@ -104,25 +104,22 @@ class WelcomeDialogFragment : BottomSheetDialogFragment() {
 
                 isLoggedIns = false
 
-                //login_button_FB.visibility = View.VISIBLE
 
 
 
 
-          //  else{
             com.facebook.login.LoginManager.getInstance().logInWithReadPermissions(this, listOf("public_profile", "email"))
             //login_button_FB.setFragment(this)
-            //var callbackManager = CallbackManager.Factory.create()
             com.facebook.login.LoginManager.getInstance().registerCallback(callbackManager, object : FacebookCallback<LoginResult?> {
                 override fun onSuccess(loginResult: LoginResult?) {
-                    //Toast.makeText(context, "Success", Toast.LENGTH_LONG).show()
+
                     if (Profile.getCurrentProfile() != null) {
                         var profile = Profile.getCurrentProfile()
-                        //Log.v("facebook - profile", profile.firstName)
+
                         Toast.makeText(context, profile.getFirstName(), Toast.LENGTH_SHORT).show()
                         Toast.makeText(context, profile.getLastName(), Toast.LENGTH_SHORT).show()
                     } else {
-                        //Toast.makeText(context, "Profile is null", Toast.LENGTH_SHORT).show()
+
                         mProfileTracker = object : ProfileTracker() {
                             override fun onCurrentProfileChanged(oldProfile: Profile?, currentProfile: Profile) {
                                 mProfileTracker.stopTracking()
@@ -136,6 +133,7 @@ class WelcomeDialogFragment : BottomSheetDialogFragment() {
 
 
                     }
+                    btnContinue.visibility = View.GONE
                     login_button_FB.visibility = View.GONE
                     logout_button_FB.visibility = View.VISIBLE
                     logout_button_FB.transformationMethod = null

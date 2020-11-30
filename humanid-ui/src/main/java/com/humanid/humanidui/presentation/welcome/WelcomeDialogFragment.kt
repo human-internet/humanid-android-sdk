@@ -1,8 +1,12 @@
 package com.humanid.humanidui.presentation.welcome
 
+
 import android.app.Dialog
+import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
+import android.content.pm.PackageInfo
+import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.LayerDrawable
@@ -32,6 +36,7 @@ import com.humanid.humanidui.presentation.HumanIDOptions
 import com.humanid.humanidui.util.extensions.onClick
 import com.humanid.humanidui.util.extensions.visible
 import kotlinx.android.synthetic.main.fragment_bottom_sheet_dialog_welcome.*
+import java.util.*
 
 /**
  * Created by johnson on 6/13/20.
@@ -52,6 +57,8 @@ class WelcomeDialogFragment : BottomSheetDialogFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        //Toast.makeText(, Toast.LENGTH_SHORT).show()
+        //logout_now()
         setStyle(DialogFragment.STYLE_NO_FRAME, R.style.AppBottomSheetDialogTheme)
     }
 
@@ -87,68 +94,13 @@ class WelcomeDialogFragment : BottomSheetDialogFragment() {
         var isLoggedIns = false
 
 
-        logout_button_FB.setOnClickListener{
-            isLoggedIns=true
-            if(isLoggedIns){
-                //Toast.makeText(context, "Logged in", Toast.LENGTH_SHORT).show()
-                AccessToken.setCurrentAccessToken(null);
-                        if (LoginManager.getInstance() != null) {
-                            LoginManager.getInstance().logOut()
-                            //LoginManager.getInstance().setLoginBehavior(LoginBehavior.WEB_ONLY)
-                            val intent = Intent(activity, HumanIDActivity::class.java)
-                            startActivity(intent)
-
-                        } }}
-
-        login_button_FB.setOnClickListener {
-
-                isLoggedIns = false
 
 
+        fakefb_btn.setOnClickListener {
+             Toast.makeText(context, "fakeFb was clicked", Toast.LENGTH_SHORT)
+                log_in_click()
+    }
 
-
-
-            com.facebook.login.LoginManager.getInstance().logInWithReadPermissions(this, listOf("public_profile", "email"))
-            //login_button_FB.setFragment(this)
-            com.facebook.login.LoginManager.getInstance().registerCallback(callbackManager, object : FacebookCallback<LoginResult?> {
-                override fun onSuccess(loginResult: LoginResult?) {
-
-                    if (Profile.getCurrentProfile() != null) {
-                        var profile = Profile.getCurrentProfile()
-
-                        Toast.makeText(context, profile.getFirstName(), Toast.LENGTH_SHORT).show()
-                        Toast.makeText(context, profile.getLastName(), Toast.LENGTH_SHORT).show()
-                    } else {
-
-                        mProfileTracker = object : ProfileTracker() {
-                            override fun onCurrentProfileChanged(oldProfile: Profile?, currentProfile: Profile) {
-                                mProfileTracker.stopTracking()
-                                Toast.makeText(context, Profile.getCurrentProfile().getFirstName(), Toast.LENGTH_SHORT).show()
-                                Toast.makeText(context, Profile.getCurrentProfile().getLastName(), Toast.LENGTH_SHORT).show()
-                            }
-                        }
-                                mProfileTracker.startTracking()
-
-
-
-
-                    }
-                    btnContinue.visibility = View.GONE
-                    login_button_FB.visibility = View.GONE
-                    logout_button_FB.visibility = View.VISIBLE
-                    logout_button_FB.transformationMethod = null
-
-                }
-
-                override fun onCancel() {
-                    Toast.makeText(context, "Login Cancelled", Toast.LENGTH_LONG).show()
-                }
-
-                override fun onError(exception: FacebookException) {
-                    Toast.makeText(context, exception.message, Toast.LENGTH_LONG).show()
-                }
-            })
-        }
 
 
 
@@ -169,12 +121,95 @@ class WelcomeDialogFragment : BottomSheetDialogFragment() {
 
     }
 
+    fun isPackageInstalled(c: Context, targetPackage: String): Boolean {
+        var pm: PackageManager = c.getPackageManager();
+        try {
+            var info: PackageInfo = pm.getPackageInfo(targetPackage, PackageManager.GET_META_DATA);
+        } catch (e: PackageManager.NameNotFoundException) {
+            return false;
+        }
+        return true;
+    }
+
+    fun log_in_click(){
+        //isLoggedIns = true
+
+        val hasPackageKat = isPackageInstalled(getApplicationContext(), "com.facebook.katana")
+        val hasPackageOrc = isPackageInstalled(getApplicationContext(), "com.facebook.orca")
+
+        if(hasPackageKat){
+            LoginManager.getInstance().loginBehavior = LoginBehavior.NATIVE_ONLY
+
+        }
+        else{LoginManager.getInstance().loginBehavior = LoginBehavior.WEB_ONLY}
+        //
+        //
+
+        com.facebook.login.LoginManager.getInstance().logInWithReadPermissions(this, listOf("public_profile", "email"))
+        //login_button_FB.setFragment(this)
+        com.facebook.login.LoginManager.getInstance().registerCallback(callbackManager, object : FacebookCallback<LoginResult?> {
+            override fun onSuccess(loginResult: LoginResult?) {
+
+                if (Profile.getCurrentProfile() != null) {
+                    //var profile = Profile.getCurrentProfile()
+
+
+                    var name: String = Profile.getCurrentProfile().getFirstName() + " " + Profile.getCurrentProfile().getLastName()
+                    Toast.makeText(context, name + " , Login Successful", Toast.LENGTH_SHORT).show()
+                } else {
+
+                    mProfileTracker = object : ProfileTracker() {
+                        override fun onCurrentProfileChanged(oldProfile: Profile?, currentProfile: Profile) {
+                            mProfileTracker.stopTracking()
+
+
+                            var name: String = Profile.getCurrentProfile().getFirstName() + " " + Profile.getCurrentProfile().getLastName()
+                            //Toast.makeText(context, Profile.getCurrentProfile().getFirstName(), Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context, name + " , Login Successful", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                    mProfileTracker.startTracking()
+
+
+                }
+
+                //btnContinue.visibility = View.GONE
+                //login_button_FB.visibility = View.GONE
+                //logout_button_FB.visibility = View.VISIBLE
+                //logout_button_FB.transformationMethod = null
+                activity?.finish()
+
+            }
+
+            override fun onCancel() {
+                Toast.makeText(context, "Login Cancelled", Toast.LENGTH_LONG).show()
+            }
+
+            override fun onError(exception: FacebookException) {
+                //if(exception.message == "Login Attempt Failed."){
+
+                Toast.makeText(context, exception.message, Toast.LENGTH_LONG).show()
+            }
+        })
+    }
+    fun logout_now(){
+
+            AccessToken.setCurrentAccessToken(null);
+            if (LoginManager.getInstance() != null) {
+                LoginManager.getInstance().logOut()
+                //LoginManager.getInstance().setLoginBehavior(LoginBehavior.WEB_ONLY)
+                //val intent = Intent(activity, HumanIDActivity::class.java)
+                //intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                //startActivity(intent)
+
+            } }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         //callbackManager.onActivityResult(requestCode, resultCode, data)
         super.onActivityResult(requestCode, resultCode, data)
         if (callbackManager.onActivityResult(requestCode, resultCode, data)) {
             return;
         }
+
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -224,4 +259,10 @@ class WelcomeDialogFragment : BottomSheetDialogFragment() {
         super.onCancel(dialog)
         activity?.finish()
     }
+
+    override fun onDestroy() {
+        logout_now()
+        super.onDestroy()
+    }
+
 }

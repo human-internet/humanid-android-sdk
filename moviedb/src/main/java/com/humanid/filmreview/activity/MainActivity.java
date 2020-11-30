@@ -80,7 +80,6 @@ public class MainActivity extends AppCompatActivity {
         //AppEventsLogger.activateApp(getApplication());
 
 
-
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), this);
         vpMain.setAdapter(viewPagerAdapter);
         tabMain.setupWithViewPager(vpMain);
@@ -115,31 +114,38 @@ public class MainActivity extends AppCompatActivity {
                                 }
                             });
         */
-        imgProfile.setOnClickListener(view -> {
-            if (UserInteractor.getInstance(this).isLoggedIn()){
-                showLogoutAlerDialog();
-            }else{
-                LoginManager.registerCallback(this, new LoginCallback() {
-                    @Override
-                    public void onCancel() {
-                        Toast.makeText(MainActivity.this, getString(R.string.message_login_canceled), Toast.LENGTH_SHORT).show();
-                    }
-
-                    @Override
-                    public void onSuccess(@NotNull String exchangeToken) {
-                        Log.d("GotExchangeToken", exchangeToken);
-                        authenticateUser(exchangeToken);
-                    }
-
-                    @Override
-                    public void onError(@NotNull String errorMessage) {
-                        Toast.makeText(MainActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
-        });
+        //imgProfile.setOnClickListener(view -> {
+        //    login_start();
+        //});
 
 
+        login_start();
+    }
+
+
+    private void login_start() {
+        if (UserInteractor.getInstance(this).isLoggedIn()) {
+            showLogoutAlerDialog();
+        } else {
+            LoginManager.registerCallback(this, new LoginCallback() {
+                @Override
+                public void onCancel() {
+                    Toast.makeText(MainActivity.this, getString(R.string.message_login_canceled), Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onSuccess(@NotNull String exchangeToken) {
+                    Log.d("GotExchangeToken", exchangeToken);
+                    authenticateUser(exchangeToken);
+                }
+
+                @Override
+                public void onError(@NotNull String errorMessage) {
+                    Toast.makeText(MainActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+        //});
     }
 
 //Facebook login onActivity Result

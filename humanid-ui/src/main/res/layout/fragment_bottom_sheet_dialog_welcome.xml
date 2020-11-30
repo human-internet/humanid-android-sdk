@@ -53,8 +53,8 @@
                 android:visibility="gone" />
 
             <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="255dp"
+                android:layout_height="55dp"
                 android:layout_marginStart="@dimen/dimen_32dp"
                 android:layout_marginTop="@dimen/dimen_22dp"
                 android:layout_marginEnd="@dimen/dimen_32dp"
@@ -63,23 +63,25 @@
 
                 <LinearLayout
                     android:id="@+id/btnContinue"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_width="255dp"
+                    android:layout_height="55dp"
+                    android:layout_gravity="center_horizontal"
                     android:background="?attr/selectableItemBackground"
                     android:paddingStart="@dimen/dimen_16dp"
                     android:paddingEnd="@dimen/dimen_16dp">
 
                     <androidx.appcompat.widget.AppCompatImageView
                         android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:layout_marginTop="@dimen/dimen_12dp"
+                        android:layout_height="38dp"
+                        android:layout_marginTop="10dp"
                         android:layout_marginBottom="@dimen/dimen_12dp"
                         android:adjustViewBounds="true"
-                        android:src="@drawable/ic_logo_humanid_icon" />
+                        android:src="@drawable/ic_logo_humanid_icon"
+                        />
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_gravity="center"
                         android:layout_marginStart="@dimen/dimen_4dp"
                         android:layout_marginLeft="@dimen/dimen_4dp"
@@ -98,8 +100,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:gravity="center_vertical"
-                                android:text="@string/label_continue_with"
-                                android:textSize="@dimen/text_size_14sp" />
+                                android:text="Anonymous Login with"
+                                android:textSize="13dp" />
 
                             <androidx.appcompat.widget.AppCompatImageView
                                 android:layout_width="wrap_content"
@@ -124,12 +126,32 @@
 
             </com.google.android.material.card.MaterialCardView>
 
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
             <com.facebook.login.widget.LoginButton
                 android:id="@+id/login_button_FB"
-                android:layout_width="285dp"
-                android:layout_height="@dimen/dimen_50dp"
+                android:layout_width="255dp"
+                android:layout_height="match_parent"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp"
+                android:textSize="15sp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/dimen_20dp" />
+                <Button
+                    android:id="@+id/fakefb_btn"
+                    android:layout_width="255dp"
+                    android:layout_height="match_parent"
+                    android:paddingTop="15dp"
+                    android:paddingBottom="15dp"
+                    android:textSize="15sp"
+                    android:visibility="visible"
+                    android:alpha="0"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/dimen_20dp"/>
+
+
+            </FrameLayout>
 
             <Button
                 android:id="@+id/logout_button_FB"

@@ -276,6 +276,7 @@ public class MainActivity extends AppCompatActivity {
                 .setMessage("Are you sure want to logout?")
                 .setPositiveButton("Yes", (dialog, which) -> {
                     logout();
+                    login_start();
                 }).setNegativeButton("No", (dialog, which) -> {
                     dialog.dismiss();
                 }).create();

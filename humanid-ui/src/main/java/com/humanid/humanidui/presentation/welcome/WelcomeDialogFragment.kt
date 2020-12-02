@@ -62,8 +62,7 @@ class WelcomeDialogFragment : BottomSheetDialogFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //Toast.makeText(, Toast.LENGTH_SHORT).show()
-        //logout_now()
+
         setStyle(DialogFragment.STYLE_NO_FRAME, R.style.AppBottomSheetDialogTheme)
     }
 
@@ -95,8 +94,7 @@ class WelcomeDialogFragment : BottomSheetDialogFragment() {
             }
         }
         FacebookSdk.sdkInitialize(getApplicationContext())
-        //var isLoggedIns = AccessToken.getCurrentAccessToken() != null && !AccessToken.getCurrentAccessToken().isExpired
-        var isLoggedIns = false
+
 
 
 
@@ -156,13 +154,13 @@ class WelcomeDialogFragment : BottomSheetDialogFragment() {
             override fun onSuccess(loginResult: LoginResult?) {
 
                 if (Profile.getCurrentProfile() != null) {
-                    //var profile = Profile.getCurrentProfile()
+
 
 
                     var c: Context? = context
 
                     var name: String = Profile.getCurrentProfile().getFirstName() + " " + Profile.getCurrentProfile().getLastName()
-                    //Toast.makeText(context, Profile.getCurrentProfile().getFirstName(), Toast.LENGTH_SHORT).show()
+
 
                     val toast_login = Toast.makeText(c, name + " , Login Successful", Toast.LENGTH_LONG)
                     val view: View = toast_login.getView()

@@ -93,41 +93,6 @@ public class MainActivity extends AppCompatActivity {
 
         login_start();
 
-        //Facebook stuff
-        /*
-        callbackManager = com.facebook.CallbackManager.Factory.create();
-                    com.facebook.login.LoginManager.getInstance().registerCallback(callbackManager,
-                            new FacebookCallback<LoginResult>() {
-                                @Override
-                                public void onSuccess(LoginResult loginResult) {
-                                    Toast.makeText(MainActivity.this,"onSuccess was called",Toast.LENGTH_SHORT).show();
-                                    // App code
-                                    Log.d("GotExchangeToken", loginResult.getAccessToken().getUserId());
-                                    AccessToken accessToken = loginResult.getAccessToken();
-                                    authenticateUser(accessToken.getToken());
-                                }
-
-                                @Override
-                                public void onCancel() {
-                                    Toast.makeText(MainActivity.this, getString(R.string.message_login_canceled), Toast.LENGTH_SHORT).show();
-
-                                }
-
-                                @Override
-                                public void onError(FacebookException exception) {
-                                    Toast.makeText(MainActivity.this, exception.toString(), Toast.LENGTH_SHORT).show();
-                                }
-                            });
-
-        imgProfile.
-        //imgProfile.setOnClickListener(view -> {
-        //    login_start();
-        //});
-
-
-
-        login_start();
-         */
 
         imgProfile.setBackgroundColor(getResources().getColor(R.color.colorTwilightBlue));
         imgProfile.setOnClickListener(view -> {
@@ -172,16 +137,6 @@ public class MainActivity extends AppCompatActivity {
         //});
     }
 
-//Facebook login onActivity Result
-    /*
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Toast.makeText(MainActivity.this,"onActivityResult was called",Toast.LENGTH_SHORT).show();
-        //CallbackManager.Factory.create().onActivityResult(requestCode,resultCode,data);
-        callbackManager.onActivityResult(requestCode,resultCode,data);
-        //CallbackManager.onActivityResult(requestCode, resultCode, data); //
-        super.onActivityResult(requestCode, resultCode, data);
-    } */
 
     private void authenticateUser(String exchangeToken) {
         userUsecase.login(exchangeToken, new PostLoginRequest.OnLoginCallback() {

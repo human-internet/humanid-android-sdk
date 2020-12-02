@@ -20,6 +20,8 @@ import com.humanid.humanidui.util.SingletonHolder
 import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
 import com.humanid.humanidui.R
+
+
 import java.util.*
 
 object LoginManager {
@@ -37,7 +39,7 @@ object LoginManager {
     }
 
     @JvmStatic
-    fun registerCallBackFB(activity: Activity,  imgProfile : View , context : Context , callbackManager: CallbackManager) {
+    fun registerCallBackFB(activity: Activity, imgProfile: View, context: Context, callbackManager: CallbackManager) {
 
         //ContextProvider.initialize(activity)
         //this.loginCallback =
@@ -79,7 +81,7 @@ object LoginManager {
         HumanIDAuth.getInstance().revokeAccess().addOnCompleteListener {
             callback.onSuccess()
         }.addOnFailureListener {
-            it.message?.let {message ->
+            it.message?.let { message ->
                 callback.onError(message)
             }
         }

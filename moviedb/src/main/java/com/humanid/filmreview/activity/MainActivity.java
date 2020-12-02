@@ -11,6 +11,8 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.Toast;
 import android.widget.Button;
+
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -88,6 +90,9 @@ public class MainActivity extends AppCompatActivity {
         progressDialog = new ProgressDialog(this);
 
         userUsecase = new UserInteractor(this);
+
+        login_start();
+
         //Facebook stuff
         /*
         callbackManager = com.facebook.CallbackManager.Factory.create();
@@ -113,20 +118,39 @@ public class MainActivity extends AppCompatActivity {
                                     Toast.makeText(MainActivity.this, exception.toString(), Toast.LENGTH_SHORT).show();
                                 }
                             });
-        */
+
+        imgProfile.
         //imgProfile.setOnClickListener(view -> {
         //    login_start();
         //});
 
 
+
         login_start();
+         */
+
+        imgProfile.setBackgroundColor(getResources().getColor(R.color.colorTwilightBlue));
+        imgProfile.setOnClickListener(view -> {
+        showLogoutAlerDialog();
+
+
+        });
+
     }
 
 
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        outState.putBoolean("Login", false);
+        super.onSaveInstanceState(outState);
+    }
+
     private void login_start() {
-        if (UserInteractor.getInstance(this).isLoggedIn()) {
-            showLogoutAlerDialog();
-        } else {
+        //if (UserInteractor.getInstance(this).isLoggedIn()) {
+          //  showLogoutAlerDialog();
+       // }
+
             LoginManager.registerCallback(this, new LoginCallback() {
                 @Override
                 public void onCancel() {
@@ -144,7 +168,7 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
                 }
             });
-        }
+
         //});
     }
 
@@ -192,8 +216,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onPause() {
+        imgProfile.setBackgroundColor(getResources().getColor(R.color.black));
+        super.onPause();
+    }
+
+    @Override
     protected void onResume() {
+
         super.onResume();
+
+
         setUpAvatar(userUsecase.isLoggedIn());
     }
 

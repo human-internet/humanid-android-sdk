@@ -1,20 +1,24 @@
 package com.humanid.humanidui.presentation.welcome
 
-
 import android.app.Dialog
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
+import android.graphics.Color
+import android.graphics.Color.GREEN
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.LayerDrawable
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.text.Html
 import android.util.DisplayMetrics
 import android.util.Log
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,8 +29,8 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
-import com.facebook.*
 import com.facebook.FacebookSdk.getApplicationContext
+import com.facebook.*
 import com.facebook.login.LoginBehavior
 import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
@@ -37,6 +41,7 @@ import com.humanid.humanidui.util.extensions.onClick
 import com.humanid.humanidui.util.extensions.visible
 import kotlinx.android.synthetic.main.fragment_bottom_sheet_dialog_welcome.*
 import java.util.*
+
 
 /**
  * Created by johnson on 6/13/20.
@@ -154,18 +159,54 @@ class WelcomeDialogFragment : BottomSheetDialogFragment() {
                     //var profile = Profile.getCurrentProfile()
 
 
+                    var c: Context? = context
+
                     var name: String = Profile.getCurrentProfile().getFirstName() + " " + Profile.getCurrentProfile().getLastName()
-                    Toast.makeText(context, name + " , Login Successful", Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(context, Profile.getCurrentProfile().getFirstName(), Toast.LENGTH_SHORT).show()
+
+                    val toast_login = Toast.makeText(c, name + " , Login Successful", Toast.LENGTH_LONG)
+                    val view: View = toast_login.getView()
+                    view.setPadding(20, 20, 20, 20)
+                    view.setBackgroundResource(R.color.colorCoolBlue)
+                    //view.setTextColor(Color.RED)
+                    toast_login.setGravity(Gravity.CENTER, 0, 0)
+                    toast_login.show()
+
+
+
+                    val handler = Handler()
+                    handler.postDelayed(Runnable {
+                        var toast = Toast.makeText(c, "Click Upper Right Corner to Logout", Toast.LENGTH_LONG)
+                        toast.setGravity(Gravity.TOP, 0, 0)
+                        toast.show()
+                    }, 7500)
+
                 } else {
 
                     mProfileTracker = object : ProfileTracker() {
                         override fun onCurrentProfileChanged(oldProfile: Profile?, currentProfile: Profile) {
                             mProfileTracker.stopTracking()
-
+                            var c: Context? = context
 
                             var name: String = Profile.getCurrentProfile().getFirstName() + " " + Profile.getCurrentProfile().getLastName()
                             //Toast.makeText(context, Profile.getCurrentProfile().getFirstName(), Toast.LENGTH_SHORT).show()
-                            Toast.makeText(context, name + " , Login Successful", Toast.LENGTH_SHORT).show()
+
+                            val toast_login = Toast.makeText(c, name + " , Login Successful", Toast.LENGTH_LONG)
+                            val view: View = toast_login.getView()
+                            view.setPadding(20, 20, 20, 20)
+                            view.setBackgroundResource(R.color.colorCoolBlue)
+                            //view.setTextColor(Color.RED)
+                            toast_login.setGravity(Gravity.CENTER, 0, 0)
+                            toast_login.show()
+
+
+                            val handler = Handler()
+                            handler.postDelayed(Runnable {
+                                var toast = Toast.makeText(c, "Click Upper Right Corner to Logout", Toast.LENGTH_LONG)
+                                toast.setGravity(Gravity.TOP, 0, 0)
+                                toast.show()
+                            }, 7500)
+
                         }
                     }
                     mProfileTracker.startTracking()
@@ -214,7 +255,7 @@ class WelcomeDialogFragment : BottomSheetDialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val dialog = super.onCreateDialog(savedInstanceState)
-
+        dialog.setCanceledOnTouchOutside(false)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
             setWhiteNavigationBar(dialog)
         }
@@ -256,6 +297,7 @@ class WelcomeDialogFragment : BottomSheetDialogFragment() {
     }
 
     override fun onCancel(dialog: DialogInterface) {
+
         super.onCancel(dialog)
         activity?.finish()
     }

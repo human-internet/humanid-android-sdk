@@ -147,6 +147,10 @@ class WelcomeDialogFragment : BottomSheetDialogFragment() {
 
     fun log_in_click(){
         //isLoggedIns = true
+        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT) {
+            param(FirebaseAnalytics.Param.ITEM_NAME, "fb-login-click")
+            param(FirebaseAnalytics.Param.CONTENT_TYPE, "fb-login-click")
+        }
 
         val hasPackageKat = isPackageInstalled(getApplicationContext(), "com.facebook.katana")
         val hasPackageOrc = isPackageInstalled(getApplicationContext(), "com.facebook.orca")

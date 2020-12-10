@@ -17,19 +17,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="@dimen/dimen_5dp"
+        android:layout_marginTop="@dimen/dimen_5dp"
         android:src="@drawable/ic_others_pointer" />
 
     <FrameLayout
         android:id="@+id/flDialogWelcome"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="5dp"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center_horizontal"
-            android:orientation="vertical">
+            android:orientation="vertical"
+          >
 
 
             <androidx.appcompat.widget.AppCompatImageView
@@ -40,7 +43,8 @@
                 android:gravity="center"
                 android:text="@string/label_mdb"
                 android:textSize="@dimen/text_size_13sp"
-                android:visibility="gone" />
+                android:visibility="gone"
+                />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvAppName"
@@ -50,16 +54,15 @@
                 android:layout_marginTop="@dimen/dimen_16dp"
                 android:text="@string/label_welcome"
                 android:textSize="@dimen/text_size_16sp"
-                android:visibility="gone" />
+                android:visibility="gone"
+                android:layout_marginBottom="@dimen/dimen_10dp"/>
 
-            <com.google.android.material.card.MaterialCardView
+            <androidx.cardview.widget.CardView
                 android:layout_width="255dp"
-                android:layout_height="55dp"
-                android:layout_marginStart="@dimen/dimen_32dp"
-                android:layout_marginTop="@dimen/dimen_22dp"
-                android:layout_marginEnd="@dimen/dimen_32dp"
-                android:background="@color/colorWhite"
-                app:cardCornerRadius="@dimen/dimen_4dp">
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="20dp"
+                android:layout_marginBottom="10dp"
+                >
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/btnContinue"
@@ -136,37 +139,48 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-            </com.google.android.material.card.MaterialCardView>
+            </androidx.cardview.widget.CardView>
 
+        <androidx.cardview.widget.CardView
+            android:layout_width="255dp"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="20dp"
+           >
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" >
+                android:layout_height="wrap_content"
+                android:background="@color/com_facebook_blue"
+                >
+
+
             <com.facebook.login.widget.LoginButton
                 android:id="@+id/login_button_FB"
                 android:layout_width="255dp"
                 android:layout_height="match_parent"
-                android:paddingTop="15dp"
-                android:paddingBottom="15dp"
+                android:paddingTop="0dp"
+                android:paddingBottom="9dp"
                 android:paddingLeft="20dp"
                 android:textSize="15sp"
                 xmlns:facebook="http://schemas.android.com/apk/res-auto"
                 facebook:com_facebook_login_text="Login with Facebook"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="@dimen/dimen_20dp" />
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                />
                 <Button
                     android:id="@+id/fakefb_btn"
                     android:layout_width="255dp"
                     android:layout_height="match_parent"
-                    android:paddingTop="15dp"
-                    android:paddingBottom="15dp"
+                    android:paddingTop="0dp"
+                    android:paddingBottom="9dp"
                     android:textSize="15sp"
                     android:visibility="visible"
                     android:alpha="0"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="@dimen/dimen_20dp"/>
-
+                    android:layout_marginTop="5dp"
+                    />
 
             </FrameLayout>
+        </androidx.cardview.widget.CardView>
 
             <Button
                 android:id="@+id/logout_button_FB"

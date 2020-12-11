@@ -122,8 +122,8 @@ class WelcomeDialogFragment : BottomSheetDialogFragment() {
         btnContinue.onClick {
             listener?.onButtonContinueClicked()
             firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT) {
-                param(FirebaseAnalytics.Param.ITEM_NAME, "humanid-login-click")
-                param(FirebaseAnalytics.Param.CONTENT_TYPE, "humanid-login-click")
+                param(FirebaseAnalytics.Param.ITEM_ID, "humanid login button")
+                param(FirebaseAnalytics.Param.CONTENT_TYPE, "login button")
             }
             dismiss()
         }
@@ -151,8 +151,8 @@ class WelcomeDialogFragment : BottomSheetDialogFragment() {
     fun log_in_click(){
         //isLoggedIns = true
         firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT) {
-            param(FirebaseAnalytics.Param.ITEM_NAME, "fb-login-click")
-            param(FirebaseAnalytics.Param.CONTENT_TYPE, "fb-login-click")
+            param(FirebaseAnalytics.Param.ITEM_ID, "facebook login button")
+            param(FirebaseAnalytics.Param.CONTENT_TYPE, "login button")
         }
 
         val hasPackageKat = isPackageInstalled(getApplicationContext(), "com.facebook.katana")
@@ -234,28 +234,19 @@ class WelcomeDialogFragment : BottomSheetDialogFragment() {
                 //login_button_FB.visibility = View.GONE
                 //logout_button_FB.visibility = View.VISIBLE
                 //logout_button_FB.transformationMethod = null
-                firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT) {
-                    param(FirebaseAnalytics.Param.ITEM_NAME, "fb-login-success")
-                    param(FirebaseAnalytics.Param.CONTENT_TYPE, "fb-login-success")
+                firebaseAnalytics.logEvent(FirebaseAnalytics.Event.LOGIN) {
+                    param(FirebaseAnalytics.Param.METHOD, "facebook")
                 }
                 activity?.finish()
 
             }
 
             override fun onCancel() {
-                firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT) {
-                    param(FirebaseAnalytics.Param.ITEM_NAME, "fb-login-cancel")
-                    param(FirebaseAnalytics.Param.CONTENT_TYPE, "fb-login-cancel")
-                }
                 Toast.makeText(context, "Login Cancelled", Toast.LENGTH_LONG).show()
             }
 
             override fun onError(exception: FacebookException) {
                 //if(exception.message == "Login Attempt Failed."){
-                firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT) {
-                    param(FirebaseAnalytics.Param.ITEM_NAME, "fb-login-error")
-                    param(FirebaseAnalytics.Param.CONTENT_TYPE, "fb-login-error")
-                }
                 Toast.makeText(context, exception.message, Toast.LENGTH_LONG).show()
             }
         })

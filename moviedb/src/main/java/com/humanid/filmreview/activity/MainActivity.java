@@ -124,10 +124,6 @@ public class MainActivity extends AppCompatActivity {
             LoginManager.registerCallback(this, new LoginCallback() {
                 @Override
                 public void onCancel() {
-                    Bundle bundle = new Bundle();
-                    bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "humanid-login-cancel");
-                    bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "humanid-login-cancelled");
-                    mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
                     Toast.makeText(MainActivity.this, getString(R.string.message_login_canceled), Toast.LENGTH_SHORT).show();
                 }
 
@@ -158,19 +154,14 @@ public class MainActivity extends AppCompatActivity {
             public void onLoginSuccess() {
                 hideLoading();
                 Bundle bundle = new Bundle();
-                bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "humanid-login-success");
-                bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "humanid-login-success");
-                mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
+                bundle.putString(FirebaseAnalytics.Param.METHOD, "humanid");
+                mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.LOGIN, bundle);
                 setUpAvatar(userUsecase.isLoggedIn());
             }
 
             @Override
             public void onLoginFailed(String message) {
                 hideLoading();
-                Bundle bundle = new Bundle();
-                bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "humanid-login-failed");
-                bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "humanid-login-fail");
-                mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
                 Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
             }
         });

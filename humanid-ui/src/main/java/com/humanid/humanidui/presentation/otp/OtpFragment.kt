@@ -113,7 +113,7 @@ class OtpFragment : PassiveFormFragment() {
 
     private fun resendOtp() {
         btnResendCode.isClickable = false
-        btnResendCode.text = "Resending code"
+        btnResendCode.text = getString(string.message_resend_code)
         HumanIDAuth.getInstance()
             .requestOTP(countryCode, phoneNumber)
             .addOnCompleteListener {

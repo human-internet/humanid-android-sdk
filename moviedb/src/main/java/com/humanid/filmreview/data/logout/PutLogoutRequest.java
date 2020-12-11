@@ -38,11 +38,18 @@ public class PutLogoutRequest extends BaseRequest<LogoutRequest, LogoutResponse>
         getOnLogoutCallback().onLogoutFailure(message);
     }
 
+    @Override
+    protected void onTokenExpired() {
+        getOnLogoutCallback().onUnauthorized();
+    }
+
     public interface OnLogoutCallback{
         void onLoading();
 
         void onLogoutSuccess();
 
         void onLogoutFailure(String message);
+
+        void onUnauthorized();
     }
 }

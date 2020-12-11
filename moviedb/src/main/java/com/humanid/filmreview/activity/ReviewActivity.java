@@ -108,6 +108,14 @@ public class ReviewActivity extends AppCompatActivity {
                                 tvReviewError.setVisibility(View.VISIBLE);
                                 tvReviewError.setText(message);
                             }
+
+                            @Override
+                            public void onUnauthorized() {
+                                pbReview.setVisibility(View.GONE);
+                                rvReview.setVisibility(View.GONE);
+                                tvReviewError.setVisibility(View.VISIBLE);
+                                tvReviewError.setText("Your session is expired. Please login");
+                            }
                         });
 
             } else {

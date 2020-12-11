@@ -55,11 +55,18 @@ public class GetReviewRequest extends BaseRequest<ReviewRequest, ReviewResponse>
         getOnGetReviewCallback().onGetReviewFailed(message);
     }
 
+    @Override
+    protected void onTokenExpired() {
+        getOnGetReviewCallback().onUnauthorized();
+    }
+
     public interface OnGetReviewCallback{
         void onLoading();
 
         void onGetReviewSuccess(ArrayList<Review> reviews);
 
         void onGetReviewFailed(String message);
+
+        void onUnauthorized();
     }
 }

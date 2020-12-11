@@ -57,6 +57,8 @@ public abstract class BaseRequest<T extends RequestModel, D extends ResponseMode
 
     abstract protected void onRequestFailure(String message);
 
+    abstract protected void onTokenExpired();
+
     public void execute(){
         onLoading();
 
@@ -94,10 +96,14 @@ public abstract class BaseRequest<T extends RequestModel, D extends ResponseMode
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                if (error.getMessage() != null) {
-                    onRequestFailure(error.getMessage());
-                } else {
-                    onRequestFailure(context.getString(R.string.error_message_unable_to_reach_server));
+                if (statusCode == 401){
+                    appPreference.clear();
+                }else{
+                    if (error.getMessage() != null) {
+                        onRequestFailure(error.getMessage());
+                    } else {
+                        onRequestFailure(context.getString(R.string.error_message_unable_to_reach_server));
+                    }
                 }
             }
         });
@@ -115,10 +121,14 @@ public abstract class BaseRequest<T extends RequestModel, D extends ResponseMode
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                if (error.getMessage() != null) {
-                    onRequestFailure(error.getMessage());
-                } else {
-                    onRequestFailure(context.getString(R.string.error_message_unable_to_reach_server));
+                if (statusCode == 401){
+                    onTokenExpired();
+                }else{
+                    if (error.getMessage() != null) {
+                        onRequestFailure(error.getMessage());
+                    } else {
+                        onRequestFailure(context.getString(R.string.error_message_unable_to_reach_server));
+                    }
                 }
             }
         });
@@ -137,10 +147,14 @@ public abstract class BaseRequest<T extends RequestModel, D extends ResponseMode
 
                 @Override
                 public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                    if (error.getMessage() != null) {
-                        onRequestFailure(error.getMessage());
-                    } else {
-                        onRequestFailure(context.getString(R.string.error_message_unable_to_reach_server));
+                    if (statusCode == 401){
+                        onTokenExpired();
+                    }else{
+                        if (error.getMessage() != null) {
+                            onRequestFailure(error.getMessage());
+                        } else {
+                            onRequestFailure(context.getString(R.string.error_message_unable_to_reach_server));
+                        }
                     }
                 }
             });
@@ -156,10 +170,14 @@ public abstract class BaseRequest<T extends RequestModel, D extends ResponseMode
 
                 @Override
                 public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                    if (error.getMessage() != null) {
-                        onRequestFailure(error.getMessage());
-                    } else {
-                        onRequestFailure(context.getString(R.string.error_message_unable_to_reach_server));
+                    if (statusCode == 401){
+                        onTokenExpired();
+                    }else{
+                        if (error.getMessage() != null) {
+                            onRequestFailure(error.getMessage());
+                        } else {
+                            onRequestFailure(context.getString(R.string.error_message_unable_to_reach_server));
+                        }
                     }
                 }
             });

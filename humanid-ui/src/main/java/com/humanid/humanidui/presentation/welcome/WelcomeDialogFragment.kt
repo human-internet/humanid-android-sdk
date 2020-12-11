@@ -72,7 +72,7 @@ class WelcomeDialogFragment : BottomSheetDialogFragment() {
                 tvAppName.visible()
                 tvTnC.visible()
                 tvAppName.text = humanIDOptions?.applicationName
-                tvTnC.text = "I hereby agree to ${humanIDOptions?.applicationName} terms of service"
+                tvTnC.text = String.format(getString(R.string.message_hereby), humanIDOptions?.applicationName)
             }
         }
 

@@ -47,11 +47,18 @@ public class PostReviewRequest extends BaseRequest<AddReviewRequest, PostReviewR
         getOnPostCommentCallback().onPostCommentFailed(message);
     }
 
+    @Override
+    protected void onTokenExpired() {
+        getOnPostCommentCallback().onUnauthorized();
+    }
+
     public interface OnPostCommentCallback{
         void onLoading();
 
         void onPostCommentSuccess();
 
         void onPostCommentFailed(String message);
+
+        void onUnauthorized();
     }
 }

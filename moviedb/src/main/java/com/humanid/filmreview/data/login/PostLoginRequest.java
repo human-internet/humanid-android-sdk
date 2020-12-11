@@ -38,6 +38,11 @@ public class PostLoginRequest extends BaseRequest<LoginRequest, LoginResponse> {
         getOnLoginCallback().onLoginFailed(message);
     }
 
+    @Override
+    protected void onTokenExpired() {
+
+    }
+
     public interface OnLoginCallback{
         void onLoading();
 

@@ -325,6 +325,12 @@ public class MovieDetailActivity extends AppCompatActivity implements
                                 hideLoading();
                                 Toast.makeText(MovieDetailActivity.this, message, Toast.LENGTH_SHORT).show();
                             }
+
+                            @Override
+                            public void onUnauthorized() {
+                                hideLoading();
+                                Toast.makeText(MovieDetailActivity.this, "Your session is expired. Please Login", Toast.LENGTH_SHORT).show();
+                            }
                         }));
 
         rateReviewDialogFragment.show(getSupportFragmentManager(),
@@ -491,6 +497,12 @@ public class MovieDetailActivity extends AppCompatActivity implements
                         public void onGetReviewFailed(final String message) {
                             pbReview.setVisibility(View.GONE);
                             Toast.makeText(MovieDetailActivity.this, message, Toast.LENGTH_SHORT).show();
+                        }
+
+                        @Override
+                        public void onUnauthorized() {
+                            pbReview.setVisibility(View.GONE);
+                            Toast.makeText(MovieDetailActivity.this, "Your session is expired. Please Login", Toast.LENGTH_SHORT).show();
                         }
                     });
         }else{

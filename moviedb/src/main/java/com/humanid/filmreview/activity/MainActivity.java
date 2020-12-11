@@ -201,6 +201,12 @@ public class MainActivity extends AppCompatActivity {
                 hideLoading();
                 Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
             }
+
+            @Override
+            public void onUnauthorized() {
+                setUpAvatar(false);
+                Toast.makeText(MainActivity.this, "Your session is expired. Please Login", Toast.LENGTH_SHORT).show();
+            }
         });
     }
 }

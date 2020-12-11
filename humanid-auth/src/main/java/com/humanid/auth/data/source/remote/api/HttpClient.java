@@ -17,7 +17,7 @@ public class HttpClient {
 
     private final static HumanIDSDK sdk = HumanIDSDK.getInstance();
 
-    private final static String baseUrl = "https://core.human-id.org/v0.0.2/mobile/";
+    private final static String baseUrl = "https://core.human-id.org/v0.0.3/mobile/";
 
     @NonNull
     private static Retrofit.Builder retrofit() {

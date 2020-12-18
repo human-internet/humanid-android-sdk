@@ -4,10 +4,10 @@ project.ext {
     googleServiceVersion = "4.2.0"
 
     // SDK and Tools
-    buildTools = "28.0.3"
-    compileSdk = 28
+    buildTools = "29.0.3"
+    compileSdk = 29
     minSdk = 16
-    targetSdk = 28
+    targetSdk = 29
 
     // SDK Dependencies
     annotationVersion = "1.1.0"

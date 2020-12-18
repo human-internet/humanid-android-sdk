@@ -33,15 +33,15 @@ dependencies {
     implementation project(':humanid-auth')
 
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    api 'com.google.android.material:material:1.1.0'
+    api 'com.google.android.material:material:1.2.1'
     // Play Service
-    implementation "com.google.android.gms:play-services-tasks:17.0.0"
+    implementation "com.google.android.gms:play-services-tasks:17.2.0"
     //Pin Edit Text
     implementation 'com.chaos.view:pinview:1.4.3'
     //country code
     implementation 'com.hbb20:ccp:2.3.7'
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
 
     api 'org.greenrobot:eventbus:3.2.0'
     testImplementation 'junit:junit:4.12'

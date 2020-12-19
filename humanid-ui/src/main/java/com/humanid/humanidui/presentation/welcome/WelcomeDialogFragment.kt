@@ -23,6 +23,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.annotation.NonNull
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
@@ -71,6 +72,10 @@ class WelcomeDialogFragment : BottomSheetDialogFragment() {
         super.onCreate(savedInstanceState)
 
         setStyle(DialogFragment.STYLE_NO_FRAME, R.style.AppBottomSheetDialogTheme)
+
+        this.setCancelable(false);
+
+
     }
 
     override fun onCreateView(

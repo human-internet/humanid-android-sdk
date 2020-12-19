@@ -65,6 +65,7 @@ class HumanIDActivity : BaseActivity(), WelcomeDialogFragment.OnWelcomeDialogLis
 
     override fun onBackPressed() {
         finish()
+        //Toast.makeText(this , "test Cancel Button", Toast.LENGTH_LONG).show();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

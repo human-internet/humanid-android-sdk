@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-958970234/humanid-android-sdk-master.iml" filepath="$PROJECT_DIR$/.idea/modules/-958970234/humanid-android-sdk-master.iml" group="humanid-android-sdk-master" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1479574070/humanid-auth.iml" filepath="$PROJECT_DIR$/.idea/modules/1479574070/humanid-auth.iml" group="humanid-android-sdk-master/humanid-auth" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/288023289/humanid-common.iml" filepath="$PROJECT_DIR$/.idea/modules/288023289/humanid-common.iml" group="humanid-android-sdk-master/humanid-common" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1440644770/humanid-ui.iml" filepath="$PROJECT_DIR$/.idea/modules/1440644770/humanid-ui.iml" group="humanid-android-sdk-master/humanid-ui" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/moviedb.iml" filepath="$PROJECT_DIR$/.idea/modules/moviedb.iml" group="humanid-android-sdk-master/moviedb" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1686647469/sample.iml" filepath="$PROJECT_DIR$/.idea/modules/-1686647469/sample.iml" group="humanid-android-sdk-master/sample" />
+    </modules>
+  </component>
+</project>

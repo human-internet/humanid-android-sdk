@@ -127,7 +127,7 @@ class WelcomeDialogFragment : BottomSheetDialogFragment() {
         btnContinue.onClick {
             listener?.onButtonContinueClicked()
             firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT) {
-                param(FirebaseAnalytics.Param.ITEM_ID, "humanid login button")
+                param(FirebaseAnalytics.Param.ITEM_ID, "humanid login select")
                 param(FirebaseAnalytics.Param.CONTENT_TYPE, "login button")
             }
             dismiss()
@@ -156,7 +156,7 @@ class WelcomeDialogFragment : BottomSheetDialogFragment() {
     fun log_in_click(){
         //isLoggedIns = true
         firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT) {
-            param(FirebaseAnalytics.Param.ITEM_ID, "facebook login button")
+            param(FirebaseAnalytics.Param.ITEM_ID, "facebook login select")
             param(FirebaseAnalytics.Param.CONTENT_TYPE, "login button")
         }
 
@@ -241,6 +241,7 @@ class WelcomeDialogFragment : BottomSheetDialogFragment() {
                 //logout_button_FB.transformationMethod = null
                 firebaseAnalytics.logEvent(FirebaseAnalytics.Event.LOGIN) {
                     param(FirebaseAnalytics.Param.METHOD, "facebook")
+                    param(FirebaseAnalytics.Param.ITEM_ID, "successful facebook login")
                 }
                 activity?.finish()
 

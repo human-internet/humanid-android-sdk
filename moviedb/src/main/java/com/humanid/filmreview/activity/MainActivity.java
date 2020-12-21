@@ -155,6 +155,7 @@ public class MainActivity extends AppCompatActivity {
                 hideLoading();
                 Bundle bundle = new Bundle();
                 bundle.putString(FirebaseAnalytics.Param.METHOD, "humanid");
+                bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "successful humanid login");
                 mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.LOGIN, bundle);
                 setUpAvatar(userUsecase.isLoggedIn());
             }

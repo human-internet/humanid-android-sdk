@@ -1,0 +1,30 @@
+package com.humanid.lib.presentation
+
+enum class SupportedLanguage(code: String) {
+    ENGLISH_US("en_US"),
+    ARABIC("ar_SA"),
+    CHINNESE_TAIWAN("zh_TW"),
+    FRENCH("fr_FR"),
+    GERMAN("de_DE"),
+    GREEK("el_GR"),
+    INDONESIAN("in_ID"),
+    KOREAN("ko_KR"),
+    MALAYSIA("ms_MY"),
+    POLISH("pl_PL"),
+    PORTUGUESE("pt_PT"),
+    HINDI("hi_IN"),
+    RUSSIAN("ru_RO"),
+    ROMANIAN("ro_RO"),
+    SWEDISH("sv_SE"),
+    VIETNAMESE("vi_VN"),
+    TURKISH("tr_TR"),
+    CROATIAN("hr_HR"),
+    TAGALOG("tl_PH"),
+    THAI("th_TH"),
+    ITALIAN("it_IT"),
+    SPANISH("es_ES"),
+    JAPANESE("ja_JP"),
+    BENGALI("bn_IN"),
+    CHINNESE_CHINA("zh_CN"),
+    ENGLISH_BRITISH("en_rGB")
+}

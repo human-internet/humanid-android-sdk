@@ -1,9 +1,7 @@
 package com.humanid.lib.presentation
 
-import android.app.Activity
 import android.app.ProgressDialog
 import android.content.Intent
-import android.net.Uri
 import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
 import com.humanid.lib.di.Injector
@@ -101,24 +99,5 @@ class HumanIdSDK private constructor(builder: Builder){
                 HumanIdSDK(this)
             }
         }
-    }
-    
-    fun parse(uri: Uri): String?{
-        if (uri.toString().contains("humanid")){
-            val authority = uri.authority
-            if (authority.equals("login", true)){
-                val path = uri.pathSegments[0].toString()
-                if (path == "success"){
-                    return uri.getQueryParameter("et")
-                }else{
-                    activity?.showToast("Error humanID login")
-                }
-            }else{
-                throw IllegalArgumentException("Invalid Uri")
-            }
-        }else{
-            throw IllegalArgumentException("Invalid Uri")
-        }
-        return null
     }
 }

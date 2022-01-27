@@ -1,2 +1,1 @@
-# humanID-Android-SDK
-
+humanIDAndroidSDK

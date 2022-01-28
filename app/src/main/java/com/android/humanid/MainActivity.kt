@@ -3,13 +3,15 @@ package com.android.humanid
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
+import android.widget.TextView
 import com.humanid.lib.presentation.HumanIdSDK
 
 class MainActivity : AppCompatActivity() {
     private val humanIdSDK: HumanIdSDK? by lazy {
         HumanIdSDK.Builder()
-            .withContext(this)
+            .withActivity(this)
             .addClientId(getString(R.string.client_id))
             .addClientSecret(getString(R.string.client_secret))
             .setPriorityCountryCodes(arrayOf("US", "FR", "JP", "ID"))
@@ -25,10 +27,11 @@ class MainActivity : AppCompatActivity() {
             humanIdSDK?.login()
         }
     }
-    
-    override fun onNewIntent(intent: Intent?) {
-        super.onNewIntent(intent)
-        val exchangeToken = intent?.data?.let { humanIdSDK?.parse(it) }
-        print("Exchange Token : $exchangeToken")
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        val exchangeToken = humanIdSDK?.getHumanIdExchangeToken(requestCode, resultCode, data)
+        Log.d("Exchange Token", exchangeToken.orEmpty())
+        findViewById<TextView>(R.id.tvToken).text = exchangeToken.orEmpty()
     }
 }

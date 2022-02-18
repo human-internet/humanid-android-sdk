@@ -15,7 +15,6 @@ class MainActivity : AppCompatActivity() {
             .addClientId(getString(R.string.client_id))
             .addClientSecret(getString(R.string.client_secret))
             .setPriorityCountryCodes(arrayOf("US", "FR", "JP", "ID"))
-            .setDefaultLanguage("en")
             .build()
     }
 

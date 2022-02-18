@@ -1,4 +1,4 @@
-package com.humanid.lib.presentation
+package com.humanid.lib.util
 
 import android.content.Context
 import android.util.Log

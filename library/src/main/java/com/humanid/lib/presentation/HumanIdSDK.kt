@@ -8,6 +8,8 @@ import com.humanid.lib.di.Injector
 import com.humanid.lib.domain.LoginCallback
 import com.humanid.lib.domain.LoginParam
 import com.humanid.lib.domain.UseCase
+import com.humanid.lib.util.showToast
+import java.util.*
 
 class HumanIdSDK private constructor(builder: Builder){
     private val useCase: UseCase = Injector.getUseCase()
@@ -18,7 +20,7 @@ class HumanIdSDK private constructor(builder: Builder){
     private val activity: AppCompatActivity? = builder.activity
     private var clientId: String? = builder.clientId
     private val clientSecret: String? = builder.clientSecret
-    private var defaultLanguage: String = "en"
+    private var defaultLanguage: String = builder.defaultLanguage
     private var priorityCountryCodes: Array<String> = arrayOf("US", "DE", "FR")
     
     private val progressDialog: ProgressDialog? by lazy {
@@ -79,7 +81,7 @@ class HumanIdSDK private constructor(builder: Builder){
             private set
         var clientSecret: String? = null
             private set
-        var defaultLanguage: String = "en"
+        var defaultLanguage: String = Locale.getDefault().toString()
             private set
         var priorityCountryCodes: Array<String>? = null
             private set

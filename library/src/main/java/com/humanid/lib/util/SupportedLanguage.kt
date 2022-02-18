@@ -1,6 +1,6 @@
-package com.humanid.lib.presentation
+package com.humanid.lib.util
 
-enum class SupportedLanguage(code: String) {
+enum class SupportedLanguage(val code: String) {
     ENGLISH_US("en_US"),
     ARABIC("ar_SA"),
     CHINNESE_TAIWAN("zh_TW"),

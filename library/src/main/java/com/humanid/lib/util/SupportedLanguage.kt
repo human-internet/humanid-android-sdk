@@ -1,30 +1,30 @@
 package com.humanid.lib.util
 
-enum class SupportedLanguage(val code: String) {
-    ENGLISH_US("en_US"),
-    ARABIC("ar_SA"),
-    CHINNESE_TAIWAN("zh_TW"),
-    FRENCH("fr_FR"),
-    GERMAN("de_DE"),
-    GREEK("el_GR"),
-    INDONESIAN("in_ID"),
-    KOREAN("ko_KR"),
-    MALAYSIA("ms_MY"),
-    POLISH("pl_PL"),
-    PORTUGUESE("pt_PT"),
-    HINDI("hi_IN"),
-    RUSSIAN("ru_RO"),
-    ROMANIAN("ro_RO"),
-    SWEDISH("sv_SE"),
-    VIETNAMESE("vi_VN"),
-    TURKISH("tr_TR"),
-    CROATIAN("hr_HR"),
-    TAGALOG("tl_PH"),
-    THAI("th_TH"),
-    ITALIAN("it_IT"),
-    SPANISH("es_ES"),
-    JAPANESE("ja_JP"),
-    BENGALI("bn_IN"),
-    CHINNESE_CHINA("zh_CN"),
-    ENGLISH_BRITISH("en_rGB")
+object SupportedLanguage{
+    const val ENGLISH_US: String = "en_US"
+    const val ARABIC: String = "ar_SA"
+    const val CHINNESE_TAIWAN: String = "zh_TW"
+    const val FRENCH: String = "fr_FR"
+    const val GERMAN: String = "de_DE"
+    const val GREEK: String = "el_GR"
+    const val INDONESIAN: String = "in_ID"
+    const val KOREAN: String = "ko_KR"
+    const val MALAYSIA: String = "ms_MY"
+    const val POLISH: String = "pl_PL"
+    const val PORTUGUESE: String = "pt_PT"
+    const val HINDI: String = "hi_IN"
+    const val RUSSIAN: String = "ru_RO"
+    const val ROMANIAN: String = "ro_RO"
+    const val SWEDISH: String = "sv_SE"
+    const val VIETNAMESE: String = "vi_VN"
+    const val TURKISH: String = "tr_TR"
+    const val CROATIAN: String = "hr_HR"
+    const val TAGALOG: String = "tl_PH"
+    const val THAI: String = "th_TH"
+    const val ITALIAN: String = "it_IT"
+    const val SPANISH: String = "es_ES"
+    const val JAPANESE: String = "ja_JP"
+    const val BENGALI: String = "bn_IN"
+    const val CHINNESE_CHINA: String = "zh_CN"
+    const val ENGLISH_BRITISH: String = "en_rGB"
 }

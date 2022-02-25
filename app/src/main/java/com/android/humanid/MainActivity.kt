@@ -7,6 +7,8 @@ import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import com.humanid.lib.presentation.HumanIdSDK
+import com.humanid.lib.util.CountryCode
+import com.humanid.lib.util.SupportedLanguage
 
 class MainActivity : AppCompatActivity() {
     private val humanIdSDK: HumanIdSDK? by lazy {
@@ -14,8 +16,13 @@ class MainActivity : AppCompatActivity() {
             .withActivity(this)
             .addClientId(getString(R.string.client_id))
             .addClientSecret(getString(R.string.client_secret))
-            .setPriorityCountryCodes(arrayOf("US", "FR", "JP", "ID"))
-            .build()
+            .setDefaultLanguage(SupportedLanguage.FRENCH)
+            .setPriorityCountryCodes(arrayOf(
+                CountryCode.UNITED_STATES,
+                CountryCode.FRANCE,
+                CountryCode.JAPAN,
+                CountryCode.INDONESIA
+            )).build()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -20,8 +20,8 @@ class HumanIdSDK private constructor(builder: Builder){
     private val activity: AppCompatActivity? = builder.activity
     private var clientId: String? = builder.clientId
     private val clientSecret: String? = builder.clientSecret
-    private var defaultLanguage: String = builder.defaultLanguage
-    private var priorityCountryCodes: Array<String> = arrayOf("US", "DE", "FR")
+    private var defaultLanguage: String? = builder.defaultLanguage
+    private var priorityCountryCodes: Array<String>? = builder.priorityCountryCodes
     
     private val progressDialog: ProgressDialog? by lazy {
         ProgressDialog(activity)
@@ -43,8 +43,8 @@ class HumanIdSDK private constructor(builder: Builder){
             LoginParam(
                 clientId = clientId.orEmpty(),
                 clientSecret = clientSecret.orEmpty(),
-                language = defaultLanguage,
-                priorityCodes = priorityCountryCodes
+                language = defaultLanguage.orEmpty(),
+                priorityCodes = priorityCountryCodes.orEmpty() as Array<String>
             ), object : LoginCallback{
                 override fun onLoginSucceed(url: String) {
                     handler.post {
@@ -81,7 +81,7 @@ class HumanIdSDK private constructor(builder: Builder){
             private set
         var clientSecret: String? = null
             private set
-        var defaultLanguage: String = Locale.getDefault().toString()
+        var defaultLanguage: String? = null
             private set
         var priorityCountryCodes: Array<String>? = null
             private set
@@ -89,7 +89,7 @@ class HumanIdSDK private constructor(builder: Builder){
         fun withActivity(activity: AppCompatActivity) = apply { this.activity = activity }
         fun addClientId(clientId: String) = apply { this.clientId = clientId }
         fun addClientSecret(clientSecret: String) = apply { this.clientSecret = clientSecret }
-        fun setDefaultLanguage(language: String) = apply { this.defaultLanguage = language }
+        fun setDefaultLanguage(language: String = Locale.getDefault().toString()) = apply { this.defaultLanguage = language }
         fun setPriorityCountryCodes(countryCodes: Array<String>) = apply { this.priorityCountryCodes = countryCodes }
         
         fun build(): HumanIdSDK{

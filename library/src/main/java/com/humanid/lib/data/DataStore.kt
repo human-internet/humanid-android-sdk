@@ -1,6 +1,7 @@
 package com.humanid.lib.data
 
 import com.google.gson.Gson
+import com.humanid.lib.BuildConfig
 import com.humanid.lib.data.model.LoginResult
 import okhttp3.Call
 import okhttp3.Callback
@@ -8,6 +9,7 @@ import okhttp3.MultipartBody
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
+import okhttp3.logging.HttpLoggingInterceptor
 import java.io.IOException
 
 class DataStore : Repository {
@@ -17,8 +19,13 @@ class DataStore : Repository {
         val url: String = "https://core.human-id.org/staging/"
         
         fun getHttpClient(): OkHttpClient {
-            return OkHttpClient.Builder()
-                .build()
+            val interceptor = HttpLoggingInterceptor()
+            interceptor.level = HttpLoggingInterceptor.Level.BODY
+            val builder = OkHttpClient.Builder()
+            if (BuildConfig.DEBUG){
+                builder.addInterceptor(interceptor)
+            }
+            return builder.build()
         }
         
         fun getJsonParser(): Gson = Gson()
@@ -35,6 +42,7 @@ class DataStore : Repository {
         urlBuilder.append(url)
         urlBuilder.append("mobile/users/web-login?")
         urlBuilder.append("lang=$language")
+        urlBuilder.append("&")
         urlBuilder.append("priority_country=$priorityCodes")
 
         val requestBody = MultipartBody

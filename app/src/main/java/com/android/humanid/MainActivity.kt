@@ -17,7 +17,6 @@ class MainActivity : AppCompatActivity() {
             .addClientId(getString(R.string.client_id))
             .addClientSecret(getString(R.string.client_secret))
             .setDefaultLanguage(SupportedLanguage.FRENCH)
-            .enableDevelopmentMode(true)
             .setPriorityCountryCodes(arrayOf(
                 CountryCode.UNITED_STATES,
                 CountryCode.FRANCE,

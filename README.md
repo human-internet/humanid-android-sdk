@@ -61,7 +61,7 @@ Build the object easier just with this
 
 ```kotlin
 val humanIdSDK: HumanIdSDK? by lazy {
-  	HumanIdSDK.Builder()
+  HumanIdSDK.Builder()
     .withActivity(this)
     .addClientId(getString(R.string.client_id))
     .addClientSecret(getString(R.string.client_secret))
@@ -85,8 +85,8 @@ humanIdSDK?.login()
 
 //And in onActivityResult()
 override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-		super.onActivityResult(requestCode, resultCode, data)
-		val exchangeToken = humanIdSDK?.getHumanIdExchangeToken(requestCode, resultCode, data)
+    super.onActivityResult(requestCode, resultCode, data)
+    val exchangeToken = humanIdSDK?.getHumanIdExchangeToken(requestCode, resultCode, data)
 }
 ```
 

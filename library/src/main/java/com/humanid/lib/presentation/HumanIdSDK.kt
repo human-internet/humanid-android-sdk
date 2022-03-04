@@ -23,8 +23,7 @@ class HumanIdSDK private constructor(builder: Builder){
     private val clientSecret: String? = builder.clientSecret
     private var defaultLanguage: String? = builder.defaultLanguage
     private var priorityCountryCodes: Array<String>? = builder.priorityCountryCodes
-    private var isDevelopmentMode: Boolean = builder.isDevelopmentMode
-    
+
     private val progressDialog: ProgressDialog? by lazy {
         ProgressDialog(activity)
     }
@@ -46,8 +45,7 @@ class HumanIdSDK private constructor(builder: Builder){
                 clientId = clientId.orEmpty(),
                 clientSecret = clientSecret.orEmpty(),
                 language = defaultLanguage.orEmpty(),
-                priorityCodes = priorityCountryCodes.orEmpty() as Array<String>,
-                isDevelopmentMode = isDevelopmentMode
+                priorityCodes = priorityCountryCodes.orEmpty() as Array<String>
             ), object : LoginCallback{
                 override fun onLoginSucceed(url: String) {
                     handler.post {
@@ -88,15 +86,12 @@ class HumanIdSDK private constructor(builder: Builder){
             private set
         var priorityCountryCodes: Array<String>? = null
             private set
-        var isDevelopmentMode: Boolean = false
-            private set
         
         fun withActivity(activity: AppCompatActivity) = apply { this.activity = activity }
         fun addClientId(clientId: String) = apply { this.clientId = clientId }
         fun addClientSecret(clientSecret: String) = apply { this.clientSecret = clientSecret }
         fun setDefaultLanguage(language: String = Locale.getDefault().toString()) = apply { this.defaultLanguage = language }
         fun setPriorityCountryCodes(countryCodes: Array<String> = arrayOf(CountryCode.UNITED_STATES)) = apply { this.priorityCountryCodes = countryCodes }
-        fun enableDevelopmentMode(isDevelopmentMode: Boolean = false) = apply { this.isDevelopmentMode = isDevelopmentMode }
 
         fun build(): HumanIdSDK{
             return if (activity == null){

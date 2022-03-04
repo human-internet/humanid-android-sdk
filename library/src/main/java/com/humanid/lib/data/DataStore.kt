@@ -18,8 +18,7 @@ class DataStore : Repository {
     companion object {
         
         val url: String = "https://core.human-id.org/v0.0.3/"
-        val sandboxUrl: String = "https://sandbox.human-id.org/v0.0.3/"
-        
+
         fun getHttpClient(): OkHttpClient {
             val interceptor = HttpLoggingInterceptor()
             interceptor.level = HttpLoggingInterceptor.Level.BODY
@@ -44,16 +43,12 @@ class DataStore : Repository {
         countryCodes: Array<String>,
         clientId: String,
         clientSecret: String,
-        apiCallback: ApiCallback,
-        isDevelopmentMode: Boolean
-    ) {
+        apiCallback: ApiCallback) {
         
         val priorityCodes = countryCodes.joinToString(",")
         
         val urlBuilder = StringBuilder()
-        urlBuilder.append(
-            if (isDevelopmentMode) sandboxUrl else url
-        )
+        urlBuilder.append(url)
         urlBuilder.append("mobile/users/web-login?")
         urlBuilder.append("lang=$language")
         urlBuilder.append("&")

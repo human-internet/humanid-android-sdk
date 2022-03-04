@@ -22,8 +22,7 @@ class Interactor(private val repository: Repository): UseCase {
                 override fun onFailed(e: Exception) {
                     loginCallback.onLoginFailed(e)
                 }
-            },
-            isDevelopmentMode = loginParam.isDevelopmentMode
+            }
         )
     }
 }

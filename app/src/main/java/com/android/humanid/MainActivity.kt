@@ -25,11 +25,15 @@ class MainActivity : AppCompatActivity() {
             )).build()
     }
 
+    private val btnLogin: Button by lazy {
+        findViewById(R.id.btnLogin)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        findViewById<Button>(R.id.btnLogin).setOnClickListener {
+        btnLogin.setOnClickListener {
             humanIdSDK?.login()
         }
     }

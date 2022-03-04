@@ -8,6 +8,7 @@ import com.humanid.lib.di.Injector
 import com.humanid.lib.domain.LoginCallback
 import com.humanid.lib.domain.LoginParam
 import com.humanid.lib.domain.UseCase
+import com.humanid.lib.util.CountryCode
 import com.humanid.lib.util.showToast
 import java.util.*
 
@@ -90,7 +91,7 @@ class HumanIdSDK private constructor(builder: Builder){
         fun addClientId(clientId: String) = apply { this.clientId = clientId }
         fun addClientSecret(clientSecret: String) = apply { this.clientSecret = clientSecret }
         fun setDefaultLanguage(language: String = Locale.getDefault().toString()) = apply { this.defaultLanguage = language }
-        fun setPriorityCountryCodes(countryCodes: Array<String>) = apply { this.priorityCountryCodes = countryCodes }
+        fun setPriorityCountryCodes(countryCodes: Array<String> = arrayOf(CountryCode.UNITED_STATES)) = apply { this.priorityCountryCodes = countryCodes }
         
         fun build(): HumanIdSDK{
             return if (activity == null){

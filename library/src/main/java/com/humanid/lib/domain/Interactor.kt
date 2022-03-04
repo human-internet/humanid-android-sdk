@@ -11,7 +11,7 @@ class Interactor(private val repository: Repository): UseCase {
             language = loginParam.language,
             countryCodes = loginParam.priorityCodes,
             clientId = loginParam.clientId,
-             clientSecret = loginParam.clientSecret,
+            clientSecret = loginParam.clientSecret,
             apiCallback = object : ApiCallback{
                 override fun onSucceed(loginResult: LoginResult) {
                     loginResult.data?.webLoginURL?.let {
@@ -20,9 +20,10 @@ class Interactor(private val repository: Repository): UseCase {
                 }
     
                 override fun onFailed(e: Exception) {
-                    onFailed(e)
+                    loginCallback.onLoginFailed(e)
                 }
-            }
+            },
+            isDevelopmentMode = loginParam.isDevelopmentMode
         )
     }
 }

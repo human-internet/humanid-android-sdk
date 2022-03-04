@@ -11,17 +11,23 @@ import okhttp3.Request
 import okhttp3.Response
 import okhttp3.logging.HttpLoggingInterceptor
 import java.io.IOException
+import java.util.concurrent.TimeUnit
 
 class DataStore : Repository {
     
     companion object {
         
-        val url: String = "https://core.human-id.org/staging/"
+        val url: String = "https://core.human-id.org/v0.0.3/"
+        val sandboxUrl: String = "https://sandbox.human-id.org/v0.0.3/"
         
         fun getHttpClient(): OkHttpClient {
             val interceptor = HttpLoggingInterceptor()
             interceptor.level = HttpLoggingInterceptor.Level.BODY
             val builder = OkHttpClient.Builder()
+            builder.callTimeout(60, TimeUnit.SECONDS)
+            builder.writeTimeout(60, TimeUnit.SECONDS)
+            builder.readTimeout(60, TimeUnit.SECONDS)
+            builder.connectTimeout(60, TimeUnit.SECONDS)
             if (BuildConfig.DEBUG){
                 builder.addInterceptor(interceptor)
             }
@@ -33,13 +39,21 @@ class DataStore : Repository {
         fun getInstance(): Repository = DataStore()
     }
     
-    override fun getLoginUrl(language: String, countryCodes: Array<String>,
-        clientId: String, clientSecret: String, apiCallback: ApiCallback) {
+    override fun getLoginUrl(
+        language: String,
+        countryCodes: Array<String>,
+        clientId: String,
+        clientSecret: String,
+        apiCallback: ApiCallback,
+        isDevelopmentMode: Boolean
+    ) {
         
         val priorityCodes = countryCodes.joinToString(",")
         
         val urlBuilder = StringBuilder()
-        urlBuilder.append(url)
+        urlBuilder.append(
+            if (isDevelopmentMode) sandboxUrl else url
+        )
         urlBuilder.append("mobile/users/web-login?")
         urlBuilder.append("lang=$language")
         urlBuilder.append("&")
@@ -63,9 +77,8 @@ class DataStore : Repository {
                 override fun onFailure(call: Call, e: IOException) {
                     apiCallback.onFailed(e)
                     e.printStackTrace()
-                    throw e
                 }
-                
+
                 override fun onResponse(call: Call, response: Response) {
                     val loginResult = getJsonParser()
                         .fromJson<LoginResult>(response.body?.string(), LoginResult::class.java)

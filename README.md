@@ -1,5 +1,4 @@
-[![](https://jitpack.io/v/bluenumberfoundation/humanid-android-sdk.svg)](https://jitpack.io/#bluenumberfoundation/humanid-android-sdk)
-
+[![](https://jitpack.io/v/human-internet/humanid-android-sdk.svg)](https://jitpack.io/#human-internet/humanid-android-sdk)
 # humanID Android SDK
 
 

@@ -46,8 +46,7 @@ Please update to the latest SDK!
     .
     .
     dependencies {
-    	//todo change with the new one
-    	implementation 'com.github.bluenumberfoundation:humanid-android-sdk:0.0.5’
+        implementation 'com.github.human-internet:humanid-android-sdk:Tag'    
     }
 
 

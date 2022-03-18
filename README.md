@@ -38,7 +38,7 @@ Please update to the latest SDK!
     allprojects {
         repositories {
         ...
-    	    maven { url 'https://jitpack.io' }
+        maven { url 'https://jitpack.io' }
         }
     }
     .
@@ -96,4 +96,4 @@ Now you can integrate your Android app to humanID. See the full [sample](https:/
 ## License
 
 Copyright 2019-2020 Bluenumber Foundation
-Licensed under the GNU General Public License v3.0 [(LICENSE)](
+Licensed under the GNU General Public License v3.0
